@@ -1,0 +1,62 @@
+[
+	{
+		"id": "1",
+		"name": "Mehrab Hossain",
+		"profile": "/assets/images/profile/mehrab.png",
+		"privacy": "me",
+		"time": "just now",
+		"post": "/assets/posts/story-1.png",
+		"type": "image",
+		"likes": "2,034",
+		"comments": "15",
+		"description": "Images may be two or three-dimensional, such as a photograph or screen display, or three-dimensional, such as a statue or hologram. They may be captured by optical devices – such as cameras, mirrors, lenses, telescopes, microscopes, etc. and natural objects and phenomena, such as the human eye or water."
+	},
+	{
+		"id": "2",
+		"name": "Tamim Iqbal",
+		"profile": "/assets/images/profile/developer-3.png",
+		"privacy": "friends",
+		"time": "15 hours",
+		"type": "video",
+		"post": "/assets/posts/video.mp4",
+		"likes": "2,34",
+		"comments": "5",
+		"description": "Digital video was later capable of higher quality and, eventually, much lower cost than earlier analog technology. After the invention of the DVD in 1997, and later the Blu-ray Disc in 2006, sales of videotape and recording equipment plummeted. Advances in computer technology allows even inexpensive personal computers and smartphones to capture, store, edit and transmit digital video, further reducing the cost of video production"
+	},
+	{
+		"id": "3",
+		"name": "Shakib Al Hassan",
+		"profile": "/assets/images/profile/developer-4.png",
+		"privacy": "public",
+		"time": "1 hour",
+		"post": "/assets/posts/audio.mp3",
+		"type": "audio",
+		"likes": "2,034",
+		"comments": "190",
+		"description": "The relationships and divisions between genres are inexact and sometimes hotly contested, as in taxonomy. The mere existence or legitimacy of a genre may be a topic of controversy. It is sometimes more valuable to categorize music by era, scene, intent, or artistic inspiration. Individual periods of music are separated into pieces, which can be categorized into numerous traditions, such as songs, tracks, symphonies, or so forth."
+	},
+	{
+		"id": "4",
+		"name": "Mosafizur Rahman",
+		"profile": "/assets/images/profile/developer-5.png",
+		"privacy": "public",
+		"time": "10 Minutes",
+		"post": "/assets/posts/document.pdf",
+		"type": "document",
+		"likes": "2,03",
+		"comments": "15",
+		"description": "Portable Document Format (PDF), standardized as ISO 32000, is a file format developed by Adobe in 1992 to present documents, including text formatting and images, in a manner independent of application software, hardware, and operating systems.[2][3] Based on the PostScript language, each PDF file encapsulates a complete description of a fixed-layout flat document, including the text, fonts, vector graphics, raster images and other information needed to display it. PDF has its roots in 'The Camelot Project' initiated by Adobe co-founder John in 1991."
+	},
+	{
+		"id": "5",
+		"name": "Tangilur Rahman",
+		"profile": "/assets/images/profile/tangil.png",
+		"privacy": "me",
+		"time": "15 Minutes",
+		"post": "/assets/posts/story-2.png",
+		"type": "image",
+		"likes": "105",
+		"comments": "25",
+		"description": "Images may be two or three-dimensional, such as a photograph or screen display, or three-dimensional, such as a statue or hologram. They may be captured by optical devices – such as cameras, mirrors, lenses, telescopes, microscopes, etc. and natural objects and phenomena, such as the human eye or water."
+	}
+]

@@ -1,0 +1,29 @@
+.sponsors-container {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	box-shadow: var(--box-shadow);
+	border-radius: 10px;
+	padding: 10px 5px;
+}
+
+.sponsors-container h5 {
+	margin: 0 0 0 4px;
+	font-size: 1.4rem;
+	color: #00a896;
+	width: max-content;
+}
+
+.sponsors-container h5 hr {
+	width: 100%;
+	margin: 3px 0 0 0;
+	height: 2px;
+	color: #00a896;
+	opacity: 1;
+	border-radius: 1rem;
+}
+
+.sponsors-container .sponsor-iframe {
+	border-radius: 10px;
+	margin: 10px 0 0 0;
+}

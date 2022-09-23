@@ -1,0 +1,206 @@
+.sign-verification-container {
+	display: flex;
+	justify-content: center;
+}
+
+.sign-verification-container .wrapper {
+	background: #fbfbfb;
+	border: 1px solid #000000;
+	border-radius: 32px;
+	width: max-content;
+	height: max-content;
+	margin-top: 10vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px;
+}
+
+.sign-verification-container .wrapper h4 {
+	padding: 20px 0 10px 0;
+	font-weight: 600;
+}
+
+.sign-verification-container .wrapper #message {
+	text-align: justify;
+	font-weight: 500;
+	width: 600px;
+}
+
+.sign-verification-container .wrapper .selection {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.sign-verification-container .wrapper .selection .left {
+	flex-basis: 50%;
+	display: flex;
+	justify-content: center;
+}
+
+.sign-verification-container .wrapper .selection .left input {
+	margin-top: 20px;
+	width: 90%;
+	height: 44px;
+	background: #f0f4f4;
+	border: 1px solid #000000;
+	border-radius: 81px;
+	padding: 0 20px;
+	font-weight: 600;
+	color: #878787;
+}
+
+.sign-verification-container .wrapper .selection .right {
+	flex-basis: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.sign-verification-container .wrapper .selection .right p {
+	margin: 0;
+	font-size: 17px;
+	text-align: center;
+}
+
+.sign-verification-container .wrapper .selection .right p span {
+	font-weight: 600;
+	display: inline-block;
+	max-width: 90%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sign-verification-container .wrapper .footer-btn-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 95%;
+	margin-top: 25px;
+}
+
+.sign-verification-container .wrapper .footer-btn-container > span {
+	cursor: pointer;
+}
+
+.wrapper .footer-btn-container > span.hover-link::after {
+	background-color: #000000;
+}
+
+.footer-btn-container .btn-container {
+	flex-grow: 1;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.footer-btn-container .btn-container button {
+	width: 174px;
+	height: 45px;
+	border-radius: 48px;
+	font-weight: 600;
+	font-size: 19px;
+}
+
+.footer-btn-container .btn-container button:hover {
+	transform: scale(0.98);
+	transition: all 0.5s;
+}
+
+.footer-btn-container .btn-container button:active {
+	transform: scale(1.1);
+	transition: all 0.5s;
+}
+
+.footer-btn-container .btn-container button:first-child {
+	border: 1px solid black;
+	margin-right: 20px;
+}
+
+.footer-btn-container .btn-container button:first-child .hover-link::after {
+	background-color: #000000;
+}
+
+.footer-btn-container .btn-container button:last-child {
+	background: #19469e;
+}
+
+.footer-btn-container .btn-container button i {
+	font-size: 22px;
+}
+
+/* media query start  */
+@media screen and (max-width: 800px) {
+	.sign-verification-container .wrapper {
+		padding: 5px 15px;
+		width: 90%;
+	}
+
+	.sign-verification-container .wrapper #message {
+		width: 100%;
+	}
+
+	.sign-verification-container .wrapper .footer-btn-container {
+		margin-bottom: 20px;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.sign-verification-container .wrapper .selection {
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	.sign-verification-container .wrapper .selection .left {
+		justify-content: flex-start;
+	}
+
+	.sign-verification-container .wrapper .selection .left input {
+		margin-top: 0px;
+	}
+
+	.sign-verification-container .wrapper .selection .right {
+		width: 100%;
+		justify-content: flex-start;
+	}
+
+	.sign-verification-container .wrapper .selection .right p {
+		text-align: start;
+		margin-top: 10px;
+		width: 100%;
+	}
+
+	.sign-verification-container .wrapper .selection .right p span {
+		max-width: 100%;
+		display: block;
+	}
+
+	.sign-verification-container .wrapper .footer-btn-container {
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	.sign-verification-container .wrapper .footer-btn-container > span {
+		order: 2;
+		margin-top: 10px;
+	}
+
+	.sign-verification-container .wrapper .footer-btn-container .btn-container {
+		order: 1;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.footer-btn-container .btn-container {
+		width: 100%;
+	}
+
+	.footer-btn-container .btn-container button {
+		width: 48%;
+	}
+}

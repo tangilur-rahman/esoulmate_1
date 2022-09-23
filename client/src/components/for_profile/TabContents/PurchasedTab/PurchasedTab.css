@@ -1,0 +1,48 @@
+.purchased-tab-container {
+	box-shadow: var(--box-shadow);
+	border-radius: var(--card-border-radius);
+	padding: 15px 15px 0 15px;
+}
+
+.purchased-tab-container h5 {
+	margin: 0;
+	font-weight: 600;
+}
+
+.purchased-tab-container .purchased {
+	display: flex;
+	justify-content: space-between;
+}
+
+.purchased-tab-container .purchased > div {
+	width: 47.9%;
+	margin: 9px;
+	cursor: pointer;
+	padding: 0 0 35px 0;
+}
+
+/* media query start  */
+@media screen and (max-width: 992px) {
+	.purchased-tab-container {
+		padding: 15px 15px 0 25px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.purchased-tab-container .purchased > div {
+		width: 100%;
+	}
+	.purchased-tab-container .purchased {
+		padding: 0 25px 0 0;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.purchased-tab-container {
+		padding: 15px;
+	}
+	.purchased-tab-container .purchased {
+		padding: 0 10px 0 0;
+	}
+}
+/* media query start  */

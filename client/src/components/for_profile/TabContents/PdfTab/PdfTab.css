@@ -1,0 +1,31 @@
+.pdf-tab-container {
+	background-color: white;
+	box-shadow: var(--box-shadow);
+
+	border-radius: var(--card-border-radius);
+	margin: 0 3%;
+	padding: 15px 15px 0 15px;
+}
+
+.pdf-tab-container h5 {
+	margin: 0;
+	font-weight: 600;
+}
+
+.pdf-tab-container .pdf {
+	padding-bottom: 35px;
+}
+
+.pdf-tab-container .pdf > div {
+	width: 100%;
+	margin: 15px 0 10px 0;
+}
+
+/* media query start  */
+
+@media screen and (max-width: 600px) {
+	.pdf-tab-container .pdf > div {
+		padding: 0;
+	}
+}
+/* media query end  */

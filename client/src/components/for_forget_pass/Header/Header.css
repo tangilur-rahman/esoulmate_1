@@ -1,0 +1,130 @@
+.forget-header-container {
+	display: flex;
+	justify-content: space-between;
+	background-color: white;
+	position: sticky;
+	z-index: 1000;
+	top: 0;
+	padding: 7px 12px;
+	box-shadow: var(--box-shadow);
+}
+
+/* **** header-left start  **** */
+.forget-header-container .header-left {
+	display: flex;
+	padding: 10px 0;
+	align-items: center;
+}
+
+.forget-header-container .header-left img {
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}
+.forget-header-container .header-left h2 {
+	margin: 0 0 0 10px;
+	font-weight: 600;
+	color: #1a479e;
+	letter-spacing: 1.2px;
+	cursor: pointer;
+}
+/* header-left end  */
+
+/* header-right start  */
+.forget-header-container .header-right {
+	display: flex;
+}
+
+.header-right .input-fields {
+	display: flex;
+	justify-content: space-between;
+	flex-grow: 1;
+}
+
+.header-right .input-fields .required-field {
+	height: 45px;
+	background: #f0f4f4;
+	border: 1px solid #000000;
+	border-radius: 81px;
+	display: flex;
+	align-items: center;
+	position: relative;
+	width: 48%;
+}
+
+.header-right .input-fields .required-field input {
+	width: 200px;
+	height: 27px;
+	font-weight: 600;
+	font-size: 16px;
+	border: none;
+	background-color: transparent;
+	color: #878787;
+	margin-left: 13px;
+}
+
+.header-right .input-fields .required-field input:focus {
+	outline: none;
+	background-color: transparent;
+}
+
+.header-right .required-field #eye {
+	position: absolute;
+	top: 25%;
+	right: 20px;
+	cursor: pointer;
+}
+
+.header-right .required-field #eye i {
+	opacity: 0.7;
+}
+
+.header-right button {
+	min-width: 100px;
+	height: 45px;
+	background: #1b489c;
+	border-radius: 48px;
+	margin-left: 20px;
+}
+
+.header-right button span {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #ffffff;
+	display: inline-block;
+}
+
+.header-right button:hover {
+	background: #1b489c;
+	transform: scale(0.98);
+	transition: all 0.5s;
+}
+
+.header-right button:active {
+	transform: scale(1.1);
+	transition: all 0.5s;
+}
+/* header-right end  */
+
+/* media query start  */
+@media screen and (max-width: 991px) {
+	.forget-header-container .header-right {
+		flex-grow: 1;
+		margin-left: 20px;
+	}
+
+	.forget-header-container .header-left h2 {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.header-right {
+		display: none !important;
+	}
+
+	.forget-header-container .header-left h2 {
+		display: inline-block;
+	}
+}

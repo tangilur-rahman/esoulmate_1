@@ -1,0 +1,12 @@
+/* **** feed-right start  **** */
+.feed-right {
+	padding: 0;
+	height: max-content;
+	-moz-height: max-content;
+	position: sticky;
+	top: -18rem;
+	bottom: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/* **** feed-right end  **** */

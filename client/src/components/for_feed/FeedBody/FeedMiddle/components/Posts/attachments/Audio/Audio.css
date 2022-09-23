@@ -1,0 +1,255 @@
+.audio-container {
+	width: 97%;
+	height: 82px;
+	margin: 80px 0 0px 7px;
+	box-shadow: 0px 7px 20px rgb(0 0 0 / 50%);
+	position: relative;
+	border-radius: 1rem;
+	z-index: 1;
+	transition: all 0.5s;
+}
+
+.audio-container .gif-container {
+	position: absolute;
+	top: -35px;
+	left: 50px;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.audio-container .gif-container img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	outline: 7px solid white;
+	object-fit: cover;
+}
+
+.audio-container .gif-container i {
+	position: absolute;
+	font-size: 35px;
+}
+
+.audioPlayer {
+	--primary: #f40082;
+	--secondary: #738290;
+
+	align-items: center;
+	display: flex;
+	width: 700px;
+}
+
+.forwardBackward {
+	background: white;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	border: none;
+	display: flex;
+	align-items: center;
+	font-family: monospace;
+	font-size: 16px;
+	cursor: pointer;
+	color: var(--secondary);
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	font-size: 40px;
+	justify-content: center;
+}
+
+.forwardBackward:hover {
+	color: var(--primary);
+}
+
+.playPause {
+	background: white;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	border: none;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	font-size: 54px;
+	color: var(--secondary);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.playPause:hover {
+	background-color: var(--secondary);
+	color: white;
+}
+
+.playPause .play-btn {
+	margin: 0 0px 0 7px;
+}
+
+.currentTime,
+.duration {
+	font-family: monospace;
+	font-size: 13px;
+}
+
+/* progress-bar start  */
+.progressBar {
+	--bar-bg: #fae1dd;
+	--seek-before-width: 0;
+	--seek-before-color: #ff006e;
+	--knobby: #ff006e;
+	--selectedKnobby: #d90429;
+
+	appearance: none;
+	background: var(--bar-bg);
+	border-radius: 10px;
+	position: relative;
+	width: 100%;
+	height: 11px;
+	outline: none;
+}
+
+/* progress bar - safari */
+.progressBar::-webkit-slider-runnable-track {
+	background: var(--bar-bg);
+	border-radius: 10px;
+	position: relative;
+	width: 100%;
+	height: 11px;
+	outline: none;
+}
+
+/* progress bar - firefox */
+.progressBar::-moz-range-track {
+	background: var(--bar-bg);
+	border-radius: 10px;
+	position: relative;
+	width: 100%;
+	height: 11px;
+	outline: none;
+}
+
+.progressBar::-moz-focus-outer {
+	border: 0;
+}
+
+/* progress bar - chrome and safari */
+.progressBar::before {
+	content: "";
+	height: 11px;
+	width: var(--seek-before-width);
+	background-color: #ff006e;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	cursor: pointer;
+}
+
+/* progress bar - firefox */
+.progressBar::-moz-range-progress {
+	background-color: var(--seek-before-color);
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	height: 11px;
+}
+
+/* knobby - chrome and safari */
+.progressBar::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: 0px;
+	width: 0px;
+	border-radius: 50%;
+	border: none;
+	background-color: var(--knobby);
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.progressBar::-webkit-slider-thumb::before {
+	background-color: black;
+}
+
+/* knobby while dragging - chrome and safari */
+.progressBar:active::-webkit-slider-thumb {
+	width: 15px;
+	height: 15px;
+	margin: -2px 0 0 0;
+	background: var(--selectedKnobby);
+	z-index: 2;
+}
+
+/* knobby - firefox */
+.progressBar::-moz-range-thumb {
+	height: 0px;
+	width: 0px;
+	border-radius: 50%;
+	border: transparent;
+	background-color: var(--knobby);
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+}
+
+/* knobby while dragging - firefox */
+.progressBar:active::-moz-range-thumb {
+	width: 15px;
+	height: 15px;
+	margin: -2px 0 0 0;
+	background: var(--selectedKnobby);
+	z-index: 2;
+}
+
+/* progress-bar end  */
+
+.audio-container .controller-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 50%;
+	position: absolute;
+	top: 12%;
+	left: 30%;
+}
+/* .popup-container start  */
+.audio-container .popup-container {
+	width: 94%;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	left: 3%;
+	padding: 0 20px 0 24%;
+	background-color: #f1fffa;
+	box-shadow: 0px -2px 3px rgb(0 0 0 / 50%);
+	border-radius: 2rem 2rem 1rem 1rem;
+	opacity: 0;
+	transform: translateY(0);
+	transition: all 0.5s linear;
+	z-index: -1;
+}
+
+.audio-container .popup-container p {
+	padding: 7px 0 0px 0px;
+	margin: 0;
+	font-weight: 600;
+}
+
+.popup-container .duration-time {
+	display: flex;
+	justify-content: space-between;
+	color: #ef476f;
+	margin: 0 0 -6px 0;
+}
+
+.audio-container .popup-container.active {
+	transform: translateY(-67px);
+	opacity: 1;
+}
+
+.audio-container .gif-container.active {
+	top: -50px;
+	transition: all 0.5s;
+}

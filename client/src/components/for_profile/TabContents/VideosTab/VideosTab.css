@@ -1,0 +1,129 @@
+.videos-tab-container {
+	background-color: white;
+	box-shadow: var(--box-shadow);
+
+	border-radius: var(--card-border-radius);
+	margin: 0 3%;
+	padding: 15px 15px 0 15px;
+}
+
+.videos-tab-container h5 {
+	margin: 0;
+	font-weight: 600;
+}
+.videos-tab-container .videos {
+	margin: -30px 0 0 0;
+	padding-bottom: 35px;
+	display: flex;
+	justify-content: space-around;
+}
+.videos-tab-container .videos video {
+	width: 565px;
+	height: 420px;
+
+	margin: -10px 0px -80px -10px;
+	cursor: pointer;
+}
+
+/* media-query start  */
+
+@media screen and (max-width: 1525px) {
+	.videos-tab-container .videos video {
+		width: 540px;
+		height: 410px;
+	}
+}
+@media screen and (max-width: 1450px) {
+	.videos-tab-container .videos video {
+		width: 500px;
+		height: 390px;
+	}
+}
+@media screen and (max-width: 1360px) {
+	.videos-tab-container .videos video {
+		width: 450px;
+		height: 360px;
+	}
+}
+@media screen and (max-width: 1230px) {
+	.videos-tab-container .videos video {
+		width: 435px;
+		height: 350px;
+	}
+}
+@media screen and (max-width: 1095px) {
+	.videos-tab-container .videos video {
+		width: 394px;
+		height: 326px;
+	}
+}
+@media screen and (max-width: 920px) {
+	.videos-tab-container .videos video {
+		width: 375px;
+		height: 315px;
+	}
+}
+@media screen and (max-width: 870px) {
+	.videos-tab-container .videos video {
+		width: 355px;
+		height: 308px;
+	}
+}
+
+@media screen and (max-width: 815px) {
+	.videos-tab-container .videos video {
+		width: 320px;
+		height: 280px;
+	}
+}
+@media screen and (max-width: 750px) {
+	.videos-tab-container .videos video {
+		width: 297px;
+		height: 280px;
+	}
+}
+@media screen and (max-width: 700px) {
+	.videos-tab-container .videos video {
+		width: 273px;
+		height: 255px;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.videos-tab-container .videos video {
+		width: 240px;
+		height: 235px;
+	}
+}
+@media screen and (max-width: 576px) {
+	.videos-tab-container .videos {
+		justify-content: flex-start;
+	}
+	.videos-tab-container .videos video {
+		width: 100%;
+		height: 370px;
+	}
+}
+
+@media screen and (max-width: 520px) {
+	.videos-tab-container .videos video {
+		height: 345px;
+	}
+}
+@media screen and (max-width: 480px) {
+	.videos-tab-container .videos video {
+		height: 322px;
+	}
+}
+@media screen and (max-width: 430px) {
+	.videos-tab-container .videos video {
+		height: 290px;
+	}
+}
+@media screen and (max-width: 380px) {
+	.videos-tab-container .videos video {
+		height: 264px;
+	}
+}
+
+/* media-query end  */

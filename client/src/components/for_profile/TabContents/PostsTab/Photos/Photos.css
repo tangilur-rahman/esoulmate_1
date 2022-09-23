@@ -1,0 +1,39 @@
+.photos-container {
+	margin: 13px 0 0 0;
+	padding: 15px;
+	background-color: white;
+	border-radius: var(--card-border-radius);
+	box-shadow: var(--box-shadow);
+}
+
+.photos-container .header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.photos-container .header h5 {
+	font-weight: 600;
+}
+
+.photos-container .photo img {
+	padding: 5px;
+	height: 150px;
+	object-fit: cover;
+	object-position: top center;
+	cursor: pointer;
+}
+
+.photos-container .photo img:first-child {
+	border-top-left-radius: 1rem;
+}
+
+.photos-container .photo img:nth-child(3) {
+	border-top-right-radius: 1rem;
+}
+.photos-container .photo img:nth-child(7) {
+	border-bottom-left-radius: 1rem;
+}
+
+.photos-container .photo img:last-child {
+	border-bottom-right-radius: 1rem;
+}

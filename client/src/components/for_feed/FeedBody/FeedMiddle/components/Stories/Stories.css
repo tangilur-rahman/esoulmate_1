@@ -1,0 +1,68 @@
+/* stories start  */
+.feed-middle .stories {
+	display: flex;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	flex-wrap: nowrap;
+	scroll-behavior: smooth;
+	border-radius: 0 2rem 3rem 0;
+}
+
+.feed-middle .stories::-webkit-scrollbar {
+	width: 0px;
+}
+.feed-middle .stories::-moz-scrollbar {
+	width: 0px;
+}
+
+.feed-middle .stories #your-story {
+	position: relative;
+	border: none;
+}
+
+.feed-middle .stories #your-story img {
+	min-width: 90px;
+	min-height: 90px;
+	border-radius: 50%;
+	cursor: pointer;
+	border: 4px solid hsl(252, 30%, 95%);
+	box-sizing: content-box;
+}
+
+.feed-middle .stories #your-story i {
+	position: absolute;
+	z-index: 1;
+	color: #023e8a;
+	right: 5px;
+	bottom: -3px;
+	font-size: 23px;
+	cursor: pointer;
+}
+
+.feed-middle .stories #your-story i::before {
+	background-color: white;
+	border-radius: 14px;
+	border: 3px solid white;
+}
+
+.feed-middle .stories .story {
+	width: 96px;
+	min-width: 96px;
+	height: 96px;
+	min-height: 96px;
+	border-radius: 50%;
+	background-image: linear-gradient(-45deg, #ed1c94, #ffec17);
+	margin: 0 0 0 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.feed-middle .stories .story img {
+	width: 90px;
+	height: 90px;
+	border: 3px solid white;
+	border-radius: 50%;
+	object-fit: cover;
+}
+/* stories end  */

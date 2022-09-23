@@ -1,0 +1,138 @@
+.following-tab-container {
+	background-color: white;
+	box-shadow: var(--box-shadow);
+
+	border-radius: var(--card-border-radius);
+	margin: 0 3%;
+}
+
+.following-tab-container header {
+	display: flex;
+	justify-content: space-between;
+	padding: 15px 15px 0 15px;
+}
+
+.following-tab-container header .left h5 {
+	margin: 0;
+	font-weight: 600;
+}
+
+.following-tab-container .right {
+	display: flex;
+	align-items: center;
+	background-color: #f0eef6;
+	border-radius: 30px;
+	padding: 0px 7px;
+	width: 30%;
+	height: 45px;
+}
+
+.following-tab-container .right i {
+	font-size: 20px;
+	margin: 3px 0 0 10px;
+	color: #738290;
+}
+
+.following-tab-container .right input {
+	margin: 0 0 0 11px;
+	width: 100%;
+	background-color: transparent;
+	border: none;
+	outline: none;
+}
+
+.following-tab-container .following {
+	display: flex;
+	justify-content: space-around;
+	padding: 0 7px 0 0;
+}
+
+.following-tab-container .following > div {
+	height: 179px;
+	width: 170px;
+	overflow: hidden;
+	margin: 0 0px 15px 12px;
+	padding: 0;
+}
+
+.following-tab-container .following img {
+	width: 92%;
+	height: 84%;
+	object-fit: cover;
+	object-position: top center;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.following-tab-container .following p {
+	margin: 4px 0 0 0;
+	text-align: center;
+}
+
+/* media query start  */
+
+@media screen and (max-width: 991px) {
+	.following-tab-container .right {
+		width: 40%;
+		height: 40px;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.following-tab-container .following > div {
+		width: 167px;
+		height: 173px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.following-tab-container .right {
+		width: 50%;
+		font-size: 14px;
+	}
+
+	.following-tab-container .right i {
+		font-size: 15px;
+	}
+
+	.following-tab-container .right input {
+		margin: 0 0 0 5px;
+	}
+}
+
+@media screen and (max-width: 560px) {
+	.following-tab-container .following > div {
+		height: 160px;
+		width: 148px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.following-tab-container .following > div {
+		height: 140px;
+		width: 137px;
+	}
+
+	.following-tab-container .right {
+		width: 60%;
+	}
+}
+
+@media screen and (max-width: 465px) {
+	.following-tab-container .following > div {
+		height: 165px;
+		width: 122px;
+	}
+}
+
+@media screen and (max-width: 417px) {
+	.following-tab-container .following > div {
+		width: 110px;
+	}
+}
+
+@media screen and (max-width: 380px) {
+	.following-tab-container .following > div {
+		width: 150px;
+	}
+}

@@ -1,0 +1,38 @@
+/* liked-container start  */
+
+.liked-container {
+	margin: 7px 0 0 0;
+}
+/* liked by start  */
+.liked-container .liked-by {
+	display: flex;
+}
+.liked-container .liked-by span {
+	width: 1.8rem;
+	height: 1.8rem;
+	display: block;
+	border-radius: 50%;
+	border: 2px solid white;
+	margin-left: -0.7rem;
+}
+
+.liked-container .liked-by span img {
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+.liked-container .liked-by span:first-child {
+	margin: 0;
+}
+
+.liked-container .liked-by p {
+	margin: 0 0 0 0.5rem;
+}
+
+.liked-container .liked-by p b {
+	font-weight: 600;
+}
+/* liked by end  */
+/* liked-container end  */

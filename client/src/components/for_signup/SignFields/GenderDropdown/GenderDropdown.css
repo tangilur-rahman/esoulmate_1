@@ -1,0 +1,86 @@
+.sign-fields .gender-container {
+	width: 495px;
+	height: 46.79px;
+	background: #f0f4f4;
+	border: 1px solid #000000;
+	border-radius: 81px;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.sign-fields .gender-container::before {
+	content: "";
+	position: absolute;
+	right: 30px;
+	top: 17px;
+	z-index: 1;
+	width: 8px;
+	height: 8px;
+	border: 2px solid #333;
+	border-top: 2px solid #f0f4f4;
+	border-right: 2px solid #f0f4f4;
+	transform: rotate(-45deg);
+	transition: 0.5s;
+	pointer-events: none;
+}
+
+.sign-fields .gender-container.active::before {
+	top: 20px;
+	transform: rotate(-225deg);
+}
+
+.sign-fields .gender-container input {
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background-color: transparent;
+	padding: 7px;
+	border-radius: 5px;
+	font-weight: 500;
+	font-size: 17px;
+	width: 100%;
+	color: #878787;
+	margin-left: 7px;
+}
+
+.sign-fields .gender-container input::placeholder {
+	padding-left: 7px;
+	color: #878787;
+	font-weight: 500;
+}
+
+.sign-fields .gender-container .option {
+	position: absolute;
+	bottom: 54px;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
+	border-radius: 10px;
+	overflow: hidden;
+	display: none;
+	z-index: 100;
+	font-weight: 500;
+}
+
+.sign-fields .gender-container.active .option {
+	display: block;
+}
+
+.sign-fields .gender-container .option div {
+	padding: 7px 10px;
+	cursor: pointer;
+}
+
+.sign-fields .gender-container .option div:hover {
+	background-color: #62baea;
+	color: #fff;
+	transition: all 0.3s;
+}
+
+.sign-fields .gender-container .option div i {
+	position: relative;
+	top: 0px;
+	font-size: 1em;
+	margin: 0 10px 0 0;
+}

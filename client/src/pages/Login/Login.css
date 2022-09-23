@@ -1,0 +1,263 @@
+.login-container {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+}
+
+/* left section start  */
+.login-container .login-left {
+	background-image: url("./login-vector.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.login-container .login-left .signup-btn {
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+	align-items: center;
+}
+
+.login-container .login-left .signup-btn .text {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.login-container .login-left .signup-btn .text span:first-child {
+	font-weight: 600;
+	font-size: 24px;
+}
+
+.login-container .login-left .signup-btn .text span:last-child {
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.login-container .login-left .signup-btn button {
+	width: 221px;
+	height: 56px;
+	font-weight: 500;
+	font-size: 18px;
+	margin-top: 20px;
+	background: #040026;
+	border-radius: 53px;
+}
+
+.login-container .login-left .signup-btn button span {
+	display: inline-block;
+}
+
+.login-container .login-left .signup-btn button:hover {
+	transform: scale(0.98);
+	transition: all 0.5s;
+}
+
+.login-container .login-left .signup-btn button:active {
+	transform: scale(1.1);
+	transition: all 0.5s;
+}
+/* left section end  */
+
+/* right section start  */
+.login-container .login-right {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-container .login-right .title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.login-container .login-right .title img {
+	width: 80px;
+	min-width: 80px;
+	height: 80px;
+	min-height: 80px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.login-container .login-right .title h4 {
+	font-weight: 600;
+	font-size: 45px;
+	text-align: center;
+	color: #1b489c;
+	margin-top: 30px;
+}
+
+.login-container .login-right .input-fields {
+	display: flex;
+	flex-direction: column;
+}
+
+.login-right .input-fields .required-field {
+	width: 384px;
+	height: 56px;
+	background: #f0f4f4;
+	border: 1px solid #000000;
+	border-radius: 81px;
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+	position: relative;
+}
+
+.login-right .input-fields .required-field input {
+	width: 80%;
+	height: 27px;
+	font-weight: 600;
+	font-size: 16px;
+	border: none;
+	background-color: transparent;
+	color: #878787;
+	margin-left: 20px;
+}
+
+.login-right .input-fields .required-field input:focus {
+	outline: none;
+	background-color: transparent;
+}
+
+.login-right .input-fields .required-field input::placeholder {
+	font-weight: 300;
+	font-size: 16px;
+	color: #878787;
+}
+
+.login-right .input-fields .required-field #eye {
+	position: absolute;
+	top: 30%;
+	right: 20px;
+	cursor: pointer;
+}
+
+.login-right .input-fields .required-field #eye i {
+	opacity: 0.7;
+}
+
+.login-container .login-right .login-footer {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-container .login-right .login-footer button {
+	width: 164px;
+	height: 54px;
+	background: #1b489c;
+	border-radius: 48px;
+}
+
+.login-container .login-right .login-footer button span {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #ffffff;
+	display: inline-block;
+}
+
+.login-container .login-right .login-footer button:hover {
+	transform: scale(0.98);
+	transition: all 0.5s;
+}
+
+.login-container .login-right .login-footer button:active {
+	transform: scale(1.1);
+	transition: all 0.5s;
+}
+
+.login-container .login-right .login-footer .forget-password {
+	margin-top: 20px;
+	display: flex;
+}
+
+.login-container .login-right .login-footer h6 {
+	font-size: 16px;
+	text-align: center;
+	color: #126df5;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.login-container .login-right .login-footer h6.hover-link::after {
+	background-color: #126df5;
+}
+
+.login-container .login-right .login-footer h6:last-child {
+	margin-left: 20px;
+	display: none;
+}
+/* right section end  */
+
+/* media query start  */
+@media screen and (max-width: 992px) {
+	.login-container .login-right .login-right-container {
+		padding: 30px;
+		/* From https://css.glass */
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 16px;
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+	}
+
+	.login-container .login-right .login-footer .forget-password {
+		margin-top: 30px;
+	}
+
+	.login-container .login-right .login-footer h6:last-child {
+		display: inline-block;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.login-container .login-right .login-right-container {
+		padding: 20px;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.login-container .login-right .login-right-container {
+		padding: 10px;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.login-right .input-fields .required-field {
+		width: 350px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.login-right .input-fields .required-field {
+		width: 330px;
+	}
+
+	.login-container .login-right .login-right-container {
+		background: transparent;
+		box-shadow: none;
+		backdrop-filter: blur(0px);
+		-webkit-backdrop-filter: blur(0px);
+		border: none;
+	}
+}
+
+@media screen and (max-width: 380px) {
+	.login-right .input-fields .required-field {
+		width: 320px;
+	}
+}

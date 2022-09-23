@@ -1,0 +1,198 @@
+/* recent comment start  */
+.comment-container .recent-comment {
+	margin: 10px 0 0 0;
+	display: flex;
+}
+
+.comment-container .recent-comment .comment-box {
+	margin: 0 0px 0 10px;
+}
+
+.recent-comment .comment-box .comment {
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	padding: 8px 8px 11px 8px;
+	border-radius: 14px;
+	background-color: #edf2f4;
+	background-color: #ebeffd;
+	position: relative;
+}
+
+.recent-comment .comment-box .comment .count-react {
+	position: absolute;
+	bottom: -14px;
+	right: 8px;
+	background-color: rgb(252, 252, 252);
+	padding: 0px 5px 0 3px;
+	border-radius: 30px;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+}
+.recent-comment .comment-box .comment .count-react i {
+	color: #e63946;
+	position: relative;
+}
+.recent-comment .comment-box .comment .count-react span {
+	color: #8d99ae;
+	font-size: 15px;
+	margin: 0px 0 0 5px;
+	font-weight: 600;
+}
+
+.recent-comment .comment-box .comment h6 {
+	margin: 0;
+	font-size: 14px;
+	color: black;
+}
+.recent-comment .comment-box .comment p {
+	margin: 0;
+	word-spacing: 0.2rem;
+	letter-spacing: 0.5px;
+}
+.recent-comment .comment-box .react {
+	display: flex;
+	font-size: 13px;
+	margin: 4px 0 0 0px;
+}
+
+.recent-comment .comment-box .react * {
+	margin: 0 0 0 10px;
+}
+
+/* react section start  */
+.recent-comment .comment-box .react span i {
+	transition: all 0.1s;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.recent-comment .comment-box .react i:hover {
+	color: #ef476f;
+	transform: scale(0.9);
+}
+
+.recent-comment .comment-box .react #reply-like {
+	color: #ef476f;
+}
+
+.recent-comment .comment-box .react #reply-like.active {
+	animation: reply_like 0.5s;
+}
+
+.recent-comment .comment-box .react #reply-dislike.inactive {
+	animation: reply_dislike 0.5s;
+}
+
+@keyframes reply_like {
+	0% {
+		transform: scale(0.5);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes reply_dislike {
+	0% {
+		transform: scale(0.5);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.recent-comment .comment-box .react #for-reply {
+	cursor: pointer;
+}
+/* react section end  */
+
+/* comment-toggle-container start  */
+
+.comment-toggle-container {
+	margin: 7px 0 0 0;
+	position: relative;
+	width: max-content;
+}
+
+.comment-toggle-container::before {
+	content: "";
+	position: absolute;
+	top: 1px;
+	left: 0px;
+	z-index: 1;
+	width: 10px;
+	height: 10px;
+	border: 3px solid #05668d;
+	border-top: 2px solid #fff;
+	border-right: 2px solid #fff;
+	transform: rotate(-45deg);
+	transition: 0.5s;
+	pointer-events: none;
+}
+
+.comment-toggle-container.active::before {
+	top: 6px;
+	transform: rotate(-225deg);
+}
+
+.comment-toggle-container h6 {
+	font-size: 14px;
+	color: #219ebc;
+	margin: 0 0 0 20px;
+	cursor: pointer;
+}
+.comment-toggle-container h6 b {
+	font-weight: 600;
+	color: #05668d;
+}
+
+/* comment-toggle-container end  */
+/* recent comment end  */
+
+/* comment-input start  */
+.comment-container .comment-input {
+	display: flex;
+	align-items: center;
+	margin: 5px 0 0 0;
+}
+
+.comment-container .comment-input .input-box {
+	margin: 0 10px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	background-color: white;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	border-radius: 30px;
+	position: relative;
+}
+
+.comment-container .comment-input .input-box #for-comment {
+	width: 93%;
+	border: none;
+	outline: none;
+	line-height: 200%;
+	letter-spacing: 0.5px;
+	resize: none;
+	word-wrap: break-word;
+	background-color: transparent;
+	padding: 0 14px;
+	word-spacing: 0.2rem;
+	font-size: 15px;
+}
+
+.comment-input .input-box #for-comment::placeholder {
+	font-size: 14px;
+}
+
+.comment-input .input-box i {
+	font-size: 20px;
+	color: #738290;
+	cursor: pointer;
+}
+
+/* comment-input end  */

@@ -1,0 +1,294 @@
+/* create post start  */
+.create-post-container {
+	background-color: white;
+	width: 100%;
+	border-radius: 2rem;
+	margin: -10px 0 0 0;
+	padding: 0 0 10px 0;
+}
+
+/* user-info section start  */
+.create-post-container .user-info {
+	display: flex;
+	align-items: center;
+	padding: 17px;
+}
+
+.create-post-container .user-info img {
+	width: 3rem;
+	height: 3rem;
+	cursor: pointer;
+	object-fit: cover;
+	object-position: center;
+}
+
+.create-post-container .user-info .user-name {
+	margin: 0 0px 0 10px;
+}
+
+.user-info .user-name h6 {
+	margin: -24px 0 0 0;
+	color: #264653;
+	font-weight: 600;
+	letter-spacing: 0.2px;
+}
+
+.create-post-container .privacy-container {
+	position: relative;
+}
+
+.privacy-container::before {
+	content: "";
+	position: absolute;
+	right: 30px;
+	top: 11px;
+	z-index: 1;
+	width: 8px;
+	height: 8px;
+	border: 2px solid #333;
+	border-top: 2px solid #fff;
+	border-right: 2px solid #fff;
+	transform: rotate(-45deg);
+	transition: 0.5s;
+	pointer-events: none;
+}
+.privacy-container.active::before {
+	top: 15px;
+	transform: rotate(-225deg);
+}
+.create-post-container .privacy-container input {
+	position: absolute;
+	top: 5px;
+	left: 0;
+	width: 84%;
+	height: 100%;
+	cursor: pointer;
+	background-color: #fff;
+	border: none;
+	outline: none;
+	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
+	padding: 12px 3px;
+	border-radius: 5px;
+	font-weight: 500;
+}
+
+.privacy-container .option {
+	position: absolute;
+	top: 36px;
+	width: 84%;
+	background-color: #fff;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
+	border-radius: 10px;
+	overflow: hidden;
+	display: none;
+	z-index: 1;
+	font-weight: 500;
+}
+
+.privacy-container.active .option {
+	display: block;
+}
+
+.privacy-container .option div {
+	padding: 7px 10px;
+	cursor: pointer;
+}
+
+.privacy-container .option div:hover {
+	background-color: #62baea;
+	color: #fff;
+}
+
+.privacy-container .option div i {
+	position: relative;
+	top: 0px;
+	font-size: 1em;
+	margin: 0 10px 0 0;
+}
+/* user-info section end  */
+
+/* input section start  */
+
+.input-container #create-post {
+	width: 95%;
+	border: none;
+	outline: none;
+	padding: 0px 20px 15px 20px;
+	line-height: 200%;
+	letter-spacing: 0.5px;
+	resize: none;
+	word-wrap: break-word;
+	word-spacing: 0.2rem;
+}
+/* input section end  */
+
+/* attachment-container start  */
+.create-post-container .attachment-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 30px;
+	width: 89%;
+	margin: 0 20px;
+	position: relative;
+}
+
+.create-post-container .attachment-container i {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #738290;
+	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
+	border-radius: 50%;
+	position: relative;
+	overflow: hidden;
+	transition: all 0.5s;
+	font-size: 22px;
+	cursor: pointer;
+}
+
+.create-post-container .attachment-container i::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: -90px;
+	left: 0;
+	background: linear-gradient(-45deg, #ed1c94, #ffec17);
+	transition: transform 0.4s;
+	transition: color 0.5s;
+	z-index: -2;
+}
+.create-post-container .attachment-container i:hover::after {
+	top: 0;
+}
+
+.create-post-container .attachment-container i:hover {
+	transform: translateY(5px);
+	color: #faf3dd;
+}
+/* attachment-container end  */
+
+/* share-container start  */
+
+.share-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 15px 20px;
+	padding: 0 25px;
+}
+
+.share-container .selection-container {
+	position: relative;
+	width: 250px;
+	height: 50px;
+}
+
+.selection-container::before {
+	content: "";
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	z-index: 1;
+	width: 8px;
+	height: 8px;
+	border: 2px solid #333;
+	border-top: 2px solid #fff;
+	border-right: 2px solid #fff;
+	transform: rotate(-45deg);
+	transition: 0.5s;
+	pointer-events: none;
+}
+
+.selection-container.active::before {
+	top: 22px;
+	transform: rotate(-225deg);
+}
+.selection-container input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	background-color: #fff;
+	border: none;
+	outline: none;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+	padding: 12px 20px;
+	border-radius: 10px;
+	font-weight: 500;
+}
+
+.selection-container .option {
+	position: absolute;
+	top: 70px;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: 0 30px 30px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	overflow: hidden;
+	display: none;
+	z-index: 1;
+	font-weight: 500;
+}
+
+.selection-container.active .option {
+	display: block;
+}
+
+.selection-container .option div {
+	padding: 12px 20px;
+	cursor: pointer;
+}
+
+.selection-container .option div:hover {
+	background-color: #62baea;
+	color: #fff;
+}
+
+.selection-container .option div i {
+	position: relative;
+	top: 4px;
+	font-size: 1.2em;
+
+	margin: 0 10px 0 0;
+}
+
+.share-container label {
+	width: 200px;
+	height: 50px;
+	background-color: #1a479e;
+	color: #eeeeee;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	border-radius: 2rem;
+}
+
+.share-container label:hover {
+	border: 3px solid rgb(12, 214, 79);
+	transition: all 0.5s linear;
+	color: white;
+}
+
+.share-container label.active {
+	opacity: 0.8;
+	cursor: default;
+}
+
+.share-container label.active:hover {
+	border: none;
+}
+
+.share-container label h4 {
+	margin: 0;
+	font-size: 1.4rem;
+}
+
+/* share-container end  */
+/* create post end  */

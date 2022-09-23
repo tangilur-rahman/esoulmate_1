@@ -1,0 +1,48 @@
+.bookmarks-tab-container {
+	box-shadow: var(--box-shadow);
+	border-radius: var(--card-border-radius);
+	padding: 15px 15px 0 15px;
+}
+
+.bookmarks-tab-container h5 {
+	margin: 0;
+	font-weight: 600;
+}
+
+.bookmarks-tab-container .bookmarks {
+	display: flex;
+	justify-content: space-between;
+}
+
+.bookmarks-tab-container .bookmarks > div {
+	width: 47.9%;
+	margin: 9px;
+	cursor: pointer;
+	padding: 0 0 35px 0;
+}
+
+/* media query start  */
+@media screen and (max-width: 992px) {
+	.bookmarks-tab-container {
+		padding: 15px 15px 0 25px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.bookmarks-tab-container .bookmarks > div {
+		width: 100%;
+	}
+	.bookmarks-tab-container .bookmarks {
+		padding: 0 25px 0 0;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.bookmarks-tab-container {
+		padding: 15px;
+	}
+	.bookmarks-tab-container .bookmarks {
+		padding: 0 10px 0 0;
+	}
+}
+/* media query start  */

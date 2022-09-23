@@ -1,0 +1,31 @@
+.post-tab-main-container {
+	gap: 1rem;
+	display: flex;
+}
+
+.post-tab-main-container .post-left-container {
+	padding: 0;
+	height: max-content;
+	-moz-height: max-content;
+	position: sticky;
+	top: 5rem;
+	bottom: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.post-tab-main-container .post-right-container {
+	margin: 10px 0 0 0;
+}
+
+/* media query start  */
+@media screen and (max-width: 991px) {
+	.post-tab-main-container {
+		flex-wrap: wrap;
+		margin: 0 0px 0 12px;
+		padding-right: 30px;
+	}
+	.post-tab-main-container .post-left-container {
+		position: static;
+	}
+}
+/* media query end  */
