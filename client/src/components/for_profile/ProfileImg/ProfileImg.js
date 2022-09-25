@@ -1,15 +1,18 @@
 // external components
 
 // internal components
-import "./ProfileImg.css";
 import friend from "./../../../dummy-data/friends.json";
+import "./ProfileImg.css";
 
-const ProfileImg = () => {
+const ProfileImg = ({ currentUser }) => {
 	return (
 		<>
 			{/* profile-img-container start  */}
 			<div className="cover-img">
-				<img src={`/uploads/attachments/story-8.png`} alt="cover-img" />
+				<img
+					src={`/uploads/profile-img/${currentUser.cover_img}`}
+					alt="cover-img"
+				/>
 
 				<div className="change-cover">
 					<i className="bi bi-camera-fill"></i> <h6>Edit cover photo</h6>
@@ -19,7 +22,7 @@ const ProfileImg = () => {
 			<div className="profile-img">
 				<div id="profile-img">
 					<img
-						src={`/uploads/profile-img/default-profile.png`}
+						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
 						className="img-fluid"
 					/>
@@ -27,7 +30,7 @@ const ProfileImg = () => {
 
 				<div className="profile-info">
 					<div className="user-info">
-						<h2>Tangilur Rahman dfdfsdfsdfdfdfdf</h2>
+						<h2>{currentUser.name}</h2>
 						<span>3.2k following </span>
 
 						<div className="friends">
