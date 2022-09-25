@@ -4,13 +4,13 @@
 import friend from "./../../../dummy-data/friends.json";
 import "./ProfileImg.css";
 
-const ProfileImg = ({ currentUser }) => {
+const ProfileImg = ({ getProfile }) => {
 	return (
 		<>
 			{/* profile-img-container start  */}
 			<div className="cover-img">
 				<img
-					src={`/uploads/profile-img/${currentUser.cover_img}`}
+					src={`/uploads/profile-img/${getProfile.cover_img}`}
 					alt="cover-img"
 				/>
 
@@ -24,7 +24,7 @@ const ProfileImg = ({ currentUser }) => {
 				<div id="profile-img">
 					<div className="img-wrapper">
 						<img
-							src={`/uploads/profile-img/${currentUser.profile_img}`}
+							src={`/uploads/profile-img/${getProfile.profile_img}`}
 							alt="profile-img"
 							className="img-fluid"
 						/>
@@ -38,7 +38,7 @@ const ProfileImg = ({ currentUser }) => {
 
 				<div className="profile-info">
 					<div className="user-info">
-						<h2>{currentUser.name}</h2>
+						<h2>{getProfile.name}</h2>
 						<span>3.2k following </span>
 
 						<div className="friends">

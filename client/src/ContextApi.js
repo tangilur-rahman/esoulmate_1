@@ -1,12 +1,17 @@
 // external components
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const rootContext = createContext(null);
 
 const ContextHandler = ({ children }) => {
+	// for getting current-user
+	const [currentUser, setCurrentUser] = useState("");
+
 	return (
 		<>
-			<rootContext.Provider value={{}}>{children}</rootContext.Provider>
+			<rootContext.Provider value={{ currentUser, setCurrentUser }}>
+				{children}
+			</rootContext.Provider>
 		</>
 	);
 };

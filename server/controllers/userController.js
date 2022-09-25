@@ -23,6 +23,21 @@ const currentUser = (req, res) => {
 	}
 };
 
+// for returning selected profile
+const getProfile = async (req, res) => {
+	try {
+		const document = await userModel.findOne({ _id: req.params.profile_id });
+
+		if (document) {
+			res.status(200).json(document);
+		} else {
+			res.status(400).json({ error: "That account didn't exist any more!" });
+		}
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 //  for sing-up user
 const signUp = async (req, res) => {
 	const {
@@ -309,6 +324,7 @@ const resetPassword = async (req, res) => {
 
 module.exports = {
 	currentUser,
+	getProfile,
 	signUp,
 	LogIn,
 	searchingAccount,

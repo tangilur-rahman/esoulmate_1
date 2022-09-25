@@ -9,12 +9,16 @@ const {
 	sendOtp,
 	matchingOtp,
 	resetPassword,
-	currentUser
+	currentUser,
+	getProfile
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 
 // for returning current-user
 user.get("/", authUser, currentUser);
+
+// for returning selected profile page
+user.get("/:profile_id", authUser, getProfile);
 
 // for signup new user
 user.post("/sign-up", signUp);

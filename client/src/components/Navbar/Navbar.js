@@ -3,11 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // internal components
+import { GetContextApi } from "../../ContextApi";
 import "./Navbar.css";
 
 const Navbar = () => {
 	// for redirect
 	const Navigate = useNavigate();
+
+	// for getting selected profile-id
+	const { currentUser } = GetContextApi();
 
 	const [searchToggle, setSearchToggle] = useState("");
 	const [sittingT, setSittingT] = useState("");
@@ -133,12 +137,15 @@ const Navbar = () => {
 											className={sittingT ? "active" : "inactive"}
 											ref={sittingRef}
 										>
-											<div className="profile-info">
+											<div
+												className="profile-info"
+												onClick={() => Navigate(`/profile/${currentUser._id}`)}
+											>
 												<img
-													src="/assets/uploads/profile-img/default-img.png"
+													src={`/uploads/profile-img/${currentUser.profile_img}`}
 													alt="profile-img"
 												/>
-												<h5>Tangilur Rahman</h5>
+												<h5>{currentUser.name}</h5>
 											</div>
 
 											<li

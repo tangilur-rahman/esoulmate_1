@@ -1,6 +1,6 @@
 // external components
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // own components
@@ -24,18 +24,22 @@ const ProfilePage = () => {
 	// for redirect "/log-in"
 	const Navigate = useNavigate();
 
+	// for getting profile-id
+	const paramObj = useParams();
+
 	// for toggle tab
 	const [tabToggle, setTabToggle] = useState(1);
 
-	// for loading until fetching not complete
+	// for loading animation until fetching isn't complete
 	const [isLoading, setIsLoading] = useState(true);
 
-	// for get current-user
-	const [currentUser, setCurrentUser] = useState("");
+	// for getting profile-docs
+	const [getProfile, setProfile] = useState("");
 
-	const getCurrentUser = async () => {
+	// for fetching selected profile-docs start
+	const getProfileDoc = async () => {
 		try {
-			const response = await fetch("/user");
+			const response = await fetch(`/user/${paramObj.profile_id}`);
 
 			const result = await response.json();
 
@@ -43,28 +47,33 @@ const ProfilePage = () => {
 				toast.error(result.error, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2500
 				});
-				return Navigate("/log-in");
+				setTimeout(() => {
+					return Navigate("/");
+				}, 3000);
 			} else {
-				setCurrentUser(result);
+				setProfile(result);
 				setIsLoading(false);
 			}
 		} catch (error) {
 			toast.error(error.message, {
 				position: "top-right",
 				theme: "colored",
-				autoClose: 3000
+				autoClose: 2500
 			});
-			return Navigate("/log-in");
+
+			setTimeout(() => {
+				return Navigate("/");
+			}, 3000);
 		}
 	};
 
 	useEffect(() => {
-		getCurrentUser();
+		getProfileDoc();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	// for get current-user end
+	}, [paramObj]);
+	// for fetching selected profile-docs end
 
 	return (
 		<>
@@ -85,7 +94,7 @@ const ProfilePage = () => {
 
 					<div className="row profile-first-container">
 						<div className="col-xl-10 col-lg-11 col-md-12 p-0 profile-img-container">
-							<ProfileImg currentUser={currentUser} />
+							<ProfileImg getProfile={getProfile} />
 							<hr />
 							<ProfileTabs setTabToggle={setTabToggle} tabToggle={tabToggle} />
 						</div>

@@ -47,7 +47,7 @@ const App = () => {
 				<Routes>
 					<Route path="/" element={<FeedPage />} />
 
-					<Route path="profile" element={<ProfilePage />} />
+					<Route path={"profile/:profile_id"} element={<ProfilePage />} />
 
 					<Route path="sign-up" element={<Signup setAddress={setAddress} />} />
 

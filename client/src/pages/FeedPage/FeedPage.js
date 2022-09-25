@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../ContextApi";
 import "./FeedPage.css";
 
 // own components
@@ -14,12 +15,13 @@ const FeedPage = () => {
 	// for redirect login page
 	const Navigate = useNavigate();
 
-	// for loading until fetching not complete
+	// for setting current-user
+	const { setCurrentUser } = GetContextApi();
+
+	// for loading animation until fetching didn't complete
 	const [isLoading, setIsLoading] = useState(true);
 
-	// for get current-user
-	const [currentUser, setCurrentUser] = useState("");
-
+	// for fetching current-user handler start
 	const getCurrentUser = async () => {
 		try {
 			const response = await fetch("/user");
@@ -30,9 +32,12 @@ const FeedPage = () => {
 				toast.error(result.error, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2500
 				});
-				return Navigate("/log-in");
+
+				setTimeout(() => {
+					return Navigate("/log-in");
+				}, 3000);
 			} else {
 				setCurrentUser(result);
 				setIsLoading(false);
@@ -41,9 +46,11 @@ const FeedPage = () => {
 			toast.error(error.message, {
 				position: "top-right",
 				theme: "colored",
-				autoClose: 3000
+				autoClose: 2500
 			});
-			return Navigate("/log-in");
+			setTimeout(() => {
+				return Navigate("/log-in");
+			}, 3000);
 		}
 	};
 
@@ -51,7 +58,7 @@ const FeedPage = () => {
 		getCurrentUser();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	// for get current-user end
+	// for fetching current-user handler start
 
 	return (
 		<>
@@ -71,7 +78,7 @@ const FeedPage = () => {
 					<Navbar />
 					<div className="row feed-body-container">
 						<div className="col-11 p-0">
-							<FeedBody currentUser={currentUser} />
+							<FeedBody />
 						</div>
 					</div>
 				</div>
