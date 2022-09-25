@@ -20,13 +20,21 @@ const ProfileImg = ({ currentUser }) => {
 			</div>
 
 			<div className="profile-img">
+				{/* <div className="profile-wrapper"> */}
 				<div id="profile-img">
-					<img
-						src={`/uploads/profile-img/${currentUser.profile_img}`}
-						alt="profile-img"
-						className="img-fluid"
-					/>
+					<div className="img-wrapper">
+						<img
+							src={`/uploads/profile-img/${currentUser.profile_img}`}
+							alt="profile-img"
+							className="img-fluid"
+						/>
+						<span>
+							<i className="bi bi-camera-fill"></i>
+						</span>
+					</div>
 				</div>
+
+				{/* </div> */}
 
 				<div className="profile-info">
 					<div className="user-info">
