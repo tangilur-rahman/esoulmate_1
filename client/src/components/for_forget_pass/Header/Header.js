@@ -42,7 +42,7 @@ const Header = () => {
 					toast.success(result.message, {
 						position: "top-right",
 						theme: "colored",
-						autoClose: 2000
+						autoClose: 2500
 					});
 					setTimeout(() => {
 						return Navigate("/");

@@ -58,10 +58,13 @@ const FindAccount = ({ setFoundAcc }) => {
 				toast.error(error.message, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2500
 				});
 				setIsLoading(false);
-				return Navigate("/login");
+
+				setTimeout(() => {
+					return Navigate("/login");
+				}, 3000);
 			}
 		}
 	};

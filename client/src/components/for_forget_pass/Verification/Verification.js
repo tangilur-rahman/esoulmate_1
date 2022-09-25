@@ -53,10 +53,12 @@ const Verification = ({ selectedVia, setIsMatch }) => {
 				toast.error(error.message, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2500
 				});
 				setIsLoading(false);
-				return Navigate("../find-account");
+				setTimeout(() => {
+					return Navigate("../find-account");
+				}, 3000);
 			}
 		}
 	};

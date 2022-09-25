@@ -66,19 +66,23 @@ const Selection = ({ foundAcc, selectedVia, setSelectedVia }) => {
 					toast(result.error, {
 						position: "top-right",
 						theme: "dark",
-						autoClose: 3000
+						autoClose: 2500
 					});
 					setIsLoading(false);
-					return Navigate("../find-account");
+					setTimeout(() => {
+						return Navigate("../find-account");
+					}, 3000);
 				}
 			} catch (error) {
 				toast.error(error.message, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2500
 				});
 				setIsLoading(false);
-				return Navigate("../find-account");
+				setTimeout(() => {
+					return Navigate("../find-account");
+				}, 3000);
 			}
 		}
 	};

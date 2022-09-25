@@ -48,10 +48,13 @@ const Verification = ({ getAddress }) => {
 				toast.error(error.message, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2500
 				});
 				setIsLoading(false);
-				return Navigate("/sign-up");
+
+				setTimeout(() => {
+					return Navigate("/sign-up");
+				}, 3000);
 			}
 		}
 	};
