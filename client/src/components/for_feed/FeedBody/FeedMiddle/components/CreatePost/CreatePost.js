@@ -66,7 +66,6 @@ const CreatePost = () => {
 					>
 						<TextareaAutosize
 							name="for-text"
-							autoFocus
 							id="create-post"
 							placeholder="Share your knowledge & skills or ask me ..."
 							onChange={onChangeHandler}

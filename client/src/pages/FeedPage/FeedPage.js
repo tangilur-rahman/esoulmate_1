@@ -15,7 +15,7 @@ const FeedPage = () => {
 	const Navigate = useNavigate();
 
 	// for loading until fetching not complete
-	const [isLoading, setIsLoading] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
 
 	// for get current-user
 	const [currentUser, setCurrentUser] = useState("");
