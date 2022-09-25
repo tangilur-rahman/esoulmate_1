@@ -13,9 +13,14 @@ const Navbar = () => {
 	// for getting selected profile-id
 	const { currentUser } = GetContextApi();
 
+	// for toggle
 	const [searchToggle, setSearchToggle] = useState("");
 	const [sittingT, setSittingT] = useState("");
 	const [menuT, setMenuT] = useState("");
+
+	// for control displaying dropdown
+	const [waitSitting, setWaitSitting] = useState(true);
+	const [waitMenu, setWaitMenu] = useState(true);
 
 	// for outside-click closed search-bar start
 	const searchRef = useRef();
@@ -129,6 +134,7 @@ const Navbar = () => {
 										<i
 											className="fa-solid fa-sliders"
 											onClick={() => {
+												setWaitSitting(false);
 												setSittingT(!sittingT);
 											}}
 										></i>
@@ -136,6 +142,9 @@ const Navbar = () => {
 										<ul
 											className={sittingT ? "active" : "inactive"}
 											ref={sittingRef}
+											style={
+												waitSitting ? { display: "none" } : { display: "block" }
+											}
 										>
 											<div
 												className="profile-info"
@@ -196,6 +205,7 @@ const Navbar = () => {
 										<i
 											className="fa-solid fa-bars-staggered"
 											onClick={() => {
+												setWaitMenu(false);
 												setMenuT(!menuT);
 											}}
 										></i>
@@ -203,6 +213,9 @@ const Navbar = () => {
 										<ul
 											className={menuT ? "active-menu" : "inactive-menu"}
 											ref={menuRef}
+											style={
+												waitMenu ? { display: "none" } : { display: "block" }
+											}
 										>
 											<li
 												onClick={() => {
