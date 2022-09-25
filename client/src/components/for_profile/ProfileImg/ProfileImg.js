@@ -1,10 +1,14 @@
 // external components
 
 // internal components
+import { GetContextApi } from "./../../../ContextApi";
 import friend from "./../../../dummy-data/friends.json";
 import "./ProfileImg.css";
 
 const ProfileImg = ({ getProfile }) => {
+	// for getting current-user
+	const { currentUser } = GetContextApi();
+
 	return (
 		<>
 			{/* profile-img-container start  */}
@@ -14,9 +18,11 @@ const ProfileImg = ({ getProfile }) => {
 					alt="cover-img"
 				/>
 
-				<div className="change-cover">
-					<i className="bi bi-camera-fill"></i> <h6>Edit cover photo</h6>
-				</div>
+				{currentUser._id === getProfile._id && (
+					<div className="change-cover">
+						<i className="bi bi-camera-fill"></i> <h6>Edit cover photo</h6>
+					</div>
+				)}
 			</div>
 
 			<div className="profile-img">
@@ -28,9 +34,11 @@ const ProfileImg = ({ getProfile }) => {
 							alt="profile-img"
 							className="img-fluid"
 						/>
-						<span>
-							<i className="bi bi-camera-fill"></i>
-						</span>
+						{currentUser._id === getProfile._id && (
+							<span>
+								<i className="bi bi-camera-fill"></i>
+							</span>
+						)}
 					</div>
 				</div>
 
@@ -59,16 +67,18 @@ const ProfileImg = ({ getProfile }) => {
 						</div>
 					</div>
 
-					<div className="profile-btn" id="for-others">
-						<button>
-							<i className="bi bi-chat-heart"></i>Message
-						</button>
+					{currentUser._id !== getProfile._id && (
+						<div className="profile-btn" id="for-others">
+							<button>
+								<i className="bi bi-chat-heart"></i>Message
+							</button>
 
-						<button style={{ color: "#023e8a", fontWeight: "700" }}>
-							<i className="bi bi-plus-circle"></i>Follow
-							{/* <i class="bi bi-dash-circle"></i>Unfollow */}
-						</button>
-					</div>
+							<button style={{ color: "#023e8a", fontWeight: "700" }}>
+								<i className="bi bi-plus-circle"></i>Follow
+								{/* <i class="bi bi-dash-circle"></i>Unfollow */}
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 			{/* profile-img-container end  */}
