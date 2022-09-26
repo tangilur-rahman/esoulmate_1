@@ -19,7 +19,7 @@
 	height: 3rem;
 	cursor: pointer;
 	object-fit: cover;
-	object-position: center;
+	object-position: center center;
 	outline: 3px solid black;
 }
 
@@ -133,7 +133,7 @@
 }
 
 .chn-profile-container .preview-container img#when-cover {
-	object-fit: 100% 100%;
+	object-fit: fill;
 }
 
 .chn-profile-container .preview-container img#when-profile {
@@ -187,3 +187,10 @@
 }
 /* input section end  */
 /* create post end  */
+
+/* media query start  */
+@media screen and (max-width: 500px) {
+	.chn-profile-container .preview-container img#when-profile {
+		object-fit: fill;
+	}
+}
