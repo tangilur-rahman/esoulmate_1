@@ -67,6 +67,10 @@ const CreatePost = ({
 						autoClose: 1500
 					});
 
+					setChangeImgT(false);
+					setCoverImg("");
+					setProfileImg("");
+
 					setTimeout(() => {
 						return Navigate(`/profile/${currentUser._id}`);
 					}, 2500);

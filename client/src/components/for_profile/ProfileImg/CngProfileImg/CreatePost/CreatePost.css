@@ -133,7 +133,7 @@
 }
 
 .chn-profile-container .preview-container img#when-cover {
-	object-fit: cover;
+	object-fit: 100% 100%;
 }
 
 .chn-profile-container .preview-container img#when-profile {

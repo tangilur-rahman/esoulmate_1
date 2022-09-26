@@ -2,15 +2,11 @@
 import { useState } from "react";
 
 // internal components
-import { GetContextApi } from "./../../../ContextApi";
 import friend from "./../../../dummy-data/friends.json";
 import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileImg.css";
 
-const ProfileImg = ({ getProfile }) => {
-	// for getting current-user
-	const { currentUser } = GetContextApi();
-
+const ProfileImg = ({ getProfile, currentUser }) => {
 	// for cover & profile change handler toggle
 	const [changeImgT, setChangeImgT] = useState("");
 

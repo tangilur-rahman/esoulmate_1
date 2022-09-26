@@ -18,11 +18,15 @@ import PurchasedTab from "../../components/for_profile/TabContents/PurchasedTab/
 import VideosTab from "../../components/for_profile/TabContents/VideosTab/VideosTab";
 import WishlistTab from "../../components/for_profile/TabContents/WishlistTab/WishlistTab";
 
+import { GetContextApi } from "../../ContextApi";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
 	// for redirect "/log-in"
 	const Navigate = useNavigate();
+
+	// for setting current-user
+	const { currentUser, setCurrentUser } = GetContextApi();
 
 	// for getting profile-id
 	const paramObj = useParams();
@@ -75,6 +79,50 @@ const ProfilePage = () => {
 	}, [paramObj]);
 	// for fetching selected profile-docs end
 
+	// if currentUser is undefined then re-fetching start
+	// for fetching current-user handler start
+	const getCurrentUser = async () => {
+		try {
+			const response = await fetch("/user");
+
+			const result = await response.json();
+
+			if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2500
+				});
+
+				setTimeout(() => {
+					return Navigate("/log-in");
+				}, 3000);
+			} else {
+				setCurrentUser(result);
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 2500
+			});
+			setTimeout(() => {
+				return Navigate("/log-in");
+			}, 3000);
+		}
+	};
+
+	useEffect(() => {
+		if (!currentUser) {
+			getCurrentUser();
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	// for fetching current-user handler start
+	// if currentUser is undefined then re-fetching end
+
 	return (
 		<>
 			{isLoading ? (
@@ -94,7 +142,7 @@ const ProfilePage = () => {
 
 					<div className="row profile-first-container">
 						<div className="col-xl-10 col-lg-11 col-md-12 p-0 profile-img-container">
-							<ProfileImg getProfile={getProfile} />
+							<ProfileImg getProfile={getProfile} currentUser={currentUser} />
 							<hr />
 							<ProfileTabs setTabToggle={setTabToggle} tabToggle={tabToggle} />
 						</div>
