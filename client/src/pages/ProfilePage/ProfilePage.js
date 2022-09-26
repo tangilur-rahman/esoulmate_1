@@ -30,6 +30,7 @@ const ProfilePage = () => {
 
 	// for getting profile-id
 	const paramObj = useParams();
+	const profile_id = paramObj.profile_id;
 
 	// for toggle tab
 	const [tabToggle, setTabToggle] = useState(1);
@@ -43,7 +44,7 @@ const ProfilePage = () => {
 	// for fetching selected profile-docs start
 	const getProfileDoc = async () => {
 		try {
-			const response = await fetch(`/user/${paramObj.profile_id}`);
+			const response = await fetch(`/user/${profile_id}`);
 
 			const result = await response.json();
 
@@ -76,7 +77,7 @@ const ProfilePage = () => {
 	useEffect(() => {
 		getProfileDoc();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [paramObj]);
+	}, [profile_id]);
 	// for fetching selected profile-docs end
 
 	// if currentUser is undefined then re-fetching start
@@ -149,7 +150,7 @@ const ProfilePage = () => {
 					</div>
 					<div className="row profile-second-container">
 						<div className="col-xl-10 col-lg-11 col-md-12 p-0">
-							{tabToggle === 1 && <PostsTab />}
+							{tabToggle === 1 && <PostsTab profile_id={profile_id} />}
 
 							{tabToggle === 2 && <FollowingTab />}
 

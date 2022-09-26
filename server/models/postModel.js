@@ -8,30 +8,34 @@ const schema = mongoose.Schema(
 			ref: "user"
 		},
 
-		header: {
-			type: String,
-			trim: true
-		},
+		posts: [
+			{
+				header: {
+					type: String,
+					trim: true
+				},
 
-		privacy: {
-			type: String,
-			trim: true
-		},
+				privacy: {
+					type: String,
+					trim: true
+				},
 
-		text: {
-			type: String,
-			trim: true
-		},
+				text: {
+					type: String,
+					trim: true
+				},
 
-		attachment: {
-			type: String,
-			trim: true
-		},
+				attachment: {
+					type: String,
+					trim: true
+				},
 
-		category: {
-			type: String,
-			trim: true
-		}
+				category: {
+					type: String,
+					trim: true
+				}
+			}
+		]
 	},
 	{ timestamps: true }
 );

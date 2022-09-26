@@ -1,8 +1,6 @@
-import posts from "./../../../../../../dummy-data/posts.json";
-// import posts from "./../../../../../../dummy-data/single_post.json";
-import "./Post.css";
+// external components
 
-// own components
+// internal components
 import Audio from "./attachments/Audio/Audio";
 import Image from "./attachments/Image/Image";
 import Pdf from "./attachments/Pdf/Pdf";
@@ -11,13 +9,15 @@ import Description from "./Description/Description";
 import Header from "./Header/Header";
 import React from "./React/React";
 
-const Posts = () => {
+import "./Post.css";
+
+const Posts = ({ getPosts }) => {
 	return (
 		<>
 			{/* rendering section start */}
 
-			{posts &&
-				posts.map((value) => {
+			{getPosts &&
+				getPosts.map((value) => {
 					const { profile, name, time, privacy, description, post, type, id } =
 						value;
 					return (

@@ -15,26 +15,41 @@ const changeProfile = async (req, res) => {
 				? "updated his cover photo."
 				: "updated his profile picture.";
 
-		const document = await postModel({
-			id: req.currentUser._id,
-			header,
-			privacy,
-			text,
-			attachment: fileName
-		});
+		const checkExist = await postModel.findOne({ id: req.currentUser._id });
+
+		if (checkExist) {
+			checkExist.posts.push({
+				header,
+				privacy,
+				text,
+				attachment: fileName
+			});
+
+			await checkExist.save();
+		} else {
+			const document = await postModel({
+				id: req.currentUser._id
+			});
+
+			document.posts.push({
+				header,
+				privacy,
+				text,
+				attachment: fileName
+			});
+			await document.save();
+		}
 
 		if (type === "cover") {
 			req.currentUser.cover_img = fileName;
 
 			await req.currentUser.save();
-			await document.save();
 
 			res.status(200).json({ message: "Cover photo updated successfully." });
 		} else if (type === "profile") {
 			req.currentUser.profile_img = fileName;
 
 			await req.currentUser.save();
-			await document.save();
 
 			res.status(200).json({ message: "Profile image updated successfully." });
 		}
@@ -43,4 +58,13 @@ const changeProfile = async (req, res) => {
 	}
 };
 
-module.exports = { changeProfile };
+// for returning specific profile's all posts
+const profilePosts = async (req, res) => {
+	try {
+		// const documents =
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+module.exports = { changeProfile, profilePosts };
