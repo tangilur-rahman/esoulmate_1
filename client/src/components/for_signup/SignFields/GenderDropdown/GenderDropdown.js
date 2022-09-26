@@ -14,6 +14,8 @@ const GenderDropdown = ({ getGender, setGender }) => {
 			return "👩  Female";
 		} else if (getGender === "other") {
 			return "⚨  Other";
+		} else {
+			return "";
 		}
 	};
 

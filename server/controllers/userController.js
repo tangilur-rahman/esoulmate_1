@@ -64,9 +64,9 @@ const signUp = async (req, res) => {
 
 		if (checkEmail || checkPhone) {
 			if (checkEmail) {
-				res.status(400).json({ error: "That email already used!" });
+				res.status(400).json({ error: "That email already existed!" });
 			} else if (checkPhone) {
-				res.status(400).json({ error: "That phone already used!" });
+				res.status(400).json({ error: "That phone number already existed!" });
 			}
 		} else {
 			// check password match or not
@@ -184,8 +184,8 @@ const searchingAccount = async (req, res) => {
 	}
 };
 
-// for sending otp
-const sendOtp = async (req, res) => {
+// for sending otp when log-in
+const sendOtpLogIn = async (req, res) => {
 	try {
 		const selected = req.params.selected;
 
@@ -256,7 +256,7 @@ const sendOtp = async (req, res) => {
 				});
 				// for sending email end
 
-				res.status(200).json({ message: "OTP sended to your email" });
+				res.status(200).json({ message: "OTP sended to your email." });
 			} else if (checkPhone) {
 				await twilio.messages.create({
 					from: "+19289165450",
@@ -264,7 +264,112 @@ const sendOtp = async (req, res) => {
 					body: `Esoulmate,verification code is ${createOtp}`
 				});
 
-				res.status(200).json({ message: "OTP sended to your phone" });
+				res.status(200).json({ message: "OTP sended to your phone." });
+			}
+		} else {
+			res.status(400).json({ error: "Authentication Failed!" });
+		}
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for sending otp when sign-up
+const sendOtpSignUp = async (req, res) => {
+	try {
+		const selected = req.params.selected;
+
+		// check Email Already Exists or not
+		const checkEmail = await userModel.findOne({ email: selected });
+
+		// check Phone Number Already Exists or not
+		let checkPhone;
+		if (!checkEmail) {
+			checkPhone = await userModel.findOne({ phone: selected });
+			if (checkPhone) {
+				res.status(400).json({ error: "That phone number already existed." });
+			}
+		} else {
+			res.status(400).json({ error: "That email already existed." });
+		}
+
+		if (!(checkEmail || checkPhone)) {
+			const createOtp = Math.floor(Math.random() * 1000000 + 1);
+
+			const expireIn = new Date().getTime() + 300 * 1000;
+
+			const checkExist = await otpModel.findOne({ email_phone: selected });
+
+			if (checkExist) {
+				checkExist.code = createOtp;
+				checkExist.expireIn = expireIn;
+
+				await checkExist.save();
+			} else {
+				const document = await otpModel({
+					email_phone: selected,
+					code: createOtp,
+					expireIn
+				});
+
+				await document.save();
+			}
+
+			// email validate for checking selected is email or phone
+			function validateEmail(email) {
+				var emailRegex =
+					/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				return emailRegex.test(email);
+			}
+
+			const email = validateEmail(selected) ? selected : "";
+			const phone = validateEmail(selected) ? "" : selected;
+
+			if (email) {
+				// for sending email start
+				let transporter = nodemailer.createTransport({
+					service: "gmail",
+					// host: "smtp.ethereal.email",
+					port: 587,
+					secure: false, // true for 465, false for other ports
+					auth: {
+						user: "mohammadtangilurrahaman@gmail.com", // generated ethereal user
+						pass: "ahhqpefxdjbzahwe" // generated ethereal password
+					}
+				});
+
+				// send mail with defined transport object
+				await transporter.sendMail({
+					from: "mohammadtangilurrahaman@gmail.com", // sender address
+					to: `${selected}`, // list of receivers
+					subject: "ESOULMATE, Reset Password", // Subject line
+					text: "hello",
+					html: `<p style="font-size : 18px"}}>
+				Hey there, Someone requested a new password for your 
+				<span style="color : blue">Esoulmate</span>  account.
+				 
+				<br/> <br/>
+					Code:
+					<span style="font-size : 20px; font-weight: 600; color : blue"> &nbsp;
+						${createOtp}
+					</span>
+				
+
+				<p style="font-size : 17px;">This password reset code is only valid for the next 5 minutes</p>
+				If you didn’t make this request, then you can ignore this email 🙂
+			</p>`
+				});
+				// for sending email end
+
+				res.status(200).json({ message: "OTP sended to your email." });
+			} else if (phone) {
+				await twilio.messages.create({
+					from: "+19289165450",
+					to: `+88${selected}`,
+					body: `Esoulmate,verification code is ${createOtp}`
+				});
+
+				res.status(200).json({ message: "OTP sended to your phone." });
 			}
 		}
 	} catch (error) {
@@ -289,7 +394,7 @@ const matchingOtp = async (req, res) => {
 				res.status(400).json({ error: "That OTP was Expired!" });
 			}
 		} else {
-			res.status(400).json({ error: "OTP didn't match" });
+			res.status(400).json({ error: "OTP didn't match." });
 		}
 	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
@@ -313,7 +418,7 @@ const resetPassword = async (req, res) => {
 
 			await foundDoc.save();
 
-			res.status(200).json({ message: "Password update successfully" });
+			res.status(200).json({ message: "Password update successfully." });
 		} else {
 			res.status(500).json({ error: "Maintenance mode, Try again later!" });
 		}
@@ -328,7 +433,8 @@ module.exports = {
 	signUp,
 	LogIn,
 	searchingAccount,
-	sendOtp,
+	sendOtpLogIn,
+	sendOtpSignUp,
 	matchingOtp,
 	resetPassword
 };

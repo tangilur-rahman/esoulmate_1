@@ -1,13 +1,51 @@
 // external components
+import { useState } from "react";
 
 // internal components
 import { GetContextApi } from "./../../../ContextApi";
 import friend from "./../../../dummy-data/friends.json";
+import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileImg.css";
 
 const ProfileImg = ({ getProfile }) => {
 	// for getting current-user
 	const { currentUser } = GetContextApi();
+
+	// for cover & profile change handler toggle
+	const [changeImgT, setChangeImgT] = useState("");
+
+	// for file handle
+	const [getCoverImg, setCoverImg] = useState("");
+	const [getProfileImg, setProfileImg] = useState("");
+
+	// for preview image
+	const [getPreview, setPreview] = useState("");
+
+	// for preview image start
+	const imgHandlerCover = (event) => {
+		setCoverImg(event.target.files[0]);
+		const reader = new FileReader();
+		reader.onload = () => {
+			if (reader.readyState === 2) {
+				setPreview(reader.result);
+				setChangeImgT(true);
+			}
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	};
+
+	const imgHandlerProfile = (event) => {
+		setProfileImg(event.target.files[0]);
+		const reader = new FileReader();
+		reader.onload = () => {
+			if (reader.readyState === 2) {
+				setPreview(reader.result);
+				setChangeImgT(true);
+			}
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	};
+	// for preview image end
 
 	return (
 		<>
@@ -19,9 +57,11 @@ const ProfileImg = ({ getProfile }) => {
 				/>
 
 				{currentUser._id === getProfile._id && (
-					<div className="change-cover">
-						<i className="bi bi-camera-fill"></i> <h6>Edit cover photo</h6>
-					</div>
+					<label htmlFor="for-cover">
+						<div className="change-cover">
+							<i className="bi bi-camera-fill"></i> <h6>Edit cover photo</h6>
+						</div>
+					</label>
 				)}
 			</div>
 
@@ -35,9 +75,11 @@ const ProfileImg = ({ getProfile }) => {
 							className="img-fluid"
 						/>
 						{currentUser._id === getProfile._id && (
-							<span>
-								<i className="bi bi-camera-fill"></i>
-							</span>
+							<label htmlFor="for-profile">
+								<span>
+									<i className="bi bi-camera-fill"></i>
+								</span>
+							</label>
 						)}
 					</div>
 				</div>
@@ -81,6 +123,36 @@ const ProfileImg = ({ getProfile }) => {
 					)}
 				</div>
 			</div>
+			{/* for input declaration start  */}
+			<input
+				type="file"
+				name="for-cover"
+				accept="image/*"
+				id="for-cover"
+				style={{ display: "none" }}
+				onChange={imgHandlerCover}
+			/>
+
+			<input
+				type="file"
+				name="for-profile"
+				accept="image/*"
+				id="for-profile"
+				style={{ display: "none" }}
+				onChange={imgHandlerProfile}
+			/>
+			{/* for input declaration end */}
+
+			{(getCoverImg || getProfileImg) && changeImgT && (
+				<CngProfileImg
+					getCoverImg={getCoverImg}
+					setCoverImg={setCoverImg}
+					getProfileImg={getProfileImg}
+					setProfileImg={setProfileImg}
+					getPreview={getPreview}
+					setChangeImgT={setChangeImgT}
+				/>
+			)}
 			{/* profile-img-container end  */}
 		</>
 	);

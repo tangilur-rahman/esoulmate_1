@@ -1,0 +1,25 @@
+.c-pro-img-container {
+	position: absolute;
+	top: 15vh;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+
+.c-pro-img-container .c-pro-layout {
+	display: flex;
+	justify-content: center;
+}
+
+.c-pro-img-container .c-pro-layout .wrapper {
+	display: flex;
+	background-color: white;
+	box-shadow: var(--box-shadow);
+	padding: 20px 10px !important;
+	border: 4px solid transparent;
+	border-radius: 20px;
+	background: linear-gradient(to right, white, white),
+		linear-gradient(to right, red, blue);
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
+}

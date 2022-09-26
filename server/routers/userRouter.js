@@ -6,7 +6,8 @@ const {
 	signUp,
 	LogIn,
 	searchingAccount,
-	sendOtp,
+	sendOtpLogIn,
+	sendOtpSignUp,
 	matchingOtp,
 	resetPassword,
 	currentUser,
@@ -29,8 +30,11 @@ user.post("/log-in", LogIn);
 // for getting searching-account
 user.get("/log-in/searching/:account", searchingAccount);
 
-// for sending otp
-user.get("/log-in/verification/:selected", sendOtp);
+// for sending otp when log-in
+user.get("/log-in/verification/:selected", sendOtpLogIn);
+
+// for sending otp when sign-up
+user.get("/sign-up/verification/:selected", sendOtpSignUp);
 
 // for getting & matching otp
 user.get("/log-in/verification/otp/:selectedVia/:getCode", matchingOtp);

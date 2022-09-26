@@ -1,0 +1,189 @@
+/* create post start  */
+.chn-profile-container {
+	background-color: white;
+	width: 100%;
+	border-radius: 2rem;
+	margin: -10px 0 0 0;
+	padding: 0 0 10px 0;
+}
+
+/* user-info section start  */
+.chn-profile-container .user-info {
+	display: flex;
+	align-items: center;
+	padding: 17px;
+}
+
+.chn-profile-container .user-info img {
+	width: 3rem;
+	height: 3rem;
+	cursor: pointer;
+	object-fit: cover;
+	object-position: center;
+	outline: 3px solid black;
+}
+
+.chn-profile-container .user-info .user-name {
+	margin: 0 0px 0 14px;
+}
+
+.chn-profile-container .user-info .user-name h6 {
+	color: #264653;
+	font-weight: 600;
+	letter-spacing: 0.2px;
+}
+
+.chn-profile-container .privacy-container {
+	position: relative;
+	margin-top: 1px;
+}
+
+.chn-profile-container .privacy-container::before {
+	content: "";
+	position: absolute;
+	right: 30px;
+	top: 11px;
+	z-index: 1;
+	width: 8px;
+	height: 8px;
+	border: 2px solid #333;
+	border-top: 2px solid #fff;
+	border-right: 2px solid #fff;
+	transform: rotate(-45deg);
+	transition: 0.5s;
+	pointer-events: none;
+}
+
+.chn-profile-container .privacy-container.active::before {
+	top: 15px;
+	transform: rotate(-225deg);
+}
+
+.chn-profile-container .privacy-container input {
+	position: absolute;
+	top: 5px;
+	left: 0;
+	width: 84%;
+	height: 100%;
+	cursor: pointer;
+	background-color: #fff;
+	border: none;
+	outline: none;
+	box-shadow: 0px 1px 3px rgb(0 0 0 / 50%);
+	padding: 12px 3px;
+	border-radius: 5px;
+	font-weight: 500;
+}
+
+.chn-profile-container .privacy-container .option {
+	position: absolute;
+	top: 36px;
+	width: 84%;
+	background-color: #fff;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
+	border-radius: 10px;
+	overflow: hidden;
+	display: none;
+	z-index: 1;
+	font-weight: 500;
+}
+
+.chn-profile-container .privacy-container.active .option {
+	display: block;
+}
+
+.chn-profile-container .privacy-container .option div {
+	padding: 7px 10px;
+	cursor: pointer;
+}
+
+.chn-profile-container .privacy-container .option div:hover {
+	background-color: #62baea;
+	color: #fff;
+}
+
+.chn-profile-container .privacy-container .option div i {
+	position: relative;
+	top: 0px;
+	font-size: 1em;
+	margin: 0 10px 0 0;
+}
+/* user-info section end  */
+
+/* input section start  */
+
+.chn-profile-container .input-container #create-post {
+	width: 95%;
+	border: none;
+	outline: none;
+	padding: 0px 20px 10px 20px;
+	line-height: 200%;
+	letter-spacing: 0.5px;
+	resize: none;
+	word-wrap: break-word;
+	word-spacing: 0.2rem;
+}
+
+.chn-profile-container .preview-container img {
+	border-radius: 10px;
+	height: 300px;
+	width: 100%;
+	object-position: top center;
+	background-color: #333;
+}
+
+.chn-profile-container .preview-container img#when-cover {
+	object-fit: cover;
+}
+
+.chn-profile-container .preview-container img#when-profile {
+	object-fit: contain;
+}
+
+.chn-profile-container .share-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.chn-profile-container .share-btn-container button {
+	width: 150px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	border-radius: 2rem;
+	font-size: 21px;
+}
+
+.chn-profile-container .share-btn-container button:hover {
+	transform: scale(0.98);
+	transition: all 0.3s;
+}
+
+.chn-profile-container .share-btn-container button:active {
+	transform: scale(0.9);
+	transition: all 0.5s;
+}
+
+.chn-profile-container .share-btn-container button:first-child {
+	background-color: white;
+	border: 2px solid black;
+	color: #333;
+	margin-right: 30px;
+	font-weight: 600;
+}
+
+.share-btn-container button:first-child span.hover-link::after {
+	background-color: black;
+}
+
+.chn-profile-container .share-btn-container button:last-child {
+	background-color: #1a479e;
+	color: #eeeeee;
+	font-weight: 500;
+}
+/* input section end  */
+/* create post end  */

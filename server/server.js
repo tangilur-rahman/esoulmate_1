@@ -7,6 +7,7 @@ require("dotenv").config();
 // internal modules
 const customErrorHandler = require("./middleware/errorHandler");
 const userRouter = require("./routers/userRouter");
+const postRouter = require("./routers/postRouter");
 
 // express server
 const app = express();
@@ -20,6 +21,7 @@ app.use(cookie());
 
 // routers
 app.use("/user", userRouter);
+app.use("/post", postRouter);
 
 // deploy on heroku
 if (process.env.NODE_ENV == "production") {

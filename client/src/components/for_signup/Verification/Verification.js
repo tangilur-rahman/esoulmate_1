@@ -75,7 +75,7 @@ const Verification = ({ getAddress }) => {
 		try {
 			setIsLoading(true);
 			const response = await fetch(
-				`/user/log-in/verification/${getAddress.email_phone}`
+				`/user/sign-up/verification/${getAddress.email_phone}`
 			);
 
 			const result = await response.json();

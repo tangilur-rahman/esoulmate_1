@@ -140,7 +140,7 @@ const Signup = ({ setAddress }) => {
 			} else {
 				try {
 					const response = await fetch(
-						`/user/log-in/verification/${email_phone}`
+						`/user/sign-up/verification/${email_phone}`
 					);
 
 					const result = await response.json();
@@ -152,7 +152,7 @@ const Signup = ({ setAddress }) => {
 							autoClose: 2000
 						});
 
-						setAddress(email_phone, submitHandle);
+						setAddress({ email_phone, submitHandle });
 
 						setTimeout(() => {
 							return Navigate("/sign-up/verification");
