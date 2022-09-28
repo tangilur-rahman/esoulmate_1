@@ -10,9 +10,9 @@ import Description from "./Description/Description";
 import Header from "./Header/Header";
 import React from "./React/React";
 
-const Posts = ({ getPostDocs }) => {
-	console.log(getPostDocs, "get");
+import "./Posts.css";
 
+const Posts = ({ getPostDocs }) => {
 	return (
 		<>
 			{getPostDocs ? (
