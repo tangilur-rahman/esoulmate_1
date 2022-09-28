@@ -40,7 +40,7 @@ const changeProfile = async (req, res) => {
 			}
 		};
 
-		const file_type = selectType();
+		const file_type = await selectType();
 		// for select file_type end
 
 		const checkExist = await postModel.findOne({

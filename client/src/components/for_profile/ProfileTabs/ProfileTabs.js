@@ -1,4 +1,7 @@
+// external components
 import { useState } from "react";
+
+// internal components
 import "./ProfileTabs.css";
 
 const ProfileTabs = ({ tabToggle, setTabToggle }) => {
