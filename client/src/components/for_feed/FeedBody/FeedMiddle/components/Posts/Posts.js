@@ -1,4 +1,5 @@
 // external components
+import sortArray from "sort-array";
 
 // internal components
 import Audio from "./attachments/Audio/Audio";
@@ -9,35 +10,39 @@ import Description from "./Description/Description";
 import Header from "./Header/Header";
 import React from "./React/React";
 
-import "./Post.css";
+const Posts = ({ getPostDocs }) => {
+	console.log(getPostDocs, "get");
 
-const Posts = ({ getPosts }) => {
 	return (
 		<>
-			{/* rendering section start */}
-
-			{getPosts &&
-				getPosts.map((value) => {
-					const { profile, name, time, privacy, description, post, type, id } =
-						value;
+			{getPostDocs ? (
+				sortArray(getPostDocs.posts, {
+					by: "updatedAt",
+					order: "desc"
+				})?.map((value, index) => {
 					return (
-						<div className="post-container" key={id}>
+						<div className="post-container" key={index}>
 							{/* post section start  */}
 							<Header
-								profile={profile}
-								name={name}
-								time={time}
-								privacy={privacy}
+								profile={getPostDocs.user_id.profile_img}
+								name={getPostDocs.user_id.name}
+								header={value.header}
+								time={value.time}
+								privacy={value.privacy}
 							/>
 
-							<Description description={description} />
+							<Description description={value.text} />
 
 							{/* attachment section start  */}
 							<div className="attachment-main-container">
-								{(type === "image" && <Image image={post} />) ||
-									(type === "video" && <Video video={post} />) ||
-									(type === "audio" && <Audio audio={post} />) ||
-									(type === "document" && <Pdf pdf={post} />)}
+								{(true && <Image image={value.attachment} />) ||
+									(value.type === "video" && (
+										<Video video={value.attachment} />
+									)) ||
+									(value.type === "audio" && (
+										<Audio audio={value.attachment} />
+									)) ||
+									(value.type === "document" && <Pdf pdf={value.attachment} />)}
 							</div>
 							{/* attachment section end  */}
 
@@ -45,9 +50,10 @@ const Posts = ({ getPosts }) => {
 							{/* post section end  */}
 						</div>
 					);
-				})}
-
-			{/* rendering section start */}
+				})
+			) : (
+				<p>No Posts</p>
+			)}
 		</>
 	);
 };

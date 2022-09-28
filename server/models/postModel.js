@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
 	{
-		id: {
+		user_id: {
 			type: mongoose.Types.ObjectId,
 			ref: "user"
 		},
@@ -33,6 +33,11 @@ const schema = mongoose.Schema(
 				category: {
 					type: String,
 					trim: true
+				},
+
+				time: {
+					type: Date,
+					default: Date.now()
 				}
 			}
 		]

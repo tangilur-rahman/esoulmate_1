@@ -1,10 +1,17 @@
+// external components
+
+// internal components
 import "./Image.css";
 
 const Image = ({ image }) => {
 	return (
 		<>
 			<div className="img-container">
-				<img src={image} alt="post-img" className="img-fluid for-image" />
+				<img
+					src={`/uploads/profile-img/${image}`}
+					alt="post-img"
+					className="img-fluid for-image"
+				/>
 			</div>
 		</>
 	);

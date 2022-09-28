@@ -7,18 +7,31 @@
 
 .header-section .left {
 	display: flex;
+	width: 92%;
 }
 
 .header-section .left img {
-	width: 3rem;
-	height: 3rem;
-	cursor: pointer;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
 	object-fit: cover;
 	object-position: center;
+	outline: 3px solid black;
 }
 
 .header-section .left .user-info {
 	margin: 5px 0 0 7px;
+	width: 100%;
+}
+
+.header-section .left .user-info .top-line {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.header-section .left .user-info .top-line p {
+	margin: 0 0 0 5px;
 }
 
 .header-section .left .user-info h6 {
@@ -34,13 +47,16 @@
 	font-size: 13px;
 	color: #6d6875;
 }
+
 .user-info .extra-info span:nth-child(2) {
 	color: #6d6875;
 	margin: 0 4px;
 }
-.user-info .extra-info span:last-child {
+
+.user-info .extra-info span#privacy {
 	font-size: 14px;
 	color: #6d6875;
+	display: inline-block;
 }
 
 .header-section .right {

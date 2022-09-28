@@ -1,29 +1,41 @@
+// external components
+import TimeAgo from "timeago-react";
+
+// internal components
 import "./Header.css";
 
-const Header = ({ profile, name, time, privacy }) => {
+const Header = ({ profile, name, header, time, privacy }) => {
+	console.log(profile, name, time, privacy);
+
 	return (
 		<>
 			{/* header-section start  */}
 			<div className="header-section">
 				<div className="left">
 					<img
-						src={profile}
+						src={`/uploads/profile-img/${profile}`}
 						alt="profile-img"
-						className="profile-photo img-fluid"
+						className="img-fluid"
 					/>
 
 					<div className="user-info">
-						<h6>{name}</h6>
+						<div className="top-line">
+							<h6>{name}</h6> <p>{header}</p>
+						</div>
 
 						<div className="extra-info">
-							<span>{time}</span>
-							<span>.</span>
 							<span>
+								<TimeAgo datetime={time} />
+							</span>
+							<span>.</span>
+							<span id="privacy">
 								{(privacy === "public" && <i className="bi bi-globe"></i>) ||
 									(privacy === "friends" && (
 										<i className="bi bi-people-fill"></i>
 									)) ||
-									(privacy === "me" && <i className="bi bi-lock-fill"></i>)}
+									(privacy === "only me" && (
+										<i className="bi bi-lock-fill"></i>
+									))}
 							</span>
 						</div>
 					</div>

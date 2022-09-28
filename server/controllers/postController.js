@@ -15,7 +15,9 @@ const changeProfile = async (req, res) => {
 				? "updated his cover photo."
 				: "updated his profile picture.";
 
-		const checkExist = await postModel.findOne({ id: req.currentUser._id });
+		const checkExist = await postModel.findOne({
+			user_id: req.currentUser._id
+		});
 
 		if (checkExist) {
 			checkExist.posts.push({
@@ -28,7 +30,7 @@ const changeProfile = async (req, res) => {
 			await checkExist.save();
 		} else {
 			const document = await postModel({
-				id: req.currentUser._id
+				user_id: req.currentUser._id
 			});
 
 			document.posts.push({
@@ -61,7 +63,13 @@ const changeProfile = async (req, res) => {
 // for returning specific profile's all posts
 const profilePosts = async (req, res) => {
 	try {
-		// const documents =
+		const document = await postModel
+			.findOne({ user_id: req.params.profile_id })
+			.populate("user_id", "name profile_img");
+
+		if (document) {
+			res.status(200).json(document);
+		}
 	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
 	}

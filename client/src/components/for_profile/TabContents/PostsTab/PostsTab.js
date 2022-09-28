@@ -15,7 +15,7 @@ const PostsTab = ({ profile_id }) => {
 	const Navigate = useNavigate();
 
 	// for getting all profile's posts
-	const [getPosts, setPosts] = useState([]);
+	const [getPostDocs, setPostDocs] = useState("");
 
 	// for fetching specific profile's all posts start
 	const fetchingAllPosts = async () => {
@@ -35,7 +35,7 @@ const PostsTab = ({ profile_id }) => {
 					return Navigate("/");
 				}, 3000);
 			} else {
-				setPosts(result ? result : []);
+				setPostDocs(result ? result : "");
 			}
 		} catch (error) {
 			toast.error(error.message, {
@@ -50,7 +50,7 @@ const PostsTab = ({ profile_id }) => {
 	};
 
 	useEffect(() => {
-		// fetchingAllPosts();
+		fetchingAllPosts();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// for fetching specific profile's all posts end
@@ -65,7 +65,7 @@ const PostsTab = ({ profile_id }) => {
 						</div>
 						<div className="col-lg-7 col-12 p-0 post-right-container">
 							<CreatePost />
-							<Posts getPosts={getPosts} />
+							<Posts getPostDocs={getPostDocs} />
 						</div>
 					</div>
 				</div>
