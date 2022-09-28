@@ -35,14 +35,18 @@ const Posts = ({ getPostDocs }) => {
 
 							{/* attachment section start  */}
 							<div className="attachment-main-container">
-								{(true && <Image image={value.attachment} />) ||
-									(value.type === "video" && (
+								{(value.file_type === "image" && (
+									<Image image={value.attachment} />
+								)) ||
+									(value.file_type === "video" && (
 										<Video video={value.attachment} />
 									)) ||
-									(value.type === "audio" && (
+									(value.file_type === "audio" && (
 										<Audio audio={value.attachment} />
 									)) ||
-									(value.type === "document" && <Pdf pdf={value.attachment} />)}
+									(value.file_type === "document" && (
+										<Pdf pdf={value.attachment} />
+									))}
 							</div>
 							{/* attachment section end  */}
 

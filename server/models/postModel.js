@@ -25,12 +25,17 @@ const schema = mongoose.Schema(
 					trim: true
 				},
 
+				category: {
+					type: String,
+					trim: true
+				},
+
 				attachment: {
 					type: String,
 					trim: true
 				},
 
-				category: {
+				file_type: {
 					type: String,
 					trim: true
 				},

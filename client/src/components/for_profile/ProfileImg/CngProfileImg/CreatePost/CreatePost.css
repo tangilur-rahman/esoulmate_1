@@ -21,6 +21,7 @@
 	object-fit: cover;
 	object-position: center center;
 	outline: 3px solid black;
+	border-radius: 50%;
 }
 
 .chn-profile-container .user-info .user-name {

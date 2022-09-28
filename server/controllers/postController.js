@@ -15,6 +15,34 @@ const changeProfile = async (req, res) => {
 				? "updated his cover photo."
 				: "updated his profile picture.";
 
+		// for select file_type start
+		const ext = fileName.split(".").slice(-1)[0];
+
+		const selectType = () => {
+			if (ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "gif") {
+				return "image";
+			} else if (
+				ext === "mp4" ||
+				ext === "mov" ||
+				ext === "wmv" ||
+				ext === "avi" ||
+				ext === "mkv" ||
+				ext === "flv" ||
+				ext === "mvk"
+			) {
+				return "video";
+			} else if (ext === "mp3" || ext === "ogg" || ext === "WAV") {
+				return "audio";
+			} else if (ext === "pdf") {
+				return "document";
+			} else {
+				throw new Error("Invalid File Extension");
+			}
+		};
+
+		const file_type = selectType();
+		// for select file_type end
+
 		const checkExist = await postModel.findOne({
 			user_id: req.currentUser._id
 		});
@@ -24,7 +52,8 @@ const changeProfile = async (req, res) => {
 				header,
 				privacy,
 				text,
-				attachment: fileName
+				attachment: fileName,
+				file_type
 			});
 
 			await checkExist.save();
