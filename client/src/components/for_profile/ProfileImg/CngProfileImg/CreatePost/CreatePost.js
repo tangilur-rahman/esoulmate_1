@@ -109,7 +109,7 @@ const CreatePost = ({
 					<img
 						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
-						className="profile-photo img-fluid"
+						className="img-fluid"
 					/>
 
 					<div className="user-name">

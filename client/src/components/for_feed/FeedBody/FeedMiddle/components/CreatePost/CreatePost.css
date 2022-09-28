@@ -19,22 +19,30 @@
 	height: 3rem;
 	cursor: pointer;
 	object-fit: cover;
-	object-position: center;
+	object-position: center center;
+	outline: 3px solid black;
+	border-radius: 50%;
 }
 
 .create-post-container .user-info .user-name {
-	margin: 0 0px 0 10px;
+	margin: 0 0px 0 14px;
 }
 
-.user-info .user-name h6 {
-	margin: -24px 0 0 0;
+.create-post-container .user-info .user-name h6 {
+	margin: -20px 0 0 0;
 	color: #264653;
 	font-weight: 600;
 	letter-spacing: 0.2px;
+	cursor: pointer;
+}
+
+.user-info .user-name h6.hover-link::after {
+	background-color: #264653;
 }
 
 .create-post-container .privacy-container {
 	position: relative;
+	margin-top: -2px;
 }
 
 .privacy-container::before {
@@ -66,7 +74,7 @@
 	background-color: #fff;
 	border: none;
 	outline: none;
-	box-shadow: 0px 1px 5px rgb(0 0 0 / 50%);
+	box-shadow: 0px 1px 3px rgb(0 0 0 / 50%);
 	padding: 12px 3px;
 	border-radius: 5px;
 	font-weight: 500;
@@ -113,7 +121,7 @@
 	width: 95%;
 	border: none;
 	outline: none;
-	padding: 0px 20px 15px 20px;
+	padding: 0px 20px 10px 20px;
 	line-height: 200%;
 	letter-spacing: 0.5px;
 	resize: none;
@@ -217,7 +225,7 @@
 	background-color: #fff;
 	border: none;
 	outline: none;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 	padding: 12px 20px;
 	border-radius: 10px;
 	font-weight: 500;
@@ -258,7 +266,7 @@
 	margin: 0 10px 0 0;
 }
 
-.share-container label {
+.share-container .share-btn {
 	width: 200px;
 	height: 50px;
 	background-color: #1a479e;
@@ -266,29 +274,30 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	cursor: pointer;
 	border-radius: 2rem;
-}
-
-.share-container label:hover {
-	border: 3px solid rgb(12, 214, 79);
-	transition: all 0.5s linear;
-	color: white;
-}
-
-.share-container label.active {
 	opacity: 0.8;
 	cursor: default;
 }
 
-.share-container label.active:hover {
-	border: none;
+.share-container .share-btn.active {
+	opacity: 1;
+	cursor: pointer;
+	transition: all 0.3s;
+	color: white;
 }
 
-.share-container label h4 {
+.share-container .share-btn.active:hover {
+	transform: scale(0.98);
+	border: 3.2px solid rgb(12, 214, 79);
+}
+
+.share-container .share-btn.active:active {
+	transform: scale(0.93);
+}
+
+.share-container .share-btn h4 {
 	margin: 0;
 	font-size: 1.4rem;
 }
-
 /* share-container end  */
 /* create post end  */

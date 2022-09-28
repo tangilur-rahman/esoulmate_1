@@ -1,22 +1,49 @@
+// external components
 import { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+
+// internal components
+import { GetContextApi } from "../../../../../../ContextApi";
 import "./CreatePost.css";
 
 const CreatePost = () => {
+	// for getting current-user
+	const { currentUser } = GetContextApi();
+
 	// for privacy selection
-	const [privacy, setPrivacy] = useState("");
+	const [privacy, setPrivacy] = useState("public");
 	const [priDrop, setPriDrop] = useState("");
 
-	// for knowledge selection
-	const [knowledge, setKnowledge] = useState("");
+	// for post category selection
+	const [category, setCategory] = useState("knowledge");
 	const [dropdown, setDropdown] = useState("");
 
 	// for post-text
 	const [postText, setPostText] = useState("");
 
-	const onChangeHandler = (event) => {
-		setPostText(event.target.value);
+	// privacy display handler start
+	const displayingPrivacy = () => {
+		if (privacy === "public") {
+			return "🌍  Public";
+		} else if (privacy === "friends") {
+			return "👨‍👧‍👦  Friends";
+		} else if (privacy === "only me") {
+			return "🔒  Only Me";
+		}
 	};
+	// privacy display handler end
+
+	// category display handler start
+	const displayingCategory = () => {
+		if (category === "knowledge") {
+			return "🔰   Knowledge";
+		} else if (category === "skill") {
+			return "⛷️   Skill";
+		} else if (category === "q&a") {
+			return "❓   Q & A";
+		}
+	};
+	// category display handler end
 
 	return (
 		<>
@@ -24,13 +51,13 @@ const CreatePost = () => {
 			<div className="create-post-container">
 				<div className="user-info">
 					<img
-						src="/assets/images/profile/tangil.png"
+						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
-						className="profile-photo img-fluid"
+						className="img-fluid"
 					/>
 
 					<div className="user-name">
-						<h6>Tangilur Rahman</h6>
+						<h6 className="hover-link">{currentUser.name}</h6>
 
 						<div
 							className={
@@ -38,21 +65,17 @@ const CreatePost = () => {
 							}
 							onClick={() => setPriDrop(!priDrop)}
 						>
-							<input
-								type="text"
-								placeholder="🌍  Public"
-								readOnly
-								value={privacy}
-							/>
+							<input value={displayingPrivacy()} readOnly />
+
 							<div className="option">
-								<div onClick={() => setPrivacy("🌍  Public")}>
-									<i className="bi bi-globe"></i>Public
+								<div onClick={() => setPrivacy("public")}>
+									🌍&nbsp; &nbsp;Public
 								</div>
-								<div onClick={() => setPrivacy("🧑🏻‍🤝‍🧑🏻  Friends")}>
-									<i className="bi bi-people-fill"></i>Friends
+								<div onClick={() => setPrivacy("friends")}>
+									👨‍👧‍👦&nbsp; &nbsp;Friends
 								</div>
-								<div onClick={() => setPrivacy("🔒  Only Me")}>
-									<i className="bi bi-lock-fill"></i>Only Me
+								<div onClick={() => setPrivacy("only me")}>
+									🔒&nbsp; &nbsp;Only Me
 								</div>
 							</div>
 						</div>
@@ -67,8 +90,8 @@ const CreatePost = () => {
 						<TextareaAutosize
 							name="for-text"
 							id="create-post"
-							placeholder="Share your knowledge & skills or ask me ..."
-							onChange={onChangeHandler}
+							placeholder="Write something about that..."
+							onChange={(e) => setPostText(e.target.value)}
 							value={postText}
 						/>
 
@@ -100,13 +123,6 @@ const CreatePost = () => {
 							name="for-pdf"
 							id="for-pdf"
 							accept="application/pdf,application/vnd.ms-excel"
-							style={{ display: "none" }}
-						/>
-
-						<input
-							type="submit"
-							value="Share"
-							id="for-share"
 							style={{ display: "none" }}
 						/>
 					</form>
@@ -161,29 +177,20 @@ const CreatePost = () => {
 						}
 						onClick={() => setDropdown(!dropdown)}
 					>
-						<input
-							type="text"
-							placeholder="🔰  Knowledge"
-							readOnly
-							value={knowledge}
-						/>
+						<input value={displayingCategory()} readOnly />
 						<div className="option">
-							<div onClick={() => setKnowledge("🔰  Knowledge")}>
-								<i className="bi bi-book-half"></i>
-								Knowledge
+							<div onClick={() => setCategory("knowledge")}>
+								🔰&nbsp;&nbsp;Knowledge
 							</div>
-							<div onClick={() => setKnowledge("⛷️  Skill")}>
-								<i className="bi bi-mortarboard"></i>
-								Skills
+							<div onClick={() => setCategory("skill")}>
+								⛷️&nbsp;&nbsp;Skill
 							</div>
-							<div onClick={() => setKnowledge("❓  Q & A")}>
-								<i className="bi bi-patch-question"></i>Q & A
-							</div>
+							<div onClick={() => setCategory("q&a")}>❓&nbsp;&nbsp;Q & A</div>
 						</div>
 					</div>
-					<label htmlFor="for-share" className={postText ? "" : "active"}>
-						<h4>Share</h4>
-					</label>
+					<div className={postText ? "share-btn active" : "share-btn"}>
+						<h4 className={postText ? "hover-link" : ""}>Share</h4>
+					</div>
 				</div>
 			</div>
 			{/* create-post section end  */}
