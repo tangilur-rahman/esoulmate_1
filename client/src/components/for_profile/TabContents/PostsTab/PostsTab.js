@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../../ContextApi";
 import CreatePost from "../../../for_feed/FeedBody/FeedMiddle/components/CreatePost/CreatePost";
 import Posts from "../../../for_feed/FeedBody/FeedMiddle/components/Posts/Posts";
 import Intro from "./Intro/Intro";
@@ -13,6 +14,9 @@ import "./PostsTab.css";
 const PostsTab = ({ profile_id }) => {
 	// for redirect
 	const Navigate = useNavigate();
+
+	// for updating posts when submitted
+	const { updatePost } = GetContextApi();
 
 	// for getting all profile's posts
 	const [getPostDocs, setPostDocs] = useState("");
@@ -52,7 +56,7 @@ const PostsTab = ({ profile_id }) => {
 	useEffect(() => {
 		fetchingAllPosts();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [updatePost]);
 	// for fetching specific profile's all posts end
 
 	return (

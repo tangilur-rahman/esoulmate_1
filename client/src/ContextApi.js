@@ -7,9 +7,14 @@ const ContextHandler = ({ children }) => {
 	// for getting current-user
 	const [currentUser, setCurrentUser] = useState("");
 
+	// for updating post when submitted
+	const [updatePost, setUpdatePost] = useState("");
+
 	return (
 		<>
-			<rootContext.Provider value={{ currentUser, setCurrentUser }}>
+			<rootContext.Provider
+				value={{ currentUser, setCurrentUser, updatePost, setUpdatePost }}
+			>
 				{children}
 			</rootContext.Provider>
 		</>

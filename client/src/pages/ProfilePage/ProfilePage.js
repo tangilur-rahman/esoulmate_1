@@ -25,8 +25,8 @@ const ProfilePage = () => {
 	// for redirect "/log-in"
 	const Navigate = useNavigate();
 
-	// for setting current-user
-	const { currentUser, setCurrentUser } = GetContextApi();
+	// for setting current-user & update profile
+	const { currentUser, setCurrentUser, updatePost } = GetContextApi();
 
 	// for getting profile-id
 	const paramObj = useParams();
@@ -77,7 +77,7 @@ const ProfilePage = () => {
 	useEffect(() => {
 		getProfileDoc();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [profile_id]);
+	}, [profile_id, updatePost]);
 	// for fetching selected profile-docs end
 
 	// if currentUser is undefined then re-fetching start

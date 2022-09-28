@@ -5,8 +5,6 @@ import TimeAgo from "timeago-react";
 import "./Header.css";
 
 const Header = ({ profile, name, header, time, privacy }) => {
-	console.log(profile, name, time, privacy);
-
 	return (
 		<>
 			{/* header-section start  */}

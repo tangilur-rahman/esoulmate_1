@@ -1,8 +1,8 @@
 // external components
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
+import { GetContextApi } from "../../../../../ContextApi";
 
 // internal components
 import "./CreatePost.css";
@@ -16,8 +16,8 @@ const CreatePost = ({
 	getProfileImg,
 	setProfileImg
 }) => {
-	// for redirect profile-page
-	const Navigate = useNavigate();
+	// for updating posts when submitted
+	const { setUpdatePost } = GetContextApi();
 
 	// for getting privacy selection
 	const [privacy, setPrivacy] = useState("public");
@@ -71,9 +71,7 @@ const CreatePost = ({
 					setCoverImg("");
 					setProfileImg("");
 
-					setTimeout(() => {
-						return Navigate(`/profile/${currentUser._id}`);
-					}, 2500);
+					setUpdatePost(Date.now());
 				} else if (result.error) {
 					toast(result.error, {
 						position: "top-right",
