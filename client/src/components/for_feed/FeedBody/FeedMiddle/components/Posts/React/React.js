@@ -1,12 +1,18 @@
+// external components
 import { useState } from "react";
 import "./React.css";
 
-//own components
-import Liked from "./Liked/Liked";
+// internal components
 import CommentBox from "./CommentBox/CommentBox";
+import Liked from "./Liked/Liked";
+import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
 const React = () => {
-	const [love, setLove] = useState(false);
+	// for reaction-section toggle
+	const [reactT, setReactT] = useState("");
+
+	// for getting react
+	const [getReact, setReact] = useState("");
 	const [bookmark, setBookmark] = useState(false);
 
 	return (
@@ -16,12 +22,35 @@ const React = () => {
 				{/* react-icons start  */}
 				<div className="react-icons">
 					<div className="left">
-						<span onClick={() => setLove(!love)}>
-							{love ? (
-								<i className="bi bi-heart-fill active" id="fill-love"></i>
+						<span onMouseEnter={() => setReactT(true)}>
+							{getReact ? (
+								(getReact === "like" && (
+									<i className="fa-solid fa-thumbs-up" id="like"></i>
+								)) ||
+								(getReact === "love" && (
+									<i className="bi bi-heart-fill" id="love"></i>
+								)) ||
+								(getReact === "wow" && (
+									<i className="fa-regular fa-face-surprise" id="wow"></i>
+								)) ||
+								(getReact === "haha" && (
+									<i className="fa-regular fa-face-grin-tears" id="haha"></i>
+								)) ||
+								(getReact === "clap" && (
+									<i className="fa-solid fa-hands-clapping" id="clap"></i>
+								)) ||
+								(getReact === "appreciate" && <i id="appreciate">🎉</i>) ||
+								(getReact === "dislike" && (
+									<i className="fa-solid fa-thumbs-down" id="dislike"></i>
+								))
 							) : (
-								<i className="bi bi-suit-heart inactive" id="empty-love"></i>
+								<i className="bi bi-suit-heart" id="empty-love"></i>
 							)}
+							<ReactionEmoji
+								reactT={reactT}
+								setReactT={setReactT}
+								setReact={setReact}
+							/>
 						</span>
 
 						<label htmlFor="for-comment">

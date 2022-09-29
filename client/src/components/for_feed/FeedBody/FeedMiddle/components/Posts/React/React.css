@@ -12,6 +12,7 @@
 /* react-icons left start  */
 .react-container .react-icons .left {
 	display: flex;
+	position: relative;
 }
 
 .react-container .react-icons i {
@@ -34,22 +35,51 @@
 	margin: 0 0 0 20px;
 }
 
-/* love effect start  */
-.react-container .react-icons .left #fill-love {
-	color: #d62828;
+/* react style start  */
+.react-icons .left span #like {
+	color: #3a86ff;
+	animation: like_react 0.5s ease-in-out forwards;
 }
 
-.react-container .react-icons .left span i:hover {
-	color: red;
-	transform: scale(0.9);
+.react-icons .left span #love {
+	color: #d90429;
+	animation: love_react 0.5s ease-in-out forwards;
 }
 
-.react-container .react-icons .left #fill-love.active {
-	animation: love_react 0.5s;
+.react-icons .left span #wow {
+	color: #ffb703;
+	animation: wow_react 0.5s ease-in-out forwards;
 }
 
-.react-container .react-icons .left #empty-love.inactive {
-	animation: unlike_react 0.5s;
+.react-icons .left span #haha {
+	color: #ffb703;
+	animation: haha_react 0.5s ease-in-out forwards;
+}
+
+.react-icons .left span #clap {
+	color: #02a1f7;
+	animation: clap_react 0.5s ease-in-out forwards;
+}
+
+.react-icons .left span #appreciate {
+	animation: appreciate_react 0.5s ease-in-out forwards;
+}
+
+.react-icons .left span #dislike {
+	color: #d90429;
+	animation: dislike_react 0.5s ease-in-out forwards;
+}
+
+@keyframes like_react {
+	0% {
+		transform: scale(0.5);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 
 @keyframes love_react {
@@ -64,7 +94,7 @@
 	}
 }
 
-@keyframes unlike_react {
+@keyframes wow_react {
 	0% {
 		transform: scale(0.5);
 	}
@@ -76,7 +106,54 @@
 	}
 }
 
-/* love effect end  */
+@keyframes haha_react {
+	0% {
+		transform: scale(0.5);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes clap_react {
+	0% {
+		transform: scale(0.5);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes appreciate_react {
+	0% {
+		transform: scale(0.5);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes dislike_react {
+	0% {
+		transform: scale(0.5);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+/* react style end  */
 
 .react-container .react-icons .left label i:hover {
 	color: #006d77;
