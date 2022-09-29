@@ -47,7 +47,11 @@ const Posts = ({ getPostDocs }) => {
 								</div>
 								{/* attachment section end  */}
 
-								<React />
+								<React
+									user_id={getPostDocs.user_id}
+									post_id={value._id}
+									reaction={value.reaction}
+								/>
 								{/* post section end  */}
 							</div>
 						);

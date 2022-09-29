@@ -104,4 +104,27 @@ const profilePosts = async (req, res) => {
 	}
 };
 
-module.exports = { changeProfile, profilePosts };
+// for updating reaction
+const updateReact = async (req, res) => {
+	try {
+		const { user_id, post_id, react } = req.body;
+
+		await postModel.updateOne(
+			{ user_id, "posts._id": post_id },
+			{
+				$push: {
+					"posts.$.reaction": {
+						react,
+						user_id
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "updated" });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+module.exports = { changeProfile, profilePosts, updateReact };

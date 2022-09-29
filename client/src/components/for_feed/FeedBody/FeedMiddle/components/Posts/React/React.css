@@ -36,28 +36,30 @@
 }
 
 /* react style start  */
+.react-icons .left span i img {
+	width: 70%;
+	height: 70%;
+	object-fit: cover;
+	object-position: center;
+}
+
 .react-icons .left span #like {
-	color: #3a86ff;
 	animation: like_react 0.5s ease-in-out forwards;
 }
 
 .react-icons .left span #love {
-	color: #d90429;
 	animation: love_react 0.5s ease-in-out forwards;
 }
 
 .react-icons .left span #wow {
-	color: #ffb703;
 	animation: wow_react 0.5s ease-in-out forwards;
 }
 
 .react-icons .left span #haha {
-	color: #ffb703;
 	animation: haha_react 0.5s ease-in-out forwards;
 }
 
 .react-icons .left span #clap {
-	color: #02a1f7;
 	animation: clap_react 0.5s ease-in-out forwards;
 }
 
@@ -66,7 +68,6 @@
 }
 
 .react-icons .left span #dislike {
-	color: #d90429;
 	animation: dislike_react 0.5s ease-in-out forwards;
 }
 

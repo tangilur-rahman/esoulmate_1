@@ -43,7 +43,17 @@ const schema = mongoose.Schema(
 				time: {
 					type: Date,
 					default: Date.now
-				}
+				},
+
+				reaction: [
+					{
+						react: String,
+						user_id: {
+							type: mongoose.Types.ObjectId,
+							ref: "user"
+						}
+					}
+				]
 			}
 		]
 	},
