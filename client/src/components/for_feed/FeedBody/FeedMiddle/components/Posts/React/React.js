@@ -9,7 +9,7 @@ import Liked from "./Liked/Liked";
 import "./React.css";
 import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
-const React = ({ user_id, post_id, reaction }) => {
+const React = ({ user_id, post_id, reaction, comments }) => {
 	// for getting current-user
 	const { currentUser, setUpdatePost } = GetContextApi();
 
@@ -156,11 +156,15 @@ const React = ({ user_id, post_id, reaction }) => {
 
 				{/* comments section start  */}
 				<div className="comment-container">
-					<div className="all-comments">
-						View <span>235</span> previous comments
-						<hr />
-					</div>
-					<CommentBox />
+					{comments.length > 1 && (
+						<div className="all-comments">
+							View <span>{comments.length - 1}</span> previous{" "}
+							{comments.length === 2 ? "comment" : "comments"}
+							<hr />
+						</div>
+					)}
+
+					<CommentBox comments={comments} user_id={user_id} post_id={post_id} />
 				</div>
 				{/* comments section end  */}
 

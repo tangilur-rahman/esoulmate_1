@@ -7,7 +7,8 @@ const { multerForImg } = require("./../Config/multerManager");
 const {
 	changeProfile,
 	profilePosts,
-	updateReact
+	updateReact,
+	updateComment
 } = require("./../controllers/postController");
 
 // for changing cover & profile-photo
@@ -20,5 +21,8 @@ post.get("/profile/:profile_id", authUser, profilePosts);
 
 // for updating reaction
 post.post("/react", updateReact);
+
+// for updating comment
+post.post("/comment", updateComment);
 
 module.exports = post;

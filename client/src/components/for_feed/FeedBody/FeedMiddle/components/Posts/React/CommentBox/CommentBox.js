@@ -1,20 +1,28 @@
+// external components
 import Picker from "emoji-picker-react";
 import { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
+
+// internal components
+import { GetContextApi } from "../../../../../../../../ContextApi";
 import "./CommentBox.css";
 
 // own components
-import DisplayReply from "./components/DisplayReply";
 import CommentInputReply from "./components/CommentInputReply/CommentInputReply";
+import DisplayReply from "./components/DisplayReply";
 
-const CommentBox = () => {
+const CommentBox = ({ comments, user_id, post_id }) => {
+	// for getting current-user
+	const { currentUser, setUpdatePost } = GetContextApi();
+
 	const [replyLove, setReplyLove] = useState(false);
 	// eslint-disable-next-line no-unused-vars
 	const [chosenEmoji, setChosenEmoji] = useState(null);
 	const [emojiToggle, setEmojiToggle] = useState(false);
 
 	// for get comment
-	const [comment, setComment] = useState("");
+	const [getComment, setComment] = useState("");
 
 	// for reply toggle
 	const [displayReply, setDisplayReply] = useState(false);
@@ -24,90 +32,130 @@ const CommentBox = () => {
 
 	const onEmojiClick = (event, emojiObject) => {
 		setChosenEmoji(emojiObject);
-		setComment(comment + emojiObject.emoji);
+		setComment(getComment + emojiObject.emoji);
 		setEmojiToggle(false);
 	};
 
-	const onChange = (event) => {
-		setComment(event.target.value);
+	// for submit comment handler start
+	const submitHandler = async () => {
+		if (getComment) {
+			try {
+				const response = await fetch(`/post/comment`, {
+					method: "POST",
+					body: JSON.stringify({ user_id, post_id, comment: getComment }),
+					headers: { "Content-Type": "application/json" }
+				});
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					setComment("");
+					setUpdatePost(Date.now());
+					return;
+				} else {
+					toast.error(result.error, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 2500
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2500
+				});
+			}
+		}
 	};
 
 	const onKeyDown = (event) => {
 		if (event.key === "Enter" && event.shiftKey) {
+			return;
 		} else if (event.key === "Enter") {
-			event.preventDefault();
-			setComment("");
+			submitHandler();
 		}
 	};
+	// for submit comment handler end
+
 	return (
 		<>
 			{/* recent-comment start  */}
-			<div className="recent-comment">
-				<img
-					src="/assets/images/profile/tangil.png"
-					alt="profile-img"
-					className="img-fluid profile-photo"
-				/>
+			{comments.length > 0 && (
+				<div className="recent-comment">
+					<img
+						src={`/uploads/profile-img/${
+							comments[comments.length - 1].user_id?.profile_img
+						}`}
+						alt="profile-img"
+						className="img-fluid"
+					/>
 
-				<div className="comment-box">
-					<div className="comment">
-						<h6>Tangilur Rahman</h6>
-						<p>What a beautiful moment!</p>
-						<div className="count-react">
-							<i className="bi bi-heart-fill">
-								<span>5</span>
-							</i>
+					<div className="comment-box">
+						<div className="comment">
+							<h6>{comments[comments.length - 1].user_id?.name}</h6>
+							<p>{comments[comments.length - 1].comment}</p>
+							<div className="count-react">
+								<i className="bi bi-heart-fill">
+									<span>5</span>
+								</i>
+							</div>
 						</div>
-					</div>
 
-					<div className="react">
-						<span onClick={() => setReplyLove(!replyLove)}>
-							{replyLove ? (
-								<i className="bi bi-heart-fill active" id="reply-like"></i>
+						<div className="react">
+							<span onClick={() => setReplyLove(!replyLove)}>
+								{replyLove ? (
+									<i className="bi bi-heart-fill active" id="reply-like"></i>
+								) : (
+									<i
+										className="bi bi-suit-heart inactive"
+										id="reply-dislike"
+									></i>
+								)}
+							</span>
+
+							<p id="for-reply" onClick={() => setReplyInput(!replyInput)}>
+								Reply
+							</p>
+
+							<p>7h</p>
+						</div>
+						{replyInput ? <CommentInputReply /> : ""}
+
+						{/* displayReply start  */}
+						<div
+							className={
+								displayReply
+									? "comment-toggle-container active"
+									: "comment-toggle-container"
+							}
+						>
+							{displayReply ? (
+								<h6 onClick={() => setDisplayReply(!displayReply)}>
+									Hide <span>3</span> replies
+								</h6>
 							) : (
-								<i className="bi bi-suit-heart inactive" id="reply-dislike"></i>
+								<h6 onClick={() => setDisplayReply(!displayReply)}>
+									View <span>3</span> replies from <b>Tangilur</b> &{" "}
+									<b>Others</b>
+								</h6>
 							)}
-						</span>
 
-						<p id="for-reply" onClick={() => setReplyInput(!replyInput)}>
-							Reply
-						</p>
-
-						<p>7h</p>
+							{displayReply ? <DisplayReply /> : ""}
+						</div>
+						{/* displayReply end  */}
 					</div>
-					{replyInput ? <CommentInputReply /> : ""}
-
-					{/* displayReply start  */}
-					<div
-						className={
-							displayReply
-								? "comment-toggle-container active"
-								: "comment-toggle-container"
-						}
-					>
-						{displayReply ? (
-							<h6 onClick={() => setDisplayReply(!displayReply)}>
-								Hide <span>3</span> replies
-							</h6>
-						) : (
-							<h6 onClick={() => setDisplayReply(!displayReply)}>
-								View <span>3</span> replies from <b>Tangilur</b> & <b>Others</b>
-							</h6>
-						)}
-
-						{displayReply ? <DisplayReply /> : ""}
-					</div>
-					{/* displayReply end  */}
 				</div>
-			</div>
+			)}
+
 			{/* recent-comment end  */}
 
 			{/* comment-input start  */}
 			<div className="comment-input">
 				<img
-					src="/assets/images/profile/tangil.png"
+					src={`/uploads/profile-img/${currentUser.profile_img}`}
 					alt="profile-img"
-					className="profile-photo img-fluid"
+					className="img-fluid user-img"
 				/>
 				<div className="input-box">
 					<TextareaAutosize
@@ -116,8 +164,8 @@ const CommentBox = () => {
 						placeholder="Write a comment..."
 						rows="1"
 						onFocus={() => setEmojiToggle(false)}
-						onChange={onChange}
-						value={comment}
+						onChange={(e) => setComment(e.target.value)}
+						value={getComment}
 						autoComplete="off"
 						onKeyDown={onKeyDown}
 					></TextareaAutosize>

@@ -51,6 +51,7 @@ const Posts = ({ getPostDocs }) => {
 									user_id={getPostDocs.user_id}
 									post_id={value._id}
 									reaction={value.reaction}
+									comments={value.comments}
 								/>
 								{/* post section end  */}
 							</div>

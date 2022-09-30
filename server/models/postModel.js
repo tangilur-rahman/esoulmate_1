@@ -53,6 +53,50 @@ const schema = mongoose.Schema(
 							ref: "user"
 						}
 					}
+				],
+
+				comments: [
+					{
+						comment: {
+							type: String,
+							trim: true
+						},
+						user_id: {
+							type: mongoose.Types.ObjectId,
+							ref: "user"
+						},
+						reaction: [
+							{
+								react: String,
+								user_id: {
+									type: mongoose.Types.ObjectId,
+									ref: "user"
+								}
+							}
+						],
+
+						replays: [
+							{
+								comment: {
+									type: String,
+									trim: true
+								},
+								user_id: {
+									type: mongoose.Types.ObjectId,
+									ref: "user"
+								},
+								reaction: [
+									{
+										react: String,
+										user_id: {
+											type: mongoose.Types.ObjectId,
+											ref: "user"
+										}
+									}
+								]
+							}
+						]
+					}
 				]
 			}
 		]

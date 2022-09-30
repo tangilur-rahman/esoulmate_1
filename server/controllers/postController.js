@@ -95,7 +95,8 @@ const profilePosts = async (req, res) => {
 		const document = await postModel
 			.findOne({ user_id: req.params.profile_id })
 			.populate("user_id", "name profile_img")
-			.populate("posts.reaction.user_id", "name");
+			.populate("posts.reaction.user_id", "name")
+			.populate("posts.comments.user_id", "name profile_img");
 
 		if (document) {
 			res.status(200).json(document);
@@ -128,4 +129,27 @@ const updateReact = async (req, res) => {
 	}
 };
 
-module.exports = { changeProfile, profilePosts, updateReact };
+// for updating comment
+const updateComment = async (req, res) => {
+	try {
+		const { user_id, post_id, comment } = req.body;
+
+		await postModel.updateOne(
+			{ user_id, "posts._id": post_id },
+			{
+				$push: {
+					"posts.$.comments": {
+						comment,
+						user_id
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "updated" });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+module.exports = { changeProfile, profilePosts, updateReact, updateComment };
