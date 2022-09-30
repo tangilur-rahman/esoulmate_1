@@ -15,7 +15,7 @@ const React = ({ user_id, post_id, reaction }) => {
 
 	// for remove duplicate values from reaction array
 	const uniqueArray = [
-		...new Map(reaction.map((v) => [v.user_id, v])).values()
+		...new Map(reaction.map((v) => [v.user_id._id, v])).values()
 	];
 
 	// check existence reaction included current-user or not
@@ -153,7 +153,7 @@ const React = ({ user_id, post_id, reaction }) => {
 				</div>
 				{/* react-icons end  */}
 
-				<Liked />
+				{uniqueArray?.length > 0 && <Liked uniqueArray={uniqueArray} />}
 
 				{/* comments section start  */}
 				<div className="comment-container">

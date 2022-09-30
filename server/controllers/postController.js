@@ -94,7 +94,8 @@ const profilePosts = async (req, res) => {
 	try {
 		const document = await postModel
 			.findOne({ user_id: req.params.profile_id })
-			.populate("user_id", "name profile_img");
+			.populate("user_id", "name profile_img")
+			.populate("posts.reaction.user_id", "name profile_img");
 
 		if (document) {
 			res.status(200).json(document);

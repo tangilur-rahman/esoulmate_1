@@ -6,14 +6,17 @@
 /* liked by start  */
 .liked-container .liked-by {
 	display: flex;
+	align-items: center;
 }
+
 .liked-container .liked-by span {
 	width: 1.8rem;
 	height: 1.8rem;
 	display: block;
 	border-radius: 50%;
 	border: 2px solid white;
-	margin-left: -0.7rem;
+	margin-left: -0.5rem;
+	background-color: white;
 }
 
 .liked-container .liked-by span img {
@@ -29,6 +32,15 @@
 
 .liked-container .liked-by p {
 	margin: 0 0 0 0.5rem;
+	display: inline-block;
+}
+
+.liked-container .liked-by #second-para {
+	cursor: pointer;
+}
+
+.liked-container .liked-by p.hover-link::after {
+	background-color: black;
 }
 
 .liked-container .liked-by p b {
