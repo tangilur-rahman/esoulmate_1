@@ -11,7 +11,7 @@ import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
 const React = ({ user_id, post_id, reaction }) => {
 	// for getting current-user
-	const { currentUser } = GetContextApi();
+	const { currentUser, setUpdatePost } = GetContextApi();
 
 	// for remove duplicate values from reaction array
 	const uniqueArray = [
@@ -20,13 +20,11 @@ const React = ({ user_id, post_id, reaction }) => {
 
 	// check existence reaction included current-user or not
 	const existCurrentUser = uniqueArray.filter(
-		(value) => value.user_id === currentUser._id
+		(value) => value.user_id._id === currentUser._id
 	);
 
 	// for getting react
-	const [getReact, setReact] = useState(
-		existCurrentUser.length > 0 ? existCurrentUser[0]?.react : ""
-	);
+	const [getReact, setReact] = useState(existCurrentUser[0]?.react || "");
 
 	// for reaction-section toggle
 	const [reactT, setReactT] = useState("");
@@ -47,6 +45,7 @@ const React = ({ user_id, post_id, reaction }) => {
 				const result = await response.json();
 
 				if (response.status === 200) {
+					setUpdatePost(Date.now());
 					return;
 				} else {
 					toast.error(result.error, {
