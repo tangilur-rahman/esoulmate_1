@@ -10,13 +10,13 @@ import "./CommentBox.css";
 
 // own components
 import CommentInputReply from "./components/CommentInputReply/CommentInputReply";
+import CommentReact from "./components/CommentReact/CommentReact";
 import DisplayReply from "./components/DisplayReply";
 
 const CommentBox = ({ comments, user_id, post_id }) => {
 	// for getting current-user
 	const { currentUser, setUpdatePost } = GetContextApi();
 
-	const [replyLove, setReplyLove] = useState(false);
 	// eslint-disable-next-line no-unused-vars
 	const [chosenEmoji, setChosenEmoji] = useState(null);
 	const [emojiToggle, setEmojiToggle] = useState(false);
@@ -89,6 +89,7 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 						}`}
 						alt="profile-img"
 						className="img-fluid"
+						id="recent-img"
 					/>
 
 					<div className="comment-box">
@@ -103,15 +104,13 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 						</div>
 
 						<div className="react">
-							<span onClick={() => setReplyLove(!replyLove)}>
-								{replyLove ? (
-									<i className="bi bi-heart-fill active" id="reply-like"></i>
-								) : (
-									<i
-										className="bi bi-suit-heart inactive"
-										id="reply-dislike"
-									></i>
-								)}
+							<span>
+								<CommentReact
+									user_id={user_id}
+									post_id={post_id}
+									comments_id={comments[comments.length - 1]._id}
+									reaction={comments[comments.length - 1].reaction}
+								/>
 							</span>
 
 							<p id="for-reply" onClick={() => setReplyInput(!replyInput)}>

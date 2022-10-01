@@ -8,7 +8,8 @@ const {
 	changeProfile,
 	profilePosts,
 	updateReact,
-	updateComment
+	updateComment,
+	updateCommentReact
 } = require("./../controllers/postController");
 
 // for changing cover & profile-photo
@@ -24,5 +25,8 @@ post.post("/react", updateReact);
 
 // for updating comment
 post.post("/comment", updateComment);
+
+// for updating comment-reaction
+post.post("/comment/react", updateCommentReact);
 
 module.exports = post;

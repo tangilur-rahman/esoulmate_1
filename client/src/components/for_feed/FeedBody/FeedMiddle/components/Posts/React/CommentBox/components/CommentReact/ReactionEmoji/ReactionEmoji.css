@@ -1,0 +1,53 @@
+.com-react-emoji-container {
+	position: absolute;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	left: 0px;
+	background-color: white;
+	box-shadow: var(--box-shadow);
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.com-react-emoji-container#active {
+	animation: active ease-in-out 0.5s forwards;
+}
+
+.com-react-emoji-container#inactive {
+	display: none;
+}
+
+@keyframes active {
+	0% {
+		top: 0;
+		opacity: 0;
+	}
+
+	80% {
+		opacity: 0.8;
+		top: -82px;
+	}
+
+	100% {
+		display: none;
+		opacity: 1;
+		top: -75px;
+	}
+}
+
+.com-react-emoji-container .emoji {
+	display: flex;
+	flex-direction: column;
+}
+
+.com-react-emoji-container .emoji img {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center center;
+	box-shadow: var(--box-shadow);
+	margin-right: 10px;
+	cursor: pointer;
+}

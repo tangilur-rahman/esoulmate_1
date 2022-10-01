@@ -4,7 +4,7 @@
 	display: flex;
 }
 
-.comment-container .recent-comment img {
+.comment-container .recent-comment #recent-img {
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
@@ -61,8 +61,12 @@
 	margin: 4px 0 0 0px;
 }
 
-.recent-comment .comment-box .react * {
-	margin: 0 0 0 10px;
+.recent-comment .comment-box .react {
+	margin-left: 20px;
+}
+
+.recent-comment .comment-box .react p {
+	margin-left: 20px;
 }
 
 /* react section start  */

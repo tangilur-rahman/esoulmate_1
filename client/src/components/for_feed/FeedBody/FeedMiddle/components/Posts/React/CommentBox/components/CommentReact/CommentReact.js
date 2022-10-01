@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
-import { GetContextApi } from "./../../../../../../../ContextApi";
-import CommentBox from "./CommentBox/CommentBox";
-import Liked from "./Liked/Liked";
-import "./React.css";
+import { GetContextApi } from "../../../../../../../../../../ContextApi";
+import "./CommentReact.css";
 import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
-const React = ({ user_id, post_id, reaction, comments }) => {
+const CommentReact = ({ user_id, post_id, comments_id, reaction }) => {
 	// for getting current-user
 	const { currentUser, setUpdatePost } = GetContextApi();
 
@@ -29,16 +27,18 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 	// for reaction-section toggle
 	const [reactT, setReactT] = useState("");
 
-	// bookmark toggle
-	const [bookmark, setBookmark] = useState(false);
-
 	// for reaction submit on database start
 	const submitHandler = async () => {
 		if (getReact) {
 			try {
-				const response = await fetch(`/post/react`, {
+				const response = await fetch(`/post/comment/react`, {
 					method: "POST",
-					body: JSON.stringify({ user_id, post_id, react: getReact }),
+					body: JSON.stringify({
+						user_id,
+						post_id,
+						comments_id,
+						react: getReact
+					}),
 					headers: { "Content-Type": "application/json" }
 				});
 
@@ -73,9 +73,9 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 	return (
 		<>
 			{/* react-container start  */}
-			<div className="react-container">
+			<div className="comment-react-container">
 				{/* react-icons start  */}
-				<div className="react-icons">
+				<div className="com-react-icons">
 					<div className="left">
 						<span onMouseEnter={() => setReactT(true)}>
 							{getReact ? (
@@ -118,7 +118,9 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 									</i>
 								))
 							) : (
-								<i className="bi bi-suit-heart" id="empty-love"></i>
+								<i>
+									<img src="/assets/emojis/empty-love.png" alt="initial-icon" />
+								</i>
 							)}
 							<ReactionEmoji
 								reactT={reactT}
@@ -126,52 +128,12 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 								setReact={setReact}
 							/>
 						</span>
-
-						<label htmlFor="for-comment">
-							<i className="bi bi-chat-heart"></i>
-						</label>
-
-						<div className="share">
-							<i className="bi bi-share"></i>
-						</div>
-					</div>
-
-					<div className="right" onClick={() => setBookmark(!bookmark)}>
-						{bookmark ? (
-							<i
-								class="bi bi-bookmark-heart-fill active"
-								id="fill-bookmark"
-							></i>
-						) : (
-							<i
-								className="bi bi-bookmark-heart inactive"
-								id="empty-bookmark"
-							></i>
-						)}
 					</div>
 				</div>
 				{/* react-icons end  */}
-
-				{uniqueArray?.length > 0 && <Liked uniqueArray={uniqueArray} />}
-
-				{/* comments section start  */}
-				<div className="comment-container">
-					{comments.length > 1 && (
-						<div className="all-comments">
-							View <span>{comments.length - 1}</span> previous{" "}
-							{comments.length === 2 ? "comment" : "comments"}
-							<hr />
-						</div>
-					)}
-
-					<CommentBox comments={comments} user_id={user_id} post_id={post_id} />
-				</div>
-				{/* comments section end  */}
-
-				{/* react-container end  */}
 			</div>
 		</>
 	);
 };
 
-export default React;
+export default CommentReact;
