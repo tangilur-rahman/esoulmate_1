@@ -78,6 +78,48 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 	};
 	// for submit comment handler end
 
+	// for remove duplicate values from reaction array
+	const uniqueArray = [
+		...new Map(
+			comments[comments.length - 1].reaction?.map((v) => [v.user_id._id, v])
+		).values()
+	];
+
+	// for creating group by base on react start
+	const groupBy = (arr, property) => {
+		return arr.reduce((acc, cur) => {
+			acc[cur[property]] = [...(acc[cur[property]] || []), cur];
+			return acc;
+		}, {});
+	};
+
+	const getGroupBy = groupBy(uniqueArray, "react");
+	// for creating group by base on react end
+
+	// for sorting & getting first maximum start
+	const likeLen = getGroupBy.like ? getGroupBy.like.length : 0;
+	const loveLen = getGroupBy.love ? getGroupBy.love.length : 0;
+	const wowLen = getGroupBy.wow ? getGroupBy.wow.length : 0;
+	const hahaLen = getGroupBy.haha ? getGroupBy.haha.length : 0;
+	const clapLen = getGroupBy.clap ? getGroupBy.clap.length : 0;
+	const appreciateLen = getGroupBy.appreciate
+		? getGroupBy.appreciate.length
+		: 0;
+	const dislikeLen = getGroupBy.dislike ? getGroupBy.dislike.length : 0;
+
+	const getMaximum = [
+		{ react: "like", len: likeLen },
+		{ react: "love", len: loveLen },
+		{ react: "wow", len: wowLen },
+		{ react: "haha", len: hahaLen },
+		{ react: "clap", len: clapLen },
+		{ react: "appreciate", len: appreciateLen },
+		{ react: "dislike", len: dislikeLen }
+	]
+		.sort((a, b) => a.len - b.len)
+		.reverse();
+	// for sorting & getting first maximum end
+
 	return (
 		<>
 			{/* recent-comment start  */}
@@ -97,9 +139,17 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 							<h6>{comments[comments.length - 1].user_id?.name}</h6>
 							<p>{comments[comments.length - 1].comment}</p>
 							<div className="count-react">
-								<i className="bi bi-heart-fill">
-									<span>5</span>
-								</i>
+								{getMaximum[0]?.len > 0 && (
+									<span>
+										<img
+											src={`/assets/emojis/${getMaximum[0].react}.png`}
+											className="img-fluid"
+											alt="profile-img"
+										/>
+
+										<h6>{uniqueArray.length}</h6>
+									</span>
+								)}
 							</div>
 						</div>
 
@@ -109,7 +159,7 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 									user_id={user_id}
 									post_id={post_id}
 									comments_id={comments[comments.length - 1]._id}
-									reaction={comments[comments.length - 1].reaction}
+									uniqueArray={uniqueArray}
 								/>
 							</span>
 

@@ -7,14 +7,9 @@ import { GetContextApi } from "../../../../../../../../../../ContextApi";
 import "./CommentReact.css";
 import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
-const CommentReact = ({ user_id, post_id, comments_id, reaction }) => {
+const CommentReact = ({ user_id, post_id, comments_id, uniqueArray }) => {
 	// for getting current-user
 	const { currentUser, setUpdatePost } = GetContextApi();
-
-	// for remove duplicate values from reaction array
-	const uniqueArray = [
-		...new Map(reaction?.map((v) => [v.user_id._id, v])).values()
-	];
 
 	// check existence reaction included current-user or not
 	const existCurrentUser = uniqueArray.filter(

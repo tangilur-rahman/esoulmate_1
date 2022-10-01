@@ -34,15 +34,29 @@
 	border-radius: 30px;
 	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
 }
-.recent-comment .comment-box .comment .count-react i {
-	color: #e63946;
-	position: relative;
-}
+
 .recent-comment .comment-box .comment .count-react span {
-	color: #8d99ae;
-	font-size: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 32px;
+	height: fit-content;
+}
+
+.recent-comment .comment-box .comment .count-react span img {
+	border-radius: 50%;
+	width: 22px;
+	height: 22px;
+	object-fit: cover;
+	object-position: center;
+}
+
+.recent-comment .comment-box .comment .count-react span h6 {
+	color: #0a22fb;
+	font-size: 14px;
 	margin: 0px 0 0 5px;
 	font-weight: 600;
+	display: inline-block;
 }
 
 .recent-comment .comment-box .comment h6 {
@@ -70,51 +84,8 @@
 }
 
 /* react section start  */
-.recent-comment .comment-box .react span i {
-	transition: all 0.1s;
-	display: inline-block;
+.recent-comment .comment-box .react span {
 	cursor: pointer;
-}
-
-.recent-comment .comment-box .react i:hover {
-	color: #ef476f;
-	transform: scale(0.9);
-}
-
-.recent-comment .comment-box .react #reply-like {
-	color: #ef476f;
-}
-
-.recent-comment .comment-box .react #reply-like.active {
-	animation: reply_like 0.5s;
-}
-
-.recent-comment .comment-box .react #reply-dislike.inactive {
-	animation: reply_dislike 0.5s;
-}
-
-@keyframes reply_like {
-	0% {
-		transform: scale(0.5);
-	}
-	50% {
-		transform: scale(1.3);
-	}
-	100% {
-		transform: scale(1);
-	}
-}
-
-@keyframes reply_dislike {
-	0% {
-		transform: scale(0.5);
-	}
-	50% {
-		transform: scale(1.3);
-	}
-	100% {
-		transform: scale(1);
-	}
 }
 
 .recent-comment .comment-box .react #for-reply {
