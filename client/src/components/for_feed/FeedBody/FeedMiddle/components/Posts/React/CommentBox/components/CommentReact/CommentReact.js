@@ -7,14 +7,23 @@ import { GetContextApi } from "../../../../../../../../../../ContextApi";
 import "./CommentReact.css";
 import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
-const CommentReact = ({ user_id, post_id, comments_id, comments }) => {
+const CommentReact = ({
+	user_id,
+	post_id,
+	comments_id,
+	comments,
+	updating
+}) => {
 	// for getting current-user
-	const { currentUser, setUpdatePost } = GetContextApi();
+	const { currentUser } = GetContextApi();
 
 	// check existence reaction included current-user or not
-	const existCurrentUser = comments.filter(
-		(value) => value.user_id._id === currentUser._id
-	);
+	const existCurrentUser =
+		comments.length > 0
+			? comments[comments.length - 1].reaction.filter(
+					(value) => value.user_id === currentUser._id
+			  )
+			: [];
 
 	// for getting react
 	const [getReact, setReact] = useState(existCurrentUser[0]?.react || "");
@@ -26,7 +35,7 @@ const CommentReact = ({ user_id, post_id, comments_id, comments }) => {
 	const submitHandler = async () => {
 		if (getReact) {
 			try {
-				const response = await fetch(`/post/comment/react`, {
+				const response = await fetch("/post/comment/react", {
 					method: "POST",
 					body: JSON.stringify({
 						user_id,
@@ -40,8 +49,7 @@ const CommentReact = ({ user_id, post_id, comments_id, comments }) => {
 				const result = await response.json();
 
 				if (response.status === 200) {
-					setUpdatePost(Date.now());
-					return;
+					updating();
 				} else {
 					toast.error(result.error, {
 						position: "top-right",

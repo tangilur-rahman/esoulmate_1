@@ -55,7 +55,6 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 				if (response.status === 200) {
 					updating();
 					setComment("");
-					return;
 				} else {
 					toast.error(result.error, {
 						position: "top-right",
@@ -157,6 +156,7 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 									post_id={post_id}
 									comments_id={comments[comments.length - 1]._id}
 									comments={comments}
+									updating={updating}
 								/>
 							</span>
 
