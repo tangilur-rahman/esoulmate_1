@@ -44,7 +44,7 @@ const submitAttachments = async (req, res) => {
 		const { text, privacy, category } = req.body;
 		const fileName = req.file.filename;
 
-		// for select file_type start
+		// for getting file_type start
 		const ext = fileName.split(".").slice(-1)[0];
 
 		const selectType = () => {
@@ -70,37 +70,17 @@ const submitAttachments = async (req, res) => {
 		};
 
 		const file_type = await selectType();
-		// for select file_type end
+		// for getting file_type end
 
-		const checkExist = await postModel.findOne({
-			user_id: req.currentUser._id
+		const document = await postModel({
+			user_id: req.currentUser._id,
+			category,
+			privacy,
+			text,
+			attachment: fileName,
+			file_type
 		});
-
-		if (checkExist) {
-			checkExist.posts.push({
-				category,
-				privacy,
-				text,
-				attachment: fileName,
-				file_type
-			});
-
-			await checkExist.save();
-		} else {
-			const document = await postModel({
-				user_id: req.currentUser._id
-			});
-
-			document.posts.push({
-				category,
-				privacy,
-				text,
-				attachment: fileName
-			});
-			await document.save();
-		}
-
-		await req.currentUser.save();
+		await document.save();
 
 		res.status(200).json({ message: "Upload successfully." });
 	} catch (error) {
