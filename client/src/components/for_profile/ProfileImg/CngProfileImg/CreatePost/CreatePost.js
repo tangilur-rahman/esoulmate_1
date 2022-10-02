@@ -47,13 +47,15 @@ const CreatePost = ({
 
 			formData.append("text", postText);
 			formData.append("privacy", privacy);
+			formData.append(
+				"header",
+				getCoverImg
+					? "updated his cover photo."
+					: "updated his profile picture."
+			);
 
 			try {
-				const coverUrl = `/post/profile?folder=profile-img&type=cover`;
-
-				const profileUrl = `/post/profile?folder=profile-img&type=profile`;
-
-				const response = await fetch(getCoverImg ? coverUrl : profileUrl, {
+				const response = await fetch("/post/profile", {
 					method: "POST",
 					body: formData
 				});
@@ -70,6 +72,8 @@ const CreatePost = ({
 					setChangeImgT(false);
 					setCoverImg("");
 					setProfileImg("");
+					setPrivacy("public");
+					setPostText("");
 
 					setUpdatePost(Date.now());
 				} else if (result.error) {

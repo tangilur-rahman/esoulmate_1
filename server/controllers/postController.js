@@ -6,14 +6,43 @@ const postModel = require("./../models/postModel");
 // for changing cover or profile pic
 const changeProfile = async (req, res) => {
 	try {
-		const { text, privacy } = req.body;
+		const { text, privacy, header } = req.body;
 		const fileName = req.file.filename;
-		const type = req.query.type;
 
-		const header =
-			type === "cover"
-				? "updated his cover photo."
-				: "updated his profile picture.";
+		const document = await postModel({
+			user_id: req.currentUser._id,
+			header,
+			privacy,
+			text,
+			file_type: "image",
+			attachment: fileName
+		});
+
+		if (header === "updated his cover photo.") {
+			req.currentUser.cover_img = fileName;
+
+			await req.currentUser.save();
+			await document.save();
+
+			res.status(200).json({ message: "Cover photo updated successfully." });
+		} else {
+			req.currentUser.profile_img = fileName;
+
+			await req.currentUser.save();
+			await document.save();
+
+			res.status(200).json({ message: "Profile image updated successfully." });
+		}
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for submitting post with attachment or without
+const submitAttachments = async (req, res) => {
+	try {
+		const { text, privacy, category } = req.body;
+		const fileName = req.file.filename;
 
 		// for select file_type start
 		const ext = fileName.split(".").slice(-1)[0];
@@ -49,7 +78,7 @@ const changeProfile = async (req, res) => {
 
 		if (checkExist) {
 			checkExist.posts.push({
-				header,
+				category,
 				privacy,
 				text,
 				attachment: fileName,
@@ -63,7 +92,7 @@ const changeProfile = async (req, res) => {
 			});
 
 			document.posts.push({
-				header,
+				category,
 				privacy,
 				text,
 				attachment: fileName
@@ -71,19 +100,9 @@ const changeProfile = async (req, res) => {
 			await document.save();
 		}
 
-		if (type === "cover") {
-			req.currentUser.cover_img = fileName;
+		await req.currentUser.save();
 
-			await req.currentUser.save();
-
-			res.status(200).json({ message: "Cover photo updated successfully." });
-		} else if (type === "profile") {
-			req.currentUser.profile_img = fileName;
-
-			await req.currentUser.save();
-
-			res.status(200).json({ message: "Profile image updated successfully." });
-		}
+		res.status(200).json({ message: "Upload successfully." });
 	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
 	}
@@ -93,14 +112,13 @@ const changeProfile = async (req, res) => {
 const profilePosts = async (req, res) => {
 	try {
 		const document = await postModel
-			.findOne({ user_id: req.params.profile_id })
-			.populate("user_id", "name profile_img")
-			.populate("posts.reaction.user_id", "name")
-			.populate("posts.comments.user_id", "name profile_img")
-			.populate("posts.comments.reaction.user_id", "name profile_img");
+			.find({ user_id: req.params.profile_id })
+			.populate("user_id", "name profile_img");
+
+		console.log(document);
 
 		if (document) {
-			res.status(200).json(document);
+			// res.status(200).json(document);
 		}
 	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
@@ -179,81 +197,11 @@ const updateCommentReact = async (req, res) => {
 	}
 };
 
-// for submitting post with attachment or without
-const submitPost = async (req, res) => {
-	try {
-		const { text, privacy, category } = req.body;
-		const fileName = req.file.filename;
-
-		// for select file_type start
-		const ext = fileName.split(".").slice(-1)[0];
-
-		const selectType = () => {
-			if (ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "gif") {
-				return "image";
-			} else if (
-				ext === "mp4" ||
-				ext === "mov" ||
-				ext === "wmv" ||
-				ext === "avi" ||
-				ext === "mkv" ||
-				ext === "flv" ||
-				ext === "mvk"
-			) {
-				return "video";
-			} else if (ext === "mp3" || ext === "ogg" || ext === "WAV") {
-				return "audio";
-			} else if (ext === "pdf") {
-				return "document";
-			} else {
-				throw new Error("Invalid File Extension");
-			}
-		};
-
-		const file_type = await selectType();
-		// for select file_type end
-
-		const checkExist = await postModel.findOne({
-			user_id: req.currentUser._id
-		});
-
-		if (checkExist) {
-			checkExist.posts.push({
-				category,
-				privacy,
-				text,
-				attachment: fileName,
-				file_type
-			});
-
-			await checkExist.save();
-		} else {
-			const document = await postModel({
-				user_id: req.currentUser._id
-			});
-
-			document.posts.push({
-				category,
-				privacy,
-				text,
-				attachment: fileName
-			});
-			await document.save();
-		}
-
-		await req.currentUser.save();
-
-		res.status(200).json({ message: "Upload successfully." });
-	} catch (error) {
-		res.status(500).json({ error: "Maintenance mode, Try again later!" });
-	}
-};
-
 module.exports = {
 	changeProfile,
+	submitAttachments,
 	profilePosts,
 	updateReact,
 	updateComment,
-	updateCommentReact,
-	submitPost
+	updateCommentReact
 };

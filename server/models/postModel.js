@@ -8,48 +8,66 @@ const schema = mongoose.Schema(
 			ref: "user"
 		},
 
-		posts: [
-			{
-				header: {
-					type: String,
-					trim: true,
-					default: ""
-				},
+		header: {
+			type: String,
+			trim: true,
+			default: ""
+		},
 
-				privacy: {
+		privacy: {
+			type: String,
+			trim: true
+		},
+
+		text: {
+			type: String,
+			trim: true,
+			default: ""
+		},
+
+		category: {
+			type: String,
+			trim: true,
+			default: ""
+		},
+
+		attachment: {
+			type: String,
+			trim: true,
+			default: ""
+		},
+
+		file_type: {
+			type: String,
+			trim: true,
+			default: ""
+		},
+
+		time: {
+			type: Date,
+			default: Date.now
+		},
+
+		reaction: [
+			{
+				react: String,
+				user_id: {
+					type: mongoose.Types.ObjectId,
+					ref: "user"
+				}
+			}
+		],
+
+		comments: [
+			{
+				comment: {
 					type: String,
 					trim: true
 				},
-
-				text: {
-					type: String,
-					trim: true,
-					default: ""
+				user_id: {
+					type: mongoose.Types.ObjectId,
+					ref: "user"
 				},
-
-				category: {
-					type: String,
-					trim: true,
-					default: ""
-				},
-
-				attachment: {
-					type: String,
-					trim: true,
-					default: ""
-				},
-
-				file_type: {
-					type: String,
-					trim: true,
-					default: ""
-				},
-
-				time: {
-					type: Date,
-					default: Date.now
-				},
-
 				reaction: [
 					{
 						react: String,
@@ -60,7 +78,7 @@ const schema = mongoose.Schema(
 					}
 				],
 
-				comments: [
+				replays: [
 					{
 						comment: {
 							type: String,
@@ -77,28 +95,6 @@ const schema = mongoose.Schema(
 									type: mongoose.Types.ObjectId,
 									ref: "user"
 								}
-							}
-						],
-
-						replays: [
-							{
-								comment: {
-									type: String,
-									trim: true
-								},
-								user_id: {
-									type: mongoose.Types.ObjectId,
-									ref: "user"
-								},
-								reaction: [
-									{
-										react: String,
-										user_id: {
-											type: mongoose.Types.ObjectId,
-											ref: "user"
-										}
-									}
-								]
 							}
 						]
 					}

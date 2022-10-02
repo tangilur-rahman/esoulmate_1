@@ -9,7 +9,7 @@ const {
 } = require("./../Config/multerManager");
 const {
 	changeProfile,
-	submitPost,
+	submitAttachments,
 	profilePosts,
 	updateReact,
 	updateComment,
@@ -24,7 +24,7 @@ post.post("/profile", authUser, uploadImg.single("file"), changeProfile);
 // for submitting post with attachment or without
 const uploadAtt = multerForAttachment("file");
 
-post.post("/attachment", authUser, uploadAtt.single("file"), submitPost);
+post.post("/attachment", authUser, uploadAtt.single("file"), submitAttachments);
 
 // for returning specific profile's all posts
 post.get("/profile/:profile_id", authUser, profilePosts);
