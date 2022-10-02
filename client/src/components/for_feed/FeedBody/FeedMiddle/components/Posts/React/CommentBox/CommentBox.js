@@ -89,7 +89,10 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 		}, {});
 	};
 
-	const getGroupBy = groupBy(comments, "react");
+	const getGroupBy = groupBy(
+		comments.length > 0 ? comments[comments.length - 1].reaction : [],
+		"react"
+	);
 	// for creating group by base on react end
 
 	// for sorting & getting first maximum start
@@ -143,7 +146,7 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 											alt="profile-img"
 										/>
 
-										<h6>{comments.length}</h6>
+										<h6>{comments[comments.length - 1].reaction.length}</h6>
 									</span>
 								)}
 							</div>
