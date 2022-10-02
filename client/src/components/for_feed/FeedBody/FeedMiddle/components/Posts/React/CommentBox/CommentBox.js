@@ -15,7 +15,7 @@ import DisplayReply from "./components/DisplayReply";
 
 const CommentBox = ({ comments, user_id, post_id }) => {
 	// for getting current-user
-	const { currentUser, setUpdatePost } = GetContextApi();
+	const { currentUser } = GetContextApi();
 
 	// eslint-disable-next-line no-unused-vars
 	const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -40,9 +40,13 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 	const submitHandler = async () => {
 		if (getComment) {
 			try {
-				const response = await fetch(`/post/comment`, {
+				const response = await fetch("/post/comment", {
 					method: "POST",
-					body: JSON.stringify({ user_id, post_id, comment: getComment }),
+					body: JSON.stringify({
+						user_id: user_id._id,
+						post_id,
+						comment: getComment
+					}),
 					headers: { "Content-Type": "application/json" }
 				});
 
@@ -50,7 +54,6 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 
 				if (response.status === 200) {
 					setComment("");
-					setUpdatePost(Date.now());
 					return;
 				} else {
 					toast.error(result.error, {
@@ -78,19 +81,6 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 	};
 	// for submit comment handler end
 
-	// for remove duplicate values from reaction array
-	const uniqueArray =
-		comments?.length > 0
-			? [
-					...new Map(
-						comments[comments.length - 1].reaction?.map((v) => [
-							v.user_id._id,
-							v
-						])
-					).values()
-			  ]
-			: [];
-
 	// for creating group by base on react start
 	const groupBy = (arr, property) => {
 		return arr.reduce((acc, cur) => {
@@ -99,7 +89,7 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 		}, {});
 	};
 
-	const getGroupBy = groupBy(uniqueArray, "react");
+	const getGroupBy = groupBy(comments, "react");
 	// for creating group by base on react end
 
 	// for sorting & getting first maximum start
@@ -153,7 +143,7 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 											alt="profile-img"
 										/>
 
-										<h6>{uniqueArray.length}</h6>
+										<h6>{comments.length}</h6>
 									</span>
 								)}
 							</div>
@@ -165,7 +155,7 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 									user_id={user_id}
 									post_id={post_id}
 									comments_id={comments[comments.length - 1]._id}
-									uniqueArray={uniqueArray}
+									comments={comments}
 								/>
 							</span>
 

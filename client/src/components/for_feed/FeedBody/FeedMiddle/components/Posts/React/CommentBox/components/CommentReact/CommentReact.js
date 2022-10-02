@@ -7,12 +7,12 @@ import { GetContextApi } from "../../../../../../../../../../ContextApi";
 import "./CommentReact.css";
 import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
-const CommentReact = ({ user_id, post_id, comments_id, uniqueArray }) => {
+const CommentReact = ({ user_id, post_id, comments_id, comments }) => {
 	// for getting current-user
 	const { currentUser, setUpdatePost } = GetContextApi();
 
 	// check existence reaction included current-user or not
-	const existCurrentUser = uniqueArray.filter(
+	const existCurrentUser = comments.filter(
 		(value) => value.user_id._id === currentUser._id
 	);
 
