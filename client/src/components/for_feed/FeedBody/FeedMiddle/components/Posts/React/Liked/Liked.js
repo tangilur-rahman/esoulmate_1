@@ -3,7 +3,7 @@
 // internal component
 import "./Liked.css";
 
-const Liked = ({ uniqueArray }) => {
+const Liked = ({ reaction }) => {
 	// for creating group by base on react start
 	const groupBy = (arr, property) => {
 		return arr.reduce((acc, cur) => {
@@ -12,7 +12,7 @@ const Liked = ({ uniqueArray }) => {
 		}, {});
 	};
 
-	const getGroupBy = groupBy(uniqueArray, "react");
+	const getGroupBy = groupBy(reaction, "react");
 	// for creating group by base on react end
 
 	// for sorting & getting first maximum-3 start
@@ -77,11 +77,11 @@ const Liked = ({ uniqueArray }) => {
 					<p>
 						Reacted by
 						<p className="hover-link" id="second-para">
-							<b>{uniqueArray[uniqueArray.length - 1].user_id.name}</b>
-							{uniqueArray.length > 1 && (
+							<b>{reaction[reaction.length - 1].user_id.name}</b>
+							{reaction.length > 1 && (
 								<p>
 									and &nbsp;
-									<b>{uniqueArray.length - 1} others</b>
+									<b>{reaction.length - 1} others</b>
 								</p>
 							)}
 						</p>

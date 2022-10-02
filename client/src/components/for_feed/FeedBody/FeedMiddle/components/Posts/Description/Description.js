@@ -1,5 +1,8 @@
-import "./Description.css";
+// external components
 import ReadMoreReact from "read-more-react";
+
+// internal components
+import "./Description.css";
 
 const Description = ({ description }) => {
 	return (

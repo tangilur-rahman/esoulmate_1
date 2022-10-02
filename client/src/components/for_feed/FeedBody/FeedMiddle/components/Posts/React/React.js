@@ -11,15 +11,10 @@ import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
 const React = ({ user_id, post_id, reaction, comments }) => {
 	// for getting current-user
-	const { currentUser, setUpdatePost } = GetContextApi();
-
-	// for remove duplicate values from reaction array
-	const uniqueArray = [
-		...new Map(reaction?.map((v) => [v.user_id._id, v])).values()
-	];
+	const { currentUser } = GetContextApi();
 
 	// check existence reaction included current-user or not
-	const existCurrentUser = uniqueArray.filter(
+	const existCurrentUser = reaction.filter(
 		(value) => value.user_id._id === currentUser._id
 	);
 
@@ -36,7 +31,7 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 	const submitHandler = async () => {
 		if (getReact) {
 			try {
-				const response = await fetch(`/post/react`, {
+				const response = await fetch("/post/react", {
 					method: "POST",
 					body: JSON.stringify({ user_id, post_id, react: getReact }),
 					headers: { "Content-Type": "application/json" }
@@ -45,7 +40,6 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 				const result = await response.json();
 
 				if (response.status === 200) {
-					setUpdatePost(Date.now());
 					return;
 				} else {
 					toast.error(result.error, {
@@ -154,7 +148,7 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 				</div>
 				{/* react-icons end  */}
 
-				{uniqueArray?.length > 0 && <Liked uniqueArray={uniqueArray} />}
+				{reaction?.length > 0 && <Liked reaction={reaction} />}
 
 				{/* comments section start  */}
 				<div className="comment-container">

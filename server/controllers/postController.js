@@ -113,7 +113,8 @@ const profilePosts = async (req, res) => {
 	try {
 		const document = await postModel
 			.find({ user_id: req.params.profile_id })
-			.populate("user_id", "name profile_img");
+			.populate("user_id", "name profile_img")
+			.populate("reaction.user_id", "name");
 
 		if (document) {
 			res.status(200).json(document);
@@ -128,17 +129,33 @@ const updateReact = async (req, res) => {
 	try {
 		const { user_id, post_id, react } = req.body;
 
-		await postModel.updateOne(
-			{ user_id, "posts._id": post_id },
-			{
-				$push: {
-					"posts.$.reaction": {
-						react,
-						user_id
-					}
-				}
-			}
-		);
+		const document = await postModel.findOne({
+			user_id,
+			_id: post_id,
+			reaction: { $elemMatch: { user_id } }
+		});
+
+		if (document) {
+			await postModel.updateOne(
+				{
+					user_id,
+					_id: post_id,
+					reaction: { $elemMatch: { user_id } }
+				},
+				{ $set: { "reaction.$.react": react, "reaction.$.user_id": user_id } }
+			);
+		} else {
+			const getPost = await postModel.findOne({
+				user_id,
+				_id: post_id
+			});
+
+			getPost.reaction.push({
+				react,
+				user_id
+			});
+			await getPost.save();
+		}
 
 		res.status(200).json({ message: "updated" });
 	} catch (error) {
