@@ -130,6 +130,35 @@
 }
 /* input section end  */
 
+/* for preview style start  */
+.create-post-container .preview-container {
+	padding: 0 10px;
+	margin-bottom: 10px;
+}
+
+.create-post-container .preview-container #when-img {
+	border-radius: 10px;
+	width: 100%;
+	height: 373px;
+	object-fit: cover;
+	object-position: center;
+}
+
+.create-post-container .preview-container #when-other {
+	border-radius: 10px;
+	width: 150px;
+	height: 150px;
+	object-fit: 100%;
+	object-position: center;
+}
+
+.create-post-container .preview-container p {
+	margin: 5px 0 0 20px;
+	width: fit-content;
+	text-align: center;
+}
+/* for preview style end */
+
 /* attachment-container start  */
 .create-post-container .attachment-container {
 	display: flex;

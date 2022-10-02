@@ -87,7 +87,7 @@ const multerForAttachment = (fileName) => {
 	let upload = multer({
 		storage: storage,
 		limits: {
-			fileSize: 5e7 // 50MB
+			fileSize: 52428800 // 50MB
 		},
 		fileFilter: (req, file, cb) => {
 			if (file.fieldname === fileName) {
@@ -96,19 +96,13 @@ const multerForAttachment = (fileName) => {
 					file.mimetype === "image/jpg" ||
 					file.mimetype === "image/jpeg" ||
 					file.mimetype === "image/gif" ||
-					file.mimetype === "text/plain" ||
-					file.mimetype === "text/html" ||
 					file.mimetype === "video/mp4" ||
+					file.mimetype === "video/3gpp" ||
+					file.mimetype === "video/x-msvideo" ||
+					file.mimetype === "video/x-ms-wmv" ||
 					file.mimetype === "audio/mpeg" ||
-					file.mimetype === "image/svg+xml" ||
-					file.mimetype ===
-						"application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-					file.mimetype === "application/pdf" ||
-					file.mimetype === "application/ppt" ||
-					file.mimetype === "application/octet-stream" ||
-					file.mimetype === "application/vnd.ms-powerpoint" ||
-					file.mimetype ===
-						"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+					file.mimetype === "application/ogg" ||
+					file.mimetype === "application/pdf"
 				) {
 					cb(null, true);
 				} else {

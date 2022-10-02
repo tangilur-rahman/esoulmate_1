@@ -8,6 +8,7 @@
 #own
 /public/uploads/profile-img/
 /public/uploads/attachments/
+/public/assets/dummy/
 
 # testing
 /coverage

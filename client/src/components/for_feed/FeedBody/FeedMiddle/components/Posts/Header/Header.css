@@ -63,6 +63,11 @@
 	align-items: center;
 }
 
+.header-section .right p {
+	margin: 0 30px 0 0;
+	font-weight: 500;
+}
+
 .header-section .right i {
 	font-weight: 900;
 	font-size: 24px;

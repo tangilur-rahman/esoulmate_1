@@ -1,6 +1,7 @@
 // external components
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
 
 // internal components
 import { GetContextApi } from "../../../../../../ContextApi";
@@ -44,6 +45,107 @@ const CreatePost = () => {
 		}
 	};
 	// category display handler end
+
+	// for getting file start
+	const [getFile, setFile] = useState("");
+	const [getPreview, setPreview] = useState("");
+
+	useEffect(() => {
+		if (getFile) {
+			// for getting file extension
+			const ext = getFile.name.split(".").pop();
+
+			if (ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "gif") {
+				const reader = new FileReader();
+				reader.onload = () => {
+					if (reader.readyState === 2) {
+						setPreview(reader.result);
+					}
+				};
+				reader.readAsDataURL(getFile);
+			} else if (
+				ext === "mp4" ||
+				ext === "mov" ||
+				ext === "wmv" ||
+				ext === "avi" ||
+				ext === "mkv" ||
+				ext === "flv" ||
+				ext === "mvk"
+			) {
+				setPreview("/assets/extra/mp4.png");
+			} else if (ext === "mp3" || ext === "ogg" || ext === "WAV") {
+				setPreview("/assets/extra/mp3.png");
+			} else if (ext === "pdf") {
+				setPreview("/assets/extra/pdf.png");
+			} else {
+				toast.error("Invalid file-type", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [getFile]);
+	// for getting file end
+
+	// for submitting attachments on server start
+	const submitHandler = async (e) => {
+		e.preventDefault();
+		if (postText || getFile) {
+			const formData = new FormData();
+			formData.append("file", getFile);
+
+			formData.append("text", postText);
+			formData.append("privacy", privacy);
+			formData.append("category", category);
+
+			try {
+				const response = await fetch("/post/attachment", {
+					method: "POST",
+					body: formData
+				});
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+
+					setPostText("");
+					setPreview("public");
+					setCategory("knowledge");
+					setFile("");
+				} else if (result.error) {
+					toast(result.error, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2500
+				});
+				setTimeout(() => {
+					setFile("");
+					setPreview("");
+				}, 3000);
+			}
+		} else {
+			toast("Nothing have to changed!", {
+				position: "top-right",
+				theme: "dark",
+				autoClose: 3000
+			});
+		}
+	};
+	// for submitting attachments on server end
 
 	return (
 		<>
@@ -101,6 +203,7 @@ const CreatePost = () => {
 							accept="image/*"
 							id="for-image"
 							style={{ display: "none" }}
+							onChange={(file) => setFile(file.target.files[0])}
 						/>
 						<input
 							type="file"
@@ -108,6 +211,7 @@ const CreatePost = () => {
 							accept="video/mp4,video/x-m4v,video/*"
 							id="for-video"
 							style={{ display: "none" }}
+							onChange={(file) => setFile(file.target.files[0])}
 						/>
 
 						<input
@@ -116,17 +220,42 @@ const CreatePost = () => {
 							name="for-audio"
 							id="for-audio"
 							style={{ display: "none" }}
+							onChange={(file) => setFile(file.target.files[0])}
 						/>
 
 						<input
 							type="file"
 							name="for-pdf"
 							id="for-pdf"
-							accept="application/pdf,application/vnd.ms-excel"
+							accept="application/pdf"
 							style={{ display: "none" }}
+							onChange={(file) => setFile(file.target.files[0])}
 						/>
 					</form>
 				</div>
+
+				{getFile && getPreview && (
+					<div className="preview-container">
+						<img
+							src={getPreview}
+							alt="preview"
+							className="img-fluid"
+							id={
+								getFile.name.split(".").slice(-1)[0] === "png" ||
+								getFile.name.split(".").slice(-1)[0] === "jpg" ||
+								getFile.name.split(".").slice(-1)[0] === "jpeg"
+									? "when-img"
+									: "when-other"
+							}
+						/>
+
+						{!(
+							getFile.name.split(".").slice(-1)[0] === "png" ||
+							getFile.name.split(".").slice(-1)[0] === "jpg" ||
+							getFile.name.split(".").slice(-1)[0] === "jpeg"
+						) && <p>{getFile.name}</p>}
+					</div>
+				)}
 
 				<div className="attachment-container">
 					<label
@@ -188,7 +317,10 @@ const CreatePost = () => {
 							<div onClick={() => setCategory("q&a")}>❓&nbsp;&nbsp;Q & A</div>
 						</div>
 					</div>
-					<div className={postText ? "share-btn active" : "share-btn"}>
+					<div
+						className={postText ? "share-btn active" : "share-btn"}
+						onClick={submitHandler}
+					>
 						<h4 className={postText ? "hover-link" : ""}>Share</h4>
 					</div>
 				</div>

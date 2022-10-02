@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // internal components
-import friend from "./../../../dummy-data/friends.json";
+import friend from "./../../../dummy-data/profile-images.json";
 import CngProfileImg from "./CngProfileImg/CngProfileImg";
 import "./ProfileImg.css";
 
@@ -93,7 +93,7 @@ const ProfileImg = ({ getProfile, currentUser }) => {
 									return (
 										<div key={index}>
 											<img
-												src={value.friend}
+												src={`/assets/dummy/${value.img}`}
 												alt="follower-img"
 												className={
 													index === 0 ? "img-fluid firstEle" : "img-fluid"

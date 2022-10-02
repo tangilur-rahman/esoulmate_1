@@ -12,7 +12,8 @@ const schema = mongoose.Schema(
 			{
 				header: {
 					type: String,
-					trim: true
+					trim: true,
+					default: ""
 				},
 
 				privacy: {
@@ -22,22 +23,26 @@ const schema = mongoose.Schema(
 
 				text: {
 					type: String,
-					trim: true
+					trim: true,
+					default: ""
 				},
 
 				category: {
 					type: String,
-					trim: true
+					trim: true,
+					default: ""
 				},
 
 				attachment: {
 					type: String,
-					trim: true
+					trim: true,
+					default: ""
 				},
 
 				file_type: {
 					type: String,
-					trim: true
+					trim: true,
+					default: ""
 				},
 
 				time: {

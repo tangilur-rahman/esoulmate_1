@@ -4,7 +4,7 @@ import TimeAgo from "timeago-react";
 // internal components
 import "./Header.css";
 
-const Header = ({ profile, name, header, time, privacy }) => {
+const Header = ({ profile, name, header, category, time, privacy }) => {
 	return (
 		<>
 			{/* header-section start  */}
@@ -40,6 +40,8 @@ const Header = ({ profile, name, header, time, privacy }) => {
 				</div>
 
 				<div className="right">
+					{category && <p>{category}</p>}
+
 					<i className="bi bi-three-dots"></i>
 				</div>
 			</div>

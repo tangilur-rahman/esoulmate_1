@@ -8,6 +8,7 @@
 	box-shadow: var(--box-shadow);
 	border-radius: 10px;
 	padding: 10px;
+	z-index: 10000;
 }
 
 .com-react-emoji-container#active {
@@ -39,6 +40,11 @@
 .com-react-emoji-container .emoji {
 	display: flex;
 	flex-direction: column;
+}
+
+.com-react-emoji-container .emoji:hover {
+	transform: scale(1.2);
+	transition: 0.3s;
 }
 
 .com-react-emoji-container .emoji img {

@@ -1,11 +1,13 @@
+// external components
 import { Viewer, Worker } from "@react-pdf-viewer/core";
-import "./Pdf.css";
-
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 // // Plugins
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+
+// internal components
+import "./Pdf.css";
 
 const Pdf = ({ pdf }) => {
 	//default plugin instance
@@ -48,9 +50,9 @@ const Pdf = ({ pdf }) => {
 	return (
 		<>
 			<div className="pdf-container">
-				<Worker workerUrl="https://unpkg.com/pdfjs-dist@2.14.305/build/pdf.worker.min.js">
+				<Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
 					<Viewer
-						fileUrl={pdf}
+						fileUrl={`/uploads/attachments/${pdf}`}
 						plugins={[defaultLayoutPluginInstance]}
 						renderPage={renderPage}
 					/>

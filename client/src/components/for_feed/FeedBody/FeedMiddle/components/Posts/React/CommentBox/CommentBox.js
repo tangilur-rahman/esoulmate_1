@@ -79,11 +79,17 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 	// for submit comment handler end
 
 	// for remove duplicate values from reaction array
-	const uniqueArray = [
-		...new Map(
-			comments[comments.length - 1].reaction?.map((v) => [v.user_id._id, v])
-		).values()
-	];
+	const uniqueArray =
+		comments?.length > 0
+			? [
+					...new Map(
+						comments[comments.length - 1].reaction?.map((v) => [
+							v.user_id._id,
+							v
+						])
+					).values()
+			  ]
+			: [];
 
 	// for creating group by base on react start
 	const groupBy = (arr, property) => {
@@ -136,7 +142,7 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 
 					<div className="comment-box">
 						<div className="comment">
-							<h6>{comments[comments.length - 1].user_id?.name}</h6>
+							<h6>{comments[comments.length - 1].user_id.name}</h6>
 							<p>{comments[comments.length - 1].comment}</p>
 							<div className="count-react">
 								{getMaximum[0]?.len > 0 && (

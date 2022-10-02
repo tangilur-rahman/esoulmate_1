@@ -1,4 +1,7 @@
+// external components
 import { useRef, useState } from "react";
+
+// internal components
 import "./Audio.css";
 
 const Audio = ({ audio }) => {
@@ -84,7 +87,7 @@ const Audio = ({ audio }) => {
 						{/* audio tag  */}
 						<audio
 							ref={audioPlayer}
-							src={audio}
+							src={`/uploads/attachments/${audio}`}
 							preload="metadata"
 							onLoadedMetadata={onLoadedMetadata}
 						></audio>
@@ -120,7 +123,7 @@ const Audio = ({ audio }) => {
 					<div
 						className={isPlaying ? "popup-container active" : "popup-container"}
 					>
-						<p>It's my life</p>
+						<p>{audio.split(".")[0]}</p>
 						<div className="duration-time">
 							{/* current time */}
 							<div className="currentTime">{calculateTime(currentTime)}</div>

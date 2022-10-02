@@ -11,3 +11,11 @@
 	width: 100%;
 	height: 373px;
 }
+
+.post-container .for-image#when-cover {
+	object-fit: cover;
+}
+
+.post-container .for-image#when-profile {
+	object-fit: contain;
+}
