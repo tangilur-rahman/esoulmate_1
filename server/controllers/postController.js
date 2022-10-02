@@ -115,10 +115,8 @@ const profilePosts = async (req, res) => {
 			.find({ user_id: req.params.profile_id })
 			.populate("user_id", "name profile_img");
 
-		console.log(document);
-
 		if (document) {
-			// res.status(200).json(document);
+			res.status(200).json(document);
 		}
 	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });

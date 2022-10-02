@@ -15,14 +15,14 @@ const Posts = ({ getPostDocs }) => {
 	return (
 		<>
 			{getPostDocs ? (
-				getPostDocs.posts
-					.map((value, index) => {
+				getPostDocs
+					?.map((value, index) => {
 						return (
 							<div className="post-container" key={index}>
 								{/* post section start  */}
 								<Header
-									profile={getPostDocs.user_id.profile_img}
-									name={getPostDocs.user_id.name}
+									profile={value.user_id.profile_img}
+									name={value.user_id.name}
 									header={value.header}
 									category={value.category}
 									time={value.time}
@@ -49,7 +49,7 @@ const Posts = ({ getPostDocs }) => {
 								{/* attachment section end  */}
 
 								<React
-									user_id={getPostDocs.user_id}
+									user_id={value.user_id}
 									post_id={value._id}
 									reaction={value.reaction}
 									comments={value.comments}
