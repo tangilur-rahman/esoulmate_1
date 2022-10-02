@@ -1,9 +1,13 @@
 // external components
 
 // internal component
+import { GetContextApi } from "../../../../../../../../ContextApi";
 import "./Liked.css";
 
 const Liked = ({ reaction }) => {
+	// for getting current-user
+	const { currentUser } = GetContextApi();
+
 	// for creating group by base on react start
 	const groupBy = (arr, property) => {
 		return arr.reduce((acc, cur) => {
@@ -77,7 +81,11 @@ const Liked = ({ reaction }) => {
 					<p>
 						Reacted by
 						<p className="hover-link" id="second-para">
-							<b>{reaction[reaction.length - 1].user_id.name}</b>
+							<b>
+								{reaction.length > 1
+									? reaction[reaction.length - 2].user_id.name
+									: currentUser.name}
+							</b>
 							{reaction.length > 1 && (
 								<p>
 									and &nbsp;

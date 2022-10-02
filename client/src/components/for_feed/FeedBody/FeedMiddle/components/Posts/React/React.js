@@ -13,8 +13,11 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 	// for getting current-user
 	const { currentUser } = GetContextApi();
 
+	// for getting & updating reaction
+	const [getReaction, setReaction] = useState(reaction);
+
 	// check existence reaction included current-user or not
-	const existCurrentUser = reaction.filter(
+	const existCurrentUser = getReaction.filter(
 		(value) => value.user_id._id === currentUser._id
 	);
 
@@ -40,7 +43,7 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 				const result = await response.json();
 
 				if (response.status === 200) {
-					return;
+					updating();
 				} else {
 					toast.error(result.error, {
 						position: "top-right",
@@ -63,6 +66,32 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getReact]);
 	// for reaction submit on database end
+
+	// for getting specific post when it updating start
+	const updating = async () => {
+		try {
+			const response = await fetch(`/post/updating/${user_id._id}/${post_id}`);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				setReaction(result);
+			} else {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2500
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 2500
+			});
+		}
+	};
+	// for getting specific post when it updating end
 
 	return (
 		<>
@@ -148,7 +177,7 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 				</div>
 				{/* react-icons end  */}
 
-				{reaction?.length > 0 && <Liked reaction={reaction} />}
+				{getReaction?.length > 0 && <Liked reaction={getReaction} />}
 
 				{/* comments section start  */}
 				<div className="comment-container">

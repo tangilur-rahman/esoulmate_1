@@ -212,11 +212,29 @@ const updateCommentReact = async (req, res) => {
 	}
 };
 
+// for getting specific post when it updating
+const getSpecificPost = async (req, res) => {
+	try {
+		const { user_id, post_id } = req.params;
+
+		const document = await postModel.findOne({ user_id, _id: post_id });
+
+		if (document) {
+			res.status(200).json(document.reaction);
+		} else {
+			res.status(500).json({ error: "Maintenance mode, Try again later!" });
+		}
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	changeProfile,
 	submitAttachments,
 	profilePosts,
 	updateReact,
 	updateComment,
-	updateCommentReact
+	updateCommentReact,
+	getSpecificPost
 };
