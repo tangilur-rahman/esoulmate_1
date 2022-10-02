@@ -222,6 +222,10 @@
 	font-size: 15px;
 }
 
+.comment-container .all-comments.hover-link::after {
+	background-color: #006d77;
+}
+
 .comment-container .all-comments:hover {
 	color: #219ebc;
 }

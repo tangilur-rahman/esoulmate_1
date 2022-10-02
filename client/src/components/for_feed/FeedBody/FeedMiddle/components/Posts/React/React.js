@@ -159,8 +159,8 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 				{/* comments section start  */}
 				<div className="comment-container">
 					{comments.length > 1 && (
-						<div className="all-comments">
-							View <span>{comments.length - 1}</span> previous{" "}
+						<div className="all-comments hover-link">
+							View <span>{comments.length - 1}</span> previous &nbsp;
 							{comments.length === 2 ? "comment" : "comments"}
 							<hr />
 						</div>
