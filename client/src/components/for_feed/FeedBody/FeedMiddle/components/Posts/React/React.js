@@ -16,6 +16,9 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 	// for getting & updating reaction
 	const [getReaction, setReaction] = useState(reaction);
 
+	// for getting & updating comments
+	const [updatedComment, setUpdatedComment] = useState(comments);
+
 	// check existence reaction included current-user or not
 	const existCurrentUser = getReaction.filter(
 		(value) => value.user_id._id === currentUser._id
@@ -75,7 +78,8 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 			const result = await response.json();
 
 			if (response.status === 200) {
-				setReaction(result);
+				setReaction(result.reaction);
+				setUpdatedComment(result.comments);
 			} else {
 				toast.error(result.error, {
 					position: "top-right",
@@ -181,15 +185,20 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 
 				{/* comments section start  */}
 				<div className="comment-container">
-					{comments.length > 1 && (
+					{updatedComment.length > 1 && (
 						<div className="all-comments hover-link">
-							View <span>{comments.length - 1}</span> previous &nbsp;
-							{comments.length === 2 ? "comment" : "comments"}
+							View <span>{updatedComment.length - 1}</span> previous &nbsp;
+							{updatedComment.length === 2 ? "comment" : "comments"}
 							<hr />
 						</div>
 					)}
 
-					<CommentBox comments={comments} user_id={user_id} post_id={post_id} />
+					<CommentBox
+						comments={updatedComment}
+						user_id={user_id}
+						post_id={post_id}
+						updating={updating}
+					/>
 				</div>
 				{/* comments section end  */}
 

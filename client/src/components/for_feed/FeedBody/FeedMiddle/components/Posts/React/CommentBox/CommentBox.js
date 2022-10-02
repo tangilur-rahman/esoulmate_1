@@ -13,7 +13,7 @@ import CommentInputReply from "./components/CommentInputReply/CommentInputReply"
 import CommentReact from "./components/CommentReact/CommentReact";
 import DisplayReply from "./components/DisplayReply";
 
-const CommentBox = ({ comments, user_id, post_id }) => {
+const CommentBox = ({ comments, user_id, post_id, updating }) => {
 	// for getting current-user
 	const { currentUser } = GetContextApi();
 
@@ -53,6 +53,7 @@ const CommentBox = ({ comments, user_id, post_id }) => {
 				const result = await response.json();
 
 				if (response.status === 200) {
+					updating();
 					setComment("");
 					return;
 				} else {

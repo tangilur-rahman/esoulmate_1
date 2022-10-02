@@ -198,10 +198,13 @@ const getSpecificPost = async (req, res) => {
 	try {
 		const { user_id, post_id } = req.params;
 
-		const document = await postModel.findOne({ user_id, _id: post_id });
+		const document = await postModel
+			.findOne({ user_id, _id: post_id })
+			.populate("reaction.user_id", "name")
+			.populate("comments.user_id", "name profile_img");
 
 		if (document) {
-			res.status(200).json(document.reaction);
+			res.status(200).json(document);
 		} else {
 			res.status(500).json({ error: "Maintenance mode, Try again later!" });
 		}
