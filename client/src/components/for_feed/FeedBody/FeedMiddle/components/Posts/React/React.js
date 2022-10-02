@@ -136,19 +136,21 @@ const React = ({ user_id, post_id, reaction, comments }) => {
 						</div>
 					</div>
 
-					<div className="right" onClick={() => setBookmark(!bookmark)}>
-						{bookmark ? (
-							<i
-								class="bi bi-bookmark-heart-fill active"
-								id="fill-bookmark"
-							></i>
-						) : (
-							<i
-								className="bi bi-bookmark-heart inactive"
-								id="empty-bookmark"
-							></i>
-						)}
-					</div>
+					{currentUser._id !== user_id._id && (
+						<div className="right" onClick={() => setBookmark(!bookmark)}>
+							{bookmark ? (
+								<i
+									className="bi bi-bookmark-heart-fill active"
+									id="fill-bookmark"
+								></i>
+							) : (
+								<i
+									className="bi bi-bookmark-heart inactive"
+									id="empty-bookmark"
+								></i>
+							)}
+						</div>
+					)}
 				</div>
 				{/* react-icons end  */}
 
