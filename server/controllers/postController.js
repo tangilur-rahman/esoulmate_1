@@ -194,6 +194,29 @@ const updateCommentReact = async (req, res) => {
 	}
 };
 
+// for updating comment-reply
+const updateCommentReply = async (req, res) => {
+	try {
+		const { user_id, post_id, comments_id, comment } = req.body;
+
+		await postModel.updateOne(
+			{ user_id, _id: post_id, comments: { $elemMatch: { _id: comments_id } } },
+			{
+				$push: {
+					"comments.$.replays": {
+						comment,
+						user_id
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "updated" });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 // for getting specific post when it updating
 const getSpecificPost = async (req, res) => {
 	try {
@@ -221,5 +244,6 @@ module.exports = {
 	updateReact,
 	updateComment,
 	updateCommentReact,
+	updateCommentReply,
 	getSpecificPost
 };

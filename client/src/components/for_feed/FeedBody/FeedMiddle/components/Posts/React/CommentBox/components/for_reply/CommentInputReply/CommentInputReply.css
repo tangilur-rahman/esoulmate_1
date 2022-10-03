@@ -1,3 +1,18 @@
 .comment-input-reply {
 	width: 150%;
 }
+
+.comment-input-reply .comment-input img {
+	min-width: 40px;
+	min-height: 40px;
+	max-width: 40px;
+	max-height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: top center;
+	outline: 2px solid #1a479e;
+}
+
+.comment-input-reply .comment-input i {
+	margin-right: 10px;
+}

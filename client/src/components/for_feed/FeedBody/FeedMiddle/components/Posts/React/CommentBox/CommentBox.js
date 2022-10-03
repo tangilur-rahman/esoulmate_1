@@ -29,7 +29,7 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 	const [displayReply, setDisplayReply] = useState(false);
 
 	// for reply-input toggle
-	const [replyInput, setReplyInput] = useState(false);
+	const [replyInputT, setReplyInputT] = useState(false);
 
 	const onEmojiClick = (event, emojiObject) => {
 		setChosenEmoji(emojiObject);
@@ -187,13 +187,21 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 								/>
 							</span>
 
-							<p id="for-reply" onClick={() => setReplyInput(!replyInput)}>
+							<p id="for-reply" onClick={() => setReplyInputT(!replyInputT)}>
 								Reply
 							</p>
 
 							<p>{<TimeAgo datetime={comments[comments.length - 1].time} />}</p>
 						</div>
-						{replyInput ? <CommentInputReply /> : ""}
+						{replyInputT && (
+							<CommentInputReply
+								currentUser={currentUser}
+								user_id={user_id}
+								post_id={post_id}
+								comments_id={comments[comments.length - 1]._id}
+								updating={updating}
+							/>
+						)}
 
 						{/* displayReply start  */}
 						<div

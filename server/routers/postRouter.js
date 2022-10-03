@@ -14,7 +14,8 @@ const {
 	updateReact,
 	updateComment,
 	updateCommentReact,
-	getSpecificPost
+	getSpecificPost,
+	updateCommentReply
 } = require("./../controllers/postController");
 
 // for changing cover & profile-photo
@@ -38,6 +39,9 @@ post.post("/comment", updateComment);
 
 // for updating comment-reaction
 post.post("/comment/react", updateCommentReact);
+
+// for updating comment's reply
+post.post("/comment/reply", updateCommentReply);
 
 // for getting specific post when it updating
 post.get("/updating/:user_id/:post_id", getSpecificPost);
