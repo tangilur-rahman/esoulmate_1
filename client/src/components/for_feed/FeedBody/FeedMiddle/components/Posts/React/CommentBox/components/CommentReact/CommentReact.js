@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
-import { GetContextApi } from "../../../../../../../../../../ContextApi";
 import "./CommentReact.css";
 import ReactionEmoji from "./ReactionEmoji/ReactionEmoji";
 
@@ -11,23 +10,10 @@ const CommentReact = ({
 	user_id,
 	post_id,
 	comments_id,
-	comments,
-	updating
+	updating,
+	getReact,
+	setReact
 }) => {
-	// for getting current-user
-	const { currentUser } = GetContextApi();
-
-	// check existence reaction included current-user or not
-	const existCurrentUser =
-		comments.length > 0
-			? comments[comments.length - 1].reaction.filter(
-					(value) => value.user_id === currentUser._id
-			  )
-			: [];
-
-	// for getting react
-	const [getReact, setReact] = useState(existCurrentUser[0]?.react || "");
-
 	// for reaction-section toggle
 	const [reactT, setReactT] = useState("");
 

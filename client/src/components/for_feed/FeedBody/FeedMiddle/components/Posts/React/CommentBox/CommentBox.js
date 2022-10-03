@@ -56,6 +56,7 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 				if (response.status === 200) {
 					updating();
 					setComment("");
+					setReact("");
 				} else {
 					toast.error(result.error, {
 						position: "top-right",
@@ -130,6 +131,17 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 		.reverse();
 	// for sorting & getting first maximum end
 
+	// check existence reaction included current-user or not
+	const existCurrentUser =
+		comments.length > 0
+			? comments[comments.length - 1].reaction.filter(
+					(value) => value.user_id === currentUser._id
+			  )
+			: [];
+
+	// for getting react
+	const [getReact, setReact] = useState(existCurrentUser[0]?.react || "");
+
 	return (
 		<>
 			{/* recent-comment start  */}
@@ -169,7 +181,8 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 									user_id={user_id}
 									post_id={post_id}
 									comments_id={comments[comments.length - 1]._id}
-									comments={comments}
+									getReact={getReact}
+									setReact={setReact}
 									updating={updating}
 								/>
 							</span>
