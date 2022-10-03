@@ -1,7 +1,14 @@
+// external components
 import { useState } from "react";
+
+// internal components
+import { GetContextApi } from "../../../../ContextApi";
 import "./FeedLeft.css";
 
 const FeedLeft = () => {
+	// for getting current-user
+	const { currentUser } = GetContextApi();
+
 	// for attach active class
 	const [feed, setFeed] = useState(true);
 	const [page, setPage] = useState(false);
@@ -88,13 +95,13 @@ const FeedLeft = () => {
 				{/* user-info section start  */}
 				<div className="user-info">
 					<img
-						src="/assets/images/profile/tangil.png"
+						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
 						className="img-fluid profile-photo"
 					/>
 					<div className="user-name">
-						<h5>Tangilur</h5>
-						<p>@tangilur</p>
+						<h5>{currentUser.name}</h5>
+						<p>@{currentUser.name}</p>
 					</div>
 				</div>
 				{/* user-info section end  */}

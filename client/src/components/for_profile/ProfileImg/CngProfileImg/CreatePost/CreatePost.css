@@ -18,7 +18,7 @@
 	width: 3rem;
 	height: 3rem;
 	object-fit: cover;
-	object-position: center center;
+	object-position: top center;
 	outline: 3px solid black;
 	border-radius: 50%;
 }

@@ -1,9 +1,13 @@
 import "./Stories.css";
 
 //own components
-import stories_data from "./../../../../../../dummy-data/stories.json";
+import { GetContextApi } from "../../../../../../ContextApi";
+import stories_data from "./../../../../../../dummy-data/profile-images.json";
 
 const Stories = () => {
+	// for getting current-user
+	const { currentUser } = GetContextApi();
+
 	return (
 		<>
 			{/* stories section start */}
@@ -20,7 +24,7 @@ const Stories = () => {
 					<label htmlFor="your-story">
 						<div className="story" id="your-story">
 							<img
-								src="/assets/images/profile/tangil.png"
+								src={`/uploads/profile-img/${currentUser.profile_img}`}
 								alt="profile-img"
 								className="img-fluid"
 							/>
@@ -34,7 +38,7 @@ const Stories = () => {
 					stories_data.map((value) => {
 						return (
 							<div className="story" key={value.id}>
-								<img src={value.profile_img} alt="profile-img" />
+								<img src={`/assets/dummy/${value.img}`} alt="profile-img" />
 							</div>
 						);
 					})}

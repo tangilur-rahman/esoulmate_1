@@ -3,6 +3,7 @@ import Picker from "emoji-picker-react";
 import { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
+import TimeAgo from "timeago-react";
 
 // internal components
 import { GetContextApi } from "../../../../../../../../ContextApi";
@@ -81,6 +82,19 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 	};
 	// for submit comment handler end
 
+	// for remove duplicate values from reaction array
+	const uniqueArray =
+		comments?.length > 0
+			? [
+					...new Map(
+						comments[comments.length - 1].reaction?.map((v) => [
+							v.user_id._id,
+							v
+						])
+					).values()
+			  ]
+			: [];
+
 	// for creating group by base on react start
 	const groupBy = (arr, property) => {
 		return arr.reduce((acc, cur) => {
@@ -89,10 +103,7 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 		}, {});
 	};
 
-	const getGroupBy = groupBy(
-		comments.length > 0 ? comments[comments.length - 1].reaction : [],
-		"react"
-	);
+	const getGroupBy = groupBy(uniqueArray, "react");
 	// for creating group by base on react end
 
 	// for sorting & getting first maximum start
@@ -146,7 +157,7 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 											alt="profile-img"
 										/>
 
-										<h6>{comments[comments.length - 1].reaction.length}</h6>
+										<h6>{uniqueArray.length}</h6>
 									</span>
 								)}
 							</div>
@@ -167,7 +178,7 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 								Reply
 							</p>
 
-							<p>7h</p>
+							<p>{<TimeAgo datetime={comments[comments.length - 1].time} />}</p>
 						</div>
 						{replyInput ? <CommentInputReply /> : ""}
 

@@ -172,51 +172,21 @@ const updateCommentReact = async (req, res) => {
 	try {
 		const { user_id, post_id, comments_id, react } = req.body;
 
-		const document = await postModel.findOne({
-			user_id: user_id._id,
-			_id: post_id,
-			comments: { $elemMatch: { _id: comments_id } },
-			"comments.reaction": { $elemMatch: { user_id: user_id._id } }
-		});
-
-		if (document) {
-			await postModel.updateOne(
-				{
-					user_id: user_id._id,
-					_id: post_id,
-					comments: { $elemMatch: { _id: comments_id } },
-					"comments.reaction": { $elemMatch: { user_id: user_id._id } }
-				},
-				{
-					$set: {
-						"comments.$[outer].reaction.$[inner].react": react,
-						"comments.$[outer].reaction.$[inner].user_id": user_id
-					}
-				},
-				{
-					arrayFilters: [
-						{ "outer._id": comments_id },
-						{ "inner.user_id": user_id._id }
-					]
-				}
-			);
-		} else {
-			await postModel.updateOne(
-				{
-					user_id: user_id._id,
-					_id: post_id,
-					comments: { $elemMatch: { _id: comments_id } }
-				},
-				{
-					$push: {
-						"comments.$.reaction": {
-							react,
-							user_id: user_id._id
-						}
+		await postModel.updateOne(
+			{
+				user_id: user_id._id,
+				_id: post_id,
+				comments: { $elemMatch: { _id: comments_id } }
+			},
+			{
+				$push: {
+					"comments.$.reaction": {
+						react,
+						user_id: user_id._id
 					}
 				}
-			);
-		}
+			}
+		);
 
 		res.status(200).json({ message: "updated" });
 	} catch (error) {

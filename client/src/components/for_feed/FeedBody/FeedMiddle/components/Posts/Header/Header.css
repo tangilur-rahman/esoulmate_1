@@ -15,7 +15,7 @@
 	height: 50px;
 	border-radius: 50%;
 	object-fit: cover;
-	object-position: center;
+	object-position: top center;
 	outline: 3px solid black;
 }
 
