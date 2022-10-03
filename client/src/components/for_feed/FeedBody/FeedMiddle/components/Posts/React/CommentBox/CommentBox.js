@@ -25,8 +25,8 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 	// for get comment
 	const [getComment, setComment] = useState("");
 
-	// for reply toggle
-	const [displayReply, setDisplayReply] = useState(false);
+	// for displaying reply toggle
+	const [displayReplyT, setDisplayReplyT] = useState(false);
 
 	// for reply-input toggle
 	const [replyInputT, setReplyInputT] = useState(false);
@@ -204,26 +204,58 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 						)}
 
 						{/* displayReply start  */}
-						<div
-							className={
-								displayReply
-									? "comment-toggle-container active"
-									: "comment-toggle-container"
-							}
-						>
-							{displayReply ? (
-								<h6 onClick={() => setDisplayReply(!displayReply)}>
-									Hide <span>3</span> replies
-								</h6>
-							) : (
-								<h6 onClick={() => setDisplayReply(!displayReply)}>
-									View <span>3</span> replies from <b>Tangilur</b> &{" "}
-									<b>Others</b>
-								</h6>
-							)}
+						{comments[comments.length - 1].replays?.length > 0 && (
+							<div
+								className={
+									displayReplyT
+										? "comment-toggle-container active"
+										: "comment-toggle-container"
+								}
+							>
+								{displayReplyT ? (
+									<h6 onClick={() => setDisplayReplyT(!displayReplyT)}>
+										Hide &nbsp;
+										<span>{comments[comments.length - 1].replays?.length}</span>
+										&nbsp;
+										{comments[comments.length - 1].replays?.length > 1
+											? "replies"
+											: "reply"}
+									</h6>
+								) : (
+									<h6 onClick={() => setDisplayReplyT(!displayReplyT)}>
+										View&nbsp;
+										<span>{comments[comments.length - 1].replays?.length}</span>
+										&nbsp;
+										{comments[comments.length - 1].replays?.length > 1
+											? "replies"
+											: "reply"}
+										&nbsp; from&nbsp;
+										{comments[comments.length - 1].replays?.length > 1 ? (
+											<b>
+												{/* {
+													comments[comments.length - 1]?.replays.slice(-2)[0]
+														?.user_id.name
+												} */}
+												later & others
+											</b>
+										) : (
+											<>
+												<b>
+													{/* {
+														comments[comments.length - 1]?.replays.slice(-2)[0]
+															?.user_id.name
+													} */}
+													later
+												</b>
+											</>
+										)}
+									</h6>
+								)}
 
-							{displayReply ? <DisplayReply /> : ""}
-						</div>
+								{displayReplyT && <DisplayReply />}
+							</div>
+						)}
+
 						{/* displayReply end  */}
 					</div>
 				</div>
