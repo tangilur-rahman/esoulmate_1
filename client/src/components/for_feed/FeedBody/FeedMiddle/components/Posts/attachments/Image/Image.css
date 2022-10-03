@@ -19,3 +19,7 @@
 .post-container .for-image#when-profile {
 	object-fit: contain;
 }
+
+.post-container .for-image#when-others {
+	object-fit: fill;
+}

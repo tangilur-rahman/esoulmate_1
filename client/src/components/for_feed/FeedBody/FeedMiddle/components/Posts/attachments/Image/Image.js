@@ -16,9 +16,11 @@ const Image = ({ image, header }) => {
 					alt="post-img"
 					className="img-fluid for-image"
 					id={
-						header && header === "updated his profile picture."
-							? "when-profile"
-							: "when-cover"
+						header
+							? header === "updated his profile picture."
+								? "when-profile"
+								: "when-cover"
+							: "when-others"
 					}
 				/>
 			</div>
