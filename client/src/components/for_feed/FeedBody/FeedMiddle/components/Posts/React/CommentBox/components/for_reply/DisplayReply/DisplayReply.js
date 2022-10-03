@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 //own components
-import CommentInputReply from "./CommentInputReply/CommentInputReply";
+import CommentInputReply from "./../CommentInputReply/CommentInputReply";
 
 const DisplayReply = () => {
 	// for love reaction

@@ -10,9 +10,9 @@ import { GetContextApi } from "../../../../../../../../ContextApi";
 import "./CommentBox.css";
 
 // own components
-import CommentInputReply from "./components/CommentInputReply/CommentInputReply";
 import CommentReact from "./components/CommentReact/CommentReact";
-import DisplayReply from "./components/DisplayReply";
+import CommentInputReply from "./components/for_reply/CommentInputReply/CommentInputReply";
+import DisplayReply from "./components/for_reply/DisplayReply/DisplayReply";
 
 const CommentBox = ({ comments, user_id, post_id, updating }) => {
 	// for getting current-user
