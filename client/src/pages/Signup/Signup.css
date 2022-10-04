@@ -135,12 +135,18 @@
 	clip-path: circle(97% at 90% 60%);
 }
 
+.sign-container .sign-img img {
+	width: 550px;
+	width: 550px;
+	border-radius: 15%;
+}
+
 .sign-container .sign-img button {
 	width: 221px;
 	height: 56px;
 	font-weight: 500;
 	font-size: 18px;
-	margin-top: 50px;
+	margin-top: 20px;
 	background: #040026;
 	border-radius: 53px;
 }
