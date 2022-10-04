@@ -174,7 +174,7 @@ const Verification = ({ getAddress }) => {
 										Continue
 									</span>
 								) : (
-									<i className="fa-solid fa-fan fa-spin"></i>
+									<i className="fa-solid fa-spinner fa-spin"></i>
 								)}
 							</button>
 						</div>

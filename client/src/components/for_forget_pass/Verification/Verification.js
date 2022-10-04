@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -9,6 +9,17 @@ import "./Verification.css";
 const Verification = ({ selectedVia, setIsMatch }) => {
 	// for redirect login page
 	const Navigate = useNavigate();
+
+	// for x-mark toggle
+	const [errorT, setErrorT] = useState("");
+
+	useEffect(() => {
+		if (errorT) {
+			setTimeout(() => {
+				setErrorT(false);
+			}, 10000);
+		}
+	}, [errorT]);
 
 	// for loading until match with our otp
 	const [isLoading, setIsLoading] = useState(false);
@@ -42,11 +53,10 @@ const Verification = ({ selectedVia, setIsMatch }) => {
 						return Navigate("../reset-password");
 					}, 3000);
 				} else if (response.status === 400) {
-					toast(result.error, {
-						position: "top-right",
-						theme: "dark",
-						autoClose: 3000
-					});
+					setErrorT(true);
+					setIsLoading(false);
+				} else {
+					setErrorT(true);
 					setIsLoading(false);
 				}
 			} catch (error) {
@@ -55,6 +65,7 @@ const Verification = ({ selectedVia, setIsMatch }) => {
 					theme: "colored",
 					autoClose: 2500
 				});
+				setErrorT(true);
 				setIsLoading(false);
 				setTimeout(() => {
 					return Navigate("../find-account");
@@ -128,6 +139,18 @@ const Verification = ({ selectedVia, setIsMatch }) => {
 						<span style={{ fontWeight: 700 }}>6 numbers</span> long.
 					</p>
 
+					{errorT && (
+						<div className="not-match-message">
+							<span>
+								<img src="/assets/logo/xmark.png" alt="xmark" />
+							</span>
+							<p>
+								The number that you've entered doesn't match your code. Please
+								try again.
+							</p>
+						</div>
+					)}
+
 					<div className="selection">
 						<div className="left">
 							<input
@@ -177,7 +200,7 @@ const Verification = ({ selectedVia, setIsMatch }) => {
 										Continue
 									</span>
 								) : (
-									<i className="fa-solid fa-fan fa-spin"></i>
+									<i className="fa-solid fa-spinner fa-spin"></i>
 								)}
 							</button>
 						</div>

@@ -26,6 +26,34 @@
 	font-weight: 500;
 }
 
+.verification-container .wrapper .not-match-message {
+	display: flex;
+	align-items: center;
+	width: 85%;
+	height: fit-content;
+	border: 2px solid #d90429;
+	border-radius: 5px;
+}
+
+.verification-container .wrapper .not-match-message span {
+	width: 69.13px;
+	height: 61px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #d90429;
+	padding: 5px 10px;
+	outline: 1px solid #d90429;
+}
+
+.verification-container .wrapper .not-match-message p {
+	margin: 0;
+	text-align: center;
+	padding: 0 7px;
+	font-weight: 500;
+	font-size: 15px;
+}
+
 .verification-container .wrapper .selection {
 	display: flex;
 	justify-content: space-between;

@@ -246,7 +246,7 @@ const Signup = ({ setAddress }) => {
 											Sign Up
 										</span>
 									) : (
-										<i className="fa-solid fa-fan fa-spin"></i>
+										<i className="fa-solid fa-spinner fa-spin"></i>
 									)}
 								</button>
 							</div>
@@ -266,7 +266,7 @@ const Signup = ({ setAddress }) => {
 					{/* right side start  */}
 					<div className="col-7 d-xl-flex d-none  p-0 sign-img">
 						<img
-							src="/assets/images/sign-image.png"
+							src="/assets/images/signup-image.gif"
 							alt="sign-img"
 							className="img-fluid"
 						/>

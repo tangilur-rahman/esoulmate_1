@@ -100,7 +100,7 @@ const Login = () => {
 						id={redSign ? "when-signup" : ""}
 					>
 						<img
-							src="/assets/images/login-image.png"
+							src="/assets/images/login-image.gif"
 							alt="login-img"
 							className="img-fluid"
 						/>
