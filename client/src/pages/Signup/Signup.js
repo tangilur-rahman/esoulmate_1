@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // internal components
-import RegFields from "../../components/for_signup/SignFields/SignFields";
+import SignFieldsPeople from "../../components/for_signup/SignFieldsPeople/SignFieldsPeople";
 
 import "./Signup.css";
 
@@ -219,7 +219,7 @@ const Signup = ({ setAddress }) => {
 						</div>
 						{/* title end  */}
 
-						<RegFields
+						<SignFieldsPeople
 							onChangeHandler={onChangeHandler}
 							f_name={f_name}
 							l_name={l_name}

@@ -7,9 +7,9 @@ import GenderDropdown from "./GenderDropdown/GenderDropdown";
 import MonthDropdown from "./MonthDropdown/MonthDropdown";
 import YearDropdown from "./YearDropdown/YearDropdown";
 
-import "./SignFields.css";
+import "./SignFieldsPeople.css";
 
-const SignFields = ({
+const SignFieldsPeople = ({
 	onChangeHandler,
 	f_name,
 	l_name,
@@ -148,4 +148,4 @@ const SignFields = ({
 	);
 };
 
-export default SignFields;
+export default SignFieldsPeople;
