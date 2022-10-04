@@ -252,7 +252,9 @@ const CommentBox = ({ comments, user_id, post_id, updating }) => {
 									</h6>
 								)}
 
-								{displayReplyT && <DisplayReply />}
+								{displayReplyT && (
+									<DisplayReply comments={comments[comments.length - 1]} />
+								)}
 							</div>
 						)}
 
