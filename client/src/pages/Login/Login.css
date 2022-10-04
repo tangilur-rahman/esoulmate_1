@@ -1,3 +1,30 @@
+#background-layer {
+	background-color: #b7cddc;
+	position: absolute;
+	top: 0;
+	left: 0;
+	animation: background-color-layout 500ms 100ms linear forwards;
+}
+
+@keyframes background-color-layout {
+	0% {
+		width: 60%;
+		height: 60%;
+		border-radius: 0 0% 10% 0;
+	}
+
+	80% {
+		border-radius: 0 0% 30% 0;
+	}
+
+	100% {
+		width: 100vw;
+		height: 100vh;
+		border-radius: 0 0% 10% 0;
+		display: none;
+	}
+}
+
 .login-container {
 	display: flex;
 	width: 100vw;
@@ -14,6 +41,27 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
+}
+
+.login-container .login-left#when-signup {
+	animation: login-left-reverse 0.8s ease-in-out forwards;
+}
+
+@keyframes login-left-reverse {
+	0% {
+		transform: translateX(0%) rotate(0deg);
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(-100%) rotate(-30deg);
+		opacity: 0;
+		display: none;
+	}
 }
 
 .login-container .login-left .signup-btn {
@@ -70,6 +118,27 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+.login-container .login-right#when-signup {
+	animation: login-right-reverse 0.8s ease-in-out forwards;
+}
+
+@keyframes login-right-reverse {
+	0% {
+		transform: translateX(0%) rotate(0deg);
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(100%) rotate(30deg);
+		opacity: 0;
+		display: none;
+	}
 }
 
 .login-container .login-right .title {

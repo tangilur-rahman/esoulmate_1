@@ -10,6 +10,9 @@ const Login = () => {
 	// for redirect sign-up page
 	const Navigate = useNavigate();
 
+	// set-up animation for when redirect signup page
+	const [redSign, setRedSign] = useState("");
+
 	// for toggle password type
 	const [typeT, setTypeT] = useState(false);
 
@@ -85,9 +88,17 @@ const Login = () => {
 
 	return (
 		<>
-			<div className="container-fluid p-0">
+			<div
+				className="container-fluid p-0"
+				id={redSign ? "background-layer" : ""}
+			>
 				<div className="row m-0 login-container">
-					<div className="col-lg-7 col-0 d-none d-lg-flex p-0 login-left">
+					<div
+						className="col-lg-7 col-0 d-none d-lg-flex p-0 login-left"
+						data-aos="fade-right"
+						data-aos-duration="800"
+						id={redSign ? "when-signup" : ""}
+					>
 						<img
 							src="/assets/images/login-image.png"
 							alt="login-img"
@@ -102,13 +113,21 @@ const Login = () => {
 							<button
 								type="button"
 								className="btn btn-dark"
-								onClick={() => Navigate("../sign-up")}
+								onClick={() => {
+									// Navigate("../sign-up");
+									setRedSign(!redSign);
+								}}
 							>
 								<span className="hover-link">Sign Up</span>
 							</button>
 						</div>
 					</div>
-					<div className="col-lg-5 col-12  p-0 login-right">
+					<div
+						className="col-lg-5 col-12  p-0 login-right"
+						id={redSign ? "when-signup" : ""}
+						data-aos="fade-left"
+						data-aos-duration="800"
+					>
 						<div className="login-right-container">
 							{/* title start  */}
 							<div className="title">
@@ -126,7 +145,7 @@ const Login = () => {
 								<div className="required-field">
 									<input
 										type="text"
-										placeholder="Email or Phone No."
+										placeholder="Email or Phone No..."
 										onChange={(e) => setEmail_phone(e.target.value)}
 										value={email_phone}
 									/>
