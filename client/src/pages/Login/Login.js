@@ -104,7 +104,7 @@ const Login = () => {
 								className="btn btn-dark"
 								onClick={() => Navigate("../sign-up")}
 							>
-								<span className="hover-link">Sing Up</span>
+								<span className="hover-link">Sign Up</span>
 							</button>
 						</div>
 					</div>
@@ -117,7 +117,7 @@ const Login = () => {
 									alt="logo"
 									className="img-fluid"
 								/>
-								<h4>ESOULMATE</h4>
+								<h4>ESOLUMATE</h4>
 							</div>
 							{/* title end  */}
 
