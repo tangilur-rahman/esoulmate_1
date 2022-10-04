@@ -86,12 +86,15 @@ const Header = () => {
 	return (
 		<>
 			<div className="row m-0 forget-header-container">
-				<div className="col-lg-3 col-1 header-left p-0">
-					<img src="/assets/logo/esoulmate-logo.png" alt="logo" />
-					<h2>Esoulmate</h2>
+				<div className="col-xl-2 col-1 header-left p-0">
+					<img
+						src="/assets/logo/esoulmate-logo.png"
+						alt="logo"
+						onClick={() => Navigate("/log-in")}
+					/>
 				</div>
 
-				<div className="col-7 p-0 header-right">
+				<div className="col-xl-7 col-lg-9 col-10 p-0 header-right">
 					<div className="input-fields">
 						<div className="required-field">
 							<input

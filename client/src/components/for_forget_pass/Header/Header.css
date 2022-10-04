@@ -1,7 +1,7 @@
 .forget-header-container {
 	display: flex;
 	justify-content: space-between;
-	background-color: white;
+	background: #040026;
 	position: sticky;
 	z-index: 1000;
 	top: 0;
@@ -21,13 +21,7 @@
 	height: 50px;
 	cursor: pointer;
 }
-.forget-header-container .header-left h2 {
-	margin: 0 0 0 10px;
-	font-weight: 600;
-	color: #1a479e;
-	letter-spacing: 1.2px;
-	cursor: pointer;
-}
+
 /* header-left end  */
 
 /* header-right start  */
@@ -113,18 +107,10 @@
 		flex-grow: 1;
 		margin-left: 20px;
 	}
-
-	.forget-header-container .header-left h2 {
-		display: none;
-	}
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 600px) {
 	.header-right {
 		display: none !important;
-	}
-
-	.forget-header-container .header-left h2 {
-		display: inline-block;
 	}
 }
