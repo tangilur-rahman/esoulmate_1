@@ -27,6 +27,88 @@
 	width: 600px;
 }
 
+.sign-verification-container .wrapper .reduce-opacity {
+	opacity: 0.3;
+}
+
+/* error-message start  */
+.sign-verification-container .wrapper .error-message {
+	border: 2px solid #d90429;
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+}
+
+.sign-verification-container .wrapper .error-message #header {
+	background-color: #d90429;
+	padding: 5px 10px;
+	color: white;
+	font-weight: 600;
+	outline: 1px solid #d90429;
+	font-size: 15px;
+}
+
+.sign-verification-container .error-message #message {
+	text-align: center;
+	margin: 15px 0;
+}
+
+.sign-verification-container .error-message #ok-btn {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.sign-verification-container .error-message #ok-btn button {
+	padding: 5px 25px;
+	background-color: #d90429;
+	font-size: 17px;
+	font-weight: 600;
+	color: white;
+	margin: 0 10px 10px 0;
+	border-radius: 20px;
+}
+/* error-message end  */
+
+/* conform-message start  */
+.sign-verification-container .wrapper .conform-message {
+	border: 2px solid #040026;
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+}
+
+.sign-verification-container .wrapper .conform-message #header {
+	background-color: #040026;
+	padding: 5px 10px;
+	color: white;
+	font-weight: 600;
+	outline: 1px solid #040026;
+	font-size: 15px;
+}
+
+.sign-verification-container .conform-message #message {
+	text-align: center;
+	margin: 15px 0 0 0;
+}
+
+.sign-verification-container .conform-message #ok-btn {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.sign-verification-container .conform-message #ok-btn button {
+	padding: 5px 25px;
+	background: #1b489c;
+	font-size: 17px;
+	font-weight: 600;
+	color: white;
+	margin: 0 10px 10px 0;
+	border-radius: 20px;
+}
+/* error-message end  */
+
 .sign-verification-container .wrapper .selection {
 	display: flex;
 	justify-content: space-between;
@@ -140,6 +222,22 @@
 
 	.sign-verification-container .wrapper #message {
 		width: 100%;
+	}
+
+	.sign-verification-container .wrapper .error-message {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.sign-verification-container .wrapper .conform-message {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.sign-verification-container .wrapper .conform-message #message {
+		white-space: wrap;
+		word-wrap: break-word;
+		padding: 0 5px;
 	}
 
 	.sign-verification-container .wrapper .footer-btn-container {

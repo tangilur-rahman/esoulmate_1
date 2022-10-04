@@ -82,16 +82,22 @@ const Signup = ({ setAddress }) => {
 				toast(result.error, {
 					position: "top-right",
 					theme: "dark",
-					autoClose: 3000
+					autoClose: 2500
 				});
 				setIsLoading(false);
+				setTimeout(() => {
+					return Navigate("/sign-up");
+				}, 3000);
 			} else {
 				toast.error(result.error, {
 					position: "top-right",
 					theme: "colored",
-					autoClose: 3000
+					autoClose: 2500
 				});
 				setIsLoading(false);
+				setTimeout(() => {
+					return Navigate("/sign-up");
+				}, 3000);
 			}
 		} catch (error) {
 			toast.error(error.message, {
