@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -9,9 +9,6 @@ import "./Login.css";
 const Login = () => {
 	// for redirect sign-up page
 	const Navigate = useNavigate();
-
-	// set-up animation for when redirect signup page
-	const [redSign, setRedSign] = useState("");
 
 	// for toggle password type
 	const [typeT, setTypeT] = useState(false);
@@ -86,25 +83,43 @@ const Login = () => {
 	};
 	// when press enter key submit end
 
+	// set-up animation for when redirect signup page start
+	const [rediSign, setRediSign] = useState("");
+
+	useEffect(() => {
+		if (rediSign) {
+			setTimeout(() => {
+				Navigate("/sign-up");
+			}, 900);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [rediSign]);
+	// set-up animation for when redirect signup page end
+
 	return (
 		<>
 			<div
 				className="container-fluid p-0"
-				id={redSign ? "background-layer" : ""}
+				id={rediSign ? "background-layer" : ""}
 			>
 				<div className="row m-0 login-container">
 					<div
 						className="col-lg-7 col-0 d-none d-lg-flex p-0 login-left"
 						data-aos="fade-right"
 						data-aos-duration="800"
-						id={redSign ? "when-signup" : ""}
+						id={rediSign ? "when-signup" : ""}
 					>
 						<img
 							src="/assets/images/login-image.gif"
 							alt="login-img"
 							className="img-fluid"
 						/>
-						<div className="signup-btn">
+						<div
+							className="signup-btn"
+							data-aos="fade-down"
+							data-aos-duration="800"
+							data-aos-delay="500"
+						>
 							<div className="text">
 								<span>New here?</span>
 								<span>Join in and be a part of ESOLUMATE world.</span>
@@ -114,8 +129,7 @@ const Login = () => {
 								type="button"
 								className="btn btn-dark"
 								onClick={() => {
-									// Navigate("../sign-up");
-									setRedSign(!redSign);
+									setRediSign(!rediSign);
 								}}
 							>
 								<span className="hover-link">Sign Up</span>
@@ -124,13 +138,18 @@ const Login = () => {
 					</div>
 					<div
 						className="col-lg-5 col-12  p-0 login-right"
-						id={redSign ? "when-signup" : ""}
+						id={rediSign ? "when-signup" : ""}
 						data-aos="fade-left"
 						data-aos-duration="800"
 					>
 						<div className="login-right-container">
 							{/* title start  */}
-							<div className="title">
+							<div
+								className="title"
+								data-aos="fade-up"
+								data-aos-duration="800"
+								data-aos-delay="500"
+							>
 								<img
 									src="/assets/logo/esoulmate-logo.png"
 									alt="logo"

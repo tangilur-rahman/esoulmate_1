@@ -199,13 +199,21 @@ const Signup = ({ setAddress }) => {
 			<div className="container-fluid p-0">
 				<div className="row m-0 sign-container">
 					{/* left side start  */}
-					<div className="col-12 col-xl-5 p-0 sign-input">
+					<div
+						className="col-12 col-xl-5 p-0 sign-input"
+						data-aos="fade-left"
+						data-aos-duration="800"
+						data-aos-delay="600"
+					>
 						{/* title start  */}
 						<div className="title">
 							<img
 								src="/assets/logo/esoulmate-logo.png"
 								alt="logo"
 								className="img-fluid"
+								data-aos="fade-down"
+								data-aos-duration="800"
+								data-aos-delay="800"
 							/>
 							<h4>Sign Up</h4>
 						</div>
@@ -270,17 +278,27 @@ const Signup = ({ setAddress }) => {
 					{/* left side end  */}
 
 					{/* right side start  */}
-					<div className="col-7 d-xl-flex d-none  p-0 sign-img">
+					<div
+						className="col-7 d-xl-flex d-none  p-0 sign-img"
+						data-aos="fade-left"
+						data-aos-duration="600"
+					>
 						<img
 							src="/assets/images/signup-image.gif"
 							alt="sign-img"
 							className="img-fluid"
+							data-aos="fade-down"
+							data-aos-duration="800"
+							data-aos-delay="600"
 						/>
 
 						<button
 							type="button"
 							className="btn btn-dark"
 							onClick={() => Navigate("../log-in")}
+							data-aos="fade-up"
+							data-aos-duration="800"
+							data-aos-delay="700"
 						>
 							<span className="hover-link">Log In</span>
 						</button>
