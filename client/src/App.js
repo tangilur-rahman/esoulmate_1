@@ -51,12 +51,18 @@ const App = () => {
 
 					<Route path="sign-up" element={<Signup setAddress={setAddress} />} />
 
+					<Route path="signup" element={<Navigate to="/sign-up" />} />
+
+					<Route path="registration" element={<Navigate to="/sign-up" />} />
+
 					<Route
 						path="sign-up/verification"
 						element={<VerificationS getAddress={getAddress} />}
 					/>
 
 					<Route path="log-in" element={<Login />} />
+
+					<Route path="login" element={<Navigate to="/log-in" />} />
 
 					<Route path="log-in/forget-password" element={<ForgetPassword />}>
 						<Route
