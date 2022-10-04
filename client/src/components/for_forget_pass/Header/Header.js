@@ -134,11 +134,7 @@ const Header = () => {
 							{/* for type toggle end  */}
 						</div>
 					</div>
-					<button
-						type="button"
-						className="btn btn-primary"
-						onClick={submitHandler}
-					>
+					<button type="button" className="btn" onClick={submitHandler}>
 						<span className="hover-link">Log In</span>
 					</button>
 				</div>

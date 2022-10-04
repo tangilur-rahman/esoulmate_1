@@ -40,17 +40,8 @@ const getProfile = async (req, res) => {
 
 //  for sing-up user
 const signUp = async (req, res) => {
-	const {
-		f_name,
-		l_name,
-		email_phone,
-		password,
-		c_password,
-		gender,
-		day,
-		month,
-		year
-	} = req.body;
+	const { f_name, l_name, email_phone, password, gender, day, month, year } =
+		req.body;
 
 	try {
 		// check Email Already Exists or not
@@ -69,57 +60,53 @@ const signUp = async (req, res) => {
 				res.status(400).json({ error: "That phone number already existed!" });
 			}
 		} else {
-			// check password match or not
-			if (password === c_password) {
-				if (password.length < 8) {
-					res.status(400).json({ error: "Password length is too short! " });
-				} else {
-					// hash password
-					const hashPassword = await bcrypt.hash(password, 10);
-
-					// email validate
-					function validateEmail(email) {
-						var emailRegex =
-							/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-						return emailRegex.test(email);
-					}
-
-					const email = validateEmail(email_phone) ? email_phone : "";
-					const phone = validateEmail(email_phone) ? "" : email_phone;
-
-					if (phone) {
-						if (phone.length < 8 || !/^[0-9]+$/.test(phone)) {
-							throw new Error("Invalid Phone Number!");
-						}
-					}
-
-					const document = await userModel({
-						name: `${f_name} ${l_name}`,
-						email: email,
-						phone: phone,
-						password: hashPassword,
-						gender,
-						date_of_birth: `${day}-${month}-${year}`
-					});
-
-					await document.save();
-
-					// create token start
-					const token = await jwt.sign(
-						{ _id: document._id },
-						process.env.SECRET_KEY,
-						{ expiresIn: "365d" }
-					);
-
-					res.cookie(process.env.COOKIES_NAME, token, {
-						expires: new Date(Date.now() + 31556952000)
-					});
-					// create token end
-
-					res.status(200).json({ message: `Welcome ${f_name} ${l_name} ❤️` });
-				}
+			// check password length is correct or not
+			if (password.length < 8) {
+				res.status(400).json({ error: "Password length is too short! " });
 			} else {
-				res.status(400).json({ error: "Password didn't match!" });
+				// hash password
+				const hashPassword = await bcrypt.hash(password, 10);
+
+				// email validate
+				function validateEmail(email) {
+					var emailRegex =
+						/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+					return emailRegex.test(email);
+				}
+
+				const email = validateEmail(email_phone) ? email_phone : "";
+				const phone = validateEmail(email_phone) ? "" : email_phone;
+
+				if (phone) {
+					if (phone.length < 8 || !/^[0-9]+$/.test(phone)) {
+						throw new Error("Invalid Phone Number!");
+					}
+				}
+
+				const document = await userModel({
+					name: `${f_name} ${l_name}`,
+					email: email,
+					phone: phone,
+					password: hashPassword,
+					gender,
+					date_of_birth: `${day}-${month}-${year}`
+				});
+
+				await document.save();
+
+				// create token start
+				const token = await jwt.sign(
+					{ _id: document._id },
+					process.env.SECRET_KEY,
+					{ expiresIn: "365d" }
+				);
+
+				res.cookie(process.env.COOKIES_NAME, token, {
+					expires: new Date(Date.now() + 31556952000)
+				});
+				// create token end
+
+				res.status(200).json({ message: `Welcome ${f_name} ${l_name} ❤️` });
 			}
 		}
 	} catch (error) {

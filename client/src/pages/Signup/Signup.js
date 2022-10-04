@@ -50,7 +50,6 @@ const Signup = ({ setAddress }) => {
 				l_name,
 				email_phone,
 				password,
-				c_password,
 				gender: getGender,
 				day: getDay,
 				month: getMonth,
@@ -138,42 +137,51 @@ const Signup = ({ setAddress }) => {
 				});
 				setIsLoading(false);
 			} else {
-				try {
-					const response = await fetch(
-						`/user/sign-up/verification/${email_phone}`
-					);
+				if (!(password === c_password)) {
+					toast("Password didn't match!", {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 4000
+					});
+					setIsLoading(false);
+				} else {
+					try {
+						const response = await fetch(
+							`/user/sign-up/verification/${email_phone}`
+						);
 
-					const result = await response.json();
+						const result = await response.json();
 
-					if (response.status === 200) {
-						toast.success(result.message, {
+						if (response.status === 200) {
+							toast.success(result.message, {
+								position: "top-right",
+								theme: "colored",
+								autoClose: 2000
+							});
+
+							setAddress({ email_phone, submitHandle });
+
+							setTimeout(() => {
+								return Navigate("/sign-up/verification");
+							}, 2500);
+						} else if (result.error) {
+							toast(result.error, {
+								position: "top-right",
+								theme: "dark",
+								autoClose: 3000
+							});
+							setIsLoading(false);
+						}
+					} catch (error) {
+						toast.error(error.message, {
 							position: "top-right",
 							theme: "colored",
-							autoClose: 2000
-						});
-
-						setAddress({ email_phone, submitHandle });
-
-						setTimeout(() => {
-							return Navigate("/sign-up/verification");
-						}, 2500);
-					} else if (result.error) {
-						toast(result.error, {
-							position: "top-right",
-							theme: "dark",
 							autoClose: 3000
 						});
 						setIsLoading(false);
-					}
-				} catch (error) {
-					toast.error(error.message, {
-						position: "top-right",
-						theme: "colored",
-						autoClose: 3000
-					});
-					setIsLoading(false);
 
-					return Navigate("/sign-up");
+						return Navigate("/sign-up");
+					}
 				}
 			}
 		}

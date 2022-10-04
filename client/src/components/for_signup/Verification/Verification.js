@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Header from "../../for_forget_pass/Header/Header";
 
 // internal components
 import "./Verification.css";
@@ -111,6 +112,7 @@ const Verification = ({ getAddress }) => {
 
 	return (
 		<>
+			<Header />
 			<div className="row m-0 sign-verification-container">
 				<div className="wrapper">
 					<h4>Enter security code</h4>
