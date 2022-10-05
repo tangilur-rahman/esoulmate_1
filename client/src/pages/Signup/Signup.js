@@ -464,6 +464,7 @@ const Signup = ({ setAddress }) => {
 							data-aos="fade-up"
 							data-aos-duration="800"
 							data-aos-delay="600"
+							data-aos-offset="0"
 						>
 							<span className="hover-link">Log In</span>
 						</button>

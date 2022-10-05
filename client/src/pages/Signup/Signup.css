@@ -4,7 +4,8 @@
 	min-height: 100vh;
 	max-height: fit-content;
 	background-color: white;
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 /* for left side start  */
