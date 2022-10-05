@@ -250,6 +250,14 @@
 	.sign-container .sign-img img {
 		align-self: flex-end;
 	}
+
+	.sign-container .sign-img button#when-people-btn {
+		margin: 10px 0 0 100px;
+	}
+
+	.sign-container .sign-img button#when-page-btn {
+		margin: 0px 0 0 150px;
+	}
 }
 
 @media screen and (max-width: 1200px) {
