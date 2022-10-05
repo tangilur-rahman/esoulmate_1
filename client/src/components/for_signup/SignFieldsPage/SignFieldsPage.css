@@ -1,0 +1,70 @@
+.sign-page-container {
+	display: flex;
+}
+
+.sign-page-container table tr {
+	display: flex;
+	margin-top: 14px;
+}
+
+.sign-page-container table tr input:focus {
+	outline: none;
+}
+
+.sign-page-container table tr input::placeholder {
+	font-weight: 300;
+	font-size: 16px;
+	color: #878787;
+}
+
+.sign-page-container table tr.required-row {
+	width: 495px;
+	height: 45.79px;
+	background: #f0f4f4;
+	border: 1px solid #000000;
+	border-radius: 81px;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.sign-page-container table tr.required-row input {
+	height: 27px;
+	font-weight: 600;
+	font-size: 16px;
+	border: none;
+	background-color: transparent;
+	color: #878787;
+	margin-left: 13px;
+	width: 85%;
+}
+
+.sign-page-container table tr.required-row .eye {
+	position: absolute;
+	top: 25%;
+	right: 20px;
+	cursor: pointer;
+}
+
+.sign-page-container table tr.required-row .eye i {
+	opacity: 0.7;
+}
+
+/* media query start  */
+@media screen and (max-width: 520px) {
+	.sign-page-container table tr .name-row {
+		width: 170px;
+	}
+
+	.sign-page-container table tr .name-row input {
+		width: 140px;
+	}
+
+	.sign-page-container table tr {
+		width: 350px;
+	}
+
+	.sign-page-container table tr.required-row {
+		width: 350px;
+	}
+}

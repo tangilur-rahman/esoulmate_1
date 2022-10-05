@@ -1,4 +1,4 @@
-.sign-fields .gender-container {
+.sign-page-container .type-container {
 	width: 495px;
 	height: 46.79px;
 	background: #f0f4f4;
@@ -9,7 +9,7 @@
 	position: relative;
 }
 
-.sign-fields .gender-container::before {
+.sign-page-container .type-container::before {
 	content: "";
 	position: absolute;
 	right: 30px;
@@ -25,12 +25,12 @@
 	pointer-events: none;
 }
 
-.sign-fields .gender-container.active::before {
+.sign-page-container .type-container.active::before {
 	top: 20px;
 	transform: rotate(-225deg);
 }
 
-.sign-fields .gender-container input {
+.sign-page-container .type-container input {
 	cursor: pointer;
 	border: none;
 	outline: none;
@@ -42,43 +42,45 @@
 	width: 100%;
 	color: #878787;
 	margin-left: 7px;
+	text-transform: capitalize;
 }
 
-.sign-fields .gender-container input::placeholder {
+.sign-page-container .type-container input::placeholder {
 	padding-left: 7px;
 	color: #878787;
 	font-weight: 500;
 }
 
-.sign-fields .gender-container .option {
+.sign-page-container .type-container .option {
 	position: absolute;
-	bottom: 54px;
+	top: 54px;
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
 	border-radius: 10px;
-	overflow: hidden;
+	overflow-y: scroll;
 	display: none;
 	z-index: 100;
 	font-weight: 500;
+	height: 300px;
 }
 
-.sign-fields .gender-container.active .option {
+.sign-page-container .type-container.active .option {
 	display: block;
 }
 
-.sign-fields .gender-container .option div {
-	padding: 7px 15px;
+.sign-page-container .type-container .option div {
+	padding: 7.5px 20px;
 	cursor: pointer;
 }
 
-.sign-fields .gender-container .option div:hover {
+.sign-page-container .type-container .option div:hover {
 	background-color: #62baea;
 	color: #fff;
 	transition: all 0.3s;
 }
 
-.sign-fields .gender-container .option div i {
+.sign-page-container .type-container .option div i {
 	position: relative;
 	top: 0px;
 	font-size: 1em;
