@@ -5,22 +5,18 @@ import { useState } from "react";
 import PageType from "./PageType/PageType";
 import "./SignFieldsPage.css";
 
-const SignFieldsPage = () => {
-	// for getting page-name
-	const [getPName, setPName] = useState("");
-
-	// for getting email_phone
-	const [email_phone, setEmail_phone] = useState("");
-
-	// for get page-type
-	const [getPType, setPType] = useState("");
-
-	// for getting password
-	const [password, setPassword] = useState("");
-
-	// for getting c_password
-	const [c_password, setC_Password] = useState("");
-
+const SignFieldsPage = ({
+	getPName,
+	setPName,
+	email_phone,
+	setEmail_phone,
+	password,
+	setPassword,
+	c_password,
+	setC_Password,
+	getPType,
+	setPType
+}) => {
 	// for toggle password type
 	const [typeP_T, setTypeP_T] = useState(false);
 	const [typeCP_T, setTypeCP_T] = useState(false);
@@ -87,7 +83,7 @@ const SignFieldsPage = () => {
 						<input
 							type={typeCP_T ? "text" : "password"}
 							required
-							placeholder="Conform Password"
+							placeholder="Confirm Password"
 							name="c_password"
 							value={c_password}
 							onChange={(e) => setC_Password(e.target.value)}

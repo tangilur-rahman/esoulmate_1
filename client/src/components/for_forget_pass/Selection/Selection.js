@@ -147,7 +147,7 @@ const Selection = ({ foundAcc, selectedVia, setSelectedVia }) => {
 
 								<div className="info">
 									<h6>{foundAcc.name}</h6>
-									<p>Esoulmate User</p>
+									<p>ESOLUMATE User</p>
 								</div>
 							</div>
 

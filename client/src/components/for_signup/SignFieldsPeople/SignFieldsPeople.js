@@ -100,7 +100,7 @@ const SignFieldsPeople = ({
 						<input
 							type={typeCP_T ? "text" : "password"}
 							required
-							placeholder="Conform Password"
+							placeholder="Confirm Password"
 							name="c_password"
 							value={c_password}
 							onChange={onChangeHandler}

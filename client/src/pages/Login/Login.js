@@ -217,7 +217,7 @@ const Login = () => {
 											Navigate("/log-in/forget-password/find-account")
 										}
 									>
-										Forget Password
+										Forgot Password
 									</h6>
 
 									<h6

@@ -157,7 +157,7 @@ const ResetPassword = ({ isMatch }) => {
 						<span>
 							<input
 								type={typeCP_T ? "text" : "password"}
-								placeholder="Conform Password"
+								placeholder="Confirm Password"
 								onChange={(e) => setConform(e.target.value)}
 								value={getConform}
 								onKeyDown={onKeyDown}

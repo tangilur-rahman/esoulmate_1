@@ -84,7 +84,7 @@ const Navbar = () => {
 								onClick={() => Navigate("/")}
 							>
 								<img src="/assets/logo/esoulmate-logo.png" alt="logo" />
-								<h2>Esolumate</h2>
+								<h2>ESOLUMATE</h2>
 							</div>
 							{/* **** navbar-left end ****  */}
 

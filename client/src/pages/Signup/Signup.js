@@ -48,7 +48,7 @@ const Signup = ({ setAddress }) => {
 	// submit-handler start
 	const submitHandle = async () => {
 		try {
-			const userObject = {
+			const peopleObj = {
 				f_name,
 				l_name,
 				email_phone,
@@ -59,13 +59,23 @@ const Signup = ({ setAddress }) => {
 				year: getYear
 			};
 
-			const response = await fetch("/user/sign-up", {
-				method: "POST",
-				body: JSON.stringify(userObject),
-				headers: {
-					"Content-Type": "application/json"
+			const pageObj = {
+				page_name: getPName,
+				page_type: getPType,
+				email_phone: email_phoneP,
+				password: passwordP
+			};
+
+			const response = await fetch(
+				regType === "people" ? "/user/sign-up/people" : "/user/sign-up/page",
+				{
+					method: "POST",
+					body: JSON.stringify(regType === "people" ? peopleObj : pageObj),
+					headers: {
+						"Content-Type": "application/json"
+					}
 				}
-			});
+			);
 
 			const result = await response.json();
 
@@ -118,84 +128,168 @@ const Signup = ({ setAddress }) => {
 	// for sending opt in selected email or phone start
 	const sendOtpHandler = async () => {
 		setIsLoading(true);
-		if (
-			!(
-				f_name &&
-				l_name &&
-				email_phone &&
-				password &&
-				c_password &&
-				getGender &&
-				getDay &&
-				getMonth &&
-				getYear
-			)
-		) {
-			toast("Fill-up all fields!", {
-				position: "top-right",
-				theme: "dark",
-				autoClose: 3000
-			});
-			setIsLoading(false);
-		} else {
-			if (!checked) {
-				toast("Do you agree the terms of service & privacy policy?", {
+		if (regType === "people") {
+			if (
+				!(
+					f_name &&
+					l_name &&
+					email_phone &&
+					password &&
+					c_password &&
+					getGender &&
+					getDay &&
+					getMonth &&
+					getYear
+				)
+			) {
+				toast("Fill-up all fields!", {
 					position: "top-right",
 					theme: "dark",
-					autoClose: 4000
+					autoClose: 3000
 				});
 				setIsLoading(false);
 			} else {
-				if (!(password === c_password)) {
-					toast("Password didn't match!", {
+				if (!checked) {
+					toast("Do you agree the terms of service & privacy policy?", {
 						position: "top-right",
 						theme: "dark",
 						autoClose: 4000
 					});
 					setIsLoading(false);
 				} else {
-					try {
-						const response = await fetch(
-							`/user/sign-up/verification/${email_phone}`
-						);
+					if (!(password === c_password)) {
+						toast("Password didn't match!", {
+							position: "top-right",
+							theme: "dark",
+							autoClose: 4000
+						});
+						setIsLoading(false);
+					} else {
+						try {
+							const response = await fetch(
+								`/user/sign-up/verification/${email_phone}`
+							);
 
-						const result = await response.json();
+							const result = await response.json();
 
-						if (response.status === 200) {
-							toast.success(result.message, {
+							if (response.status === 200) {
+								toast.success(result.message, {
+									position: "top-right",
+									theme: "colored",
+									autoClose: 2000
+								});
+
+								setAddress({ email_phone, submitHandle });
+
+								setTimeout(() => {
+									return Navigate("/sign-up/verification");
+								}, 2500);
+							} else if (result.error) {
+								toast(result.error, {
+									position: "top-right",
+									theme: "dark",
+									autoClose: 3000
+								});
+								setIsLoading(false);
+							}
+						} catch (error) {
+							toast.error(error.message, {
 								position: "top-right",
 								theme: "colored",
-								autoClose: 2000
-							});
-
-							setAddress({ email_phone, submitHandle });
-
-							setTimeout(() => {
-								return Navigate("/sign-up/verification");
-							}, 2500);
-						} else if (result.error) {
-							toast(result.error, {
-								position: "top-right",
-								theme: "dark",
 								autoClose: 3000
 							});
 							setIsLoading(false);
+
+							return Navigate("/sign-up");
 						}
-					} catch (error) {
-						toast.error(error.message, {
+					}
+				}
+			}
+		} else if (regType === "page") {
+			if (!(getPName && email_phoneP && getPType && passwordP && c_passwordP)) {
+				toast("Fill-up all fields!", {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			} else {
+				if (!checked) {
+					toast("Do you agree the terms of service & privacy policy?", {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 4000
+					});
+					setIsLoading(false);
+				} else {
+					if (!(passwordP === c_passwordP)) {
+						toast("Password didn't match!", {
 							position: "top-right",
-							theme: "colored",
-							autoClose: 3000
+							theme: "dark",
+							autoClose: 4000
 						});
 						setIsLoading(false);
+					} else {
+						try {
+							const response = await fetch(
+								`/user/sign-up/verification/${email_phoneP}`
+							);
 
-						return Navigate("/sign-up");
+							const result = await response.json();
+
+							if (response.status === 200) {
+								toast.success(result.message, {
+									position: "top-right",
+									theme: "colored",
+									autoClose: 2000
+								});
+
+								setAddress({ email_phoneP, submitHandle });
+
+								setTimeout(() => {
+									return Navigate("/sign-up/verification");
+								}, 2500);
+							} else if (result.error) {
+								toast(result.error, {
+									position: "top-right",
+									theme: "dark",
+									autoClose: 3000
+								});
+								setIsLoading(false);
+							}
+						} catch (error) {
+							toast.error(error.message, {
+								position: "top-right",
+								theme: "colored",
+								autoClose: 3000
+							});
+							setIsLoading(false);
+
+							return Navigate("/sign-up");
+						}
 					}
 				}
 			}
 		}
 	};
 	// for sending opt in selected email or phone end
+
+	// for page registration start
+	// for getting page-name
+	const [getPName, setPName] = useState("");
+
+	// for getting page email_phone
+	const [email_phoneP, setEmail_phoneP] = useState("");
+
+	// for getting page-type
+	const [getPType, setPType] = useState("");
+
+	// for getting page password
+	const [passwordP, setPasswordP] = useState("");
+
+	// for getting page c_password
+	const [c_passwordP, setC_PasswordP] = useState("");
+	// for page registration end
 
 	return (
 		<>
@@ -259,7 +353,18 @@ const Signup = ({ setAddress }) => {
 								setGender={setGender}
 							/>
 						) : (
-							<SignFieldsPage />
+							<SignFieldsPage
+								getPName={getPName}
+								setPName={setPName}
+								email_phoneP={email_phoneP}
+								setEmail_phoneP={setEmail_phoneP}
+								getPType={getPType}
+								setPType={setPType}
+								passwordP={passwordP}
+								setPasswordP={setPasswordP}
+								c_passwordP={c_passwordP}
+								setC_PasswordP={setC_PasswordP}
+							/>
 						)}
 
 						{/* footer start  */}
