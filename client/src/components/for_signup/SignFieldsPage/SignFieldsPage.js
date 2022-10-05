@@ -8,12 +8,12 @@ import "./SignFieldsPage.css";
 const SignFieldsPage = ({
 	getPName,
 	setPName,
-	email_phone,
-	setEmail_phone,
-	password,
-	setPassword,
-	c_password,
-	setC_Password,
+	email_phoneP,
+	setEmail_phoneP,
+	passwordP,
+	setPasswordP,
+	c_passwordP,
+	setC_PasswordP,
 	getPType,
 	setPType
 }) => {
@@ -45,8 +45,8 @@ const SignFieldsPage = ({
 							type="text"
 							required
 							placeholder="Email or Phone No..."
-							value={email_phone}
-							onChange={(e) => setEmail_phone(e.target.value)}
+							value={email_phoneP}
+							onChange={(e) => setEmail_phoneP(e.target.value)}
 						/>
 					</tr>
 
@@ -56,11 +56,11 @@ const SignFieldsPage = ({
 							required
 							placeholder="New Password"
 							name="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							value={passwordP}
+							onChange={(e) => setPasswordP(e.target.value)}
 						/>
 						{/* for type toggle start  */}
-						{password && (
+						{passwordP && (
 							<span className="eye">
 								{typeP_T ? (
 									<i
@@ -85,11 +85,11 @@ const SignFieldsPage = ({
 							required
 							placeholder="Confirm Password"
 							name="c_password"
-							value={c_password}
-							onChange={(e) => setC_Password(e.target.value)}
+							value={c_passwordP}
+							onChange={(e) => setC_PasswordP(e.target.value)}
 						/>
 						{/* for type toggle start  */}
-						{c_password && (
+						{c_passwordP && (
 							<span className="eye">
 								{typeCP_T ? (
 									<i

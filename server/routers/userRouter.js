@@ -21,7 +21,7 @@ user.get("/", authUser, currentUser);
 // for returning selected profile page
 user.get("/:profile_id", authUser, getProfile);
 
-// for signup new user
+// for signup new people or page
 user.post("/sign-up", signUp);
 
 // for login user

@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
 	{
+		account_type: {
+			type: String,
+			required: true,
+			trim: true
+		},
 		name: {
 			type: String,
 			required: true,
@@ -21,7 +26,6 @@ const schema = mongoose.Schema(
 
 		gender: {
 			type: String,
-			required: true,
 			trim: true
 		},
 
@@ -45,7 +49,11 @@ const schema = mongoose.Schema(
 
 		date_of_birth: {
 			type: String,
-			required: true,
+			trim: true
+		},
+
+		page_type: {
+			type: String,
 			trim: true
 		}
 	},

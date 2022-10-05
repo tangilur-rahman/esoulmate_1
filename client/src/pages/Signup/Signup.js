@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -48,34 +48,27 @@ const Signup = ({ setAddress }) => {
 	// submit-handler start
 	const submitHandle = async () => {
 		try {
-			const peopleObj = {
+			const userObj = {
 				f_name,
 				l_name,
-				email_phone,
-				password,
+				email_phone: email_phone || email_phoneP,
+				password: password || passwordP,
 				gender: getGender,
 				day: getDay,
 				month: getMonth,
-				year: getYear
-			};
-
-			const pageObj = {
+				year: getYear,
 				page_name: getPName,
 				page_type: getPType,
-				email_phone: email_phoneP,
-				password: passwordP
+				account_type: regType
 			};
 
-			const response = await fetch(
-				regType === "people" ? "/user/sign-up/people" : "/user/sign-up/page",
-				{
-					method: "POST",
-					body: JSON.stringify(regType === "people" ? peopleObj : pageObj),
-					headers: {
-						"Content-Type": "application/json"
-					}
+			const response = await fetch("/user/sign-up", {
+				method: "POST",
+				body: JSON.stringify(userObj),
+				headers: {
+					"Content-Type": "application/json"
 				}
-			);
+			});
 
 			const result = await response.json();
 
@@ -244,7 +237,10 @@ const Signup = ({ setAddress }) => {
 									autoClose: 2000
 								});
 
-								setAddress({ email_phoneP, submitHandle });
+								setAddress({
+									email_phone: email_phone || email_phoneP,
+									submitHandle
+								});
 
 								setTimeout(() => {
 									return Navigate("/sign-up/verification");
@@ -290,6 +286,30 @@ const Signup = ({ setAddress }) => {
 	// for getting page c_password
 	const [c_passwordP, setC_PasswordP] = useState("");
 	// for page registration end
+
+	// when registration type toggle start
+	useEffect(() => {
+		if (regType) {
+			setUser({
+				f_name: "",
+				l_name: "",
+				email_phone: "",
+				password: "",
+				c_password: "",
+				gender: "",
+				day: "",
+				month: "",
+				year: ""
+			});
+
+			setPName("");
+			setEmail_phoneP("");
+			setPType("");
+			setPasswordP("");
+			setC_PasswordP("");
+		}
+	}, [regType]);
+	// when registration type toggle end
 
 	return (
 		<>

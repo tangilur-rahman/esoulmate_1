@@ -40,8 +40,19 @@ const getProfile = async (req, res) => {
 
 //  for sing-up user
 const signUp = async (req, res) => {
-	const { f_name, l_name, email_phone, password, gender, day, month, year } =
-		req.body;
+	const {
+		f_name,
+		l_name,
+		email_phone,
+		password,
+		gender,
+		day,
+		month,
+		year,
+		account_type,
+		page_type,
+		page_name
+	} = req.body;
 
 	try {
 		// check Email Already Exists or not
@@ -84,12 +95,15 @@ const signUp = async (req, res) => {
 				}
 
 				const document = await userModel({
-					name: `${f_name} ${l_name}`,
+					name: account_type === "people" ? `${f_name} ${l_name}` : page_name,
 					email: email,
 					phone: phone,
 					password: hashPassword,
 					gender,
-					date_of_birth: `${day}-${month}-${year}`
+					date_of_birth:
+						account_type === "people" ? `${day}-${month}-${year}` : "",
+					account_type,
+					page_type
 				});
 
 				await document.save();
@@ -106,7 +120,14 @@ const signUp = async (req, res) => {
 				});
 				// create token end
 
-				res.status(200).json({ message: `Welcome ${f_name} ${l_name} ❤️` });
+				res
+					.status(200)
+					.json({
+						message:
+							account_type === "people"
+								? `Welcome ${f_name} ${l_name} ❤️`
+								: `${page_name} page created ❤️`
+					});
 			}
 		}
 	} catch (error) {
