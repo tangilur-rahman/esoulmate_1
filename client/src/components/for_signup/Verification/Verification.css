@@ -68,6 +68,16 @@
 	margin: 0 10px 10px 0;
 	border-radius: 20px;
 }
+
+.sign-verification-container .error-message #ok-btn button:hover {
+	transform: scale(0.98);
+	transition: all 0.5s;
+}
+
+.sign-verification-container .error-message #ok-btn button:active {
+	transform: scale(1.1);
+	transition: all 0.5s;
+}
 /* error-message end  */
 
 /* conform-message start  */
@@ -107,7 +117,17 @@
 	margin: 0 10px 10px 0;
 	border-radius: 20px;
 }
-/* error-message end  */
+
+.sign-verification-container .conform-message #ok-btn button:hover {
+	transform: scale(0.98);
+	transition: all 0.5s;
+}
+
+.sign-verification-container .conform-message #ok-btn button:active {
+	transform: scale(1.1);
+	transition: all 0.5s;
+}
+/* conform-message end  */
 
 .sign-verification-container .wrapper .selection {
 	display: flex;

@@ -15,6 +15,9 @@ const Signup = ({ setAddress }) => {
 	// for loading until match with our otp
 	const [isLoading, setIsLoading] = useState(false);
 
+	// for getting registration type
+	const [regType, setRegType] = useState("people");
+
 	// for checked-box check mark
 	const [checked, setChecked] = useState("");
 
@@ -219,6 +222,25 @@ const Signup = ({ setAddress }) => {
 						</div>
 						{/* title end  */}
 
+						<table>
+							<tr className="registration-type">
+								<td className="selected" onClick={() => setRegType("people")}>
+									<input
+										value="People"
+										readOnly
+										id={regType === "people" ? "active" : ""}
+									/>
+								</td>
+								<td className="selected" onClick={() => setRegType("page")}>
+									<input
+										value="Page"
+										readOnly
+										id={regType === "page" ? "active" : ""}
+									/>
+								</td>
+							</tr>
+						</table>
+
 						<SignFieldsPeople
 							onChangeHandler={onChangeHandler}
 							f_name={f_name}
@@ -289,7 +311,7 @@ const Signup = ({ setAddress }) => {
 							className="img-fluid"
 							data-aos="fade-down"
 							data-aos-duration="800"
-							data-aos-delay="600"
+							data-aos-delay="500"
 						/>
 
 						<button
@@ -298,7 +320,7 @@ const Signup = ({ setAddress }) => {
 							onClick={() => Navigate("../log-in")}
 							data-aos="fade-up"
 							data-aos-duration="800"
-							data-aos-delay="700"
+							data-aos-delay="600"
 						>
 							<span className="hover-link">Log In</span>
 						</button>

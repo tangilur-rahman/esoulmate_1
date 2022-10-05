@@ -24,19 +24,18 @@
 
 .sign-fields table tr .name-row {
 	width: 231px;
-	height: 46.79px;
+	height: 45.79px;
 	background: #f0f4f4;
 	border: 1px solid #000000;
 	border-radius: 81px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 10px;
 }
 
 .sign-fields table tr .name-row input {
 	width: 200px;
-	height: 28px;
+	height: 27px;
 	font-weight: 600;
 	font-size: 16px;
 	color: #878787;
@@ -46,7 +45,7 @@
 
 .sign-fields table tr.required-row {
 	width: 495px;
-	height: 46.79px;
+	height: 45.79px;
 	background: #f0f4f4;
 	border: 1px solid #000000;
 	border-radius: 81px;
@@ -86,7 +85,7 @@
 	align-items: center;
 	justify-content: center;
 	color: #000000;
-	margin-top: 5px;
+	margin-top: 3px;
 }
 
 .sign-fields table tr.birth-date-con {
