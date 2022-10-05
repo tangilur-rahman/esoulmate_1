@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // internal components
 import "./PageType.css";
@@ -7,6 +7,21 @@ import "./PageType.css";
 const PageType = ({ getPType, setPType }) => {
 	// for drop-down toggle
 	const [typeDrop, setTypeDrop] = useState("");
+
+	// for close dropdown when outside clicked start
+	const myRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!myRef.current?.contains(e.target)) {
+			setTypeDrop(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// for close dropdown when outside clicked end
 
 	return (
 		<>
@@ -20,7 +35,7 @@ const PageType = ({ getPType, setPType }) => {
 					readOnly
 					value={getPType}
 				/>
-				<div className="option">
+				<div className="option" ref={myRef}>
 					<div onClick={() => setPType("animator")}>
 						<span>Animator</span>
 					</div>

@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // internal components
 import "./DayDropdown.css";
@@ -13,6 +13,21 @@ const DayDropdown = ({ getDay, setDay }) => {
 		dayArray.push(index);
 	}
 
+	// for close dropdown when outside clicked start
+	const myRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!myRef.current?.contains(e.target)) {
+			setDayDropdown(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// for close dropdown when outside clicked end
+
 	return (
 		<>
 			<div
@@ -20,7 +35,7 @@ const DayDropdown = ({ getDay, setDay }) => {
 				onClick={() => setDayDropdown(!dayDropdown)}
 			>
 				<input type="text" placeholder="Day" readOnly value={getDay} required />
-				<div className="option">
+				<div className="option" ref={myRef}>
 					{dayArray.map((value, index) => {
 						return (
 							<div onClick={() => setDay(value)} key={index}>

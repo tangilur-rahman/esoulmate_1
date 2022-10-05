@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // internal components
 import "./YearDropdown.css";
@@ -12,6 +12,21 @@ const YearDropdown = ({ getYear, setYear }) => {
 	for (let index = new Date(Date.now()).getFullYear(); index >= 1971; index--) {
 		yearArray.push(index);
 	}
+
+	// for close dropdown when outside clicked start
+	const myRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!myRef.current?.contains(e.target)) {
+			setYearDropdown(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// for close dropdown when outside clicked end
 
 	return (
 		<>
@@ -26,7 +41,7 @@ const YearDropdown = ({ getYear, setYear }) => {
 					value={getYear}
 					required
 				/>
-				<div className="option">
+				<div className="option" ref={myRef}>
 					{yearArray.map((value, index) => {
 						return (
 							<div onClick={() => setYear(value)} key={index}>

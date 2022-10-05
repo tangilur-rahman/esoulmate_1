@@ -5,7 +5,6 @@
 	max-height: fit-content;
 	background-color: white;
 	overflow: auto;
-	overflow: hidden;
 }
 
 /* for left side start  */
@@ -181,9 +180,14 @@
 }
 
 .sign-container .sign-img #when-people {
-	width: 550px;
+	width: 600px;
+	border-radius: 15%;
+}
+
+.sign-container .sign-img #when-page {
 	width: 550px;
 	border-radius: 15%;
+	margin: -40px 50px 0 0;
 }
 
 .sign-container .sign-img button {
@@ -191,9 +195,16 @@
 	height: 56px;
 	font-weight: 500;
 	font-size: 18px;
-	margin-top: 20px;
 	background: #040026;
 	border-radius: 53px;
+}
+
+.sign-container .sign-img button#when-people-btn {
+	margin: 10px 0 0 0px;
+}
+
+.sign-container .sign-img button#when-page-btn {
+	margin: 10px 0 0 50px;
 }
 
 .sign-container .sign-img button span {

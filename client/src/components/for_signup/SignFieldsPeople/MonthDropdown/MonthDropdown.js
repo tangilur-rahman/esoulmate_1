@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // internal components
 import "./MonthDropdown.css";
@@ -22,6 +22,21 @@ const MonthDropdown = ({ getMonth, setMonth }) => {
 		"Dec"
 	];
 
+	// for close dropdown when outside clicked start
+	const myRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!myRef.current?.contains(e.target)) {
+			setMonthDropdown(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// for close dropdown when outside clicked end
+
 	return (
 		<>
 			<div
@@ -35,7 +50,7 @@ const MonthDropdown = ({ getMonth, setMonth }) => {
 					value={getMonth}
 					required
 				/>
-				<div className="option">
+				<div className="option" ref={myRef}>
 					{monthArray.map((value, index) => {
 						return (
 							<div onClick={() => setMonth(value)} key={index}>

@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // internal components
 import "./GenderDropdown.css";
@@ -19,6 +19,21 @@ const GenderDropdown = ({ getGender, setGender }) => {
 		}
 	};
 
+	// for close dropdown when outside clicked start
+	const myRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!myRef.current?.contains(e.target)) {
+			setGenderDrop(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// for close dropdown when outside clicked end
+
 	return (
 		<>
 			<div
@@ -32,7 +47,7 @@ const GenderDropdown = ({ getGender, setGender }) => {
 					value={displayGender()}
 					required
 				/>
-				<div className="option">
+				<div className="option" ref={myRef}>
 					<div onClick={() => setGender("male")}>
 						<span>👱‍♂️ &nbsp; Male</span>
 					</div>

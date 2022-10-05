@@ -446,9 +446,10 @@ const Signup = ({ setAddress }) => {
 							/>
 						) : (
 							<img
-								src="/assets/images/signup-page.png"
+								src="/assets/images/signup-page.gif"
 								alt="sign-page-img"
 								className="img-fluid"
+								id="when-page"
 								data-aos="fade-down"
 								data-aos-duration="800"
 								data-aos-delay="500"
@@ -458,6 +459,7 @@ const Signup = ({ setAddress }) => {
 						<button
 							type="button"
 							className="btn btn-dark"
+							id={regType === "people" ? "when-people-btn" : "when-page-btn"}
 							onClick={() => Navigate("../log-in")}
 							data-aos="fade-up"
 							data-aos-duration="800"
