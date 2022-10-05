@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // internal components
+import SignFieldsPage from "../../components/for_signup/SignFieldsPage/SignFieldsPage";
 import SignFieldsPeople from "../../components/for_signup/SignFieldsPeople/SignFieldsPeople";
-
 import "./Signup.css";
 
 const Signup = ({ setAddress }) => {
@@ -241,22 +241,26 @@ const Signup = ({ setAddress }) => {
 							</tr>
 						</table>
 
-						<SignFieldsPeople
-							onChangeHandler={onChangeHandler}
-							f_name={f_name}
-							l_name={l_name}
-							email_phone={email_phone}
-							password={password}
-							c_password={c_password}
-							getDay={getDay}
-							getMonth={getMonth}
-							getYear={getYear}
-							setDay={setDay}
-							setMonth={setMonth}
-							setYear={setYear}
-							getGender={getGender}
-							setGender={setGender}
-						/>
+						{regType === "people" ? (
+							<SignFieldsPeople
+								onChangeHandler={onChangeHandler}
+								f_name={f_name}
+								l_name={l_name}
+								email_phone={email_phone}
+								password={password}
+								c_password={c_password}
+								getDay={getDay}
+								getMonth={getMonth}
+								getYear={getYear}
+								setDay={setDay}
+								setMonth={setMonth}
+								setYear={setYear}
+								getGender={getGender}
+								setGender={setGender}
+							/>
+						) : (
+							<SignFieldsPage />
+						)}
 
 						{/* footer start  */}
 						<div className="sign-footer">
@@ -305,14 +309,26 @@ const Signup = ({ setAddress }) => {
 						data-aos="fade-left"
 						data-aos-duration="600"
 					>
-						<img
-							src="/assets/images/signup-image.gif"
-							alt="sign-img"
-							className="img-fluid"
-							data-aos="fade-down"
-							data-aos-duration="800"
-							data-aos-delay="500"
-						/>
+						{regType === "people" ? (
+							<img
+								src="/assets/images/signup-image.gif"
+								alt="sign-people-img"
+								className="img-fluid"
+								id="when-people"
+								data-aos="fade-down"
+								data-aos-duration="800"
+								data-aos-delay="500"
+							/>
+						) : (
+							<img
+								src="/assets/images/signup-page.png"
+								alt="sign-page-img"
+								className="img-fluid"
+								data-aos="fade-down"
+								data-aos-duration="800"
+								data-aos-delay="500"
+							/>
+						)}
 
 						<button
 							type="button"
