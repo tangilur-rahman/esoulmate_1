@@ -120,14 +120,12 @@ const signUp = async (req, res) => {
 				});
 				// create token end
 
-				res
-					.status(200)
-					.json({
-						message:
-							account_type === "people"
-								? `Welcome ${f_name} ${l_name} ❤️`
-								: `${page_name} page created ❤️`
-					});
+				res.status(200).json({
+					message:
+						account_type === "people"
+							? `Welcome ${f_name} ${l_name}.`
+							: `${page_name} page created.`
+				});
 			}
 		}
 	} catch (error) {
@@ -163,7 +161,7 @@ const LogIn = async (req, res) => {
 				});
 				// create token end
 
-				res.status(200).json({ message: `Welcome ${checkExist.name} ❤️` });
+				res.status(200).json({ message: `Welcome ${checkExist.name}.` });
 			} else {
 				res.status(400).json({ error: "Authentication Failed!" });
 			}
