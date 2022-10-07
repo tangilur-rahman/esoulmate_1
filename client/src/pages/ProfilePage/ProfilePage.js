@@ -139,7 +139,7 @@ const ProfilePage = () => {
 				</div>
 			) : (
 				<div className="container-fluid p-0">
-					<Navbar />
+					<Navbar from_where="profile" />
 
 					<div className="row profile-first-container">
 						<div className="col-xl-10 col-lg-11 col-md-12 p-0 profile-img-container">

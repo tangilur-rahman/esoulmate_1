@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { GetContextApi } from "../../ContextApi";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ from_where }) => {
 	// for redirect
 	const Navigate = useNavigate();
 
@@ -111,24 +111,28 @@ const Navbar = () => {
 							{/* **** navbar-right start **** */}
 							<div className="col-xl-4 col-3 p-0 navbar-right">
 								<div className="icon-style">
-									<div id="home">
-										<img
-											src="/assets/icon/House.png"
-											alt="house-icon"
-											onClick={() => Navigate("/")}
-											className="title-tip img-fluid"
-										/>
-										<h6 className="title-popup">Home</h6>
-									</div>
+									{from_where !== "home" && (
+										<div id="home">
+											<img
+												src="/assets/icon/House.png"
+												alt="house-icon"
+												onClick={() => Navigate("/")}
+												className="title-tip img-fluid"
+											/>
+											<h6 className="title-popup">Home</h6>
+										</div>
+									)}
 
-									<span>
-										<label htmlFor="create-post" id="create">
-											<i className="bi bi-plus-circle-fill"></i>
-										</label>
-										<h6 className="title-popup" id="create-popup">
-											Create Post
-										</h6>
-									</span>
+									{from_where === "home" && (
+										<span>
+											<label htmlFor="create-post" id="create">
+												<i className="bi bi-plus-circle-fill"></i>
+											</label>
+											<h6 className="title-popup" id="create-popup">
+												Create Post
+											</h6>
+										</span>
+									)}
 
 									<span>
 										<img src="/assets/icon/People.png" alt="people-icon" />

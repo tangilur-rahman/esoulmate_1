@@ -75,7 +75,7 @@ const FeedPage = () => {
 				</div>
 			) : (
 				<div className="container-fluid p-0">
-					<Navbar />
+					<Navbar from_where="home" />
 					<div className="row feed-body-container">
 						<div className="col-11 p-0">
 							<FeedBody />
