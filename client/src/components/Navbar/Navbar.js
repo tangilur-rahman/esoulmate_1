@@ -80,11 +80,10 @@ const Navbar = () => {
 						<div className="row m-0">
 							{/* **** navbar-left start **** */}
 							<div
-								className="col-3 p-0 navbar-left"
+								className="col-1 p-0 navbar-left"
 								onClick={() => Navigate("/")}
 							>
 								<img src="/assets/logo/esoulmate-logo.png" alt="logo" />
-								<h2>ESOLUMATE</h2>
 							</div>
 							{/* **** navbar-left end ****  */}
 
@@ -95,14 +94,14 @@ const Navbar = () => {
 									ref={searchRef}
 								>
 									<i
-										className="bi bi-search-heart"
+										className="bi bi-search"
 										onClick={() => setSearchToggle(!searchToggle)}
 									></i>
 									<input
 										type="search"
 										id="search"
 										autoComplete="off"
-										placeholder="Search for knowledge"
+										placeholder="Search . . ."
 										onClick={() => setSearchToggle(true)}
 									/>
 								</div>
@@ -110,34 +109,68 @@ const Navbar = () => {
 							{/* **** navbar-middle end **** */}
 
 							{/* **** navbar-right start **** */}
-							<div className="col-xl-5 col-3 p-0 navbar-right">
+							<div className="col-xl-4 col-3 p-0 navbar-right">
 								<div className="icon-style">
-									<label htmlFor="create-post" id="create">
-										<span>
-											<i className="bi bi-plus-circle-dotted"></i>
-										</span>
-									</label>
+									<div id="home">
+										<img
+											src="/assets/icon/House.png"
+											alt="house-icon"
+											onClick={() => Navigate("/")}
+											className="title-tip img-fluid"
+										/>
+										<h6 className="title-popup">Home</h6>
+									</div>
 
 									<span>
-										<i className="bi bi-people-fill"></i>
+										<label htmlFor="create-post" id="create">
+											<i className="bi bi-plus-circle-fill"></i>
+										</label>
+										<h6 className="title-popup" id="create-popup">
+											Create Post
+										</h6>
 									</span>
 
 									<span>
-										<i className="bi bi-chat-heart"></i>
+										<img src="/assets/icon/People.png" alt="people-icon" />
+										<h6 className="title-popup">People</h6>
 									</span>
 
 									<span>
-										<i className="bi bi-bell"></i>
+										<img
+											src="/assets/icon/message.png"
+											alt="message-icon"
+											title="Message"
+										/>
+										<h6 className="title-popup" id="message-popup">
+											Message
+										</h6>
+									</span>
+
+									<span>
+										<img
+											src="/assets/icon/notification.png"
+											alt="notification-icon"
+										/>
+										<h6 className="title-popup" id="notification-popup">
+											Notification
+										</h6>
 									</span>
 
 									<span id="sitting">
-										<i
-											className="fa-solid fa-sliders"
+										<img
+											src="/assets/icon/setting.png"
+											alt="settings-icon"
 											onClick={() => {
 												setWaitSitting(false);
 												setSittingT(!sittingT);
 											}}
-										></i>
+										/>
+
+										{!sittingT && (
+											<h6 className="title-popup" id="setting-popup">
+												Setting
+											</h6>
+										)}
 
 										<ul
 											className={sittingT ? "active" : "inactive"}
@@ -163,7 +196,7 @@ const Navbar = () => {
 												}}
 											>
 												<img src="/assets/icon/gear.png" alt="sitting-icon" />
-												<h5>Sitting</h5>
+												<h5>Settings</h5>
 											</li>
 
 											<li
@@ -223,7 +256,10 @@ const Navbar = () => {
 												}}
 											>
 												<span>
-													<i className="bi bi-people-fill"></i>
+													<img
+														src="/assets/icon/People.png"
+														alt="people-icon"
+													/>
 													<h5>People</h5>
 												</span>
 											</li>
@@ -234,7 +270,10 @@ const Navbar = () => {
 												}}
 											>
 												<span>
-													<i className="bi bi-chat-heart"></i>
+													<img
+														src="/assets/icon/message.png"
+														alt="people-icon"
+													/>
 													<h5>Messages</h5>
 												</span>
 											</li>
@@ -245,7 +284,10 @@ const Navbar = () => {
 												}}
 											>
 												<span>
-													<i className="bi bi-bell"></i>
+													<img
+														src="/assets/icon/notification.png"
+														alt="people-icon"
+													/>
 													<h5>Notifications</h5>
 												</span>
 											</li>

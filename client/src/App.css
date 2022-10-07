@@ -46,6 +46,7 @@ body {
 	font-weight: 500;
 	font-size: 17px;
 }
+
 .title-tip[title]:hover:after {
 	position: absolute;
 	top: 100%;
@@ -89,7 +90,7 @@ body {
 ::-webkit-scrollbar-thumb {
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	background: #2ec4b6;
+	background: #1b479e;
 }
 /* Scrollbar styling end */
 
