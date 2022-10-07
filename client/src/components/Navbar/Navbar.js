@@ -160,7 +160,7 @@ const Navbar = ({ from_where }) => {
 										</h6>
 									</span>
 
-									<span id="sitting">
+									<span id="sitting" ref={sittingRef}>
 										<img
 											src="/assets/icon/setting.png"
 											alt="settings-icon"
