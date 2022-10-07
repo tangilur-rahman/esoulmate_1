@@ -172,7 +172,7 @@ const Navbar = ({ from_where }) => {
 
 										{!sittingT && (
 											<h6 className="title-popup" id="setting-popup">
-												Setting
+												Settings
 											</h6>
 										)}
 
@@ -238,7 +238,7 @@ const Navbar = ({ from_where }) => {
 										</ul>
 									</span>
 
-									<span id="menu">
+									<span id="menu" ref={menuRef}>
 										<i
 											className="fa-solid fa-bars-staggered"
 											onClick={() => {
@@ -246,6 +246,8 @@ const Navbar = ({ from_where }) => {
 												setMenuT(!menuT);
 											}}
 										></i>
+
+										{!menuT && <h6 className="title-popup">Menu</h6>}
 
 										<ul
 											className={menuT ? "active-menu" : "inactive-menu"}
@@ -259,13 +261,13 @@ const Navbar = ({ from_where }) => {
 													setMenuT(!menuT);
 												}}
 											>
-												<span>
+												<div className="item">
 													<img
 														src="/assets/icon/People.png"
 														alt="people-icon"
 													/>
 													<h5>People</h5>
-												</span>
+												</div>
 											</li>
 
 											<li
@@ -273,13 +275,13 @@ const Navbar = ({ from_where }) => {
 													setMenuT(!menuT);
 												}}
 											>
-												<span>
+												<div className="item">
 													<img
 														src="/assets/icon/message.png"
 														alt="people-icon"
 													/>
 													<h5>Messages</h5>
-												</span>
+												</div>
 											</li>
 
 											<li
@@ -287,13 +289,13 @@ const Navbar = ({ from_where }) => {
 													setMenuT(!menuT);
 												}}
 											>
-												<span>
+												<div className="item">
 													<img
 														src="/assets/icon/notification.png"
 														alt="people-icon"
 													/>
 													<h5>Notifications</h5>
-												</span>
+												</div>
 											</li>
 										</ul>
 									</span>
