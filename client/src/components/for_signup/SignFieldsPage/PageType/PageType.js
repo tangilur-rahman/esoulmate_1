@@ -28,6 +28,7 @@ const PageType = ({ getPType, setPType }) => {
 			<div
 				className={typeDrop ? "type-container active" : "type-container"}
 				onClick={() => setTypeDrop(!typeDrop)}
+				ref={myRef}
 			>
 				<input
 					type="text"

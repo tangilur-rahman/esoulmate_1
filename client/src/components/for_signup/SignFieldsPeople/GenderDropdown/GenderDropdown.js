@@ -39,6 +39,7 @@ const GenderDropdown = ({ getGender, setGender }) => {
 			<div
 				className={genderDrop ? "gender-container active" : "gender-container"}
 				onClick={() => setGenderDrop(!genderDrop)}
+				ref={myRef}
 			>
 				<input
 					type="text"

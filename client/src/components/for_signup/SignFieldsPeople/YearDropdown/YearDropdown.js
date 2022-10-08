@@ -33,6 +33,7 @@ const YearDropdown = ({ getYear, setYear }) => {
 			<div
 				className={yearDropdown ? "year-container active" : "year-container"}
 				onClick={() => setYearDropdown(!yearDropdown)}
+				ref={myRef}
 			>
 				<input
 					type="text"

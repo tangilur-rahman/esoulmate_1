@@ -33,6 +33,7 @@ const DayDropdown = ({ getDay, setDay }) => {
 			<div
 				className={dayDropdown ? "day-container active" : "day-container"}
 				onClick={() => setDayDropdown(!dayDropdown)}
+				ref={myRef}
 			>
 				<input type="text" placeholder="Day" readOnly value={getDay} required />
 				<div className="option" ref={myRef}>

@@ -42,6 +42,7 @@ const MonthDropdown = ({ getMonth, setMonth }) => {
 			<div
 				className={monthDropdown ? "month-container active" : "month-container"}
 				onClick={() => setMonthDropdown(!monthDropdown)}
+				ref={myRef}
 			>
 				<input
 					type="text"
