@@ -82,6 +82,7 @@ const CommentInputReply = ({
 						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
 						className="img-fluid"
+						id="profile-img"
 					/>
 					<div className="input-box">
 						<TextareaAutosize
