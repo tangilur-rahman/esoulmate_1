@@ -35,7 +35,13 @@ const ReactionEmoji = ({ reactT, setReactT, setReact }) => {
 						setReact("like");
 					}}
 				>
-					<img src="/assets/emojis/like.gif" alt="like" />
+					<span className="emoji-wrapper">
+						<img src="/assets/emojis/like.gif" alt="like" />
+
+						<h6 className="title-popup" id="thumbs-up-popup">
+							Thumbs Up
+						</h6>
+					</span>
 				</div>
 
 				<div
@@ -45,7 +51,12 @@ const ReactionEmoji = ({ reactT, setReactT, setReact }) => {
 						setReact("love");
 					}}
 				>
-					<img src="/assets/emojis/love.gif" alt="love" />
+					<span className="emoji-wrapper">
+						<img src="/assets/emojis/love.gif" alt="love" />
+						<h6 className="title-popup" id="love-popup">
+							Love
+						</h6>
+					</span>
 				</div>
 
 				<div
@@ -55,7 +66,12 @@ const ReactionEmoji = ({ reactT, setReactT, setReact }) => {
 						setReact("wow");
 					}}
 				>
-					<img src="/assets/emojis/wow.gif" alt="wow" />
+					<span className="emoji-wrapper">
+						<img src="/assets/emojis/wow.gif" alt="wow" />
+						<h6 className="title-popup" id="wow-popup">
+							WoW
+						</h6>
+					</span>
 				</div>
 
 				<div
@@ -65,7 +81,12 @@ const ReactionEmoji = ({ reactT, setReactT, setReact }) => {
 						setReact("haha");
 					}}
 				>
-					<img src="/assets/emojis/haha.gif" alt="haha" />
+					<span className="emoji-wrapper">
+						<img src="/assets/emojis/haha.gif" alt="haha" />
+						<h6 className="title-popup" id="haha-popup">
+							Funny
+						</h6>
+					</span>
 				</div>
 
 				<div
@@ -75,7 +96,12 @@ const ReactionEmoji = ({ reactT, setReactT, setReact }) => {
 						setReact("clap");
 					}}
 				>
-					<img src="/assets/emojis/clap.gif" alt="clap" />
+					<span className="emoji-wrapper">
+						<img src="/assets/emojis/clap.gif" alt="clap" />
+						<h6 className="title-popup" id="cheer-popup">
+							Cheer
+						</h6>
+					</span>
 				</div>
 
 				<div
@@ -85,7 +111,12 @@ const ReactionEmoji = ({ reactT, setReactT, setReact }) => {
 						setReact("appreciate");
 					}}
 				>
-					<img src="/assets/emojis/appreciate.gif" alt="appreciate" />
+					<span className="emoji-wrapper">
+						<img src="/assets/emojis/appreciate.gif" alt="appreciate" />
+						<h6 className="title-popup" id="appreciate-popup">
+							Appreciate
+						</h6>
+					</span>
 				</div>
 
 				<div
@@ -95,7 +126,12 @@ const ReactionEmoji = ({ reactT, setReactT, setReact }) => {
 						setReact("dislike");
 					}}
 				>
-					<img src="/assets/emojis/dislike.gif" alt="dislike" />
+					<span className="emoji-wrapper">
+						<img src="/assets/emojis/dislike.gif" alt="dislike" />
+						<h6 className="title-popup" id="thumbs-down-popup">
+							Thumbs Down
+						</h6>
+					</span>
 				</div>
 			</div>
 		</>
