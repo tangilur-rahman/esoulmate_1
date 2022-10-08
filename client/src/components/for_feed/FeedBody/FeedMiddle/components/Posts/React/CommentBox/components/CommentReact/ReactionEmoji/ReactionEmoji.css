@@ -47,7 +47,11 @@
 	transition: 0.3s;
 }
 
-.com-react-emoji-container .emoji img {
+.com-react-emoji-container .emoji .emoji-wrapper {
+	position: relative;
+}
+
+.com-react-emoji-container .emoji .emoji-wrapper img {
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
@@ -57,3 +61,68 @@
 	margin-right: 10px;
 	cursor: pointer;
 }
+
+/* title style start  */
+.com-react-emoji-container .emoji .emoji-wrapper .title-popup {
+	position: absolute;
+	bottom: 47px;
+	left: 0;
+	background-color: #040026;
+	color: white;
+	margin: 0;
+	padding: 6px;
+	border-radius: 6px;
+	box-sizing: var(--box-shadow);
+	font-size: 9px;
+	display: none;
+	z-index: 1000;
+	text-align: center;
+}
+
+.com-react-emoji-container .emoji .emoji-wrapper:hover .title-popup {
+	animation: title-popup-reaction 0.5s ease-in-out 0.5s forwards;
+	display: block;
+	opacity: 0;
+}
+
+@keyframes title-popup-reaction {
+	0% {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+
+	80% {
+		transform: translateY(-3px);
+	}
+
+	100% {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+.com-react-emoji-container .emoji .emoji-wrapper .title-popup#thumbs-up-popup {
+	width: 59px;
+	left: -5px;
+}
+
+.com-react-emoji-container .emoji .emoji-wrapper .title-popup#love-popup {
+	left: 3px;
+}
+
+.com-react-emoji-container .emoji .emoji-wrapper .title-popup#cheer-popup {
+	left: -3px;
+}
+
+.com-react-emoji-container .emoji .emoji-wrapper .title-popup#appreciate-popup {
+	left: -11px;
+}
+
+.com-react-emoji-container
+	.emoji
+	.emoji-wrapper
+	.title-popup#thumbs-down-popup {
+	left: -25px;
+	width: 66px;
+}
+/* title style end */
