@@ -136,7 +136,9 @@ const Navbar = ({ from_where }) => {
 
 									<span>
 										<img src="/assets/icon/People.png" alt="people-icon" />
-										<h6 className="title-popup">People</h6>
+										<h6 className="title-popup" id="people-popup">
+											Follow Requests
+										</h6>
 									</span>
 
 									<span>
@@ -266,7 +268,7 @@ const Navbar = ({ from_where }) => {
 														src="/assets/icon/People.png"
 														alt="people-icon"
 													/>
-													<h5>People</h5>
+													<h5>Follow Requests</h5>
 												</div>
 											</li>
 

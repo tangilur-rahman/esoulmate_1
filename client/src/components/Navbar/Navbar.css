@@ -168,7 +168,7 @@
 }
 
 .navbar-right .icon-style #create-popup {
-	width: 71px;
+	width: 72px;
 	right: -26px;
 }
 
@@ -182,6 +182,11 @@
 
 .navbar-right .icon-style #setting-popup {
 	right: -15px;
+}
+
+.navbar-right .icon-style #people-popup {
+	left: -42px;
+	width: 100px;
 }
 
 /* for title-popup end */
