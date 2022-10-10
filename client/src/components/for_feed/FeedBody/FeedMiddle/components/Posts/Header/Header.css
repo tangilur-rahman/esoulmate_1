@@ -24,22 +24,15 @@
 	width: 100%;
 }
 
-.header-section .left .user-info .top-line {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-}
-
-.header-section .left .user-info .top-line p {
-	margin: 0 0 0 5px;
-}
-
 .header-section .left .user-info h6 {
 	margin: 0;
 	color: #264653;
 	font-weight: 600;
 	letter-spacing: 0.2px;
 	font-size: 16px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 .user-info .extra-info span:first-child {

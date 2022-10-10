@@ -4,7 +4,7 @@ import TimeAgo from "timeago-react";
 // internal components
 import "./Header.css";
 
-const Header = ({ profile, name, header, category, time, privacy }) => {
+const Header = ({ profile, name, category, time, privacy }) => {
 	return (
 		<>
 			{/* header-section start  */}
@@ -17,9 +17,7 @@ const Header = ({ profile, name, header, category, time, privacy }) => {
 					/>
 
 					<div className="user-info">
-						<div className="top-line">
-							<h6>{name}</h6> <p>{header}</p>
-						</div>
+						<h6>{name}</h6>
 
 						<div className="extra-info">
 							<span>

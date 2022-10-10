@@ -23,7 +23,6 @@ const Posts = ({ getPostDocs }) => {
 								<Header
 									profile={value.user_id.profile_img}
 									name={value.user_id.name}
-									header={value.header}
 									category={value.category}
 									time={value.time}
 									privacy={value.privacy}
@@ -34,7 +33,7 @@ const Posts = ({ getPostDocs }) => {
 								{/* attachment section start  */}
 								<div className="attachment-main-container">
 									{(value.file_type === "image" && (
-										<Image image={value.attachment} header={value.header} />
+										<Image image={value.attachment} />
 									)) ||
 										(value.file_type === "video" && (
 											<Video video={value.attachment} />
