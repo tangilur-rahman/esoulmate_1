@@ -13,19 +13,24 @@
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
+
+.post-tab-main-container .post-middle-container {
+	flex-grow: 1;
+}
+
 .post-tab-main-container .post-right-container {
-	margin: 10px 0 0 0;
+	height: 300px;
+}
+
+.post-tab-main-container .post-right-container img {
+	width: 100%;
+	height: 100%;
+	object-fit: fill;
+	object-position: center;
+	cursor: pointer;
+	border-radius: 10px;
 }
 
 /* media query start  */
-@media screen and (max-width: 991px) {
-	.post-tab-main-container {
-		flex-wrap: wrap;
-		margin: 0 0px 0 12px;
-		padding-right: 30px;
-	}
-	.post-tab-main-container .post-left-container {
-		position: static;
-	}
-}
+
 /* media query end  */

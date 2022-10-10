@@ -74,7 +74,9 @@ const ProfileImg = ({ getProfile, currentUser }) => {
 							<label htmlFor="for-profile">
 								<span>
 									<i className="bi bi-camera-fill"></i>
-									<h6 className="title-popup">Change profile picture</h6>
+									<h6 className="title-popup-profile">
+										Change profile picture
+									</h6>
 								</span>
 							</label>
 						)}

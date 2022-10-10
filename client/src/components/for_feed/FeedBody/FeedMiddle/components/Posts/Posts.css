@@ -6,6 +6,10 @@
 	padding-bottom: 15px;
 }
 
+.post-container:first-child {
+	margin: 0 0 20px 0;
+}
+
 /* attachment section start  */
 .post-container .attachment-main-container {
 	margin: 12px 0 0 0;

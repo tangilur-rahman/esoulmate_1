@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // internal components
-import CreatePost from "../../../for_feed/FeedBody/FeedMiddle/components/CreatePost/CreatePost";
 import Posts from "../../../for_feed/FeedBody/FeedMiddle/components/Posts/Posts";
 import Intro from "./Intro/Intro";
 
@@ -58,15 +57,16 @@ const PostsTab = ({ profile_id }) => {
 	return (
 		<>
 			<div className="container-fluid p-0">
-				<div className="row  ">
-					<div className="post-tab-main-container">
-						<div className="col-lg-5  col-12 p-0 post-left-container">
-							<Intro />
-						</div>
-						<div className="col-lg-7 col-12 p-0 post-right-container">
-							<CreatePost />
-							<Posts getPostDocs={getPostDocs} />
-						</div>
+				<div className="row m-0 post-tab-main-container">
+					<div className="col-lg-3  col-12 p-0 post-left-container">
+						<Intro />
+					</div>
+					<div className="col-lg-5 col-12 p-0 post-middle-container">
+						<Posts getPostDocs={getPostDocs} />
+					</div>
+
+					<div className="col-lg-3 col-12 p-0 post-right-container">
+						<img src="/assets/dummy/dummy-1.jpg" alt="feature-img" />
 					</div>
 				</div>
 			</div>

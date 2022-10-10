@@ -3,11 +3,12 @@
 	justify-content: center;
 	height: fit-content;
 	background: #040026;
-	position: sticky;
+	position: fixed;
 	z-index: 1000;
 	top: 0;
 	box-shadow: var(--box-shadow);
 	padding: 7px 0;
+	width: 100%;
 }
 
 /* **** navbar-left start  **** */
@@ -16,6 +17,7 @@
 	align-items: center;
 	width: fit-content;
 	cursor: pointer;
+	margin-left: -1px;
 }
 
 .navbar-left img {
@@ -515,6 +517,10 @@
 		margin-right: 40px;
 	}
 
+	.navbar-right .icon-style #home {
+		margin-right: 40px;
+	}
+
 	.navbar-right .icon-style span:last-child {
 		margin-right: 0px;
 	}
@@ -522,6 +528,10 @@
 
 @media screen and (max-width: 400px) {
 	.navbar-right .icon-style span {
+		margin-right: 30px;
+	}
+
+	.navbar-right .icon-style #home {
 		margin-right: 30px;
 	}
 

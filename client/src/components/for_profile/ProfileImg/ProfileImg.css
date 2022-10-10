@@ -119,7 +119,7 @@
 }
 
 /* title style start  */
-.profile-img-container .profile-img #profile-img .title-popup {
+.profile-img #profile-img .title-popup-profile {
 	position: absolute;
 	top: 0px;
 	left: 45px;
@@ -135,13 +135,13 @@
 	width: 136px;
 }
 
-.profile-img-container .profile-img #profile-img span:hover .title-popup {
-	animation: title-popup 0.5s ease-in-out 0.7s forwards;
+.profile-img #profile-img span:hover .title-popup-profile {
+	animation: title-popup-profile 0.5s ease-in-out 0.7s forwards;
 	display: block;
 	opacity: 0;
 }
 
-@keyframes title-popup {
+@keyframes title-popup-profile {
 	0% {
 		transform: translateX(20px);
 		opacity: 0;

@@ -141,15 +141,15 @@ const ProfilePage = () => {
 				<div className="container-fluid p-0">
 					<Navbar from_where="profile" />
 
-					<div className="row profile-first-container">
-						<div className="col-xl-10 col-lg-11 col-md-12 p-0 profile-img-container">
+					<div className="row profile-first-container m-0">
+						<div className="col-lg-11 col-md-12 p-0 profile-img-container">
 							<ProfileImg getProfile={getProfile} currentUser={currentUser} />
 							<hr />
 							<ProfileTabs setTabToggle={setTabToggle} tabToggle={tabToggle} />
 						</div>
 					</div>
-					<div className="row profile-second-container">
-						<div className="col-xl-10 col-lg-11 col-md-12 p-0">
+					<div className="row profile-second-container m-0">
+						<div className="col-lg-11 col-md-12 p-0">
 							{tabToggle === 1 && <PostsTab profile_id={profile_id} />}
 
 							{tabToggle === 2 && <FollowingTab />}

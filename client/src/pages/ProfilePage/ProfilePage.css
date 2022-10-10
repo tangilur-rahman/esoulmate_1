@@ -4,6 +4,7 @@
 	background-color: white;
 	box-shadow: var(--box-shadow);
 }
+
 .profile-img-container {
 	border-radius: 0 0 10px 10px;
 }
@@ -15,5 +16,5 @@
 .profile-second-container {
 	display: flex;
 	justify-content: center;
-	margin: 13px 0 0 0;
+	margin: 15px 0 0 0 !important;
 }
