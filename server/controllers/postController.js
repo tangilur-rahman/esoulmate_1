@@ -8,7 +8,7 @@ const changeProfile = async (req, res) => {
 	try {
 		const fileName = req.file.filename;
 
-		const { whichOne } = req.body;
+		const whichOne = req.query.whichOne;
 
 		if (whichOne === "cover") {
 			req.currentUser.cover_img = fileName;
