@@ -8,12 +8,6 @@ const schema = mongoose.Schema(
 			ref: "user"
 		},
 
-		header: {
-			type: String,
-			trim: true,
-			default: ""
-		},
-
 		privacy: {
 			type: String,
 			trim: true

@@ -6,31 +6,19 @@ const postModel = require("./../models/postModel");
 // for changing cover or profile pic
 const changeProfile = async (req, res) => {
 	try {
-		const { text, privacy, header } = req.body;
 		const fileName = req.file.filename;
 
-		const document = await postModel({
-			user_id: req.currentUser._id,
-			header,
-			privacy,
-			text,
-			file_type: "image",
-			attachment: fileName
-		});
+		const { whichOne } = req.body;
 
-		if (header === "updated his cover photo.") {
+		if (whichOne === "cover") {
 			req.currentUser.cover_img = fileName;
 
 			await req.currentUser.save();
-			await document.save();
-
 			res.status(200).json({ message: "Cover photo updated successfully." });
-		} else {
+		} else if (whichOne === "profile") {
 			req.currentUser.profile_img = fileName;
 
 			await req.currentUser.save();
-			await document.save();
-
 			res.status(200).json({ message: "Profile image updated successfully." });
 		}
 	} catch (error) {

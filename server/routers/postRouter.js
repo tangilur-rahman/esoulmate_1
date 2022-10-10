@@ -7,6 +7,9 @@ const {
 	multerForImg,
 	multerForAttachment
 } = require("./../Config/multerManager");
+
+const { deleteFile } = require("./../Config/deleteManager");
+
 const {
 	changeProfile,
 	submitAttachments,
@@ -21,7 +24,13 @@ const {
 // for changing cover & profile-photo
 const uploadImg = multerForImg("file");
 
-post.post("/profile", authUser, uploadImg.single("file"), changeProfile);
+post.post(
+	"/profile",
+	authUser,
+	deleteFile,
+	uploadImg.single("file"),
+	changeProfile
+);
 
 // for submitting post with attachment or without
 const uploadAtt = multerForAttachment("file");

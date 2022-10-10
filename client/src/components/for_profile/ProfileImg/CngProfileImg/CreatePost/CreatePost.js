@@ -23,6 +23,7 @@ const CreatePost = ({
 		if (getCoverImg || getProfileImg) {
 			const formData = new FormData();
 			formData.append("file", getCoverImg ? getCoverImg : getProfileImg);
+			formData.append("whichOne", getCoverImg ? "cover" : "profile");
 
 			try {
 				const response = await fetch("/post/profile", {
