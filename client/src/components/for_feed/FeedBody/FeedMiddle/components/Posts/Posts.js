@@ -28,7 +28,7 @@ const Posts = ({ getPostDocs }) => {
 									privacy={value.privacy}
 								/>
 
-								<Description description={value.text} />
+								<Description description={value?.text} />
 
 								{/* attachment section start  */}
 								<div className="attachment-main-container">
