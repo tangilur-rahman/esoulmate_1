@@ -20,7 +20,7 @@
 	cursor: pointer;
 	object-fit: cover;
 	object-position: top center;
-	outline: 3px solid black;
+	outline: 3px solid #040026;
 	border-radius: 50%;
 }
 

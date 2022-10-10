@@ -9,8 +9,8 @@ const Featured = () => {
 
 				<div className="featured-btn">
 					<button type="button" className="btn">
-						<span className="hover-link">Add your interest</span>
-						{/* <span className="hover-link">Edit your interest</span> */}
+						<span className="hover-link">Add your featured</span>
+						{/* <span className="hover-link">Edit your featured</span> */}
 					</button>
 				</div>
 			</div>

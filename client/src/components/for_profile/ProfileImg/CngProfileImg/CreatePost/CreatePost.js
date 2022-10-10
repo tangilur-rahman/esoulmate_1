@@ -45,15 +45,6 @@ const CreatePost = ({
 			const formData = new FormData();
 			formData.append("file", getCoverImg ? getCoverImg : getProfileImg);
 
-			formData.append("text", postText);
-			formData.append("privacy", privacy);
-			formData.append(
-				"header",
-				getCoverImg
-					? "updated his cover photo."
-					: "updated his profile picture."
-			);
-
 			try {
 				const response = await fetch("/post/profile", {
 					method: "POST",
