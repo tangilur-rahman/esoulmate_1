@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 // internal components
 import Posts from "../../../for_feed/FeedBody/FeedMiddle/components/Posts/Posts";
+import Featured from "./Featured/Featured";
 import Interested from "./Interested/Interested";
 
 import "./PostsTab.css";
@@ -66,7 +67,7 @@ const PostsTab = ({ profile_id }) => {
 					</div>
 
 					<div className="col-lg-3 col-12 p-0 post-right-container">
-						<img src="/assets/dummy/dummy-1.jpg" alt="feature-img" />
+						<Featured />
 					</div>
 				</div>
 			</div>
