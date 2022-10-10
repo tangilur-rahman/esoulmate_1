@@ -10,11 +10,16 @@
 	display: flex;
 	justify-content: center;
 	padding: 0 5px;
+	color: #040026;
 }
 
 /* interested-btn style start  */
 .interested-container .interested-btn {
-	border: 1px solid red;
+	background-color: #e4e6eb;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .interested-container .interested-btn span {
