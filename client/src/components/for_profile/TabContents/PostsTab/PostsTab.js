@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 // internal components
 import Posts from "../../../for_feed/FeedBody/FeedMiddle/components/Posts/Posts";
-import Intro from "./Intro/Intro";
+import Interested from "./Interested/Interested";
 
 import "./PostsTab.css";
 
@@ -59,7 +59,7 @@ const PostsTab = ({ profile_id }) => {
 			<div className="container-fluid p-0">
 				<div className="row m-0 post-tab-main-container">
 					<div className="col-lg-3  col-12 p-0 post-left-container">
-						<Intro />
+						<Interested />
 					</div>
 					<div className="col-lg-5 col-12 p-0 post-middle-container">
 						<Posts getPostDocs={getPostDocs} />

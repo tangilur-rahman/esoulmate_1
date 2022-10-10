@@ -10,8 +10,8 @@
 	position: sticky;
 	top: 5rem;
 	bottom: 0;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow: auto;
+	border-radius: 10px;
 }
 
 .post-tab-main-container .post-middle-container {

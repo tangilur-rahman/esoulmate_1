@@ -1,0 +1,28 @@
+/* intro-container start  */
+.interested-container {
+	background-color: white;
+	box-shadow: var(--box-shadow);
+	padding: 15px;
+}
+
+.interested-container h5 {
+	font-weight: 600;
+	display: flex;
+	justify-content: center;
+	padding: 0 5px;
+}
+
+/* interested-btn style start  */
+.interested-container .interested-btn {
+	border: 1px solid red;
+}
+
+.interested-container .interested-btn span {
+	display: inline-block;
+}
+
+.interested-container .interested-btn span.hover-link::after {
+	background-color: black;
+}
+/* interested-btn style end  */
+/* intro-container end  */
