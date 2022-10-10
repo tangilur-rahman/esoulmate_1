@@ -11,7 +11,7 @@
 .chn-profile-container .user-info {
 	display: flex;
 	align-items: center;
-	padding: 17px;
+	padding: 10px 17px 17px;
 }
 
 .chn-profile-container .user-info img {
@@ -19,112 +19,20 @@
 	height: 3rem;
 	object-fit: cover;
 	object-position: top center;
-	outline: 3px solid black;
+	outline: 3px solid #040026;
 	border-radius: 50%;
 }
 
-.chn-profile-container .user-info .user-name {
-	margin: 0 0px 0 14px;
-}
-
-.chn-profile-container .user-info .user-name h6 {
+.chn-profile-container .user-info h6 {
 	color: #264653;
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing: 0.2px;
-	margin: -20px 0 0 0;
-}
-
-.chn-profile-container .privacy-container {
-	position: relative;
-	margin-top: -2px;
-}
-
-.chn-profile-container .privacy-container::before {
-	content: "";
-	position: absolute;
-	right: 30px;
-	top: 11px;
-	z-index: 1;
-	width: 8px;
-	height: 8px;
-	border: 2px solid #333;
-	border-top: 2px solid #fff;
-	border-right: 2px solid #fff;
-	transform: rotate(-45deg);
-	transition: 0.5s;
-	pointer-events: none;
-}
-
-.chn-profile-container .privacy-container.active::before {
-	top: 15px;
-	transform: rotate(-225deg);
-}
-
-.chn-profile-container .privacy-container input {
-	position: absolute;
-	top: 5px;
-	left: 0;
-	width: 84%;
-	height: 100%;
-	cursor: pointer;
-	background-color: #fff;
-	border: none;
-	outline: none;
-	box-shadow: 0px 1px 3px rgb(0 0 0 / 50%);
-	padding: 12px 3px;
-	border-radius: 5px;
-	font-weight: 500;
-}
-
-.chn-profile-container .privacy-container .option {
-	position: absolute;
-	top: 36px;
-	width: 84%;
-	background-color: #fff;
-	box-shadow: 0 1px 6px rgb(0 0 0 / 50%);
-	border-radius: 10px;
-	overflow: hidden;
-	display: none;
-	z-index: 1;
-	font-weight: 500;
-}
-
-.chn-profile-container .privacy-container.active .option {
-	display: block;
-}
-
-.chn-profile-container .privacy-container .option div {
-	padding: 7px 10px;
-	cursor: pointer;
-}
-
-.chn-profile-container .privacy-container .option div:hover {
-	background-color: #62baea;
-	color: #fff;
-}
-
-.chn-profile-container .privacy-container .option div i {
-	position: relative;
-	top: 0px;
-	font-size: 1em;
-	margin: 0 10px 0 0;
+	margin: 0 0 0 10px;
+	font-size: 26px;
 }
 /* user-info section end  */
 
 /* input section start  */
-
-.chn-profile-container .input-container #create-post {
-	width: 95%;
-	border: none;
-	outline: none;
-	padding: 0px 20px 10px 20px;
-	line-height: 200%;
-	letter-spacing: 0.5px;
-	resize: none;
-	word-wrap: break-word;
-	word-spacing: 0.2rem;
-}
-
 .chn-profile-container .preview-container img {
 	border-radius: 10px;
 	height: 300px;
@@ -156,7 +64,7 @@
 	justify-content: center;
 	cursor: pointer;
 	border-radius: 2rem;
-	font-size: 21px;
+	font-size: 19px;
 }
 
 .chn-profile-container .share-btn-container button:hover {

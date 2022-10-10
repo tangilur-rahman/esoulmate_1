@@ -1,6 +1,4 @@
 // external components
-import { useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 import { GetContextApi } from "../../../../../ContextApi";
 
@@ -18,25 +16,6 @@ const CreatePost = ({
 }) => {
 	// for updating posts when submitted
 	const { setUpdatePost } = GetContextApi();
-
-	// for getting privacy selection
-	const [privacy, setPrivacy] = useState("public");
-	const [priDrop, setPriDrop] = useState("");
-
-	// privacy display handler start
-	const displayingPrivacy = () => {
-		if (privacy === "public") {
-			return "🌍  Public";
-		} else if (privacy === "friends") {
-			return "👨‍👧‍👦  Friends";
-		} else if (privacy === "only me") {
-			return "🔒  Only Me";
-		}
-	};
-	// privacy display handler end
-
-	// for getting  post's text
-	const [postText, setPostText] = useState("");
 
 	// cover or profile pic submit handler start
 	const submitHandler = async (e) => {
@@ -63,8 +42,6 @@ const CreatePost = ({
 					setChangeImgT(false);
 					setCoverImg("");
 					setProfileImg("");
-					setPrivacy("public");
-					setPostText("");
 
 					setUpdatePost(Date.now());
 				} else if (result.error) {
@@ -107,44 +84,7 @@ const CreatePost = ({
 						className="img-fluid"
 					/>
 
-					<div className="user-name">
-						<h6>{currentUser.name}</h6>
-
-						<div
-							className={
-								priDrop ? "privacy-container active" : "privacy-container"
-							}
-							onClick={() => setPriDrop(!priDrop)}
-						>
-							<input value={displayingPrivacy()} readOnly />
-
-							<div className="option">
-								<div onClick={() => setPrivacy("public")}>
-									🌍&nbsp; &nbsp;Public
-								</div>
-								<div onClick={() => setPrivacy("friends")}>
-									👨‍👧‍👦&nbsp; &nbsp;Friends
-								</div>
-								<div onClick={() => setPrivacy("only me")}>
-									🔒&nbsp; &nbsp;Only Me
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div className="input-container">
-					<TextareaAutosize
-						name="for-text"
-						id="create-post"
-						placeholder={
-							getCoverImg
-								? "Write something about your cover photo..."
-								: "Write something about your profile picture..."
-						}
-						onChange={(e) => setPostText(e.target.value)}
-						value={postText}
-					/>
+					<h6>{currentUser.name}</h6>
 				</div>
 
 				<div className="preview-container">
@@ -173,7 +113,7 @@ const CreatePost = ({
 						className="btn btn-primary"
 						onClick={submitHandler}
 					>
-						<span className="hover-link">Share</span>
+						<span className="hover-link">Upload</span>
 					</button>
 				</div>
 			</div>
