@@ -30,10 +30,10 @@ const changeProfile = async (req, res) => {
 const submitAttachments = async (req, res) => {
 	try {
 		const { text, privacy, category } = req.body;
-		const fileName = req.file.filename;
+		const fileName = req.file ? req.file.filename : "";
 
 		// for getting file_type start
-		const ext = fileName.split(".").slice(-1)[0];
+		const ext = fileName && fileName.split(".").slice(-1)[0];
 
 		const selectType = () => {
 			if (ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "gif") {
@@ -57,7 +57,7 @@ const submitAttachments = async (req, res) => {
 			}
 		};
 
-		const file_type = await selectType();
+		const file_type = fileName ? await selectType() : "";
 		// for getting file_type end
 
 		const document = await postModel({
