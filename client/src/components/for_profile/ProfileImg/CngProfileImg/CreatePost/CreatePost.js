@@ -26,7 +26,7 @@ const CreatePost = ({
 
 			try {
 				const response = await fetch(
-					`/post/profile?whichOne=${getCoverImg ? "cover" : "profile"}`,
+					`/user/profile?whichOne=${getCoverImg ? "cover" : "profile"}`,
 					{
 						method: "POST",
 						body: formData

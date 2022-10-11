@@ -12,10 +12,12 @@ const {
 	resetPassword,
 	currentUser,
 	getProfile,
+	changeProfile,
 	uploadFeature
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
+const { deleteFile } = require("./../Config/deleteManager");
 
 // for returning current-user
 user.get("/", authUser, currentUser);
@@ -43,6 +45,17 @@ user.get("/log-in/verification/otp/:selectedVia/:getCode", matchingOtp);
 
 // for reset-password
 user.get("/log-in/reset-password/:email_phone/:newPassword", resetPassword);
+
+// for changing cover & profile-photo
+const uploadImg = multerForImg("file");
+
+user.post(
+	"/profile",
+	authUser,
+	deleteFile,
+	uploadImg.single("file"),
+	changeProfile
+);
 
 // for uploading new feature
 const upload = multerForImg("file");

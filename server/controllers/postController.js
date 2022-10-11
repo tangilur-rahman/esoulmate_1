@@ -3,29 +3,6 @@
 // internal modules
 const postModel = require("./../models/postModel");
 
-// for changing cover or profile pic
-const changeProfile = async (req, res) => {
-	try {
-		const fileName = req.file.filename;
-
-		const whichOne = req.query.whichOne;
-
-		if (whichOne === "cover") {
-			req.currentUser.cover_img = fileName;
-
-			await req.currentUser.save();
-			res.status(200).json({ message: "Cover photo updated successfully." });
-		} else if (whichOne === "profile") {
-			req.currentUser.profile_img = fileName;
-
-			await req.currentUser.save();
-			res.status(200).json({ message: "Profile image updated successfully." });
-		}
-	} catch (error) {
-		res.status(500).json({ error: "Maintenance mode, Try again later!" });
-	}
-};
-
 // for submitting post with attachment or without
 const submitAttachments = async (req, res) => {
 	try {
@@ -227,7 +204,6 @@ const getSpecificPost = async (req, res) => {
 };
 
 module.exports = {
-	changeProfile,
 	submitAttachments,
 	profilePosts,
 	updateReact,

@@ -3,15 +3,9 @@ const post = require("express").Router();
 
 // internal modules
 const authUser = require("./../middleware/authUser");
-const {
-	multerForImg,
-	multerForAttachment
-} = require("./../Config/multerManager");
-
-const { deleteFile } = require("./../Config/deleteManager");
+const { multerForAttachment } = require("./../Config/multerManager");
 
 const {
-	changeProfile,
 	submitAttachments,
 	profilePosts,
 	updateReact,
@@ -20,17 +14,6 @@ const {
 	getSpecificPost,
 	updateCommentReply
 } = require("./../controllers/postController");
-
-// for changing cover & profile-photo
-const uploadImg = multerForImg("file");
-
-post.post(
-	"/profile",
-	authUser,
-	deleteFile,
-	uploadImg.single("file"),
-	changeProfile
-);
 
 // for submitting post with attachment or without
 const uploadAtt = multerForAttachment("file");
