@@ -15,7 +15,7 @@ const CreatePost = ({
 	setProfileImg
 }) => {
 	// for updating posts when submitted
-	const { setUpdatePost } = GetContextApi();
+	const { setUpdateProfile } = GetContextApi();
 
 	// cover or profile pic submit handler start
 	const submitHandler = async (e) => {
@@ -46,7 +46,7 @@ const CreatePost = ({
 					setCoverImg("");
 					setProfileImg("");
 
-					setUpdatePost(Date.now());
+					setUpdateProfile(Date.now());
 				} else if (result.error) {
 					toast(result.error, {
 						position: "top-right",

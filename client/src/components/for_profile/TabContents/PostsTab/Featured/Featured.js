@@ -2,15 +2,15 @@
 import { useEffect, useRef, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
+import { toast } from "react-toastify";
 
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
-import profileImg from "./../../../../../dummy-data/profile-images.json";
 import "./Featured.css";
 
 const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 	// for getting currentUser
-	const { currentUser } = GetContextApi();
+	const { currentUser, setUpdateProfile } = GetContextApi();
 
 	// for conforming to delete or not
 	const [conformPopup, setConformPopup] = useState(false);
@@ -21,6 +21,9 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 	// for getting file
 	const [getFile, setFile] = useState("");
 	const [getPreview, setPreview] = useState("");
+
+	// for loading until featured was uploaded
+	const [isLoading, setIsLoading] = useState("");
 
 	// for close outside clicked start
 	const myRef = useRef();
@@ -53,12 +56,63 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 		reader.readAsDataURL(event.target.files[0]);
 	};
 
-	// feature upload handler start
-	const featureUploadHandler = async () => {};
-	// feature upload handler end
+	// for new feature upload handler start
+	const featureUploadHandler = async () => {
+		if (getFile) {
+			setIsLoading(true);
+			try {
+				const formData = new FormData();
+				formData.append("file", getFile);
+
+				const response = await fetch("/user/feature/upload", {
+					method: "POST",
+					body: formData
+				});
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+
+					setFile("");
+					setPreview("");
+					setConformPopup(false);
+					setFeaPopT(false);
+					setIsLoading(false);
+					setUpdateProfile(Date.now());
+				} else if (result.error) {
+					toast(result.error, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2500
+				});
+				setTimeout(() => {
+					setFile("");
+					setPreview("");
+					setConformPopup(false);
+					setFeaPopT(false);
+					setIsLoading(false);
+				}, 3000);
+			}
+		}
+	};
+	//for new feature upload handler end
 
 	// feature specific Delete handler start
-	const featureDeleteHandler = async () => {};
+	const featureDeleteHandler = async () => {
+		console.log("featureDeleteHandler f");
+	};
 	// feature specific delete handler end
 
 	return (
@@ -66,15 +120,18 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 			<div className="featured-container">
 				<h5>Featured</h5>
 
-				<PhotoProvider>
-					{profileImg.length > 0 &&
-						profileImg
+				{getProfile.featured.length > 0 && (
+					<PhotoProvider>
+						{getProfile.featured
 							.map((item, item_key) => {
 								return (
-									<PhotoView src={`/assets/dummy/${item.img}`} key={item_key}>
-										{item_key === profileImg.length - 1 ? (
+									<PhotoView
+										src={`/uploads/profile-img/${item.img}`}
+										key={item_key}
+									>
+										{item_key === getProfile.featured.length - 1 ? (
 											<img
-												src={`/assets/dummy/${item.img}`}
+												src={`/uploads/profile-img/${item.img}`}
 												alt="feature-img"
 											/>
 										) : (
@@ -84,7 +141,8 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 								);
 							})
 							.reverse()}
-				</PhotoProvider>
+					</PhotoProvider>
+				)}
 
 				{feaPopT && (
 					<div className="featured-popup">
@@ -94,24 +152,32 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 							ref={myRef}
 						>
 							<div className="header">
-								<h5>Edit Features</h5>
+								{getProfile.featured.length > 0 ? (
+									<h5>
+										Edit{" "}
+										{getProfile.featured.length > 1 ? "Features" : "Feature"}
+									</h5>
+								) : (
+									<h5>Add Your Feature</h5>
+								)}
+
 								<div className="close-btn" onClick={() => setFeaPopT(false)}>
 									<i className="fa-solid fa-xmark"></i>
 								</div>
 							</div>
 
-							<PhotoProvider>
-								<div className="feature-img-wrapper">
-									{profileImg.length > 0 &&
-										profileImg.map((item, item_key) => {
+							{getProfile.featured.length > 0 && (
+								<PhotoProvider>
+									<div className="feature-img-wrapper">
+										{getProfile.featured.map((item, item_key) => {
 											return (
 												<PhotoView
-													src={`/assets/dummy/${item.img}`}
+													src={`/uploads/profile-img/${item.img}`}
 													key={item_key}
 												>
 													<span>
 														<img
-															src={`/assets/dummy/${item.img}`}
+															src={`/uploads/profile-img/${item.img}`}
 															alt="feature-img"
 														/>
 														<div
@@ -128,12 +194,13 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 												</PhotoView>
 											);
 										})}
-								</div>
-							</PhotoProvider>
+									</div>
+								</PhotoProvider>
+							)}
 
 							<button type="button" className="add-new btn">
 								<label htmlFor="add-new">
-									<span>Add New</span>
+									<span style={{ cursor: "pointer" }}>Add New</span>
 								</label>
 							</button>
 						</div>
@@ -148,7 +215,11 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 								ref={myRef}
 							>
 								<img
-									src={getPreview ? getPreview : `/assets/dummy/${selectedImg}`}
+									src={
+										getPreview
+											? getPreview
+											: `/uploads/profile-img/${selectedImg}`
+									}
 									alt="preview-deleted img"
 								/>
 
@@ -168,7 +239,12 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 												setPreview("");
 											}}
 										>
-											Cancel
+											<span
+												className="hover-link"
+												style={{ display: "inline-block" }}
+											>
+												Cancel
+											</span>
 										</button>
 
 										{getPreview ? (
@@ -176,14 +252,32 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 												className="btn btn-primary"
 												onClick={featureUploadHandler}
 											>
-												Upload
+												{isLoading ? (
+													<i className="fa-solid fa-spinner fa-spin"></i>
+												) : (
+													<span
+														className="hover-link"
+														style={{ display: "inline-block" }}
+													>
+														Upload
+													</span>
+												)}
 											</button>
 										) : (
 											<button
 												className="btn btn-danger"
 												onClick={featureDeleteHandler}
 											>
-												Delete
+												{isLoading ? (
+													<i className="fa-solid fa-spinner fa-spin"></i>
+												) : (
+													<span
+														className="hover-link"
+														style={{ display: "inline-block" }}
+													>
+														Delete
+													</span>
+												)}
 											</button>
 										)}
 									</div>
@@ -197,7 +291,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 				{currentUser._id === getProfile._id && (
 					<div className="featured-btn">
 						<button type="button" onClick={() => setFeaPopT(!feaPopT)}>
-							{profileImg.length > 0 ? (
+							{getProfile.featured.length > 0 ? (
 								<span className="hover-link">Edit your featured</span>
 							) : (
 								<span className="hover-link">Add your featured</span>

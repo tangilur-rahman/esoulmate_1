@@ -55,7 +55,12 @@ const schema = mongoose.Schema(
 		page_type: {
 			type: String,
 			trim: true
-		}
+		},
+		featured: [
+			{
+				img: String
+			}
+		]
 	},
 	{ timestamps: true }
 );

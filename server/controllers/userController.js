@@ -433,6 +433,22 @@ const resetPassword = async (req, res) => {
 	}
 };
 
+// for uploading new feature
+const uploadFeature = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.currentUser._id },
+			{ $push: { featured: { img: req.file.filename } } }
+		);
+
+		res.status(200).json({ message: "New Feature upload successfully." });
+	} catch (error) {
+		console.log(error.message);
+
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -442,5 +458,6 @@ module.exports = {
 	sendOtpLogIn,
 	sendOtpSignUp,
 	matchingOtp,
-	resetPassword
+	resetPassword,
+	uploadFeature
 };

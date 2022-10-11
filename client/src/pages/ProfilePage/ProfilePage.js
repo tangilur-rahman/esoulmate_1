@@ -26,7 +26,7 @@ const ProfilePage = () => {
 	const Navigate = useNavigate();
 
 	// for setting current-user & update profile
-	const { currentUser, setCurrentUser, updatePost } = GetContextApi();
+	const { currentUser, setCurrentUser, updateProfile } = GetContextApi();
 
 	// for getting profile-id
 	const paramObj = useParams();
@@ -77,7 +77,7 @@ const ProfilePage = () => {
 	useEffect(() => {
 		getProfileDoc();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [profile_id, updatePost]);
+	}, [profile_id, updateProfile]);
 	// for fetching selected profile-docs end
 
 	// if currentUser is undefined then re-fetching start

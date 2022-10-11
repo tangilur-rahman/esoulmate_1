@@ -11,9 +11,11 @@ const {
 	matchingOtp,
 	resetPassword,
 	currentUser,
-	getProfile
+	getProfile,
+	uploadFeature
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
+const { multerForImg } = require("./../Config/multerManager");
 
 // for returning current-user
 user.get("/", authUser, currentUser);
@@ -41,5 +43,10 @@ user.get("/log-in/verification/otp/:selectedVia/:getCode", matchingOtp);
 
 // for reset-password
 user.get("/log-in/reset-password/:email_phone/:newPassword", resetPassword);
+
+// for uploading new feature
+const upload = multerForImg("file");
+
+user.post("/feature/upload", authUser, upload.single("file"), uploadFeature);
 
 module.exports = user;
