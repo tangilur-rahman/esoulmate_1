@@ -346,5 +346,11 @@
 		left: 12%;
 		padding: 30px 10px 10px 10px;
 	}
+
+	.featured-container .conformation-popup img {
+		width: 100%;
+		margin-left: 10px;
+	}
 }
+
 /* media query end */

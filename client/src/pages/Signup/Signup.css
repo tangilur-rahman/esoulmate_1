@@ -278,7 +278,17 @@
 	}
 }
 
+@media screen and (max-width: 450px) {
+	.sign-container .sign-input {
+		margin-top: -150px;
+	}
+}
+
 @media screen and (max-width: 400px) {
+	.sign-container .sign-input {
+		margin-top: -10px;
+	}
+
 	.sign-container {
 		padding: 20px 0;
 	}

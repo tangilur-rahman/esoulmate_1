@@ -2,6 +2,7 @@
 .profile-img-container .cover-img {
 	position: relative;
 	z-index: 1;
+	margin-top: 61px;
 }
 
 .profile-img-container .cover-img img {
@@ -10,7 +11,6 @@
 	object-fit: cover;
 	object-position: center center;
 	border-radius: 0 0 7px 7px;
-	margin-top: 61px;
 }
 
 .profile-img-container .cover-img .change-cover {
