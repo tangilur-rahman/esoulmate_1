@@ -9,7 +9,7 @@ const Interested = () => {
 				<div className="interested-items"></div>
 
 				<div className="interested-btn">
-					<button type="button" className="btn">
+					<button type="button">
 						<span className="hover-link">Add your interest</span>
 						{/* <span className="hover-link">Edit your interest</span> */}
 					</button>

@@ -55,6 +55,19 @@ const PostsTab = ({ profile_id }) => {
 	}, []);
 	// for fetching specific profile's all posts end
 
+	// scroll stop when model is opened start
+	// for features popup toggle
+	const [feaPopT, setFeaPopT] = useState("");
+
+	useEffect(() => {
+		if (feaPopT) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "visible";
+		}
+	}, [feaPopT]);
+	// scroll stop when model is opened start
+
 	return (
 		<>
 			<div className="container-fluid p-0">
@@ -66,8 +79,15 @@ const PostsTab = ({ profile_id }) => {
 						<Posts getPostDocs={getPostDocs} />
 					</div>
 
-					<div className="col-lg-3 col-12 p-0 post-right-container">
-						<Featured />
+					<div
+						className="col-lg-3 col-12 p-0 post-right-container"
+						id={feaPopT ? "" : "sticky"}
+					>
+						<Featured
+							feaPopT={feaPopT}
+							setFeaPopT={setFeaPopT}
+							profile_id={profile_id}
+						/>
 					</div>
 				</div>
 			</div>

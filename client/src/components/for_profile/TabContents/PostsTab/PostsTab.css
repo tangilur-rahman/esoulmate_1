@@ -10,8 +10,8 @@
 	position: sticky;
 	top: 5rem;
 	bottom: 0;
-	overflow: auto;
 	border-radius: 10px;
+	overflow: hidden;
 }
 
 .post-tab-main-container .post-middle-container {
@@ -22,13 +22,15 @@
 	padding: 0;
 	height: max-content;
 	-moz-height: max-content;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.post-tab-main-container .post-right-container#sticky {
 	position: sticky;
 	top: 5rem;
 	bottom: 0;
-	overflow: auto;
-	border-radius: 10px;
 }
-
 /* media query start  */
 
 /* media query end  */
