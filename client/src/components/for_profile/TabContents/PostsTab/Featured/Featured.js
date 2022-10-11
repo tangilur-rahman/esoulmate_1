@@ -18,6 +18,10 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 	// for selected img for deleted
 	const [selectedImg, setSelectedImg] = useState("");
 
+	// for getting file
+	const [getFile, setFile] = useState("");
+	const [getPreview, setPreview] = useState("");
+
 	// for close outside clicked start
 	const myRef = useRef();
 
@@ -25,6 +29,8 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 		if (!myRef.current?.contains(e.target)) {
 			setFeaPopT(false);
 			setConformPopup(false);
+			setFile("");
+			setPreview("");
 		}
 	};
 
@@ -34,6 +40,18 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// for close outside clicked end
+
+	// for preview
+	const imgHandler = (event) => {
+		setFile(event.target.files[0]);
+		const reader = new FileReader();
+		reader.onload = () => {
+			if (reader.readyState === 2) {
+				setPreview(reader.result);
+			}
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	};
 
 	return (
 		<>
@@ -106,38 +124,54 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 							</PhotoProvider>
 
 							<button type="button" className="add-new btn">
-								<span>Add New</span>
+								<label htmlFor="add-new">
+									<span>Add New</span>
+								</label>
 							</button>
 						</div>
 
 						{/* for popup model section start  */}
-						{conformPopup && (
+						{(conformPopup || getPreview) && (
 							<div
 								className="conformation-popup"
+								id={getPreview ? "when-upload" : "when-delete"}
 								data-aos="fade-down"
 								data-aos-delay="0"
 								ref={myRef}
 							>
 								<img
-									src={`/assets/dummy/${selectedImg}`}
+									src={getPreview ? getPreview : `/assets/dummy/${selectedImg}`}
 									alt="preview-deleted img"
 								/>
 
 								<div className="permission">
-									<h5>Do you want to delete that feature?</h5>
+									{getPreview ? (
+										<h5>Do you want to add that feature?</h5>
+									) : (
+										<h5>Do you want to delete that feature?</h5>
+									)}
+
 									<div className="delete-controller">
 										<button
 											className="btn btn-dark"
 											onClick={() => {
 												setFeaPopT(false);
+												setFile("");
+												setPreview("");
 											}}
 										>
 											Cancel
 										</button>
 
-										<button className="btn btn-danger" onClick={""}>
-											Submit
-										</button>
+										{getPreview ? (
+											<button className="btn btn-primary" onClick={""}>
+												Upload
+											</button>
+										) : (
+											<button className="btn btn-danger" onClick={""}>
+												Delete
+											</button>
+										)}
 									</div>
 								</div>
 							</div>
@@ -157,6 +191,14 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 						</button>
 					</div>
 				)}
+
+				<input
+					type="file"
+					accept="image/*"
+					id="add-new"
+					style={{ display: "none" }}
+					onChange={imgHandler}
+				/>
 			</div>
 		</>
 	);

@@ -214,7 +214,6 @@
 .featured-container .conformation-popup {
 	background-color: white;
 	border-radius: 10px;
-	box-shadow: 0 0 5px 5px #ef233c;
 	padding: 30px 30px 20px 30px;
 	position: absolute;
 	left: 30%;
@@ -222,6 +221,20 @@
 	z-index: 11;
 	display: flex;
 	align-items: center;
+}
+
+.featured-container .conformation-popup#when-delete {
+	box-shadow: 0 0 5px 5px #ef233c;
+}
+
+.featured-container .conformation-popup#when-upload {
+	box-shadow: var(--box-shadow);
+	border: 4px solid transparent;
+	border-radius: 20px;
+	background: linear-gradient(to right, white, white),
+		linear-gradient(to right, red, blue);
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
 }
 
 .featured-container .conformation-popup img {
