@@ -1,5 +1,5 @@
 // external components
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 
@@ -12,12 +12,19 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 	// for getting currentUser
 	const { currentUser } = GetContextApi();
 
+	// for conforming to delete or not
+	const [conformPopup, setConformPopup] = useState(false);
+
+	// for selected img for deleted
+	const [selectedImg, setSelectedImg] = useState("");
+
 	// for close outside clicked start
 	const myRef = useRef();
 
 	const handleClickOutside = (e) => {
 		if (!myRef.current?.contains(e.target)) {
 			setFeaPopT(false);
+			setConformPopup(false);
 		}
 	};
 
@@ -81,7 +88,14 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 															src={`/assets/dummy/${item.img}`}
 															alt="feature-img"
 														/>
-														<div id="delete-icon">
+														<div
+															id="delete-icon"
+															onClick={(e) => {
+																e.stopPropagation();
+																setConformPopup(true);
+																setSelectedImg(item.img);
+															}}
+														>
 															<i className="fa-solid fa-trash-can"></i>
 														</div>
 													</span>
@@ -95,6 +109,40 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 								<span>Add New</span>
 							</button>
 						</div>
+
+						{/* for popup model section start  */}
+						{conformPopup && (
+							<div
+								className="conformation-popup"
+								data-aos="fade-down"
+								data-aos-delay="0"
+								ref={myRef}
+							>
+								<img
+									src={`/assets/dummy/${selectedImg}`}
+									alt="preview-deleted img"
+								/>
+
+								<div className="permission">
+									<h5>Do you want to delete that feature?</h5>
+									<div className="delete-controller">
+										<button
+											className="btn btn-dark"
+											onClick={() => {
+												setFeaPopT(false);
+											}}
+										>
+											Cancel
+										</button>
+
+										<button className="btn btn-danger" onClick={""}>
+											Submit
+										</button>
+									</div>
+								</div>
+							</div>
+						)}
+						{/* for popup model section end  */}
 					</div>
 				)}
 
