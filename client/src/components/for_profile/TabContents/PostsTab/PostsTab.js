@@ -10,7 +10,7 @@ import Interested from "./Interested/Interested";
 
 import "./PostsTab.css";
 
-const PostsTab = ({ profile_id }) => {
+const PostsTab = ({ profile_id, getProfile }) => {
 	// for redirect
 	const Navigate = useNavigate();
 
@@ -86,7 +86,7 @@ const PostsTab = ({ profile_id }) => {
 						<Featured
 							feaPopT={feaPopT}
 							setFeaPopT={setFeaPopT}
-							profile_id={profile_id}
+							getProfile={getProfile}
 						/>
 					</div>
 				</div>

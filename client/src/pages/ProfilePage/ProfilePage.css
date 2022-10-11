@@ -3,8 +3,7 @@
 	justify-content: center;
 	background-color: white;
 	box-shadow: var(--box-shadow);
-	overflow-y: auto;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .profile-img-container {
@@ -19,6 +18,4 @@
 	display: flex;
 	justify-content: center;
 	margin: 15px 0 0 0 !important;
-	overflow-y: auto;
-	overflow-x: hidden;
 }

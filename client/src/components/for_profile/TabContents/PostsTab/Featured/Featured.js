@@ -8,7 +8,7 @@ import { GetContextApi } from "../../../../../ContextApi";
 import profileImg from "./../../../../../dummy-data/profile-images.json";
 import "./Featured.css";
 
-const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
+const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 	// for getting currentUser
 	const { currentUser } = GetContextApi();
 
@@ -52,6 +52,14 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 		};
 		reader.readAsDataURL(event.target.files[0]);
 	};
+
+	// feature upload handler start
+	const featureUploadHandler = async () => {};
+	// feature upload handler end
+
+	// feature specific Delete handler start
+	const featureDeleteHandler = async () => {};
+	// feature specific delete handler end
 
 	return (
 		<>
@@ -164,11 +172,17 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 										</button>
 
 										{getPreview ? (
-											<button className="btn btn-primary" onClick={""}>
+											<button
+												className="btn btn-primary"
+												onClick={featureUploadHandler}
+											>
 												Upload
 											</button>
 										) : (
-											<button className="btn btn-danger" onClick={""}>
+											<button
+												className="btn btn-danger"
+												onClick={featureDeleteHandler}
+											>
 												Delete
 											</button>
 										)}
@@ -180,7 +194,7 @@ const Featured = ({ feaPopT, setFeaPopT, profile_id }) => {
 					</div>
 				)}
 
-				{currentUser._id === profile_id && (
+				{currentUser._id === getProfile._id && (
 					<div className="featured-btn">
 						<button type="button" onClick={() => setFeaPopT(!feaPopT)}>
 							{profileImg.length > 0 ? (

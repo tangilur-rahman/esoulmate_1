@@ -31,6 +31,22 @@
 	top: 5rem;
 	bottom: 0;
 }
+
 /* media query start  */
+@media screen and (max-width: 991px) {
+	.post-tab-main-container .post-left-container {
+		position: static;
+		order: 1;
+	}
+
+	.post-tab-main-container .post-middle-container {
+		order: 3;
+	}
+
+	.post-tab-main-container .post-right-container#sticky {
+		position: static;
+		order: 2;
+	}
+}
 
 /* media query end  */
