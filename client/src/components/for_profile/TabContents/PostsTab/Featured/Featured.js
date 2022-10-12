@@ -330,16 +330,20 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 					</div>
 				)}
 
-				{currentUser?._id === getProfile?._id && (
+				{currentUser?._id === getProfile?._id ? (
 					<div className="featured-btn">
 						<button type="button" onClick={() => setFeaPopT(!feaPopT)}>
-							{getProfile.featured.length > 0 ? (
+							{getProfile?.featured?.length > 0 ? (
 								<span className="hover-link">Edit your featured</span>
 							) : (
 								<span className="hover-link">Add your featured</span>
 							)}
 						</button>
 					</div>
+				) : getProfile?.featured?.length > 0 ? (
+					""
+				) : (
+					<span id="empty-f-message">Empty</span>
 				)}
 
 				<input
