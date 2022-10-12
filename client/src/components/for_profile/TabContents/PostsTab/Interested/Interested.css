@@ -190,11 +190,9 @@
 	margin-top: 10px;
 }
 
-.interested-popup-wrapper .footer .privacy p {
-	font-size: 15.5px;
-	font-weight: 500;
-	margin: 0;
-	display: inline-block;
+.interested-popup-wrapper .footer .privacy {
+	font-size: 15px;
+	font-weight: 600;
 }
 
 .interested-popup-wrapper .footer .interested-btn-container button {
@@ -306,6 +304,12 @@
 @media screen and (max-width: 991px) {
 	.interested-container .interested-popup-wrapper {
 		width: 90%;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.interested-popup-wrapper .footer .interested-btn-container button {
+		width: 90px;
 	}
 }
 /* media query end */

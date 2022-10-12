@@ -209,9 +209,7 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 							)}
 
 							<div className="footer">
-								<div className="privacy">
-									🌍 <p>Interests are public</p>
-								</div>
+								<div className="privacy">🌍 Public</div>
 								<div className="interested-btn-container">
 									<button
 										type="button"
