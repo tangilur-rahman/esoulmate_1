@@ -56,4 +56,18 @@
 .interested-container .interested-btn span.hover-link::after {
 	background-color: black;
 }
+
+.interested-container #empty-interested-message {
+	background-color: #e4e6eb;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 15px;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	padding: 0.375rem 0.75rem;
+}
+
 /* interested-btn style end  */

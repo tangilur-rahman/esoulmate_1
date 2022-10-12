@@ -73,7 +73,7 @@ const PostsTab = ({ profile_id, getProfile }) => {
 			<div className="container-fluid p-0">
 				<div className="row m-0 post-tab-main-container">
 					<div className="col-lg-3  col-12 p-0 post-left-container">
-						<Interested />
+						<Interested getProfile={getProfile} />
 					</div>
 					<div className="col-lg-5 col-12 p-0 post-middle-container">
 						<Posts getPostDocs={getPostDocs} />
