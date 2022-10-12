@@ -16,6 +16,12 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	const handleClickOutside = (e) => {
 		if (!myRef.current?.contains(e.target)) {
 			setInterestPopT(false);
+			setNewInArr(
+				getProfile?.interested?.length > 0 ? getProfile.interested : []
+			);
+			setSearch("");
+			setNewInterest("");
+			setRemoveIn("");
 		}
 	};
 
@@ -68,6 +74,10 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [removeIn]);
 	// for removing selected interested end
+
+	// submit interested on server start
+	const submitInterested = async () => {};
+	// submit interested on server end
 
 	return (
 		<>
@@ -160,9 +170,28 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 										className="btn btn-light"
 										onClick={() => setInterestPopT(false)}
 									>
-										<span className="hover-link">Cancel</span>
+										<span
+											className="hover-link"
+											onClick={() => {
+												setInterestPopT(false);
+												setNewInArr(
+													getProfile?.interested?.length > 0
+														? getProfile.interested
+														: []
+												);
+												setSearch("");
+												setNewInterest("");
+												setRemoveIn("");
+											}}
+										>
+											Cancel
+										</span>
 									</button>
-									<button type="button" className="btn btn-primary">
+									<button
+										type="button"
+										className="btn btn-primary"
+										onClick={submitInterested}
+									>
 										<span className="hover-link">Save</span>
 									</button>
 								</div>

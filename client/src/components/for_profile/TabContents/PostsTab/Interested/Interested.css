@@ -31,7 +31,6 @@
 .interested-container .interested-popup-wrapper {
 	width: 60%;
 	height: fit-content;
-	max-height: 500px;
 	background-color: white;
 	box-shadow: var(--box-shadow);
 	border-radius: 10px;
@@ -165,7 +164,7 @@
 
 .interested-popup-wrapper .search-result .displaying-result {
 	width: 100%;
-	height: 170px;
+	height: 150px;
 	border-radius: 10px;
 	overflow-x: hidden;
 	overflow-y: auto;
