@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
 import "./Interested.css";
+import interestList from "./interestList.json";
 
 const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for getting currentUser
@@ -89,7 +90,15 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 							{getSearch && (
 								<div className="search-result">
 									<p>Results for :&nbsp; &nbsp;" {getSearch} "</p>
-									<div className="displaying-result"></div>
+									<div className="displaying-result">
+										{interestList
+											.filter((value) => {
+												return new RegExp(getSearch, "i").test(value.item);
+											})
+											.map((result, index) => {
+												return <span key={index}>{result.item}</span>;
+											})}
+									</div>
 								</div>
 							)}
 
@@ -100,12 +109,12 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 								<div className="interested-btn-container">
 									<button
 										type="button"
-										class="btn btn-light"
+										className="btn btn-light"
 										onClick={() => setInterestPopT(false)}
 									>
 										<span className="hover-link">Cancel</span>
 									</button>
-									<button type="button" class="btn btn-primary">
+									<button type="button" className="btn btn-primary">
 										<span className="hover-link">Save</span>
 									</button>
 								</div>

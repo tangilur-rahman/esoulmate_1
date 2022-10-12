@@ -129,9 +129,6 @@
 	overflow-y: auto;
 	resize: vertical;
 	padding: 10px;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(fit-content, 1fr));
-	grid-gap: 15px;
 }
 
 .interested-popup-wrapper .selected-interest .displaying #empty {
@@ -151,10 +148,23 @@
 
 .interested-popup-wrapper .search-result .displaying-result {
 	width: 100%;
-	height: 150px;
+	height: 170px;
 	border-radius: 10px;
 	overflow-x: hidden;
 	overflow-y: auto;
+}
+
+.interested-popup-wrapper .search-result .displaying-result span {
+	padding: 7px 10px;
+	margin: 6px;
+	border-radius: 18px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.interested-popup-wrapper .search-result .displaying-result span:hover {
+	background-color: #ebeaef;
+	transition: all 0.3s;
 }
 
 .interested-container .interested-popup-wrapper .footer {
