@@ -128,7 +128,24 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	resize: vertical;
-	padding: 10px;
+	padding: 7px;
+}
+
+.interested-popup-wrapper .selected-interest .displaying span {
+	padding: 7px 10px;
+	margin: 6px;
+	border-radius: 18px;
+	cursor: pointer;
+	display: inline-block;
+	background-color: #e7f3ff;
+	color: #3085f3;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.interested-popup-wrapper .selected-interest .displaying span i {
+	font-size: 12px;
+	padding-left: 5px;
 }
 
 .interested-popup-wrapper .selected-interest .displaying #empty {

@@ -29,6 +29,33 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for getting search-input
 	const [getSearch, setSearch] = useState("");
 
+	// for getting selected new interested
+	const [newInterest, setNewInterest] = useState("");
+
+	// new interested array
+	const [newInArr, setNewInArr] = useState(
+		getProfile?.interested?.length > 0 ? getProfile.interested : []
+	);
+
+	// for inserting new Interest in newInArr
+	useEffect(() => {
+		if (newInterest) {
+			setNewInArr([...newInArr, newInterest]);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [newInterest]);
+
+	// for removing duplicate element from which one already exist in interested start
+	const [uniqueArr, setUniqueArr] = useState(interestList);
+
+	useEffect(() => {
+		if (newInArr.length > 0) {
+			setUniqueArr(uniqueArr.filter((el) => !newInArr.includes(el.item)));
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [newInArr]);
+
 	return (
 		<>
 			<div className="interested-container">
@@ -44,12 +71,9 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 							ref={myRef}
 						>
 							<div className="header">
-								{getProfile?.interested?.length > 0 ? (
+								{newInArr?.length > 0 ? (
 									<h5>
-										Edit{" "}
-										{getProfile?.interested?.length > 1
-											? "Interests"
-											: "Interest"}
+										Edit {newInArr?.length > 1 ? "Interests" : "Interest"}
 									</h5>
 								) : (
 									<h5>Add Your Interest</h5>
@@ -77,9 +101,13 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 							<div className="selected-interest">
 								<p>Selected Interest</p>
 								<div className="displaying">
-									{getProfile?.interested?.length > 0 ? (
-										getProfile.interested.map((value, index) => {
-											return <span key={index}>{value}</span>;
+									{newInArr?.length > 0 ? (
+										newInArr.map((value, index) => {
+											return (
+												<span key={index}>
+													{value} <i className="fa-solid fa-x"></i>
+												</span>
+											);
 										})
 									) : (
 										<div id="empty">Empty</div>
@@ -91,12 +119,19 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 								<div className="search-result">
 									<p>Results for :&nbsp; &nbsp;" {getSearch} "</p>
 									<div className="displaying-result">
-										{interestList
+										{uniqueArr
 											.filter((value) => {
 												return new RegExp(getSearch, "i").test(value.item);
 											})
 											.map((result, index) => {
-												return <span key={index}>{result.item}</span>;
+												return (
+													<span
+														key={index}
+														onClick={() => setNewInterest(result.item)}
+													>
+														{result.item}
+													</span>
+												);
 											})}
 									</div>
 								</div>
@@ -129,14 +164,14 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 							type="button"
 							onClick={() => setInterestPopT(!interestPopT)}
 						>
-							{getProfile?.interested?.length > 0 ? (
+							{newInArr?.length > 0 ? (
 								<span className="hover-link">Edit your interest</span>
 							) : (
 								<span className="hover-link">Add your interest</span>
 							)}
 						</button>
 					</div>
-				) : getProfile?.interested?.length > 0 ? (
+				) : newInArr?.length > 0 ? (
 					""
 				) : (
 					<span id="empty-interested-message">Empty</span>
