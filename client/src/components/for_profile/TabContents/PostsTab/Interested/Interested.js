@@ -55,6 +55,19 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [newInArr]);
+	// for removing duplicate element from which one already exist in interested end
+
+	// for removing selected interested start
+	const [removeIn, setRemoveIn] = useState("");
+
+	useEffect(() => {
+		if (removeIn) {
+			setNewInArr(newInArr.filter((e) => e !== removeIn));
+			setUniqueArr([...uniqueArr, { item: removeIn }]);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [removeIn]);
+	// for removing selected interested end
 
 	return (
 		<>
@@ -104,7 +117,7 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 									{newInArr?.length > 0 ? (
 										newInArr.map((value, index) => {
 											return (
-												<span key={index}>
+												<span key={index} onClick={() => setRemoveIn(value)}>
 													{value} <i className="fa-solid fa-x"></i>
 												</span>
 											);
