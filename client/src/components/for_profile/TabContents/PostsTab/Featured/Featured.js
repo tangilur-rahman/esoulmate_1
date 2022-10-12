@@ -12,9 +12,6 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 	// for getting currentUser
 	const { currentUser, setUpdateProfile } = GetContextApi();
 
-	// for conforming to delete or not
-	const [conformPopup, setConformPopup] = useState(false);
-
 	// for selected img for deleted
 	const [selectedImg, setSelectedImg] = useState("");
 
@@ -31,7 +28,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 	const handleClickOutside = (e) => {
 		if (!myRef.current?.contains(e.target)) {
 			setFeaPopT(false);
-			setConformPopup(false);
+			setSelectedImg("");
 			setFile("");
 			setPreview("");
 		}
@@ -80,8 +77,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 
 					setFile("");
 					setPreview("");
-					setConformPopup(false);
-					setFeaPopT(false);
+					setSelectedImg("");
 					setIsLoading(false);
 					setUpdateProfile(Date.now());
 				} else if (result.error) {
@@ -100,7 +96,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 				setTimeout(() => {
 					setFile("");
 					setPreview("");
-					setConformPopup(false);
+					setSelectedImg("");
 					setFeaPopT(false);
 					setIsLoading(false);
 				}, 3000);
@@ -111,7 +107,49 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 
 	// feature specific Delete handler start
 	const featureDeleteHandler = async () => {
-		console.log("featureDeleteHandler f");
+		if (selectedImg) {
+			setIsLoading(true);
+			try {
+				const response = await fetch(
+					`/user/feature/delete/${selectedImg.id}?img=${selectedImg.img}`
+				);
+
+				const result = await response.json();
+
+				if (response.status === 200) {
+					toast.success(result.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 1500
+					});
+
+					setFile("");
+					setPreview("");
+					setSelectedImg("");
+					setIsLoading(false);
+					setUpdateProfile(Date.now());
+				} else if (result.error) {
+					toast(result.error, {
+						position: "top-right",
+						theme: "dark",
+						autoClose: 3000
+					});
+				}
+			} catch (error) {
+				toast.error(error.message, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2500
+				});
+				setTimeout(() => {
+					setFile("");
+					setPreview("");
+					setSelectedImg("");
+					setFeaPopT(false);
+					setIsLoading(false);
+				}, 3000);
+			}
+		}
 	};
 	// feature specific delete handler end
 
@@ -120,7 +158,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 			<div className="featured-container">
 				<h5>Featured</h5>
 
-				{getProfile.featured.length > 0 && (
+				{getProfile?.featured?.length > 0 && (
 					<PhotoProvider>
 						{getProfile.featured
 							.map((item, item_key) => {
@@ -152,10 +190,10 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 							ref={myRef}
 						>
 							<div className="header">
-								{getProfile.featured.length > 0 ? (
+								{getProfile?.featured?.length > 0 ? (
 									<h5>
 										Edit{" "}
-										{getProfile.featured.length > 1 ? "Features" : "Feature"}
+										{getProfile?.featured?.length > 1 ? "Features" : "Feature"}
 									</h5>
 								) : (
 									<h5>Add Your Feature</h5>
@@ -166,34 +204,38 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 								</div>
 							</div>
 
-							{getProfile.featured.length > 0 && (
+							{getProfile?.featured?.length > 0 && (
 								<PhotoProvider>
 									<div className="feature-img-wrapper">
-										{getProfile.featured.map((item, item_key) => {
-											return (
-												<PhotoView
-													src={`/uploads/profile-img/${item.img}`}
-													key={item_key}
-												>
-													<span>
-														<img
-															src={`/uploads/profile-img/${item.img}`}
-															alt="feature-img"
-														/>
-														<div
-															id="delete-icon"
-															onClick={(e) => {
-																e.stopPropagation();
-																setConformPopup(true);
-																setSelectedImg(item.img);
-															}}
-														>
-															<i className="fa-solid fa-trash-can"></i>
-														</div>
-													</span>
-												</PhotoView>
-											);
-										})}
+										{getProfile.featured
+											.map((item, item_key) => {
+												return (
+													<PhotoView
+														src={`/uploads/profile-img/${item.img}`}
+														key={item_key}
+													>
+														<span>
+															<img
+																src={`/uploads/profile-img/${item.img}`}
+																alt="feature-img"
+															/>
+															<div
+																id="delete-icon"
+																onClick={(e) => {
+																	e.stopPropagation();
+																	setSelectedImg({
+																		img: item.img,
+																		id: item._id
+																	});
+																}}
+															>
+																<i className="fa-solid fa-trash-can"></i>
+															</div>
+														</span>
+													</PhotoView>
+												);
+											})
+											.reverse()}
 									</div>
 								</PhotoProvider>
 							)}
@@ -206,7 +248,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 						</div>
 
 						{/* for popup model section start  */}
-						{(conformPopup || getPreview) && (
+						{(selectedImg || getPreview) && (
 							<div
 								className="conformation-popup"
 								id={getPreview ? "when-upload" : "when-delete"}
@@ -218,7 +260,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 									src={
 										getPreview
 											? getPreview
-											: `/uploads/profile-img/${selectedImg}`
+											: `/uploads/profile-img/${selectedImg?.img}`
 									}
 									alt="preview-deleted img"
 								/>
@@ -288,7 +330,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 					</div>
 				)}
 
-				{currentUser._id === getProfile._id && (
+				{currentUser?._id === getProfile?._id && (
 					<div className="featured-btn">
 						<button type="button" onClick={() => setFeaPopT(!feaPopT)}>
 							{getProfile.featured.length > 0 ? (

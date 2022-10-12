@@ -466,8 +466,20 @@ const uploadFeature = async (req, res) => {
 
 		res.status(200).json({ message: "New Feature upload successfully." });
 	} catch (error) {
-		console.log(error.message);
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
 
+// for deleting a feature
+const deleteFeature = async (req, res) => {
+	try {
+		await userModel.updateMany(
+			{ _id: req.currentUser._id },
+			{ $pull: { featured: { _id: req.params.feature_id } } }
+		);
+
+		res.status(200).json({ message: "Feature delete successfully." });
+	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
 	}
 };
@@ -483,5 +495,6 @@ module.exports = {
 	matchingOtp,
 	resetPassword,
 	changeProfile,
-	uploadFeature
+	uploadFeature,
+	deleteFeature
 };

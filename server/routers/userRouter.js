@@ -13,11 +13,15 @@ const {
 	currentUser,
 	getProfile,
 	changeProfile,
-	uploadFeature
+	uploadFeature,
+	deleteFeature
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
-const { deleteFile } = require("./../Config/deleteManager");
+const {
+	deleteProfileImg,
+	deleteFeatureImg
+} = require("./../Config/deleteManager");
 
 // for returning current-user
 user.get("/", authUser, currentUser);
@@ -52,7 +56,7 @@ const uploadImg = multerForImg("file");
 user.post(
 	"/profile",
 	authUser,
-	deleteFile,
+	deleteProfileImg,
 	uploadImg.single("file"),
 	changeProfile
 );
@@ -61,5 +65,13 @@ user.post(
 const upload = multerForImg("file");
 
 user.post("/feature/upload", authUser, upload.single("file"), uploadFeature);
+
+// for deleting a feature
+user.get(
+	"/feature/delete/:feature_id",
+	authUser,
+	deleteFeatureImg,
+	deleteFeature
+);
 
 module.exports = user;

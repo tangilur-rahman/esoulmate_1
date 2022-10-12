@@ -2,7 +2,8 @@
 const path = require("path");
 let file = require("fs");
 
-const deleteFile = async (req, res, next) => {
+// for deleting profile img & cover
+const deleteProfileImg = async (req, res, next) => {
 	if (
 		req.currentUser.profile_img === "default-profile.png" ||
 		req.currentUser.cover_img === "default-cover.png"
@@ -35,4 +36,21 @@ const deleteFile = async (req, res, next) => {
 	}
 };
 
-module.exports = { deleteFile };
+// for deleting user's features
+const deleteFeatureImg = async (req, res, next) => {
+	const getFilePath = path.resolve(
+		`../client/public/uploads/profile-img/${req.query.img}`
+	);
+
+	// const getFilePath = `./build/uploads/profile-img/${req.query.img}`;
+
+	await file.unlink(getFilePath, (error) => {
+		if (error) {
+			next();
+		} else {
+			next();
+		}
+	});
+};
+
+module.exports = { deleteProfileImg, deleteFeatureImg };
