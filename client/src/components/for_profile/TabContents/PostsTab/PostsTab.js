@@ -59,21 +59,31 @@ const PostsTab = ({ profile_id, getProfile }) => {
 	// for features popup toggle
 	const [feaPopT, setFeaPopT] = useState("");
 
+	// for features popup toggle
+	const [interestPopT, setInterestPopT] = useState("");
+
 	useEffect(() => {
-		if (feaPopT) {
+		if (feaPopT || interestPopT) {
 			document.body.style.overflow = "hidden";
 		} else {
 			document.body.style.overflow = "visible";
 		}
-	}, [feaPopT]);
+	}, [feaPopT, interestPopT]);
 	// scroll stop when model is opened start
 
 	return (
 		<>
 			<div className="container-fluid p-0">
 				<div className="row m-0 post-tab-main-container">
-					<div className="col-lg-3  col-12 p-0 post-left-container">
-						<Interested getProfile={getProfile} />
+					<div
+						className="col-lg-3  col-12 p-0 post-left-container"
+						id={interestPopT ? "" : "sticky"}
+					>
+						<Interested
+							getProfile={getProfile}
+							interestPopT={interestPopT}
+							setInterestPopT={setInterestPopT}
+						/>
 					</div>
 					<div className="col-lg-5 col-12 p-0 post-middle-container">
 						<Posts getPostDocs={getPostDocs} />

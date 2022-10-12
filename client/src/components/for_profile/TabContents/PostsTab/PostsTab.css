@@ -7,11 +7,14 @@
 	padding: 0;
 	height: max-content;
 	-moz-height: max-content;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.post-tab-main-container .post-left-container#sticky {
 	position: sticky;
 	top: 5rem;
 	bottom: 0;
-	border-radius: 10px;
-	overflow: hidden;
 }
 
 .post-tab-main-container .post-middle-container {
