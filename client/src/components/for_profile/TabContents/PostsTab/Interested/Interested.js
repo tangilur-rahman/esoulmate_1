@@ -9,7 +9,7 @@ import interestList from "./interestList.json";
 
 const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for getting currentUser
-	const { currentUser } = GetContextApi();
+	const { currentUser, setUpdateProfile } = GetContextApi();
 
 	// for loading until not submitted on server
 	const [isLoading, setIsLoading] = useState(false);
@@ -39,10 +39,17 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for getting selected new interested
 	const [newInterest, setNewInterest] = useState("");
 
-	// new interested array
-	const [newInArr, setNewInArr] = useState(
-		getProfile?.interested?.length > 0 ? getProfile.interested : []
-	);
+	// new interested array initialization start
+	const [newInArr, setNewInArr] = useState([]);
+
+	useEffect(() => {
+		if (getProfile) {
+			setNewInArr(
+				getProfile?.interested?.length > 0 ? getProfile.interested : []
+			);
+		}
+	}, [getProfile]);
+	// new interested array initialization end
 
 	// for inserting new Interest in newInArr
 	useEffect(() => {
@@ -99,6 +106,7 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 				setSearch("");
 				setNewInterest("");
 				setRemoveIn("");
+				setUpdateProfile(Date.now());
 				setIsLoading(false);
 				setInterestPopT(false);
 			} else if (result.error) {
@@ -132,7 +140,12 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 			<div className="interested-container">
 				<h5>Interested In</h5>
 
-				<div className="interested-items"></div>
+				<div className="interested-items">
+					{getProfile?.interested?.length > 0 &&
+						getProfile.interested.map((value, index) => {
+							return <span key={index}>{value}</span>;
+						})}
+				</div>
 
 				{interestPopT && (
 					<div className="interested-popup">

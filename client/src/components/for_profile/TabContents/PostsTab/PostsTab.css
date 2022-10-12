@@ -37,7 +37,7 @@
 
 /* media query start  */
 @media screen and (max-width: 991px) {
-	.post-tab-main-container .post-left-container {
+	.post-tab-main-container .post-left-container#sticky {
 		position: static;
 		order: 1;
 	}
