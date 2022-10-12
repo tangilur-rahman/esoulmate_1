@@ -60,7 +60,8 @@ const schema = mongoose.Schema(
 			{
 				img: String
 			}
-		]
+		],
+		interested: Array
 	},
 	{ timestamps: true }
 );

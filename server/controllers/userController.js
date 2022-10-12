@@ -456,6 +456,18 @@ const changeProfile = async (req, res) => {
 	}
 };
 
+// for saving interested
+const savingInterest = async (req, res) => {
+	try {
+		req.currentUser.interested = req.body.newInArr;
+		await req.currentUser.save();
+
+		res.status(200).json(req.currentUser.interested);
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 // for uploading new feature
 const uploadFeature = async (req, res) => {
 	try {
@@ -495,6 +507,7 @@ module.exports = {
 	matchingOtp,
 	resetPassword,
 	changeProfile,
+	savingInterest,
 	uploadFeature,
 	deleteFeature
 };

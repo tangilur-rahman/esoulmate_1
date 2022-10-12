@@ -86,6 +86,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 						theme: "dark",
 						autoClose: 3000
 					});
+					setIsLoading(false);
 				}
 			} catch (error) {
 				toast.error(error.message, {
@@ -93,12 +94,13 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 					theme: "colored",
 					autoClose: 2500
 				});
+				setIsLoading(false);
+
 				setTimeout(() => {
 					setFile("");
 					setPreview("");
 					setSelectedImg("");
 					setFeaPopT(false);
-					setIsLoading(false);
 				}, 3000);
 			}
 		}
@@ -134,6 +136,7 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 						theme: "dark",
 						autoClose: 3000
 					});
+					setIsLoading(false);
 				}
 			} catch (error) {
 				toast.error(error.message, {
@@ -141,12 +144,13 @@ const Featured = ({ feaPopT, setFeaPopT, getProfile }) => {
 					theme: "colored",
 					autoClose: 2500
 				});
+				setIsLoading(false);
+
 				setTimeout(() => {
 					setFile("");
 					setPreview("");
 					setSelectedImg("");
 					setFeaPopT(false);
-					setIsLoading(false);
 				}, 3000);
 			}
 		}

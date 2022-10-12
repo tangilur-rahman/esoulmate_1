@@ -1,5 +1,6 @@
 // external components
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
@@ -10,15 +11,15 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for getting currentUser
 	const { currentUser } = GetContextApi();
 
+	// for loading until not submitted on server
+	const [isLoading, setIsLoading] = useState(false);
+
 	// for close outside clicked start
 	const myRef = useRef();
 
 	const handleClickOutside = (e) => {
 		if (!myRef.current?.contains(e.target)) {
 			setInterestPopT(false);
-			setNewInArr(
-				getProfile?.interested?.length > 0 ? getProfile.interested : []
-			);
 			setSearch("");
 			setNewInterest("");
 			setRemoveIn("");
@@ -76,7 +77,54 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for removing selected interested end
 
 	// submit interested on server start
-	const submitInterested = async () => {};
+	const submitInterested = async () => {
+		setIsLoading(true);
+		try {
+			const response = await fetch("/user/interested", {
+				method: "POST",
+				body: JSON.stringify({ newInArr }),
+				headers: { "Content-Type": "application/json" }
+			});
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Interest updated.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 1500
+				});
+
+				setNewInArr(result ? result : []);
+				setSearch("");
+				setNewInterest("");
+				setRemoveIn("");
+				setIsLoading(false);
+				setInterestPopT(false);
+			} else if (result.error) {
+				toast(result.error, {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 2500
+			});
+			setIsLoading(false);
+
+			setTimeout(() => {
+				setSearch("");
+				setNewInterest("");
+				setRemoveIn("");
+				setInterestPopT(false);
+			}, 3000);
+		}
+	};
 	// submit interested on server end
 
 	return (
@@ -174,11 +222,6 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 											className="hover-link"
 											onClick={() => {
 												setInterestPopT(false);
-												setNewInArr(
-													getProfile?.interested?.length > 0
-														? getProfile.interested
-														: []
-												);
 												setSearch("");
 												setNewInterest("");
 												setRemoveIn("");
@@ -192,7 +235,13 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 										className="btn btn-primary"
 										onClick={submitInterested}
 									>
-										<span className="hover-link">Save</span>
+										<span className={isLoading ? "" : "hover-link"}>
+											{isLoading ? (
+												<i className="fa-solid fa-spinner fa-spin"></i>
+											) : (
+												"Save"
+											)}
+										</span>
 									</button>
 								</div>
 							</div>

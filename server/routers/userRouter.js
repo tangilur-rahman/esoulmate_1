@@ -13,6 +13,7 @@ const {
 	currentUser,
 	getProfile,
 	changeProfile,
+	savingInterest,
 	uploadFeature,
 	deleteFeature
 } = require("./../controllers/userController");
@@ -61,6 +62,9 @@ user.post(
 	uploadImg.single("file"),
 	changeProfile
 );
+
+// for saving interested
+user.post("/interested", authUser, savingInterest);
 
 // for uploading new feature
 const upload = multerForImg("file");

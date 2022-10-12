@@ -198,10 +198,17 @@
 }
 
 .interested-popup-wrapper .footer .interested-btn-container button {
-	padding: 6px 22px;
-	font-size: 16px;
+	font-size: 16.5px;
 	border-radius: 17px;
 	transition: all 0.3s;
+	width: 103px;
+	height: 40px;
+	font-weight: 500;
+}
+
+.interested-popup-wrapper .footer .interested-btn-container button i {
+	font-size: 20px;
+	margin-top: 2px;
 }
 
 .interested-popup-wrapper .footer .interested-btn-container button:hover {
