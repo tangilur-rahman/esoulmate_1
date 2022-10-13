@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 // own components
 import Navbar from "../../components/Navbar/Navbar";
+import Preloader from "./../../components/Preloader/Preloader";
 
 import ProfileImg from "../../components/for_profile/ProfileImg/ProfileImg";
 import ProfileTabs from "../../components/for_profile/ProfileTabs/ProfileTabs";
@@ -75,7 +76,10 @@ const ProfilePage = () => {
 	};
 
 	useEffect(() => {
-		getProfileDoc();
+		setTimeout(() => {
+			getProfileDoc();
+		}, 900);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [profile_id, updateProfile]);
 	// for fetching selected profile-docs end
@@ -84,6 +88,7 @@ const ProfilePage = () => {
 	// for fetching current-user handler start
 	const getCurrentUser = async () => {
 		try {
+			setIsLoading(true);
 			const response = await fetch("/user");
 
 			const result = await response.json();
@@ -116,7 +121,9 @@ const ProfilePage = () => {
 
 	useEffect(() => {
 		if (!currentUser) {
-			getCurrentUser();
+			setTimeout(() => {
+				getCurrentUser();
+			}, 900);
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,16 +134,7 @@ const ProfilePage = () => {
 	return (
 		<>
 			{isLoading ? (
-				<div className="loading-animation">
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-				</div>
+				<Preloader />
 			) : (
 				<div className="container-fluid p-0">
 					<Navbar from_where="profile" />
