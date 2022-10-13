@@ -19,6 +19,10 @@
 	overflow: auto;
 }
 
+.interested-container .interested-items::-webkit-scrollbar-thumb {
+	background: #d9dde6;
+}
+
 .interested-container .interested-items span {
 	padding: 7px 10px;
 	margin: 6px;

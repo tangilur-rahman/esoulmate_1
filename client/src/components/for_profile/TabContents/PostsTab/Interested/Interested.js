@@ -142,9 +142,11 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 
 				<div className="interested-items">
 					{getProfile?.interested?.length > 0 &&
-						getProfile.interested.map((value, index) => {
-							return <span key={index}>{value}</span>;
-						})}
+						getProfile.interested
+							.map((value, index) => {
+								return <span key={index}>{value}</span>;
+							})
+							.reverse()}
 				</div>
 
 				{interestPopT && (
