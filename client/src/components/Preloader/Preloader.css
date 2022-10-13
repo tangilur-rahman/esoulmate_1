@@ -1,0 +1,28 @@
+.preloader-container {
+	width: 100vw;
+	height: 100vh;
+}
+
+.preloader-container .preloader-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.preloader-container .preloader-wrapper .preloader {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	background-color: #1a479e;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.preloader-container .preloader-wrapper .preloader img {
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	object-position: center;
+}
