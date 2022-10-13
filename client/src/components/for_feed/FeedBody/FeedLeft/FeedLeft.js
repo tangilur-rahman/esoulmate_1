@@ -98,10 +98,8 @@ const FeedLeft = () => {
 						alt="profile-img"
 						className="img-fluid"
 					/>
-					<div className="user-name">
-						<h5>{currentUser.name}</h5>
-						<p>@{currentUser.name}</p>
-					</div>
+
+					<h5>{currentUser.name}</h5>
 				</div>
 				{/* user-info section end  */}
 

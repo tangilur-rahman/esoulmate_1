@@ -1,7 +1,9 @@
-//own components
+//internal components
 import FeedLeft from "./FeedLeft/FeedLeft";
 import FeedMiddle from "./FeedMiddle/FeedMiddle";
 import FeedRight from "./FeedRight/FeedRight";
+
+import "./FeedBody.css";
 
 const FeedBody = () => {
 	return (
