@@ -35,7 +35,7 @@ const PostsTab = ({ profile_id, getProfile }) => {
 					return Navigate("/");
 				}, 3000);
 			} else {
-				setPostDocs(result ? result : "");
+				setPostDocs(result ? result : []);
 			}
 		} catch (error) {
 			toast.error(error.message, {

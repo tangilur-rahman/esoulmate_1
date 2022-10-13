@@ -14,7 +14,7 @@ import "./Posts.css";
 const Posts = ({ getPostDocs }) => {
 	return (
 		<>
-			{getPostDocs ? (
+			{getPostDocs.length > 0 ? (
 				getPostDocs
 					?.map((value, index) => {
 						return (
@@ -59,7 +59,7 @@ const Posts = ({ getPostDocs }) => {
 					})
 					.reverse()
 			) : (
-				<p>No Posts</p>
+				<p id="empty-post-message">Empty Post</p>
 			)}
 		</>
 	);
