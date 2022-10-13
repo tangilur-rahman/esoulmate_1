@@ -90,14 +90,13 @@ const FeedLeft = () => {
 
 	return (
 		<>
-			{/* **** feed-left start **** */}
 			<div className="col-2 p-0 feed-left">
 				{/* user-info section start  */}
 				<div className="user-info">
 					<img
 						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
-						className="img-fluid profile-photo"
+						className="img-fluid"
 					/>
 					<div className="user-name">
 						<h5>{currentUser.name}</h5>
@@ -164,7 +163,6 @@ const FeedLeft = () => {
 					Create Post
 				</label>
 			</div>
-			{/* **** feed-left end **** */}
 		</>
 	);
 };
