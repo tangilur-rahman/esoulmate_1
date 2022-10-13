@@ -10,6 +10,7 @@ import "./FeedPage.css";
 // own components
 import FeedBody from "../../components/for_feed/FeedBody/FeedBody";
 import Navbar from "../../components/Navbar/Navbar";
+import Preloader from "./../../components/Preloader/Preloader";
 
 const FeedPage = () => {
 	// for redirect login page
@@ -55,7 +56,10 @@ const FeedPage = () => {
 	};
 
 	useEffect(() => {
-		getCurrentUser();
+		setTimeout(() => {
+			getCurrentUser();
+		}, 900);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	// for fetching current-user handler start
@@ -63,16 +67,7 @@ const FeedPage = () => {
 	return (
 		<>
 			{isLoading ? (
-				<div className="loading-animation">
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-					<div className="obj"></div>
-				</div>
+				<Preloader />
 			) : (
 				<div className="container-fluid p-0">
 					<Navbar from_where="home" />
