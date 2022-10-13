@@ -73,11 +73,64 @@
 }
 
 /* active class style start  */
-.sidebar-container .feed-active {
+.sidebar-container .settings-active {
 	background-color: hsl(252, 30%, 95%);
 	color: hsl(252deg 75% 60%);
 }
-.sidebar-container .feed-active::before {
+.sidebar-container .settings-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.sidebar-container .collections-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+
+.sidebar-container .collections-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.sidebar-container .memories-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.sidebar-container .memories-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.sidebar-container .adManager-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.sidebar-container .adManager-active::before {
+	content: "";
+	display: block;
+	width: 0.5rem;
+	height: 100%;
+	position: absolute;
+	background-color: #1a479e;
+}
+
+.sidebar-container .people-active {
+	background-color: hsl(252, 30%, 95%);
+	color: hsl(252deg 75% 60%);
+}
+.sidebar-container .people-active::before {
 	content: "";
 	display: block;
 	width: 0.5rem;
@@ -99,11 +152,11 @@
 	background-color: #1a479e;
 }
 
-.sidebar-container .explore-active {
+.sidebar-container .purchased-active {
 	background-color: hsl(252, 30%, 95%);
 	color: hsl(252deg 75% 60%);
 }
-.sidebar-container .explore-active::before {
+.sidebar-container .purchased-active::before {
 	content: "";
 	display: block;
 	width: 0.5rem;
@@ -112,64 +165,12 @@
 	background-color: #1a479e;
 }
 
-.sidebar-container .bookmark-active {
-	background-color: hsl(252, 30%, 95%);
-	color: hsl(252deg 75% 60%);
-}
-.sidebar-container .bookmark-active::before {
-	content: "";
-	display: block;
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	background-color: #1a479e;
-}
-
-.sidebar-container .wishlist-active {
-	background-color: hsl(252, 30%, 95%);
-	color: hsl(252deg 75% 60%);
-}
-.sidebar-container .wishlist-active::before {
-	content: "";
-	display: block;
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	background-color: #1a479e;
-}
-
-.sidebar-container .purchase-active {
-	background-color: hsl(252, 30%, 95%);
-	color: hsl(252deg 75% 60%);
-}
-.sidebar-container .purchase-active::before {
-	content: "";
-	display: block;
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	background-color: #1a479e;
-}
-
-.sidebar-container .sitting-active {
-	background-color: hsl(252, 30%, 95%);
-	color: hsl(252deg 75% 60%);
-}
-.sidebar-container .sitting-active::before {
-	content: "";
-	display: block;
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	background-color: #1a479e;
-}
-
-.sidebar-container .feed-active {
+.sidebar-container .settings-active {
 	overflow: hidden;
 	border-top-left-radius: 1rem;
 }
 
-.sidebar-container .sitting-active {
+.sidebar-container .purchased-active {
 	overflow: hidden;
 	border-bottom-left-radius: 1rem;
 }
