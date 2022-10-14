@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 // internal components
 import SignFieldsPage from "../../components/for_signup/SignFieldsPage/SignFieldsPage";
 import SignFieldsPeople from "../../components/for_signup/SignFieldsPeople/SignFieldsPeople";
+import PreloaderWithoutAOS from "../../components/Preloader/PreloaderWithoutAOS";
 import "./Signup.css";
 
 const Signup = ({ setAddress }) => {
@@ -311,167 +312,181 @@ const Signup = ({ setAddress }) => {
 	}, [regType]);
 	// when registration type toggle end
 
+	// for waiting for preloader displaying start
+	const [preloaderD, setPreloaderD] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setPreloaderD(false);
+		}, 500);
+	}, []);
+	// for waiting for preloader displaying end
+
 	return (
 		<>
-			<div className="container-fluid p-0">
-				<div className="row m-0 sign-container">
-					{/* left side start  */}
-					<div
-						className="col-12 col-xl-5 p-0 sign-input"
-						data-aos="fade-left"
-						data-aos-duration="800"
-						data-aos-delay="600"
-					>
-						{/* title start  */}
-						<div className="title">
-							<img
-								src="/assets/logo/esoulmate-logo.png"
-								alt="logo"
-								className="img-fluid"
-								data-aos="fade-down"
-								data-aos-duration="800"
-								data-aos-delay="800"
-							/>
-							<h4>Sign Up</h4>
-						</div>
-						{/* title end  */}
-
-						<table>
-							<tr className="registration-type">
-								<td className="selected" onClick={() => setRegType("people")}>
-									<input
-										value="People"
-										readOnly
-										id={regType === "people" ? "active" : ""}
-									/>
-								</td>
-								<td className="selected" onClick={() => setRegType("page")}>
-									<input
-										value="Page"
-										readOnly
-										id={regType === "page" ? "active" : ""}
-									/>
-								</td>
-							</tr>
-						</table>
-
-						{regType === "people" ? (
-							<SignFieldsPeople
-								onChangeHandler={onChangeHandler}
-								f_name={f_name}
-								l_name={l_name}
-								email_phone={email_phone}
-								password={password}
-								c_password={c_password}
-								getDay={getDay}
-								getMonth={getMonth}
-								getYear={getYear}
-								setDay={setDay}
-								setMonth={setMonth}
-								setYear={setYear}
-								getGender={getGender}
-								setGender={setGender}
-							/>
-						) : (
-							<SignFieldsPage
-								getPName={getPName}
-								setPName={setPName}
-								email_phoneP={email_phoneP}
-								setEmail_phoneP={setEmail_phoneP}
-								getPType={getPType}
-								setPType={setPType}
-								passwordP={passwordP}
-								setPasswordP={setPasswordP}
-								c_passwordP={c_passwordP}
-								setC_PasswordP={setC_PasswordP}
-							/>
-						)}
-
-						{/* footer start  */}
-						<div className="sign-footer">
-							<div className="checked">
-								<input
-									type="checkbox"
-									id="checked"
-									value="true"
-									onClick={() => setChecked(!checked)}
-								/>
-								<label htmlFor="checked">
-									I accept the <span>Terms of service</span>&nbsp; & &nbsp;
-									<span>Privacy Policy</span>
-								</label>
-							</div>
-							<div className="sign-btn" onClick={sendOtpHandler}>
-								<button type="button">
-									{!isLoading ? (
-										<span
-											className="hover-link"
-											style={{ display: "inline-block" }}
-										>
-											Sign Up
-										</span>
-									) : (
-										<i className="fa-solid fa-spinner fa-spin"></i>
-									)}
-								</button>
-							</div>
-
-							<h6
-								id="have-account"
-								onClick={() => Navigate("../log-in")}
-								className="hover-link"
-							>
-								I have an account.
-							</h6>
-						</div>
-						{/* footer end  */}
-					</div>
-					{/* left side end  */}
-
-					{/* right side start  */}
-					<div
-						className="col-7 d-xl-flex d-none  p-0 sign-img"
-						data-aos="fade-left"
-						data-aos-duration="600"
-					>
-						{regType === "people" ? (
-							<img
-								src="/assets/images/signup-image.gif"
-								alt="sign-people-img"
-								className="img-fluid"
-								id="when-people"
-								data-aos="fade-down"
-								data-aos-duration="800"
-								data-aos-delay="500"
-							/>
-						) : (
-							<img
-								src="/assets/images/signup-page.gif"
-								alt="sign-page-img"
-								className="img-fluid"
-								id="when-page"
-								data-aos="fade-down"
-								data-aos-duration="800"
-								data-aos-delay="500"
-							/>
-						)}
-
-						<button
-							type="button"
-							className="btn btn-dark"
-							id={regType === "people" ? "when-people-btn" : "when-page-btn"}
-							onClick={() => Navigate("../log-in")}
-							data-aos="fade-up"
+			{preloaderD ? (
+				<PreloaderWithoutAOS />
+			) : (
+				<div className="container-fluid p-0">
+					<div className="row m-0 sign-container">
+						{/* left side start  */}
+						<div
+							className="col-12 col-xl-5 p-0 sign-input"
+							data-aos="fade-left"
 							data-aos-duration="800"
 							data-aos-delay="600"
-							data-aos-offset="0"
 						>
-							<span className="hover-link">Log In</span>
-						</button>
+							{/* title start  */}
+							<div className="title">
+								<img
+									src="/assets/logo/esoulmate-logo.png"
+									alt="logo"
+									className="img-fluid"
+									data-aos="fade-down"
+									data-aos-duration="800"
+									data-aos-delay="800"
+								/>
+								<h4>Sign Up</h4>
+							</div>
+							{/* title end  */}
+
+							<table>
+								<tr className="registration-type">
+									<td className="selected" onClick={() => setRegType("people")}>
+										<input
+											value="People"
+											readOnly
+											id={regType === "people" ? "active" : ""}
+										/>
+									</td>
+									<td className="selected" onClick={() => setRegType("page")}>
+										<input
+											value="Page"
+											readOnly
+											id={regType === "page" ? "active" : ""}
+										/>
+									</td>
+								</tr>
+							</table>
+
+							{regType === "people" ? (
+								<SignFieldsPeople
+									onChangeHandler={onChangeHandler}
+									f_name={f_name}
+									l_name={l_name}
+									email_phone={email_phone}
+									password={password}
+									c_password={c_password}
+									getDay={getDay}
+									getMonth={getMonth}
+									getYear={getYear}
+									setDay={setDay}
+									setMonth={setMonth}
+									setYear={setYear}
+									getGender={getGender}
+									setGender={setGender}
+								/>
+							) : (
+								<SignFieldsPage
+									getPName={getPName}
+									setPName={setPName}
+									email_phoneP={email_phoneP}
+									setEmail_phoneP={setEmail_phoneP}
+									getPType={getPType}
+									setPType={setPType}
+									passwordP={passwordP}
+									setPasswordP={setPasswordP}
+									c_passwordP={c_passwordP}
+									setC_PasswordP={setC_PasswordP}
+								/>
+							)}
+
+							{/* footer start  */}
+							<div className="sign-footer">
+								<div className="checked">
+									<input
+										type="checkbox"
+										id="checked"
+										value="true"
+										onClick={() => setChecked(!checked)}
+									/>
+									<label htmlFor="checked">
+										I accept the <span>Terms of service</span>&nbsp; & &nbsp;
+										<span>Privacy Policy</span>
+									</label>
+								</div>
+								<div className="sign-btn" onClick={sendOtpHandler}>
+									<button type="button">
+										{!isLoading ? (
+											<span
+												className="hover-link"
+												style={{ display: "inline-block" }}
+											>
+												Sign Up
+											</span>
+										) : (
+											<i className="fa-solid fa-spinner fa-spin"></i>
+										)}
+									</button>
+								</div>
+
+								<h6
+									id="have-account"
+									onClick={() => Navigate("../log-in")}
+									className="hover-link"
+								>
+									I have an account.
+								</h6>
+							</div>
+							{/* footer end  */}
+						</div>
+						{/* left side end  */}
+
+						{/* right side start  */}
+						<div
+							className="col-7 d-xl-flex d-none  p-0 sign-img"
+							data-aos="fade-left"
+							data-aos-duration="600"
+						>
+							{regType === "people" ? (
+								<img
+									src="/assets/images/signup-image.gif"
+									alt="sign-people-img"
+									className="img-fluid"
+									id="when-people"
+									data-aos="fade-down"
+									data-aos-duration="800"
+									data-aos-delay="500"
+								/>
+							) : (
+								<img
+									src="/assets/images/signup-page.gif"
+									alt="sign-page-img"
+									className="img-fluid"
+									id="when-page"
+									data-aos="fade-down"
+									data-aos-duration="800"
+									data-aos-delay="500"
+								/>
+							)}
+
+							<button
+								type="button"
+								className="btn btn-dark"
+								id={regType === "people" ? "when-people-btn" : "when-page-btn"}
+								onClick={() => Navigate("../log-in")}
+								data-aos="fade-up"
+								data-aos-duration="800"
+								data-aos-delay="600"
+								data-aos-offset="0"
+							>
+								<span className="hover-link">Log In</span>
+							</button>
+						</div>
+						{/* right side end  */}
 					</div>
-					{/* right side end  */}
 				</div>
-			</div>
+			)}
 		</>
 	);
 };
