@@ -14,7 +14,7 @@ const ForgetPassword = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(false);
-		}, 700);
+		}, 600);
 	}, []);
 	// for waiting for preloader displaying end
 
