@@ -135,6 +135,14 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 	};
 	// submit interested on server end
 
+	// for removing search input start
+	useEffect(() => {
+		if (newInterest) {
+			setSearch("");
+		}
+	}, [newInterest]);
+	// for removing search input end
+
 	return (
 		<>
 			<div className="interested-container">
@@ -181,6 +189,7 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 									autoComplete="off"
 									placeholder="Search . . ."
 									onChange={(e) => setSearch(e.target.value)}
+									value={getSearch}
 								/>
 							</div>
 
@@ -201,27 +210,25 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 								</div>
 							</div>
 
-							{getSearch && (
-								<div className="search-result">
-									<p>Results for :&nbsp; &nbsp;" {getSearch} "</p>
-									<div className="displaying-result">
-										{uniqueArr
-											.filter((value) => {
-												return new RegExp(getSearch, "i").test(value.item);
-											})
-											.map((result, index) => {
-												return (
-													<span
-														key={index}
-														onClick={() => setNewInterest(result.item)}
-													>
-														{result.item}
-													</span>
-												);
-											})}
-									</div>
+							<div className="search-result">
+								<p>Results for :&nbsp; &nbsp;" {getSearch} "</p>
+								<div className="displaying-result">
+									{uniqueArr
+										.filter((value) => {
+											return new RegExp(getSearch, "i").test(value.item);
+										})
+										.map((result, index) => {
+											return (
+												<span
+													key={index}
+													onClick={() => setNewInterest(result.item)}
+												>
+													{result.item}
+												</span>
+											);
+										})}
 								</div>
-							)}
+							</div>
 
 							<div className="footer">
 								<div className="privacy">🌍 Public</div>
