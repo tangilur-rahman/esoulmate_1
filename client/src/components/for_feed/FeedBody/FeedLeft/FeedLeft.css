@@ -26,6 +26,7 @@
 	border-radius: 50%;
 	outline: 2.5px solid #040026;
 	margin: 0 0 0 15px;
+	cursor: pointer;
 }
 
 .feed-left .user-info h5 {
@@ -34,6 +35,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	padding-right: 10px;
+	cursor: pointer;
 }
 /* user-info end  */
 

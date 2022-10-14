@@ -1,5 +1,6 @@
 // external components
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // internal components
 import { GetContextApi } from "../../../../ContextApi";
@@ -8,6 +9,9 @@ import "./FeedLeft.css";
 const FeedLeft = () => {
 	// for getting current-user
 	const { currentUser } = GetContextApi();
+
+	// for redirect router
+	const Navigate = useNavigate();
 
 	// for attach active class
 	const [settings, setSettings] = useState(false);
@@ -97,9 +101,12 @@ const FeedLeft = () => {
 						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
 						className="img-fluid"
+						onClick={() => Navigate(`/profile/${currentUser._id}`)}
 					/>
 
-					<h5>{currentUser.name}</h5>
+					<h5 onClick={() => Navigate(`/profile/${currentUser._id}`)}>
+						{currentUser.name}
+					</h5>
 				</div>
 				{/* user-info section end  */}
 
