@@ -13,7 +13,7 @@ const NotFoundPage = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(false);
-		}, 500);
+		}, 700);
 	}, []);
 	// for waiting for preloader displaying end
 
