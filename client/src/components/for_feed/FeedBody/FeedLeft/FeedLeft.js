@@ -157,12 +157,16 @@ const FeedLeft = () => {
 						<img src="/assets/icon/purchased.png" alt="purchased-icon" />
 						<h5>Purchased</h5>
 					</span>
+
+					<div id="btn-container">
+						<button>
+							<label htmlFor="create-post">
+								<div className="hover-link">Sell Skill</div>
+							</label>
+						</button>
+					</div>
 				</div>
 				{/*  sidebar end  */}
-
-				<label htmlFor="create-post" className="create-post-btn">
-					Create Post
-				</label>
 			</div>
 		</>
 	);
