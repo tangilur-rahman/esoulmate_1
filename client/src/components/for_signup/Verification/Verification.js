@@ -1,10 +1,11 @@
 // external components
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Header from "../../for_forget_pass/Header/Header";
 
 // internal components
+import PreloaderWithoutAOS from "./../../../components/Preloader/PreloaderWithoutAOS";
 import "./Verification.css";
 
 const Verification = ({ getAddress }) => {
@@ -115,139 +116,155 @@ const Verification = ({ getAddress }) => {
 	};
 	// for sending opt in selected email or phone end
 
+	// for waiting for preloader displaying start
+	const [preloaderD, setPreloaderD] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setPreloaderD(false);
+		}, 500);
+	}, []);
+	// for waiting for preloader displaying end
+
 	return (
 		<>
-			<Header />
-			<div className="row m-0 sign-verification-container">
-				<div className="wrapper">
-					<h4 className={errDisplay ? "reduce-opacity" : ""}>
-						Enter security code
-					</h4>
-					<p id="message" className={errDisplay ? "reduce-opacity" : ""}>
-						Let us know that this&nbsp;
-						{isNumeric(getAddress.email_phone)
-							? "phone number"
-							: "email address"}
-						&nbsp;belongs to you. Please check your &nbsp;
-						{isNumeric(getAddress.email_phone) ? "phone" : "email"} for a
-						message with your code. Your code is &nbsp;
-						<span style={{ fontWeight: 700 }}>6 numbers</span> long.
-					</p>
-
-					{errDisplay && (
-						<div className="error-message">
-							<div id="header">Wrong Security Code</div>
-							<div id="message">
-								Wrong Security code. Try again with right one.
-							</div>
-
-							<div id="ok-btn">
-								<button
-									type="button"
-									className="btn btn-danger"
-									onClick={() => setErrDisplay(false)}
-								>
-									<span className="hover-link">Ok</span>
-								</button>
-							</div>
-						</div>
-					)}
-
-					{conformDis && (
-						<div className="conform-message">
-							<div id="header">Account Confirmed</div>
-							<div id="message">
-								You have successfully confirmed your account with the&nbsp;
+			{preloaderD ? (
+				<PreloaderWithoutAOS />
+			) : (
+				<>
+					<Header />
+					<div className="row m-0 sign-verification-container">
+						<div className="wrapper">
+							<h4 className={errDisplay ? "reduce-opacity" : ""}>
+								Enter security code
+							</h4>
+							<p id="message" className={errDisplay ? "reduce-opacity" : ""}>
+								Let us know that this&nbsp;
 								{isNumeric(getAddress.email_phone)
-									? `phone number `
-									: `email address `}
-								<b>
-									{isNumeric(getAddress.email_phone)
-										? `${getAddress.email_phone} .`
-										: `${getAddress.email_phone} .`}
-								</b>
-								<br /> You will use this&nbsp;
-								{isNumeric(getAddress.email_phone)
-									? `phone number `
-									: `email address `}
-								&nbsp;to log in.
-							</div>
+									? "phone number"
+									: "email address"}
+								&nbsp;belongs to you. Please check your &nbsp;
+								{isNumeric(getAddress.email_phone) ? "phone" : "email"} for a
+								message with your code. Your code is &nbsp;
+								<span style={{ fontWeight: 700 }}>6 numbers</span> long.
+							</p>
 
-							<div id="ok-btn">
-								<button
-									type="button"
-									className="btn btn-primary"
-									onClick={() => {
-										setConformDis(false);
-										getAddress.submitHandle();
-									}}
-								>
-									<span className="hover-link">Ok</span>
-								</button>
-							</div>
-						</div>
-					)}
+							{errDisplay && (
+								<div className="error-message">
+									<div id="header">Wrong Security Code</div>
+									<div id="message">
+										Wrong Security code. Try again with right one.
+									</div>
 
-					{!(errDisplay || conformDis) && (
-						<>
-							<div className="selection">
-								<div className="left">
-									<input
-										type="number"
-										placeholder="Security Code"
-										onChange={(e) => setCode(e.target.value)}
-										value={getCode}
-										onKeyDown={onKeyDown}
-									/>
-								</div>
-								<div className="right">
-									<p>
-										We sent your code to: <br />
-										<span>{getAddress.email_phone}</span>
-									</p>
-								</div>
-							</div>
-							<div className="footer-btn-container">
-								<span className="hover-link" onClick={sendOtpHandler}>
-									Didn’t get a code?
-								</span>
-
-								<div className="btn-container">
-									<button
-										type="button"
-										className="btn btn-light"
-										onClick={() => Navigate("/sign-up")}
-									>
-										<span
-											className="hover-link"
-											style={{ display: "inline-block" }}
+									<div id="ok-btn">
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={() => setErrDisplay(false)}
 										>
-											Cancel
-										</span>
-									</button>
-
-									<button
-										type="button"
-										className="btn btn-primary "
-										onClick={matchingOtpHandler}
-									>
-										{!isLoading ? (
-											<span
-												className="hover-link"
-												style={{ display: "inline-block" }}
-											>
-												Continue
-											</span>
-										) : (
-											<i className="fa-solid fa-spinner fa-spin"></i>
-										)}
-									</button>
+											<span className="hover-link">Ok</span>
+										</button>
+									</div>
 								</div>
-							</div>
-						</>
-					)}
-				</div>
-			</div>
+							)}
+
+							{conformDis && (
+								<div className="conform-message">
+									<div id="header">Account Confirmed</div>
+									<div id="message">
+										You have successfully confirmed your account with the&nbsp;
+										{isNumeric(getAddress.email_phone)
+											? `phone number `
+											: `email address `}
+										<b>
+											{isNumeric(getAddress.email_phone)
+												? `${getAddress.email_phone} .`
+												: `${getAddress.email_phone} .`}
+										</b>
+										<br /> You will use this&nbsp;
+										{isNumeric(getAddress.email_phone)
+											? `phone number `
+											: `email address `}
+										&nbsp;to log in.
+									</div>
+
+									<div id="ok-btn">
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={() => {
+												setConformDis(false);
+												getAddress.submitHandle();
+											}}
+										>
+											<span className="hover-link">Ok</span>
+										</button>
+									</div>
+								</div>
+							)}
+
+							{!(errDisplay || conformDis) && (
+								<>
+									<div className="selection">
+										<div className="left">
+											<input
+												type="number"
+												placeholder="Security Code"
+												onChange={(e) => setCode(e.target.value)}
+												value={getCode}
+												onKeyDown={onKeyDown}
+											/>
+										</div>
+										<div className="right">
+											<p>
+												We sent your code to: <br />
+												<span>{getAddress.email_phone}</span>
+											</p>
+										</div>
+									</div>
+									<div className="footer-btn-container">
+										<span className="hover-link" onClick={sendOtpHandler}>
+											Didn’t get a code?
+										</span>
+
+										<div className="btn-container">
+											<button
+												type="button"
+												className="btn btn-light"
+												onClick={() => Navigate("/sign-up")}
+											>
+												<span
+													className="hover-link"
+													style={{ display: "inline-block" }}
+												>
+													Cancel
+												</span>
+											</button>
+
+											<button
+												type="button"
+												className="btn btn-primary "
+												onClick={matchingOtpHandler}
+											>
+												{!isLoading ? (
+													<span
+														className="hover-link"
+														style={{ display: "inline-block" }}
+													>
+														Continue
+													</span>
+												) : (
+													<i className="fa-solid fa-spinner fa-spin"></i>
+												)}
+											</button>
+										</div>
+									</div>
+								</>
+							)}
+						</div>
+					</div>
+				</>
+			)}
 		</>
 	);
 };
