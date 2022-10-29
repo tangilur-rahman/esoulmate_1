@@ -9,9 +9,9 @@ import Preloader from "./../../components/Preloader/Preloader";
 
 import ProfileImg from "../../components/for_profile/ProfileImg/ProfileImg";
 import ProfileTabs from "../../components/for_profile/ProfileTabs/ProfileTabs";
+import AboutTab from "../../components/for_profile/TabContents/AboutTab/AboutTab";
 import AudioTab from "../../components/for_profile/TabContents/AudioTab/AudioTab";
 import BookmarksTab from "../../components/for_profile/TabContents/BookmarksTab/BookmarksTab";
-import FollowingTab from "../../components/for_profile/TabContents/FollowingTab/FollowingTab";
 import PdfTab from "../../components/for_profile/TabContents/PdfTab/PdfTab";
 import PhotosTab from "../../components/for_profile/TabContents/PhotosTab/PhotosTab";
 import PostsTab from "../../components/for_profile/TabContents/PostsTab/PostsTab";
@@ -152,7 +152,7 @@ const ProfilePage = () => {
 								<PostsTab profile_id={profile_id} getProfile={getProfile} />
 							)}
 
-							{tabToggle === 2 && <FollowingTab />}
+							{tabToggle === 2 && <AboutTab />}
 
 							{tabToggle === 3 && <PhotosTab />}
 

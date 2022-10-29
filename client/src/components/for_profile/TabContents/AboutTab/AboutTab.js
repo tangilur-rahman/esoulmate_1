@@ -1,14 +1,14 @@
-import "./FollowingTab.css";
+import "./AboutTab.css";
 
-import friend from "./../../../../dummy-data/friends.json";
+import friend from "../../../../dummy-data/friends.json";
 
-const FollowingTab = () => {
+const AboutTab = () => {
 	return (
 		<>
-			<div className="following-tab-container">
+			<div className="about-tab-container">
 				<header>
 					<div className="left">
-						<h5>Following</h5>
+						<h5>About</h5>
 						<p>3.4k</p>
 					</div>
 					<div className="right">
@@ -22,7 +22,7 @@ const FollowingTab = () => {
 						/>
 					</div>
 				</header>
-				<div className="following row row-cols-auto">
+				<div className="about row row-cols-auto">
 					{friend &&
 						friend.map((value, index) => {
 							return (
@@ -42,4 +42,4 @@ const FollowingTab = () => {
 	);
 };
 
-export default FollowingTab;
+export default AboutTab;
