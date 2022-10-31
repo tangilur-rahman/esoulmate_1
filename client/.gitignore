@@ -6,9 +6,9 @@
 .pnp.js
 
 #own
-/public/uploads/profile-img/
-/public/uploads/attachments/
-/public/assets/dummy/
+# /public/uploads/profile-img/
+# /public/uploads/attachments/
+# /public/assets/dummy/
 
 # testing
 /coverage
