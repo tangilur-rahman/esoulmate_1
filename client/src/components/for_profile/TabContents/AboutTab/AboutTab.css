@@ -56,9 +56,6 @@
 
 /* right-container style start  */
 .about-tab-container .right-about-con {
-	background-color: white;
-	box-shadow: var(--box-shadow);
-	border-radius: var(--card-border-radius);
 	height: fit-content;
 	flex-grow: 1;
 }
