@@ -14,7 +14,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin-right: 30px;
+	margin-right: 55px;
 }
 
 .about-tab-container .left-about-con h4 {
@@ -44,7 +44,7 @@
 }
 
 .about-tab-container .left-about-con ul li:hover {
-	background: #f0eeee;
+	background: #edebeb;
 	font-weight: 600;
 }
 
