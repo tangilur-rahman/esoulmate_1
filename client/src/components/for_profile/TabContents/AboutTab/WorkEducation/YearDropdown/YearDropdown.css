@@ -41,7 +41,7 @@
 }
 
 .pick-time .year-container input::placeholder {
-	font-weight: 600;
+	font-weight: 500;
 	color: black;
 }
 

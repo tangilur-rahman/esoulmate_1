@@ -42,7 +42,7 @@
 }
 
 .pick-time .month-container input::placeholder {
-	font-weight: 600;
+	font-weight: 500;
 	color: black;
 }
 

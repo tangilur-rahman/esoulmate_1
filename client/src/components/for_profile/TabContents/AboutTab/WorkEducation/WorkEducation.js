@@ -164,6 +164,7 @@ const WorkEducation = ({ getProfile }) => {
 									<label
 										className="form-check-label"
 										htmlFor="flexCheckDefault"
+										id="checkbox-text"
 									>
 										I currently work here.
 									</label>

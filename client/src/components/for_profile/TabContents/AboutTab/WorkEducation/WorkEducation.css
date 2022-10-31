@@ -88,6 +88,12 @@
 	margin-top: 10px;
 }
 
+.work-container .add-work-fields .form-floating label {
+	color: #8c9ea8;
+	font-size: 15.5px;
+	opacity: 0.9;
+}
+
 .work-container .add-work-fields .outline-sty {
 	letter-spacing: 0.5px;
 	word-spacing: 2px;
@@ -105,6 +111,11 @@
 
 .work-container .time-period-container h6 {
 	word-spacing: 2px;
+	font-weight: 600;
+}
+
+.work-container .time-period-container #checkbox-text {
+	font-weight: 500;
 }
 
 .work-container .time-period-container .pick-time {
