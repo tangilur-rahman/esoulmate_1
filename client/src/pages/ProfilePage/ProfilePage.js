@@ -152,7 +152,7 @@ const ProfilePage = () => {
 								<PostsTab profile_id={profile_id} getProfile={getProfile} />
 							)}
 
-							{tabToggle === 2 && <AboutTab />}
+							{tabToggle === 2 && <AboutTab getProfile={getProfile} />}
 
 							{tabToggle === 3 && <PhotosTab />}
 

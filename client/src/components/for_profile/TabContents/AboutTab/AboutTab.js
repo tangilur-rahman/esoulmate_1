@@ -8,7 +8,7 @@ import BasicInfo from "./BasicInfo/BasicInfo";
 import Location from "./Location/Location";
 import WorkEducation from "./WorkEducation/WorkEducation";
 
-const AboutTab = () => {
+const AboutTab = ({ getProfile }) => {
 	// for getting selected tab
 	const [selectedTab, setSelectedTab] = useState("Work & Education");
 
@@ -49,7 +49,9 @@ const AboutTab = () => {
 
 				{/* right-about-container start  */}
 				<div className="col-lg-8 col-12 p-0 right-about-con">
-					{selectedTab === "Work & Education" && <WorkEducation />}
+					{selectedTab === "Work & Education" && (
+						<WorkEducation getProfile={getProfile} />
+					)}
 					{selectedTab === "Location" && <Location />}
 					{selectedTab === "Contact & Basic info" && <BasicInfo />}
 					{selectedTab === "Details about you" && <AboutYou />}

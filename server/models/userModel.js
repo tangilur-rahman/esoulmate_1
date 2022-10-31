@@ -61,7 +61,22 @@ const schema = mongoose.Schema(
 				img: String
 			}
 		],
-		interested: Array
+		interested: Array,
+
+		work: [
+			{
+				company: String,
+				position: String,
+				city: String,
+				description: String,
+				fromYear: Number,
+				fromMonth: String,
+				fromDay: Number,
+				toYear: Number,
+				toMonth: String,
+				toDay: Number
+			}
+		]
 	},
 	{ timestamps: true }
 );

@@ -1,5 +1,6 @@
 // external components
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 // internal components
 import DayDropdown from "./DayDropdown/DayDropdown";
@@ -7,12 +8,18 @@ import MonthDropdown from "./MonthDropdown/MonthDropdown";
 import "./WorkEducation.css";
 import YearDropdown from "./YearDropdown/YearDropdown";
 
-const WorkEducation = () => {
+const WorkEducation = ({ getProfile }) => {
 	// for add work toggle
 	const [addWorkT, setAddWorkT] = useState(false);
 
 	// for checking now currently working here or not
 	const [currWork, setCurrWork] = useState(false);
+
+	// for getting input-fields value
+	const [getCompany, setCompany] = useState("");
+	const [getPosition, setPosition] = useState("");
+	const [getCity, setCity] = useState("");
+	const [getDescription, setDescription] = useState("");
 
 	// for pick period
 	const [fromYear, setFromYear] = useState("");
@@ -22,6 +29,63 @@ const WorkEducation = () => {
 	const [toYear, setToYear] = useState("");
 	const [toMonth, setToMonth] = useState("");
 	const [toDay, setToDay] = useState("");
+
+	// add work submit on server start
+	const addWorkHandler = async () => {
+		try {
+			const workInfo = {
+				company: getCompany,
+				position: getPosition,
+				city: getCity,
+				description: getDescription,
+				fromYear,
+				fromMonth,
+				fromDay,
+				toYear,
+				toMonth,
+				toDay
+			};
+
+			const response = await fetch(
+				`/user/about/add-work?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(workInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				setAddWorkT(false);
+				setCurrWork(false);
+				setCompany("");
+				setPosition("");
+				setCity("");
+				setDescription("");
+				setFromYear("");
+				setFromMonth("");
+				setFromDay("");
+				setToYear("");
+				setToMonth("");
+				setFromDay("");
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+		}
+	};
+	//add work submit on server end
 
 	return (
 		<div className="row m-0">
@@ -47,6 +111,8 @@ const WorkEducation = () => {
 									className="form-control outline-sty"
 									id="Company"
 									placeholder="Company"
+									onChange={(e) => setCompany(e.target.value)}
+									value={getCompany}
 								/>
 								<label htmlFor="Company">Company</label>
 							</div>
@@ -56,6 +122,8 @@ const WorkEducation = () => {
 									className="form-control outline-sty"
 									id="Position"
 									placeholder="Position"
+									onChange={(e) => setPosition(e.target.value)}
+									value={getPosition}
 								/>
 								<label htmlFor="Position">Position</label>
 							</div>
@@ -65,6 +133,8 @@ const WorkEducation = () => {
 									className="form-control outline-sty"
 									id="City/Town"
 									placeholder="City/Town"
+									onChange={(e) => setCity(e.target.value)}
+									value={getCity}
 								/>
 								<label htmlFor="City/Town">City/Town</label>
 							</div>
@@ -75,6 +145,8 @@ const WorkEducation = () => {
 									placeholder="Description"
 									id="floatingTextarea2"
 									style={{ height: "100px" }}
+									onChange={(e) => setDescription(e.target.value)}
+									value={getDescription}
 								></textarea>
 								<label htmlFor="floatingTextarea2">Description</label>
 							</div>
@@ -93,7 +165,7 @@ const WorkEducation = () => {
 										className="form-check-label"
 										htmlFor="flexCheckDefault"
 									>
-										I currently work here
+										I currently work here.
 									</label>
 								</div>
 
@@ -102,24 +174,39 @@ const WorkEducation = () => {
 										<div id="current-work">
 											<span id="from">From</span>
 											<YearDropdown getYear={fromYear} setYear={setFromYear} />
-											<MonthDropdown
-												getMonth={fromMonth}
-												setMonth={setFromMonth}
-											/>
-											<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
 										</div>
 									) : (
 										<div id="previous-work">
 											<YearDropdown getYear={fromYear} setYear={setFromYear} />
-											<MonthDropdown
-												getMonth={fromMonth}
-												setMonth={setFromMonth}
-											/>
-											<DayDropdown getDay={fromDay} setDay={setFromDay} />{" "}
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
 											<span>to</span>{" "}
 											<YearDropdown getYear={toYear} setYear={setToYear} />
-											<MonthDropdown getMonth={toMonth} setMonth={setToMonth} />
-											<DayDropdown getDay={toDay} setDay={setToDay} />
+											{toYear && (
+												<MonthDropdown
+													getMonth={toMonth}
+													setMonth={setToMonth}
+												/>
+											)}
+											{toMonth && (
+												<DayDropdown getDay={toDay} setDay={setToDay} />
+											)}
 										</div>
 									)}
 								</div>
@@ -137,6 +224,10 @@ const WorkEducation = () => {
 										onClick={() => {
 											setAddWorkT(false);
 											setCurrWork(false);
+											setCompany("");
+											setPosition("");
+											setCity("");
+											setDescription("");
 											setFromYear("");
 											setFromMonth("");
 											setFromDay("");
@@ -147,7 +238,12 @@ const WorkEducation = () => {
 									>
 										Cancel
 									</button>
-									<button type="button" className="btn btn-primary">
+									<button
+										type="button"
+										className="btn btn-primary"
+										onClick={addWorkHandler}
+										disabled={getCompany ? false : true}
+									>
 										Submit
 									</button>
 								</div>

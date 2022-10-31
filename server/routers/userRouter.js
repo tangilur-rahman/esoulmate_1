@@ -15,7 +15,8 @@ const {
 	changeProfile,
 	savingInterest,
 	uploadFeature,
-	deleteFeature
+	deleteFeature,
+	addWorkHandler
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -78,5 +79,8 @@ user.get(
 	deleteFeatureImg,
 	deleteFeature
 );
+
+// for adding work
+user.post("/about/add-work", addWorkHandler);
 
 module.exports = user;

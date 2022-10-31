@@ -496,6 +496,48 @@ const deleteFeature = async (req, res) => {
 	}
 };
 
+// for adding work
+const addWorkHandler = async (req, res) => {
+	try {
+		const {
+			company,
+			position,
+			city,
+			description,
+			fromYear,
+			fromMonth,
+			fromDay,
+			toYear,
+			toMonth,
+			toDay
+		} = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$push: {
+					work: {
+						company,
+						position,
+						city,
+						description,
+						fromYear,
+						fromMonth,
+						fromDay,
+						toYear,
+						toMonth,
+						toDay
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add work successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -509,5 +551,6 @@ module.exports = {
 	changeProfile,
 	savingInterest,
 	uploadFeature,
-	deleteFeature
+	deleteFeature,
+	addWorkHandler
 };
