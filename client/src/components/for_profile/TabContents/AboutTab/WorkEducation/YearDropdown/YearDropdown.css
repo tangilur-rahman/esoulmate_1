@@ -24,7 +24,7 @@
 }
 
 .pick-time .year-container.active::before {
-	top: 20px;
+	top: 17px;
 	transform: rotate(-225deg);
 }
 

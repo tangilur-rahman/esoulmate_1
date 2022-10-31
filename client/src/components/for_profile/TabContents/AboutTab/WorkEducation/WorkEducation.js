@@ -11,8 +11,17 @@ const WorkEducation = () => {
 	// for add work toggle
 	const [addWorkT, setAddWorkT] = useState(false);
 
-	// for checking currently working here or not
+	// for checking now currently working here or not
 	const [currWork, setCurrWork] = useState(false);
+
+	// for pick period
+	const [fromYear, setFromYear] = useState("");
+	const [fromMonth, setFromMonth] = useState("");
+	const [fromDay, setFromDay] = useState("");
+
+	const [toYear, setToYear] = useState("");
+	const [toMonth, setToMonth] = useState("");
+	const [toDay, setToDay] = useState("");
 
 	return (
 		<div className="row m-0">
@@ -91,16 +100,26 @@ const WorkEducation = () => {
 								<div className="pick-time">
 									{currWork ? (
 										<div id="current-work">
-											<span id="from">From</span> <YearDropdown />{" "}
-											<MonthDropdown />
-											<DayDropdown />
+											<span id="from">From</span>
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											<MonthDropdown
+												getMonth={fromMonth}
+												setMonth={setFromMonth}
+											/>
+											<DayDropdown getDay={fromDay} setDay={setFromDay} />
 										</div>
 									) : (
 										<div id="previous-work">
-											<YearDropdown /> <MonthDropdown />
-											<DayDropdown /> <span>to</span> <YearDropdown />{" "}
-											<MonthDropdown />
-											<DayDropdown />
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											<MonthDropdown
+												getMonth={fromMonth}
+												setMonth={setFromMonth}
+											/>
+											<DayDropdown getDay={fromDay} setDay={setFromDay} />{" "}
+											<span>to</span>{" "}
+											<YearDropdown getYear={toYear} setYear={setToYear} />
+											<MonthDropdown getMonth={toMonth} setMonth={setToMonth} />
+											<DayDropdown getDay={toDay} setDay={setToDay} />
 										</div>
 									)}
 								</div>
@@ -115,7 +134,16 @@ const WorkEducation = () => {
 									<button
 										type="button"
 										className="btn btn-light"
-										onClick={() => setAddWorkT(false)}
+										onClick={() => {
+											setAddWorkT(false);
+											setCurrWork(false);
+											setFromYear("");
+											setFromMonth("");
+											setFromDay("");
+											setToYear("");
+											setToMonth("");
+											setFromDay("");
+										}}
 									>
 										Cancel
 									</button>
