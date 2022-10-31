@@ -1,26 +1,23 @@
 .pick-time .year-container {
-	width: 150px;
-	height: 45px;
-	background: #f0f4f4;
-	border-radius: 81px;
+	background: #e4e6eb;
+	border-radius: 7px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	border: 1px solid #000000;
 }
 
 .pick-time .year-container::before {
 	content: "";
 	position: absolute;
-	right: 30px;
-	top: 17px;
+	right: 12px;
+	top: 12px;
 	z-index: 1;
 	width: 8px;
 	height: 8px;
 	border: 2px solid #333;
-	border-top: 2px solid #f0f4f4;
-	border-right: 2px solid #f0f4f4;
+	border-top: 2px solid #e4e6eb;
+	border-right: 2px solid #e4e6eb;
 	transform: rotate(-45deg);
 	transition: 0.5s;
 	pointer-events: none;
@@ -36,19 +33,16 @@
 	border: none;
 	outline: none;
 	background-color: transparent;
-	padding: 7px;
+	padding: 7px 7px 7px 10px;
 	border-radius: 5px;
-	font-weight: 500;
-	font-size: 17px;
-	width: 100%;
-	color: #878787;
-	margin-left: 15px;
+	font-weight: 600;
+	font-size: 15px;
+	width: 80px;
 }
 
 .pick-time .year-container input::placeholder {
-	padding-left: 15px;
-	color: #878787;
-	font-weight: 500;
+	font-weight: 600;
+	color: black;
 }
 
 .pick-time .year-container .option {

@@ -114,16 +114,21 @@
 .work-container .time-period-container .pick-time #current-work {
 	display: flex;
 	align-items: center;
-	border: 1px solid red;
 }
 
 .work-container .time-period-container .pick-time #current-work #from {
+	margin: 0;
+	font-weight: 500;
 	margin-right: 15px;
 }
 
 .work-container .time-period-container .pick-time #previous-work {
 	display: flex;
 	align-items: center;
+}
+
+.work-container .time-period-container .pick-time #previous-work span {
+	margin: 0 15px;
 }
 /* work end  */
 
