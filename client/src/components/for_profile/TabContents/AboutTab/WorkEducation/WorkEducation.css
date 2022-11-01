@@ -61,6 +61,11 @@
 	transition: all 0.3s;
 }
 
+.work-edu-container .work-edu-submit-con #right button #loading {
+	padding: 0px 18px;
+	font-size: 18px;
+}
+
 .work-edu-container .work-edu-submit-con #right button:first-child {
 	margin-right: 20px;
 	background-color: #e4e6eb;
@@ -141,6 +146,91 @@
 .work-container .time-period-container .pick-time #previous-work span {
 	margin: 0 15px;
 }
+
+.work-container .displaying-work {
+	margin-top: 10px;
+}
+
+.work-container .displaying-work .a-work {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+.work-container .displaying-work .a-work:last-child {
+	margin: 0;
+}
+
+/* .a-work #left start  */
+.work-container .displaying-work .a-work #left {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+}
+
+.work-container .displaying-work .a-work #left i {
+	font-size: 33px;
+	opacity: 0.8;
+	color: #354f52;
+}
+
+.work-container .displaying-work .a-work .details {
+	margin-left: 15px;
+	width: 100%;
+}
+
+.work-container .displaying-work .a-work #up {
+	display: flex;
+	align-items: center;
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.work-container .displaying-work .a-work #up h6 {
+	margin: 0;
+	font-weight: 500;
+}
+
+.work-container .displaying-work .a-work #down {
+	display: flex;
+	align-items: center;
+	margin: 0;
+	font-size: 13px;
+}
+/* .a-work #left end  */
+
+/* .a-work #right start  */
+.work-container .displaying-work .a-work #right {
+	display: flex;
+	align-items: center;
+}
+
+.work-container .displaying-work .a-work #right i:first-child {
+	margin-right: 20px;
+	font-size: 18px;
+	color: #354f52;
+}
+
+.work-container .displaying-work .a-work #right .option {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	background-color: #e4e6eb;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.work-container .displaying-work .a-work #right .option i {
+	margin: 0 auto;
+	font-size: 19px;
+}
+/* .a-work #right end */
 /* work end  */
 
 /* university start  */

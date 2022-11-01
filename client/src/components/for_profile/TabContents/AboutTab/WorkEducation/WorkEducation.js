@@ -3,12 +3,19 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../../../ContextApi";
 import DayDropdown from "./DayDropdown/DayDropdown";
 import MonthDropdown from "./MonthDropdown/MonthDropdown";
 import "./WorkEducation.css";
 import YearDropdown from "./YearDropdown/YearDropdown";
 
 const WorkEducation = ({ getProfile }) => {
+	// for updating profile
+	const { setUpdateProfile } = GetContextApi();
+
+	// for loading animation until doesn't response from server
+	const [isLoading, setIsLoading] = useState(false);
+
 	// for add work toggle
 	const [addWorkT, setAddWorkT] = useState(false);
 
@@ -30,9 +37,40 @@ const WorkEducation = ({ getProfile }) => {
 	const [toMonth, setToMonth] = useState("");
 	const [toDay, setToDay] = useState("");
 
+	// for displaying full month-name
+	const fullMonth = (value) => {
+		if (value === "Jan") {
+			return "January";
+		} else if (value === "Feb") {
+			return "February";
+		} else if (value === "Mar") {
+			return "March";
+		} else if (value === "Apr") {
+			return "April";
+		} else if (value === "May") {
+			return "May";
+		} else if (value === "June") {
+			return "June";
+		} else if (value === "July") {
+			return "July";
+		} else if (value === "Aug") {
+			return "August";
+		} else if (value === "Sept") {
+			return "September";
+		} else if (value === "Oct") {
+			return "October";
+		} else if (value === "Nov") {
+			return "November";
+		} else if (value === "Dec") {
+			return "December";
+		}
+	};
+
 	// add work submit on server start
 	const addWorkHandler = async () => {
 		try {
+			setIsLoading(true);
+
 			const workInfo = {
 				company: getCompany,
 				position: getPosition,
@@ -58,6 +96,7 @@ const WorkEducation = ({ getProfile }) => {
 			const result = await response.json();
 
 			if (response.status === 200) {
+				setUpdateProfile(Date.now());
 				setAddWorkT(false);
 				setCurrWork(false);
 				setCompany("");
@@ -70,12 +109,14 @@ const WorkEducation = ({ getProfile }) => {
 				setToYear("");
 				setToMonth("");
 				setFromDay("");
+				setIsLoading(false);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 3000
 				});
+				setIsLoading(false);
 			}
 		} catch (error) {
 			toast.error(error.message, {
@@ -83,6 +124,7 @@ const WorkEducation = ({ getProfile }) => {
 				theme: "colored",
 				autoClose: 3000
 			});
+			setIsLoading(false);
 		}
 	};
 	//add work submit on server end
@@ -104,6 +146,7 @@ const WorkEducation = ({ getProfile }) => {
 						</div>
 					)}
 
+					{/* add new work start  */}
 					{addWorkT && (
 						<div className="add-work-fields">
 							<div className="form-floating mb-3">
@@ -235,6 +278,7 @@ const WorkEducation = ({ getProfile }) => {
 											setToYear("");
 											setToMonth("");
 											setFromDay("");
+											setIsLoading(false);
 										}}
 									>
 										Cancel
@@ -245,12 +289,82 @@ const WorkEducation = ({ getProfile }) => {
 										onClick={addWorkHandler}
 										disabled={getCompany ? false : true}
 									>
-										Submit
+										{isLoading ? (
+											<i
+												className="fa-solid fa-spinner fa-spin"
+												id="loading"
+											></i>
+										) : (
+											"Submit"
+										)}
 									</button>
 								</div>
 							</div>
 						</div>
 					)}
+					{/* add new work end  */}
+
+					{/* displaying work start  */}
+					{getProfile?.work?.length > 0 && (
+						<div className="displaying-work">
+							{getProfile.work
+								.map((value, index) => {
+									return (
+										<div className="a-work" key={index}>
+											<div id="left">
+												<i className="fa-solid fa-briefcase"></i>
+												<div className="details">
+													<p id="up">
+														<h6>{value.position ? value.position : "Work"}</h6>
+														&nbsp;at&nbsp; <h6>{value.company}</h6>
+														{value.city && (
+															<>
+																&nbsp;in&nbsp;<h6>{value?.city}</h6>
+															</>
+														)}
+													</p>
+
+													{value.fromYear && (
+														<p id="down">
+															{value.fromMonth && (
+																<>
+																	{fullMonth(value.fromMonth)} {value.fromDay}
+																	,&nbsp;&nbsp;
+																</>
+															)}
+															{value.fromYear} &nbsp;to&nbsp;
+															{value.toYear ? (
+																<>
+																	{value.fromMonth && (
+																		<>
+																			{fullMonth(value.fromMonth)}{" "}
+																			{value.fromDay}
+																			,&nbsp;&nbsp;
+																		</>
+																	)}
+																	{value.toYear}
+																</>
+															) : (
+																"Present"
+															)}
+														</p>
+													)}
+												</div>
+											</div>
+
+											<div id="right">
+												<i className="fa-solid fa-earth-americas"></i>
+												<div className="option">
+													<i className="fa-solid fa-ellipsis"></i>
+												</div>
+											</div>
+										</div>
+									);
+								})
+								.reverse()}
+						</div>
+					)}
+					{/* displaying work end */}
 				</div>
 				{/* work-end  */}
 
