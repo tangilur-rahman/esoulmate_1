@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
@@ -65,6 +65,24 @@ const WorkEducation = ({ getProfile }) => {
 			return "December";
 		}
 	};
+
+	// for option toggle
+	const [optionT, setOptionT] = useState("");
+
+	// for close option when click outside start
+	const workRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!workRef.current?.contains(e.target)) {
+			setOptionT("");
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// for close option when click outside end
 
 	// add work submit on server start
 	const addWorkHandler = async () => {
@@ -355,7 +373,31 @@ const WorkEducation = ({ getProfile }) => {
 											<div id="right">
 												<i className="fa-solid fa-earth-americas"></i>
 												<div className="option">
-													<i className="fa-solid fa-ellipsis"></i>
+													<i
+														className="fa-solid fa-ellipsis"
+														onClick={() => setOptionT(value._id)}
+													></i>
+
+													{optionT === value._id && (
+														<ul ref={workRef}>
+															<li
+																onClick={() => {
+																	setOptionT("");
+																}}
+															>
+																<i className="fa-solid fa-eye option-icon"></i>{" "}
+																Details
+															</li>
+															<li
+																onClick={() => {
+																	setOptionT("");
+																}}
+															>
+																<i className="fa-solid fa-trash-can option-icon"></i>{" "}
+																Delete
+															</li>
+														</ul>
+													)}
 												</div>
 											</div>
 										</div>
