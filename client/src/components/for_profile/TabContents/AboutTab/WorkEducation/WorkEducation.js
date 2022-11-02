@@ -316,6 +316,9 @@ const WorkEducation = ({ getProfile }) => {
 												<YearDropdown
 													getYear={fromYear}
 													setYear={setFromYear}
+													selectOption={
+														selectOp.name === "Details" ? true : false
+													}
 												/>
 												{(selectOp.name === "Details"
 													? selectOp.value.fromMonth

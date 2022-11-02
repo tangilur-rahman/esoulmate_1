@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 // internal components
 import "./YearDropdown.css";
 
-const YearDropdown = ({ getYear, setYear }) => {
+const YearDropdown = ({ getYear, setYear, selectOption }) => {
 	const [yearDropdown, setYearDropdown] = useState("");
 
 	let yearArray = [];
@@ -34,18 +34,27 @@ const YearDropdown = ({ getYear, setYear }) => {
 				className={yearDropdown ? "year-container active" : "year-container"}
 				onClick={() => setYearDropdown(!yearDropdown)}
 				ref={myRef}
+				id={selectOption ? "from-option" : ""}
 			>
-				<input type="text" placeholder="Year" readOnly value={getYear} />
+				<input
+					type="text"
+					placeholder="Year"
+					readOnly
+					value={getYear}
+					id={selectOption ? "from-option" : ""}
+				/>
 
-				<div className="option" ref={myRef}>
-					{yearArray.map((value, index) => {
-						return (
-							<div onClick={() => setYear(value)} key={index}>
-								<span>{value}</span>
-							</div>
-						);
-					})}
-				</div>
+				{!selectOption && (
+					<div className="option" ref={myRef}>
+						{yearArray.map((value, index) => {
+							return (
+								<div onClick={() => setYear(value)} key={index}>
+									<span>{value}</span>
+								</div>
+							);
+						})}
+					</div>
+				)}
 			</div>
 		</>
 	);
