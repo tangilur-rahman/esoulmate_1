@@ -35,7 +35,7 @@ const DayDropdown = ({ getDay, setDay }) => {
 				onClick={() => setDayDropdown(!dayDropdown)}
 				ref={myRef}
 			>
-				<input type="text" placeholder="Day" readOnly value={getDay} required />
+				<input type="text" placeholder="Day" readOnly value={getDay} />
 				<div className="option" ref={myRef}>
 					{dayArray.map((value, index) => {
 						return (

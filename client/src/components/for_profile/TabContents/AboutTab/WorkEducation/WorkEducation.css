@@ -71,6 +71,13 @@
 	background-color: #e4e6eb;
 }
 
+.work-edu-container .work-edu-submit-con #right button#active {
+	margin: 0;
+	background-color: #e63946;
+	color: white;
+	font-weight: 600;
+}
+
 .work-edu-container .work-edu-submit-con #right button:hover {
 	transform: scale(0.97);
 }

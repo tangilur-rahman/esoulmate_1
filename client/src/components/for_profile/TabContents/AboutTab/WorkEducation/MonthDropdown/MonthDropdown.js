@@ -44,13 +44,7 @@ const MonthDropdown = ({ getMonth, setMonth }) => {
 				onClick={() => setMonthDropdown(!monthDropdown)}
 				ref={myRef}
 			>
-				<input
-					type="text"
-					placeholder="Month"
-					readOnly
-					value={getMonth}
-					required
-				/>
+				<input type="text" placeholder="Month" readOnly value={getMonth} />
 				<div className="option" ref={myRef}>
 					{monthArray.map((value, index) => {
 						return (

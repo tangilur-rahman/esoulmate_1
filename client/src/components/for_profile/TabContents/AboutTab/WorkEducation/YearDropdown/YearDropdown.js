@@ -35,13 +35,7 @@ const YearDropdown = ({ getYear, setYear }) => {
 				onClick={() => setYearDropdown(!yearDropdown)}
 				ref={myRef}
 			>
-				<input
-					type="text"
-					placeholder="Year"
-					readOnly
-					value={getYear}
-					required
-				/>
+				<input type="text" placeholder="Year" readOnly value={getYear} />
 
 				<div className="option" ref={myRef}>
 					{yearArray.map((value, index) => {

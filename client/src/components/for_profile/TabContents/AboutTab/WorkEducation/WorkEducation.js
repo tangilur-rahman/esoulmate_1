@@ -69,6 +69,9 @@ const WorkEducation = ({ getProfile }) => {
 	// for option toggle
 	const [optionT, setOptionT] = useState("");
 
+	// for getting selected option
+	const [selectOp, setSelectOp] = useState("");
+
 	// for close option when click outside start
 	const workRef = useRef();
 
@@ -165,7 +168,7 @@ const WorkEducation = ({ getProfile }) => {
 					)}
 
 					{/* add new work start  */}
-					{addWorkT && (
+					{(addWorkT || selectOp.name === "Details") && (
 						<div className="add-work-fields">
 							<div className="form-floating mb-3">
 								<input
@@ -173,7 +176,11 @@ const WorkEducation = ({ getProfile }) => {
 									id="Company"
 									placeholder="Company"
 									onChange={(e) => setCompany(e.target.value)}
-									value={getCompany}
+									value={
+										selectOp.name === "Details"
+											? selectOp.value.company
+											: getCompany
+									}
 								/>
 								<label htmlFor="Company">Company</label>
 							</div>
@@ -184,7 +191,11 @@ const WorkEducation = ({ getProfile }) => {
 									id="Position"
 									placeholder="Position"
 									onChange={(e) => setPosition(e.target.value)}
-									value={getPosition}
+									value={
+										selectOp.name === "Details"
+											? selectOp.value.position
+											: getPosition
+									}
 								/>
 								<label htmlFor="Position">Position</label>
 							</div>
@@ -195,7 +206,9 @@ const WorkEducation = ({ getProfile }) => {
 									id="City/Town"
 									placeholder="City/Town"
 									onChange={(e) => setCity(e.target.value)}
-									value={getCity}
+									value={
+										selectOp.name === "Details" ? selectOp.value.city : getCity
+									}
 								/>
 								<label htmlFor="City/Town">City/Town</label>
 							</div>
@@ -207,7 +220,11 @@ const WorkEducation = ({ getProfile }) => {
 									id="floatingTextarea2"
 									style={{ height: "100px" }}
 									onChange={(e) => setDescription(e.target.value)}
-									value={getDescription}
+									value={
+										selectOp.name === "Details"
+											? selectOp.value.description
+											: getDescription
+									}
 								></textarea>
 								<label htmlFor="floatingTextarea2">Description</label>
 							</div>
@@ -221,6 +238,13 @@ const WorkEducation = ({ getProfile }) => {
 										type="checkbox"
 										id="flexCheckDefault"
 										onClick={() => setCurrWork(!currWork)}
+										checked={
+											selectOp.name === "Details"
+												? selectOp.value.toYear
+													? true
+													: false
+												: false
+										}
 									/>
 									<label
 										className="form-check-label"
@@ -283,6 +307,7 @@ const WorkEducation = ({ getProfile }) => {
 									<button
 										type="button"
 										className="btn btn-light"
+										id={selectOp ? "active" : ""}
 										onClick={() => {
 											setAddWorkT(false);
 											setCurrWork(false);
@@ -297,25 +322,29 @@ const WorkEducation = ({ getProfile }) => {
 											setToMonth("");
 											setFromDay("");
 											setIsLoading(false);
+											setSelectOp("");
 										}}
 									>
 										Cancel
 									</button>
-									<button
-										type="button"
-										className="btn btn-primary"
-										onClick={addWorkHandler}
-										disabled={getCompany ? false : true}
-									>
-										{isLoading ? (
-											<i
-												className="fa-solid fa-spinner fa-spin"
-												id="loading"
-											></i>
-										) : (
-											"Submit"
-										)}
-									</button>
+
+									{!selectOp && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={addWorkHandler}
+											disabled={getCompany ? false : true}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Submit"
+											)}
+										</button>
+									)}
 								</div>
 							</div>
 						</div>
@@ -383,6 +412,7 @@ const WorkEducation = ({ getProfile }) => {
 															<li
 																onClick={() => {
 																	setOptionT("");
+																	setSelectOp({ name: "Details", value });
 																}}
 															>
 																<i className="fa-solid fa-eye option-icon"></i>{" "}
@@ -391,6 +421,7 @@ const WorkEducation = ({ getProfile }) => {
 															<li
 																onClick={() => {
 																	setOptionT("");
+																	setSelectOp({ name: "Delete", value });
 																}}
 															>
 																<i className="fa-solid fa-trash-can option-icon"></i>{" "}
