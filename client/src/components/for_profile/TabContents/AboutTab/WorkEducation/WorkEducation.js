@@ -326,13 +326,22 @@ const WorkEducation = ({ getProfile }) => {
 													<MonthDropdown
 														getMonth={fromMonth}
 														setMonth={setFromMonth}
+														selectOption={
+															selectOp.name === "Details" ? true : false
+														}
 													/>
 												)}
 
 												{(selectOp.name === "Details"
 													? selectOp.value.fromDay
 													: fromMonth) && (
-													<DayDropdown getDay={fromDay} setDay={setFromDay} />
+													<DayDropdown
+														getDay={fromDay}
+														setDay={setFromDay}
+														selectOption={
+															selectOp.name === "Details" ? true : false
+														}
+													/>
 												)}
 											</div>
 										) : (
@@ -340,6 +349,9 @@ const WorkEducation = ({ getProfile }) => {
 												<YearDropdown
 													getYear={fromYear}
 													setYear={setFromYear}
+													selectOption={
+														selectOp.name === "Details" ? true : false
+													}
 												/>
 												{(selectOp.name === "Details"
 													? selectOp.value.fromMonth
@@ -347,27 +359,51 @@ const WorkEducation = ({ getProfile }) => {
 													<MonthDropdown
 														getMonth={fromMonth}
 														setMonth={setFromMonth}
+														selectOption={
+															selectOp.name === "Details" ? true : false
+														}
 													/>
 												)}
 												{(selectOp.name === "Details"
 													? selectOp.value.fromDay
 													: fromMonth) && (
-													<DayDropdown getDay={fromDay} setDay={setFromDay} />
+													<DayDropdown
+														getDay={fromDay}
+														setDay={setFromDay}
+														selectOption={
+															selectOp.name === "Details" ? true : false
+														}
+													/>
 												)}
 												<span>to</span>{" "}
-												<YearDropdown getYear={toYear} setYear={setToYear} />
+												<YearDropdown
+													getYear={toYear}
+													setYear={setToYear}
+													selectOption={
+														selectOp.name === "Details" ? true : false
+													}
+												/>
 												{(selectOp.name === "Details"
 													? selectOp.value.toMonth
 													: toYear) && (
 													<MonthDropdown
 														getMonth={toMonth}
 														setMonth={setToMonth}
+														selectOption={
+															selectOp.name === "Details" ? true : false
+														}
 													/>
 												)}
 												{(selectOp.name === "Details"
 													? selectOp.value.toDay
 													: toDay) && (
-													<DayDropdown getDay={toDay} setDay={setToDay} />
+													<DayDropdown
+														getDay={toDay}
+														setDay={setToDay}
+														selectOption={
+															selectOp.name === "Details" ? true : false
+														}
+													/>
 												)}
 											</div>
 										)}
