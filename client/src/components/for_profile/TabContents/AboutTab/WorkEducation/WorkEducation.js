@@ -220,6 +220,63 @@ const WorkEducation = ({ getProfile }) => {
 	};
 	//add work submit on server end
 
+	// for deleting add-worked start
+	const deleteWorkHandler = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/add-work/delete/${selectOp.value}`
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast("Work-place deleted successfully", {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 2500
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setSelectOp({
+						name: "",
+						value: {
+							company: "",
+							position: "",
+							city: "",
+							description: "",
+							fromYear: "",
+							fromMonth: "",
+							fromDay: "",
+							toYear: "",
+							toMonth: "",
+							toDay: ""
+						}
+					});
+
+					setIsLoading(false);
+				}, 3000);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for deleting add-worked end
+
 	return (
 		<div className="row m-0">
 			<div className="col p-0 work-edu-container">
@@ -617,8 +674,19 @@ const WorkEducation = ({ getProfile }) => {
 									</p>
 
 									<div className="conform-btn">
-										<button type="button" className="btn btn-danger">
-											Delete
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={deleteWorkHandler}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Delete"
+											)}
 										</button>
 										<button
 											type="button"
