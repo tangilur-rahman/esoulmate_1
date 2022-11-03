@@ -113,7 +113,7 @@ const WorkEducation = ({ getProfile }) => {
 	}, [selectOp, addWorkT]);
 	// for assign selected option's values into time-period end
 
-	// for close option when click outside start
+	// for close option when click outside withing start
 	const workRef = useRef();
 
 	const handleClickOutside = (e) => {
@@ -125,6 +125,35 @@ const WorkEducation = ({ getProfile }) => {
 	useEffect(() => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
+	// for delete popup
+	const deleteRef = useRef();
+
+	const handleClickOutsideDel = (e) => {
+		if (!workRef.current?.contains(e.target)) {
+			setSelectOp({
+				name: "",
+				value: {
+					company: "",
+					position: "",
+					city: "",
+					description: "",
+					fromYear: "",
+					fromMonth: "",
+					fromDay: "",
+					toYear: "",
+					toMonth: "",
+					toDay: ""
+				}
+			});
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsideDel);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutsideDel);
 	}, []);
 	// for close option when click outside end
 
@@ -549,7 +578,10 @@ const WorkEducation = ({ getProfile }) => {
 															<li
 																onClick={() => {
 																	setOptionT("");
-																	setSelectOp({ name: "Delete", value });
+																	setSelectOp({
+																		name: "Delete",
+																		value: value._id
+																	});
 																	setAddWorkT(false);
 																}}
 															>
@@ -567,6 +599,79 @@ const WorkEducation = ({ getProfile }) => {
 						</div>
 					)}
 					{/* displaying work end */}
+
+					{/* conform popup for delete start  */}
+					{selectOp.name === "Delete" && (
+						<div className="work-del-popup" ref={workRef}>
+							<div
+								className="work-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>Are you sure?</h5>
+									<hr />
+									<p>
+										Are you sure you want to remove this workplace from your
+										profile?
+									</p>
+
+									<div className="conform-btn">
+										<button type="button" className="btn btn-danger">
+											Delete
+										</button>
+										<button
+											type="button"
+											className="btn btn-light"
+											onClick={() =>
+												setSelectOp({
+													name: "",
+													value: {
+														company: "",
+														position: "",
+														city: "",
+														description: "",
+														fromYear: "",
+														fromMonth: "",
+														fromDay: "",
+														toYear: "",
+														toMonth: "",
+														toDay: ""
+													}
+												})
+											}
+										>
+											Cancel
+										</button>
+									</div>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectOp({
+											name: "",
+											value: {
+												company: "",
+												position: "",
+												city: "",
+												description: "",
+												fromYear: "",
+												fromMonth: "",
+												fromDay: "",
+												toYear: "",
+												toMonth: "",
+												toDay: ""
+											}
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* conform popup for delete end */}
 				</div>
 				{/* work-end  */}
 
