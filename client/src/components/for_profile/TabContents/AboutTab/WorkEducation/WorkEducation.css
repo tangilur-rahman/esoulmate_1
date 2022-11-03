@@ -336,6 +336,10 @@
 	font-weight: 600;
 }
 
+.work-del-popup .work-del-popup-wrapper .conformation-content p {
+	font-weight: 500;
+}
+
 .work-del-popup .work-del-popup-wrapper .conformation-content .conform-btn {
 	display: flex;
 	justify-content: flex-end;
