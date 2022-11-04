@@ -326,7 +326,7 @@ const WorkEducation = ({ getProfile }) => {
 											: getCompany
 									}
 								/>
-								<label htmlFor="Company">Company</label>
+								<label htmlFor="Company">Company *</label>
 							</div>
 
 							<div className="form-floating mb-3">
@@ -341,7 +341,7 @@ const WorkEducation = ({ getProfile }) => {
 											: getPosition
 									}
 								/>
-								<label htmlFor="Position">Position</label>
+								<label htmlFor="Position">Position *</label>
 							</div>
 
 							<div className="form-floating mb-3">
@@ -354,7 +354,7 @@ const WorkEducation = ({ getProfile }) => {
 										selectOp.name === "Details" ? selectOp.value.city : getCity
 									}
 								/>
-								<label htmlFor="City/Town">City/Town</label>
+								<label htmlFor="City/Town">City/Town *</label>
 							</div>
 
 							<div className="form-floating">
@@ -542,7 +542,11 @@ const WorkEducation = ({ getProfile }) => {
 											type="button"
 											className="btn btn-primary"
 											onClick={addWorkHandler}
-											disabled={getCompany ? false : true}
+											disabled={
+												getCompany && getPosition && getCity && fromYear
+													? false
+													: true
+											}
 										>
 											{isLoading ? (
 												<i
