@@ -34,25 +34,10 @@
 /* submit footer section start  */
 .work-edu-container .work-edu-submit-con {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	padding: 10px 0 0 0;
 	border-top: 1px solid #ccd3d7;
 	margin-top: 10px;
-}
-
-.work-edu-container .work-edu-submit-con #left {
-	display: flex;
-	align-items: center;
-	background-color: #e4e6eb;
-	padding: 5px 10px;
-	border-radius: 10px;
-	box-shadow: var(--box-shadow);
-}
-
-.work-edu-container .work-edu-submit-con #left p {
-	margin: 0 0 0 5px;
-	font-size: 15px;
-	font-weight: 600;
 }
 
 .work-edu-container .work-edu-submit-con #right button {

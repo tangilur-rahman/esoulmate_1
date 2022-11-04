@@ -498,10 +498,6 @@ const WorkEducation = ({ getProfile }) => {
 							)}
 
 							<div className="work-edu-submit-con">
-								<div id="left">
-									<i className="fa-solid fa-earth-americas"></i> <p>Public</p>
-								</div>
-
 								<div id="right">
 									<button
 										type="button"
@@ -613,7 +609,6 @@ const WorkEducation = ({ getProfile }) => {
 											</div>
 
 											<div id="right">
-												<i className="fa-solid fa-earth-americas"></i>
 												<div className="option">
 													<i
 														className="fa-solid fa-ellipsis"
