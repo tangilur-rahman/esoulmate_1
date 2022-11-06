@@ -497,7 +497,7 @@ const deleteFeature = async (req, res) => {
 };
 
 // for adding work
-const addWorkHandler = async (req, res) => {
+const addWork = async (req, res) => {
 	try {
 		const {
 			company,
@@ -539,7 +539,7 @@ const addWorkHandler = async (req, res) => {
 };
 
 // for updating work
-const updateWorkHandler = async (req, res) => {
+const updateWork = async (req, res) => {
 	try {
 		const {
 			company,
@@ -579,7 +579,7 @@ const updateWorkHandler = async (req, res) => {
 };
 
 // for deleting added work-place
-const deleteAddWorked = async (req, res) => {
+const deleteWorked = async (req, res) => {
 	try {
 		await userModel.updateOne(
 			{ _id: req.currentUser._id },
@@ -708,9 +708,9 @@ module.exports = {
 	savingInterest,
 	uploadFeature,
 	deleteFeature,
-	addWorkHandler,
-	updateWorkHandler,
-	deleteAddWorked,
+	addWork,
+	updateWork,
+	deleteWorked,
 	addUniversity,
 	updateUniversity,
 	deleteUniversity

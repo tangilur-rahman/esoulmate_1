@@ -16,9 +16,9 @@ const {
 	savingInterest,
 	uploadFeature,
 	deleteFeature,
-	addWorkHandler,
-	updateWorkHandler,
-	deleteAddWorked,
+	addWork,
+	updateWork,
+	deleteWorked,
 	addUniversity,
 	updateUniversity,
 	deleteUniversity
@@ -86,13 +86,13 @@ user.get(
 );
 
 // for adding work
-user.post("/about/add-work", addWorkHandler);
+user.post("/about/add-work", addWork);
 
 // for updating work
-user.post("/about/update-work", authUser, updateWorkHandler);
+user.post("/about/update-work", authUser, updateWork);
 
 // for deleting added work-place
-user.get("/about/add-work/delete/:_id", authUser, deleteAddWorked);
+user.get("/about/delete-work/:_id", authUser, deleteWorked);
 
 // for adding university
 user.post("/about/add-university", addUniversity);

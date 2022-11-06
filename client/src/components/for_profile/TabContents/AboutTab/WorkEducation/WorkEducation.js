@@ -406,9 +406,7 @@ const WorkEducation = ({ getProfile }) => {
 		try {
 			setIsLoading(true);
 
-			const response = await fetch(
-				`/user/about/add-work/delete/${selectOp.value}`
-			);
+			const response = await fetch(`/user/about/delete-work/${selectOp.value}`);
 
 			const result = await response.json();
 
