@@ -18,7 +18,10 @@ const {
 	deleteFeature,
 	addWorkHandler,
 	updateWorkHandler,
-	deleteAddWorked
+	deleteAddWorked,
+	addUniversity,
+	updateUniversity,
+	deleteUniversity
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -90,5 +93,14 @@ user.post("/about/update-work", authUser, updateWorkHandler);
 
 // for deleting added work-place
 user.get("/about/add-work/delete/:_id", authUser, deleteAddWorked);
+
+// for adding university
+user.post("/about/add-university", addUniversity);
+
+// for updating university
+user.post("/about/update-university", authUser, updateUniversity);
+
+// for deleting added university
+user.get("/about/delete-university/:_id", authUser, deleteUniversity);
 
 module.exports = user;

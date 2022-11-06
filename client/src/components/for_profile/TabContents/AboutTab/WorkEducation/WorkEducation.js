@@ -19,13 +19,28 @@ const WorkEducation = ({ getProfile }) => {
 	// for add work toggle
 	const [addWorkT, setAddWorkT] = useState(false);
 
+	// for add university toggle
+	const [addUniversityT, setAddUniversityT] = useState(false);
+
+	// for add college toggle
+	const [addCollegeT, setAddCollegeT] = useState(false);
+
+	// for add school toggle
+	const [addSchoolT, setAddSchoolT] = useState(false);
+
 	// for checking now currently working here or not
 	const [currWork, setCurrWork] = useState(false);
 
-	// for getting input-fields value
+	// for getting input-fields value for work-place
 	const [getCompany, setCompany] = useState("");
 	const [getPosition, setPosition] = useState("");
 	const [getCity, setCity] = useState("");
+
+	// for getting input-fields value for university
+	const [getUniName, setUniName] = useState("");
+	const [getMajor, setMajor] = useState("");
+	const [getLocation, setLocation] = useState("");
+
 	const [getDescription, setDescription] = useState("");
 
 	// for pick period
@@ -69,7 +84,7 @@ const WorkEducation = ({ getProfile }) => {
 	// for option toggle
 	const [optionT, setOptionT] = useState("");
 
-	// for getting selected option
+	// for getting work-place selected option
 	const [selectOp, setSelectOp] = useState({
 		name: "",
 		value: {
@@ -86,7 +101,24 @@ const WorkEducation = ({ getProfile }) => {
 		}
 	});
 
-	// for assign selected option's values into time-period start
+	// for getting university selected option
+	const [selectUni, setSelectUni] = useState({
+		name: "",
+		value: {
+			university_name: "",
+			major: "",
+			location: "",
+			description: "",
+			fromYear: "",
+			fromMonth: "",
+			fromDay: "",
+			toYear: "",
+			toMonth: "",
+			toDay: ""
+		}
+	});
+
+	// for assign selected option's values into time-period when work start
 	useEffect(() => {
 		if (selectOp.name === "Edit") {
 			setCompany(selectOp.value.company);
@@ -105,7 +137,28 @@ const WorkEducation = ({ getProfile }) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectOp]);
-	// for assign selected option's values into time-period end
+	// for assign selected option's values into time-period when work end
+
+	// for assign selected option's values into time-period when university start
+	useEffect(() => {
+		if (selectUni.name === "Edit") {
+			setUniName(selectUni.value.university_name);
+			setMajor(selectUni.value.major);
+			setLocation(selectUni.value.location);
+			setDescription(selectUni.value.description);
+
+			setFromYear(selectUni.value.fromYear);
+			setFromMonth(selectUni.value.fromMonth);
+			setFromDay(selectUni.value.fromDay);
+
+			setToYear(selectUni.value.toYear);
+			setToMonth(selectUni.value.toMonth);
+			setToDay(selectUni.value.toDay);
+			setCurrWork(selectUni.value.toYear ? false : true);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectUni]);
+	// for assign selected option's values into time-period when university end
 
 	// when want to add new work-place start
 	useEffect(() => {
@@ -125,6 +178,26 @@ const WorkEducation = ({ getProfile }) => {
 			setCurrWork(false);
 		}
 	}, [addWorkT]);
+	// when want to add new work-place end
+
+	// when want to add new university start
+	useEffect(() => {
+		if (addUniversityT) {
+			setUniName("");
+			setMajor("");
+			setLocation("");
+			setDescription("");
+
+			setFromYear("");
+			setFromMonth("");
+			setFromDay("");
+
+			setToYear("");
+			setToMonth("");
+			setToDay("");
+			setCurrWork(false);
+		}
+	}, [addUniversityT]);
 	// when want to add new work-place end
 
 	// for close option when click outside withing start
@@ -326,7 +399,7 @@ const WorkEducation = ({ getProfile }) => {
 			setIsLoading(false);
 		}
 	};
-	//add update submit on server end
+	// update work submit on server end
 
 	// for deleting add-worked start
 	const deleteWorkHandler = async () => {
@@ -385,6 +458,220 @@ const WorkEducation = ({ getProfile }) => {
 	};
 	// for deleting add-worked end
 
+	// add university submit on server start
+	const addUniHandler = async () => {
+		try {
+			setIsLoading(true);
+
+			const uniInfo = {
+				university_name: getUniName,
+				major: getMajor,
+				location: getLocation,
+				description: getDescription,
+				fromYear,
+				fromMonth,
+				fromDay,
+				toYear,
+				toMonth,
+				toDay
+			};
+
+			const response = await fetch(
+				`/user/about/add-university?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(uniInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Added your university info successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setAddUniversityT(false);
+					setCurrWork(false);
+					setUniName("");
+					setMajor("");
+					setLocation("");
+					setDescription("");
+					setFromYear("");
+					setFromMonth("");
+					setFromDay("");
+					setToYear("");
+					setToMonth("");
+					setFromDay("");
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	//add university submit on server end
+
+	// update university submit on server start
+	const updateUniHandler = async () => {
+		try {
+			setIsLoading(true);
+
+			const uniInfo = {
+				university_name: getUniName,
+				major: getMajor,
+				location: getLocation,
+				description: getDescription,
+				fromYear,
+				fromMonth,
+				fromDay,
+				toYear,
+				toMonth,
+				toDay
+			};
+
+			const response = await fetch(
+				`/user/about/update-university?id=${selectUni.value._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(uniInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast("Updated your university info successfully.", {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setAddUniversityT(false);
+					setCurrWork(false);
+					setUniName("");
+					setMajor("");
+					setLocation("");
+					setDescription("");
+					setFromYear("");
+					setFromMonth("");
+					setFromDay("");
+					setToYear("");
+					setToMonth("");
+					setFromDay("");
+					setIsLoading(false);
+					setSelectUni({
+						name: "",
+						value: {
+							university_name: "",
+							major: "",
+							location: "",
+							description: "",
+							fromYear: "",
+							fromMonth: "",
+							fromDay: "",
+							toYear: "",
+							toMonth: "",
+							toDay: ""
+						}
+					});
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// update university submit on server end
+
+	// for deleting university start
+	const deleteUniHandler = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/delete-university/${selectUni.value}`
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast("Deleted your university info successfully.", {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setSelectUni({
+						name: "",
+						value: {
+							university_name: "",
+							major: "",
+							location: "",
+							description: "",
+							fromYear: "",
+							fromMonth: "",
+							fromDay: "",
+							toYear: "",
+							toMonth: "",
+							toDay: ""
+						}
+					});
+
+					setIsLoading(false);
+				}, 2000);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for deleting university end
+
 	return (
 		<div className="row m-0">
 			<div className="col p-0 work-edu-container">
@@ -397,6 +684,9 @@ const WorkEducation = ({ getProfile }) => {
 							className="work-edu-add-section"
 							onClick={() => {
 								setAddWorkT(true);
+								setAddUniversityT(false);
+								setAddCollegeT(false);
+								setAddSchoolT(false);
 								setSelectOp({
 									name: "",
 									value: {
@@ -889,14 +1179,505 @@ const WorkEducation = ({ getProfile }) => {
 				{/* work-end  */}
 
 				{/* university start  */}
-				<div className="university-container">
+				<div className="work-container">
 					<h5 className="work-edu-header">University</h5>
-					<div className="work-edu-add-section">
-						<i className="bi bi-plus-circle-dotted"></i>
-						<p>Add a university</p>
-					</div>
+
+					{!addUniversityT && (
+						<div
+							className="work-edu-add-section"
+							onClick={() => {
+								setAddWorkT(false);
+								setAddUniversityT(true);
+								setAddCollegeT(false);
+								setAddSchoolT(false);
+								setSelectUni({
+									name: "",
+									value: {
+										university_name: "",
+										major: "",
+										location: "",
+										description: "",
+										fromYear: "",
+										fromMonth: "",
+										fromDay: "",
+										toYear: "",
+										toMonth: "",
+										toDay: ""
+									}
+								});
+							}}
+						>
+							<i className="bi bi-plus-circle-dotted"></i>
+							<p>Add your university</p>
+						</div>
+					)}
+
+					{/* add new work start  */}
+					{(addUniversityT || selectUni.name === "Edit") && (
+						<div className="add-work-fields" ref={deleteRef}>
+							<div className="form-floating mb-3">
+								<input
+									className="form-control outline-sty"
+									id="university-name"
+									placeholder="University Name"
+									onChange={(e) => setUniName(e.target.value)}
+									value={getUniName}
+								/>
+								<label htmlFor="university-name">University Name *</label>
+							</div>
+
+							<div className="form-floating mb-3">
+								<input
+									className="form-control outline-sty"
+									id="Major"
+									placeholder="Major"
+									onChange={(e) => setMajor(e.target.value)}
+									value={getMajor}
+								/>
+								<label htmlFor="Major">Major *</label>
+							</div>
+
+							<div className="form-floating mb-3">
+								<input
+									className="form-control outline-sty"
+									id="Location"
+									placeholder="Location"
+									onChange={(e) => setLocation(e.target.value)}
+									value={getLocation}
+								/>
+								<label htmlFor="Location">Location *</label>
+							</div>
+
+							<div className="form-floating">
+								<textarea
+									className="form-control outline-sty"
+									placeholder="Description"
+									id="floatingTextarea2"
+									style={{ height: "100px" }}
+									onChange={(e) => setDescription(e.target.value)}
+									value={getDescription}
+								></textarea>
+								<label htmlFor="floatingTextarea2">Description</label>
+							</div>
+
+							<div className="time-period-container">
+								<h6>Time Period</h6>
+
+								<div className="form-check">
+									<input
+										className="form-check-input"
+										type="checkbox"
+										id="flexCheckDefault"
+										onClick={() => setCurrWork(!currWork)}
+										checked={currWork ? true : false}
+										readOnly
+									/>
+
+									<label
+										className="form-check-label"
+										htmlFor="flexCheckDefault"
+										id="checkbox-text"
+									>
+										Graduated
+									</label>
+								</div>
+
+								<div className="pick-time">
+									{!currWork ? (
+										<div id="current-work">
+											<span id="from">From</span>
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
+										</div>
+									) : (
+										<div id="previous-work">
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
+											<span>to</span>{" "}
+											<YearDropdown getYear={toYear} setYear={setToYear} />
+											{toYear && (
+												<MonthDropdown
+													getMonth={toMonth}
+													setMonth={setToMonth}
+												/>
+											)}
+											{toMonth && (
+												<DayDropdown getDay={toDay} setDay={setToDay} />
+											)}
+										</div>
+									)}
+								</div>
+							</div>
+
+							<div className="work-edu-submit-con">
+								<div id="right">
+									<button
+										type="button"
+										className="btn btn-light"
+										onClick={() => {
+											setAddUniversityT(false);
+											setCurrWork(false);
+											setUniName("");
+											setMajor("");
+											setLocation("");
+											setDescription("");
+											setFromYear("");
+											setFromMonth("");
+											setFromDay("");
+											setToYear("");
+											setToMonth("");
+											setFromDay("");
+											setIsLoading(false);
+											setSelectUni({
+												name: "",
+												value: {
+													university_name: "",
+													major: "",
+													location: "",
+													description: "",
+													fromYear: "",
+													fromMonth: "",
+													fromDay: "",
+													toYear: "",
+													toMonth: "",
+													toDay: ""
+												}
+											});
+										}}
+									>
+										Cancel
+									</button>
+
+									{(addUniversityT || selectUni.name === "Edit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={
+												selectUni.name === "Edit"
+													? updateUniHandler
+													: addUniHandler
+											}
+											disabled={
+												getUniName && getMajor && getLocation && fromYear
+													? false
+													: true
+											}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : selectUni.name === "Edit" ? (
+												"Update"
+											) : (
+												"Submit"
+											)}
+										</button>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* add new work end  */}
+
+					{/* displaying work start  */}
+					{getProfile?.university?.length > 0 && (
+						<div className="displaying-work">
+							{getProfile.university
+								.map((value, index) => {
+									return (
+										<div className="a-work" key={index}>
+											<div id="left">
+												<i className="fa-solid fa-graduation-cap"></i>
+												<div className="Edit">
+													<p id="up">
+														<h6>{value.major ? value.major : ""}</h6>
+														&nbsp;at&nbsp; <h6>{value.university_name}</h6>
+														{value.location && (
+															<>
+																&nbsp;in&nbsp;<h6>{value?.location}</h6>
+															</>
+														)}
+													</p>
+
+													{value.fromYear && (
+														<p id="down">
+															{value.fromMonth && (
+																<>
+																	{fullMonth(value.fromMonth)} {value.fromDay}
+																	,&nbsp;&nbsp;
+																</>
+															)}
+															{value.fromYear} &nbsp;to&nbsp;
+															{value.toYear ? (
+																<>
+																	{value.fromMonth && (
+																		<>
+																			{fullMonth(value.fromMonth)}{" "}
+																			{value.fromDay}
+																			,&nbsp;&nbsp;
+																		</>
+																	)}
+																	{value.toYear}
+																</>
+															) : (
+																"Present"
+															)}
+														</p>
+													)}
+												</div>
+											</div>
+
+											<div id="right">
+												<div className="option">
+													<i
+														className="fa-solid fa-ellipsis"
+														onClick={() => setOptionT(value._id)}
+													></i>
+
+													{optionT === value._id && (
+														<ul ref={workRef}>
+															<li
+																onClick={() => {
+																	setOptionT("");
+																	setSelectUni({ name: "Details", value });
+																	setAddUniversityT(false);
+																}}
+															>
+																<i className="fa-solid fa-eye option-icon"></i>{" "}
+																Details
+															</li>
+
+															<li
+																onClick={() => {
+																	setOptionT("");
+																	setSelectUni({ name: "Edit", value });
+																	setAddUniversityT(false);
+																}}
+															>
+																<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
+																Edit
+															</li>
+
+															<li
+																onClick={() => {
+																	setOptionT("");
+																	setSelectUni({
+																		name: "Delete",
+																		value: value._id
+																	});
+																	setAddUniversityT(false);
+																}}
+															>
+																<i className="fa-solid fa-trash-can option-icon"></i>{" "}
+																Delete
+															</li>
+														</ul>
+													)}
+												</div>
+											</div>
+										</div>
+									);
+								})
+								.reverse()}
+						</div>
+					)}
+					{/* displaying work end */}
+
+					{/* details popup start */}
+					{selectUni.name === "Details" && (
+						<div className="work-del-popup" ref={workRef}>
+							<div
+								className="work-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>University details</h5>
+									<div className="details">
+										<span id="icon">
+											<i className="fa-solid fa-graduation-cap"></i>
+										</span>
+
+										<p id="up">
+											<h6>
+												{selectUni.value.major ? selectUni.value.major : ""}
+											</h6>
+											&nbsp;at&nbsp; <h6>{selectUni.value.university_name}</h6>
+										</p>
+
+										{selectUni.value.fromYear && (
+											<p id="down">
+												{selectUni.value.fromMonth && (
+													<>
+														{fullMonth(selectUni.value.fromMonth)}{" "}
+														{selectUni.value.fromDay}
+														,&nbsp;&nbsp;
+													</>
+												)}
+												{selectUni.value.fromYear} &nbsp;<span id="to">to</span>
+												&nbsp;
+												{selectUni.value.toYear ? (
+													<>
+														{selectUni.value.fromMonth && (
+															<>
+																{fullMonth(selectUni.value.fromMonth)}{" "}
+																{selectUni.value.fromDay}
+																,&nbsp;&nbsp;
+															</>
+														)}
+														{selectUni.value.toYear}
+													</>
+												) : (
+													"Present"
+												)}
+											</p>
+										)}
+
+										{selectUni.value.location && (
+											<div id="city">
+												<h6>{selectUni.value?.location}</h6>
+											</div>
+										)}
+
+										<div id="description">
+											{selectUni.value.description && (
+												<p>{selectUni.value.description}</p>
+											)}
+										</div>
+									</div>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectUni({
+											name: "",
+											value: {
+												university_name: "",
+												major: "",
+												location: "",
+												description: "",
+												fromYear: "",
+												fromMonth: "",
+												fromDay: "",
+												toYear: "",
+												toMonth: "",
+												toDay: ""
+											}
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* details popup end */}
+
+					{/* conform popup for delete start  */}
+					{selectUni.name === "Delete" && (
+						<div className="work-del-popup" ref={workRef}>
+							<div
+								className="work-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>Are you sure?</h5>
+									<hr />
+									<p>
+										Are you sure you want to remove this university from your
+										profile?
+									</p>
+
+									<div className="conform-btn">
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={deleteUniHandler}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Delete"
+											)}
+										</button>
+										<button
+											type="button"
+											className="btn btn-light"
+											onClick={() =>
+												setSelectUni({
+													name: "",
+													value: {
+														university_name: "",
+														major: "",
+														location: "",
+														description: "",
+														fromYear: "",
+														fromMonth: "",
+														fromDay: "",
+														toYear: "",
+														toMonth: "",
+														toDay: ""
+													}
+												})
+											}
+										>
+											Cancel
+										</button>
+									</div>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectUni({
+											name: "",
+											value: {
+												university_name: "",
+												major: "",
+												location: "",
+												description: "",
+												fromYear: "",
+												fromMonth: "",
+												fromDay: "",
+												toYear: "",
+												toMonth: "",
+												toDay: ""
+											}
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* conform popup for delete end */}
 				</div>
-				{/* university start  */}
+				{/* university end  */}
 
 				{/* college start  */}
 				<div className="college-container">

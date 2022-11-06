@@ -594,6 +594,106 @@ const deleteAddWorked = async (req, res) => {
 	}
 };
 
+// for adding university
+const addUniversity = async (req, res) => {
+	try {
+		const {
+			university_name,
+			major,
+			location,
+			description,
+			fromYear,
+			fromMonth,
+			fromDay,
+			toYear,
+			toMonth,
+			toDay
+		} = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$push: {
+					university: {
+						university_name,
+						major,
+						location,
+						description,
+						fromYear,
+						fromMonth,
+						fromDay,
+						toYear,
+						toMonth,
+						toDay
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add university successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for updating university
+const updateUniversity = async (req, res) => {
+	try {
+		const {
+			university_name,
+			major,
+			location,
+			description,
+			fromYear,
+			fromMonth,
+			fromDay,
+			toYear,
+			toMonth,
+			toDay
+		} = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.currentUser._id, "university._id": req.query.id },
+			{
+				$set: {
+					"university.$.university_name": university_name,
+					"university.$.major": major,
+					"university.$.location": location,
+					"university.$.description": description,
+					"university.$.fromYear": fromYear,
+					"university.$.fromMonth": fromMonth,
+					"university.$.fromDay": fromDay,
+					"university.$.toYear": toYear,
+					"university.$.toMonth": toMonth,
+					"university.$.toDay": toDay
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Update university successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting added university
+const deleteUniversity = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.currentUser._id },
+			{
+				$pull: { university: { _id: req.params._id } }
+			}
+		);
+
+		res.status(200).json({ message: "Deleted university successfully." });
+	} catch (error) {
+		console.log(error.message);
+
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -610,5 +710,8 @@ module.exports = {
 	deleteFeature,
 	addWorkHandler,
 	updateWorkHandler,
-	deleteAddWorked
+	deleteAddWorked,
+	addUniversity,
+	updateUniversity,
+	deleteUniversity
 };
