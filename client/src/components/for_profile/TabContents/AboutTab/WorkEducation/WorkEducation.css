@@ -262,8 +262,8 @@
 	font-weight: 600;
 }
 
-.work-container .displaying-work .a-work #right ul li:first-child i {
-	margin: 0;
+.work-container .displaying-work .a-work #right ul li i {
+	margin: 0 !important;
 }
 
 .work-container .displaying-work .a-work #right ul li:first-child:hover {
@@ -358,6 +358,22 @@
 	padding: 0px 18px;
 	font-size: 18px;
 }
+
+/* details popup style start  */
+.work-del-popup-wrapper .conformation-content tr {
+	display: flex;
+	margin: 10px 0;
+}
+
+.work-del-popup-wrapper .conformation-content tr:last-child {
+	margin: 0;
+}
+
+.work-del-popup-wrapper .conformation-content tr td:first-child {
+	font-weight: 600;
+	margin-right: 15px;
+}
+/* details popup style end */
 
 /* close-btn style start  */
 .work-del-popup .work-del-popup-wrapper .close-btn-del-popup {

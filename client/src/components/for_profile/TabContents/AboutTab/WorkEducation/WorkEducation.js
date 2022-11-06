@@ -665,6 +665,17 @@ const WorkEducation = ({ getProfile }) => {
 															<li
 																onClick={() => {
 																	setOptionT("");
+																	setSelectOp({ name: "Details", value });
+																	setAddWorkT(false);
+																}}
+															>
+																<i className="fa-solid fa-eye option-icon"></i>{" "}
+																Details
+															</li>
+
+															<li
+																onClick={() => {
+																	setOptionT("");
 																	setSelectOp({ name: "Edit", value });
 																	setAddWorkT(false);
 																}}
@@ -672,6 +683,7 @@ const WorkEducation = ({ getProfile }) => {
 																<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
 																Edit
 															</li>
+
 															<li
 																onClick={() => {
 																	setOptionT("");
@@ -696,6 +708,103 @@ const WorkEducation = ({ getProfile }) => {
 						</div>
 					)}
 					{/* displaying work end */}
+
+					{/* details popup start */}
+					{selectOp.name === "Details" && (
+						<div className="work-del-popup" ref={workRef}>
+							<div
+								className="work-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>Work-place Details</h5>
+
+									<table>
+										<tr>
+											<td>Company&nbsp;: </td>
+											<td>{selectOp.value.company} </td>
+										</tr>
+
+										<tr>
+											<td>Position&nbsp;: </td>
+											<td>{selectOp.value.position} </td>
+										</tr>
+
+										<tr>
+											<td>City/Town&nbsp;: </td>
+											<td>{selectOp.value.city} </td>
+										</tr>
+
+										<tr>
+											<td>Description&nbsp;: </td>
+											<td>
+												{selectOp.value.description
+													? selectOp.value.description
+													: "Null"}
+											</td>
+										</tr>
+
+										<tr>
+											<td>Time period&nbsp;: </td>
+											<td>
+												{selectOp.value.fromYear && (
+													<>
+														{selectOp.value.fromMonth && (
+															<>
+																{fullMonth(selectOp.value.fromMonth)}{" "}
+																{selectOp.value.fromDay}
+																,&nbsp;&nbsp;
+															</>
+														)}
+														{selectOp.value.fromYear} &nbsp;to&nbsp;
+														{selectOp.value.toYear ? (
+															<>
+																{selectOp.value.fromMonth && (
+																	<>
+																		{fullMonth(selectOp.value.fromMonth)}{" "}
+																		{selectOp.value.fromDay}
+																		,&nbsp;&nbsp;
+																	</>
+																)}
+																{selectOp.value.toYear}
+															</>
+														) : (
+															"Present"
+														)}{" "}
+													</>
+												)}
+											</td>
+										</tr>
+									</table>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectOp({
+											name: "",
+											value: {
+												company: "",
+												position: "",
+												city: "",
+												description: "",
+												fromYear: "",
+												fromMonth: "",
+												fromDay: "",
+												toYear: "",
+												toMonth: "",
+												toDay: ""
+											}
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* details popup end */}
 
 					{/* conform popup for delete start  */}
 					{selectOp.name === "Delete" && (
