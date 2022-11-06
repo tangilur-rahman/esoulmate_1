@@ -222,7 +222,7 @@ const WorkEducation = ({ getProfile }) => {
 					setToMonth("");
 					setFromDay("");
 					setIsLoading(false);
-				}, [2500]);
+				}, [2000]);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -308,7 +308,7 @@ const WorkEducation = ({ getProfile }) => {
 							toDay: ""
 						}
 					});
-				}, [2500]);
+				}, [2000]);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -365,7 +365,7 @@ const WorkEducation = ({ getProfile }) => {
 					});
 
 					setIsLoading(false);
-				}, 2500);
+				}, 2000);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
