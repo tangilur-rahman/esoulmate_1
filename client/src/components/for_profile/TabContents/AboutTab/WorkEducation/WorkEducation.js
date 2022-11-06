@@ -718,37 +718,33 @@ const WorkEducation = ({ getProfile }) => {
 								ref={deleteRef}
 							>
 								<div className="conformation-content">
-									<h5>Work-place Details</h5>
+									<h5>Work place details</h5>
+									<div className="details">
+										<span id="icon">
+											<i className="fa-solid fa-briefcase"></i>
+										</span>
 
-									<table>
-										<tr>
-											<td>Company&nbsp;: </td>
-											<td>{selectOp.value.company} </td>
-										</tr>
+										<p id="up">
+											<h6>
+												{selectOp.value.position
+													? selectOp.value.position
+													: "Work"}
+											</h6>
+											&nbsp;at&nbsp; <h6>{selectOp.value.company}</h6>
+										</p>
 
-										<tr>
-											<td>Position&nbsp;: </td>
-											<td>{selectOp.value.position} </td>
-										</tr>
-
-										<tr>
-											<td>City/Town&nbsp;: </td>
-											<td>{selectOp.value.city} </td>
-										</tr>
-
-										<tr>
-											<td>Description&nbsp;: </td>
-											<td>
-												{selectOp.value.description
-													? selectOp.value.description
-													: "Null"}
-											</td>
-										</tr>
-
-										<tr>
-											<td>Time period&nbsp;: </td>
-											<td>
-												{selectOp.value.fromYear && (
+										{selectOp.value.fromYear && (
+											<p id="down">
+												{selectOp.value.fromMonth && (
+													<>
+														{fullMonth(selectOp.value.fromMonth)}{" "}
+														{selectOp.value.fromDay}
+														,&nbsp;&nbsp;
+													</>
+												)}
+												{selectOp.value.fromYear} &nbsp;<span id="to">to</span>
+												&nbsp;
+												{selectOp.value.toYear ? (
 													<>
 														{selectOp.value.fromMonth && (
 															<>
@@ -757,26 +753,26 @@ const WorkEducation = ({ getProfile }) => {
 																,&nbsp;&nbsp;
 															</>
 														)}
-														{selectOp.value.fromYear} &nbsp;to&nbsp;
-														{selectOp.value.toYear ? (
-															<>
-																{selectOp.value.fromMonth && (
-																	<>
-																		{fullMonth(selectOp.value.fromMonth)}{" "}
-																		{selectOp.value.fromDay}
-																		,&nbsp;&nbsp;
-																	</>
-																)}
-																{selectOp.value.toYear}
-															</>
-														) : (
-															"Present"
-														)}{" "}
+														{selectOp.value.toYear}
 													</>
+												) : (
+													"Present"
 												)}
-											</td>
-										</tr>
-									</table>
+											</p>
+										)}
+
+										{selectOp.value.city && (
+											<div id="city">
+												<h6>{selectOp.value?.city}</h6>
+											</div>
+										)}
+
+										<div id="description">
+											{selectOp.value.description && (
+												<p>{selectOp.value.description}</p>
+											)}
+										</div>
+									</div>
 								</div>
 
 								<div
