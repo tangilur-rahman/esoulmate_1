@@ -56,13 +56,6 @@
 	background-color: #e4e6eb;
 }
 
-.work-edu-container .work-edu-submit-con #right button#active {
-	margin: 0;
-	background-color: #e63946;
-	color: white;
-	font-weight: 600;
-}
-
 .work-edu-container .work-edu-submit-con #right button:hover {
 	transform: scale(0.97);
 }
@@ -111,8 +104,13 @@
 	font-weight: 600;
 }
 
+.work-container .time-period-container #flexCheckDefault {
+	cursor: pointer;
+}
+
 .work-container .time-period-container #checkbox-text {
 	font-weight: 500;
+	cursor: pointer;
 }
 
 .work-container .time-period-container .pick-time {
@@ -167,7 +165,7 @@
 	color: #354f52;
 }
 
-.work-container .displaying-work .a-work .details {
+.work-container .displaying-work .a-work .Edit {
 	margin-left: 15px;
 	width: 100%;
 }
@@ -262,6 +260,10 @@
 .work-container .displaying-work .a-work #right ul li:hover {
 	background-color: #e2e4e6;
 	font-weight: 600;
+}
+
+.work-container .displaying-work .a-work #right ul li:first-child i {
+	margin: 0;
 }
 
 .work-container .displaying-work .a-work #right ul li:first-child:hover {

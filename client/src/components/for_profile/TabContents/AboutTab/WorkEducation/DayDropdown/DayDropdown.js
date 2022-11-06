@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 // internal components
 import "./DayDropdown.css";
 
-const DayDropdown = ({ getDay, setDay, selectOption }) => {
+const DayDropdown = ({ getDay, setDay }) => {
 	const [dayDropdown, setDayDropdown] = useState("");
 
 	let dayArray = [];
@@ -34,27 +34,18 @@ const DayDropdown = ({ getDay, setDay, selectOption }) => {
 				className={dayDropdown ? "day-container active" : "day-container"}
 				onClick={() => setDayDropdown(!dayDropdown)}
 				ref={myRef}
-				id={selectOption ? "from-option" : ""}
 			>
-				<input
-					type="text"
-					placeholder="Day"
-					readOnly
-					value={getDay}
-					id={selectOption ? "from-option" : ""}
-				/>
+				<input type="text" placeholder="Day" readOnly value={getDay} />
 
-				{!selectOption && (
-					<div className="option" ref={myRef}>
-						{dayArray.map((value, index) => {
-							return (
-								<div onClick={() => setDay(value)} key={index}>
-									<span>{value}</span>
-								</div>
-							);
-						})}
-					</div>
-				)}
+				<div className="option" ref={myRef}>
+					{dayArray.map((value, index) => {
+						return (
+							<div onClick={() => setDay(value)} key={index}>
+								<span>{value}</span>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 		</>
 	);

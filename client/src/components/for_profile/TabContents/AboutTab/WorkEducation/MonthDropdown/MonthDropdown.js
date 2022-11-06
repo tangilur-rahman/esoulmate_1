@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 // internal components
 import "./MonthDropdown.css";
 
-const MonthDropdown = ({ getMonth, setMonth, selectOption }) => {
+const MonthDropdown = ({ getMonth, setMonth }) => {
 	const [monthDropdown, setMonthDropdown] = useState("");
 
 	let monthArray = [
@@ -43,27 +43,18 @@ const MonthDropdown = ({ getMonth, setMonth, selectOption }) => {
 				className={monthDropdown ? "month-container active" : "month-container"}
 				onClick={() => setMonthDropdown(!monthDropdown)}
 				ref={myRef}
-				id={selectOption ? "from-option" : ""}
 			>
-				<input
-					type="text"
-					placeholder="Month"
-					readOnly
-					value={getMonth}
-					id={selectOption ? "from-option" : ""}
-				/>
+				<input type="text" placeholder="Month" readOnly value={getMonth} />
 
-				{!selectOption && (
-					<div className="option" ref={myRef}>
-						{monthArray.map((value, index) => {
-							return (
-								<div onClick={() => setMonth(value)} key={index}>
-									<span>{value}</span>
-								</div>
-							);
-						})}
-					</div>
-				)}
+				<div className="option" ref={myRef}>
+					{monthArray.map((value, index) => {
+						return (
+							<div onClick={() => setMonth(value)} key={index}>
+								<span>{value}</span>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 		</>
 	);

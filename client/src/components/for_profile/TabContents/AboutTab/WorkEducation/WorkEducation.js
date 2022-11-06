@@ -88,7 +88,12 @@ const WorkEducation = ({ getProfile }) => {
 
 	// for assign selected option's values into time-period start
 	useEffect(() => {
-		if (selectOp && selectOp.name === "Details") {
+		if (selectOp.name === "Edit") {
+			setCompany(selectOp.value.company);
+			setPosition(selectOp.value.position);
+			setCity(selectOp.value.city);
+			setDescription(selectOp.value.description);
+
 			setFromYear(selectOp.value.fromYear);
 			setFromMonth(selectOp.value.fromMonth);
 			setFromDay(selectOp.value.fromDay);
@@ -98,8 +103,18 @@ const WorkEducation = ({ getProfile }) => {
 			setToDay(selectOp.value.toDay);
 			setCurrWork(selectOp.value.toYear ? false : true);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectOp]);
+	// for assign selected option's values into time-period end
 
+	// when want to add new work-place start
+	useEffect(() => {
 		if (addWorkT) {
+			setCompany("");
+			setPosition("");
+			setCity("");
+			setDescription("");
+
 			setFromYear("");
 			setFromMonth("");
 			setFromDay("");
@@ -109,9 +124,8 @@ const WorkEducation = ({ getProfile }) => {
 			setToDay("");
 			setCurrWork(false);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectOp, addWorkT]);
-	// for assign selected option's values into time-period end
+	}, [addWorkT]);
+	// when want to add new work-place end
 
 	// for close option when click outside withing start
 	const workRef = useRef();
@@ -131,7 +145,7 @@ const WorkEducation = ({ getProfile }) => {
 	const deleteRef = useRef();
 
 	const handleClickOutsideDel = (e) => {
-		if (!workRef.current?.contains(e.target)) {
+		if (!deleteRef.current?.contains(e.target)) {
 			setSelectOp({
 				name: "",
 				value: {
@@ -187,20 +201,28 @@ const WorkEducation = ({ getProfile }) => {
 			const result = await response.json();
 
 			if (response.status === 200) {
-				setUpdateProfile(Date.now());
-				setAddWorkT(false);
-				setCurrWork(false);
-				setCompany("");
-				setPosition("");
-				setCity("");
-				setDescription("");
-				setFromYear("");
-				setFromMonth("");
-				setFromDay("");
-				setToYear("");
-				setToMonth("");
-				setFromDay("");
-				setIsLoading(false);
+				toast.success("Work-place added successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setAddWorkT(false);
+					setCurrWork(false);
+					setCompany("");
+					setPosition("");
+					setCity("");
+					setDescription("");
+					setFromYear("");
+					setFromMonth("");
+					setFromDay("");
+					setToYear("");
+					setToMonth("");
+					setFromDay("");
+					setIsLoading(false);
+				}, [2500]);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -220,6 +242,92 @@ const WorkEducation = ({ getProfile }) => {
 	};
 	//add work submit on server end
 
+	// update work submit on server start
+	const updateWorkHandler = async () => {
+		try {
+			setIsLoading(true);
+
+			const workInfo = {
+				company: getCompany,
+				position: getPosition,
+				city: getCity,
+				description: getDescription,
+				fromYear,
+				fromMonth,
+				fromDay,
+				toYear,
+				toMonth,
+				toDay
+			};
+
+			const response = await fetch(
+				`/user/about/update-work?id=${selectOp.value._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(workInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast("Work-place updated successfully.", {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setAddWorkT(false);
+					setCurrWork(false);
+					setCompany("");
+					setPosition("");
+					setCity("");
+					setDescription("");
+					setFromYear("");
+					setFromMonth("");
+					setFromDay("");
+					setToYear("");
+					setToMonth("");
+					setFromDay("");
+					setIsLoading(false);
+					setSelectOp({
+						name: "",
+						value: {
+							company: "",
+							position: "",
+							city: "",
+							description: "",
+							fromYear: "",
+							fromMonth: "",
+							fromDay: "",
+							toYear: "",
+							toMonth: "",
+							toDay: ""
+						}
+					});
+				}, [2500]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	//add update submit on server end
+
 	// for deleting add-worked start
 	const deleteWorkHandler = async () => {
 		try {
@@ -232,10 +340,10 @@ const WorkEducation = ({ getProfile }) => {
 			const result = await response.json();
 
 			if (response.status === 200) {
-				toast("Work-place deleted successfully", {
+				toast("Work-place deleted successfully.", {
 					position: "top-right",
 					theme: "dark",
-					autoClose: 2500
+					autoClose: 2000
 				});
 
 				setTimeout(() => {
@@ -257,7 +365,7 @@ const WorkEducation = ({ getProfile }) => {
 					});
 
 					setIsLoading(false);
-				}, 3000);
+				}, 2500);
 			} else if (result.error) {
 				toast.error(result.error, {
 					position: "top-right",
@@ -312,19 +420,15 @@ const WorkEducation = ({ getProfile }) => {
 					)}
 
 					{/* add new work start  */}
-					{(addWorkT || selectOp.name === "Details") && (
-						<div className="add-work-fields">
+					{(addWorkT || selectOp.name === "Edit") && (
+						<div className="add-work-fields" ref={deleteRef}>
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
 									id="Company"
 									placeholder="Company"
 									onChange={(e) => setCompany(e.target.value)}
-									value={
-										selectOp.name === "Details"
-											? selectOp.value.company
-											: getCompany
-									}
+									value={getCompany}
 								/>
 								<label htmlFor="Company">Company *</label>
 							</div>
@@ -335,11 +439,7 @@ const WorkEducation = ({ getProfile }) => {
 									id="Position"
 									placeholder="Position"
 									onChange={(e) => setPosition(e.target.value)}
-									value={
-										selectOp.name === "Details"
-											? selectOp.value.position
-											: getPosition
-									}
+									value={getPosition}
 								/>
 								<label htmlFor="Position">Position *</label>
 							</div>
@@ -350,9 +450,7 @@ const WorkEducation = ({ getProfile }) => {
 									id="City/Town"
 									placeholder="City/Town"
 									onChange={(e) => setCity(e.target.value)}
-									value={
-										selectOp.name === "Details" ? selectOp.value.city : getCity
-									}
+									value={getCity}
 								/>
 								<label htmlFor="City/Town">City/Town *</label>
 							</div>
@@ -364,145 +462,82 @@ const WorkEducation = ({ getProfile }) => {
 									id="floatingTextarea2"
 									style={{ height: "100px" }}
 									onChange={(e) => setDescription(e.target.value)}
-									value={
-										selectOp.name === "Details"
-											? selectOp.value.description
-											: getDescription
-									}
+									value={getDescription}
 								></textarea>
 								<label htmlFor="floatingTextarea2">Description</label>
 							</div>
 
-							{!(selectOp.name === "Details" && !selectOp.value.fromYear) && (
-								<div className="time-period-container">
-									<h6>Time Period</h6>
+							<div className="time-period-container">
+								<h6>Time Period</h6>
 
-									<div className="form-check">
-										<input
-											class="form-check-input"
-											type="checkbox"
-											id="flexCheckDefault"
-											onClick={() => setCurrWork(!currWork)}
-											checked={currWork ? true : false}
-											disabled={selectOp.name === "Details" ? true : false}
-										/>
-										<label
-											className="form-check-label"
-											htmlFor="flexCheckDefault"
-											id="checkbox-text"
-										>
-											I currently work here.
-										</label>
-									</div>
+								<div className="form-check">
+									<input
+										className="form-check-input"
+										type="checkbox"
+										id="flexCheckDefault"
+										onClick={() => setCurrWork(!currWork)}
+										checked={currWork ? true : false}
+										readOnly
+									/>
 
-									<div className="pick-time">
-										{currWork ? (
-											<div id="current-work">
-												<span id="from">From</span>
-												<YearDropdown
-													getYear={fromYear}
-													setYear={setFromYear}
-													selectOption={
-														selectOp.name === "Details" ? true : false
-													}
-												/>
-												{(selectOp.name === "Details"
-													? selectOp.value.fromMonth
-													: fromYear) && (
-													<MonthDropdown
-														getMonth={fromMonth}
-														setMonth={setFromMonth}
-														selectOption={
-															selectOp.name === "Details" ? true : false
-														}
-													/>
-												)}
-
-												{(selectOp.name === "Details"
-													? selectOp.value.fromDay
-													: fromMonth) && (
-													<DayDropdown
-														getDay={fromDay}
-														setDay={setFromDay}
-														selectOption={
-															selectOp.name === "Details" ? true : false
-														}
-													/>
-												)}
-											</div>
-										) : (
-											<div id="previous-work">
-												<YearDropdown
-													getYear={fromYear}
-													setYear={setFromYear}
-													selectOption={
-														selectOp.name === "Details" ? true : false
-													}
-												/>
-												{(selectOp.name === "Details"
-													? selectOp.value.fromMonth
-													: fromYear) && (
-													<MonthDropdown
-														getMonth={fromMonth}
-														setMonth={setFromMonth}
-														selectOption={
-															selectOp.name === "Details" ? true : false
-														}
-													/>
-												)}
-												{(selectOp.name === "Details"
-													? selectOp.value.fromDay
-													: fromMonth) && (
-													<DayDropdown
-														getDay={fromDay}
-														setDay={setFromDay}
-														selectOption={
-															selectOp.name === "Details" ? true : false
-														}
-													/>
-												)}
-												<span>to</span>{" "}
-												<YearDropdown
-													getYear={toYear}
-													setYear={setToYear}
-													selectOption={
-														selectOp.name === "Details" ? true : false
-													}
-												/>
-												{(selectOp.name === "Details"
-													? selectOp.value.toMonth
-													: toYear) && (
-													<MonthDropdown
-														getMonth={toMonth}
-														setMonth={setToMonth}
-														selectOption={
-															selectOp.name === "Details" ? true : false
-														}
-													/>
-												)}
-												{(selectOp.name === "Details"
-													? selectOp.value.toDay
-													: toDay) && (
-													<DayDropdown
-														getDay={toDay}
-														setDay={setToDay}
-														selectOption={
-															selectOp.name === "Details" ? true : false
-														}
-													/>
-												)}
-											</div>
-										)}
-									</div>
+									<label
+										className="form-check-label"
+										htmlFor="flexCheckDefault"
+										id="checkbox-text"
+									>
+										I currently work here.
+									</label>
 								</div>
-							)}
+
+								<div className="pick-time">
+									{currWork ? (
+										<div id="current-work">
+											<span id="from">From</span>
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
+										</div>
+									) : (
+										<div id="previous-work">
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
+											<span>to</span>{" "}
+											<YearDropdown getYear={toYear} setYear={setToYear} />
+											{toYear && (
+												<MonthDropdown
+													getMonth={toMonth}
+													setMonth={setToMonth}
+												/>
+											)}
+											{toMonth && (
+												<DayDropdown getDay={toDay} setDay={setToDay} />
+											)}
+										</div>
+									)}
+								</div>
+							</div>
 
 							<div className="work-edu-submit-con">
 								<div id="right">
 									<button
 										type="button"
 										className="btn btn-light"
-										id={selectOp.name === "Details" ? "active" : ""}
 										onClick={() => {
 											setAddWorkT(false);
 											setCurrWork(false);
@@ -537,11 +572,15 @@ const WorkEducation = ({ getProfile }) => {
 										Cancel
 									</button>
 
-									{addWorkT && (
+									{(addWorkT || selectOp.name === "Edit") && (
 										<button
 											type="button"
 											className="btn btn-primary"
-											onClick={addWorkHandler}
+											onClick={
+												selectOp.name === "Edit"
+													? updateWorkHandler
+													: addWorkHandler
+											}
 											disabled={
 												getCompany && getPosition && getCity && fromYear
 													? false
@@ -553,6 +592,8 @@ const WorkEducation = ({ getProfile }) => {
 													className="fa-solid fa-spinner fa-spin"
 													id="loading"
 												></i>
+											) : selectOp.name === "Edit" ? (
+												"Update"
 											) : (
 												"Submit"
 											)}
@@ -573,7 +614,7 @@ const WorkEducation = ({ getProfile }) => {
 										<div className="a-work" key={index}>
 											<div id="left">
 												<i className="fa-solid fa-briefcase"></i>
-												<div className="details">
+												<div className="Edit">
 													<p id="up">
 														<h6>{value.position ? value.position : "Work"}</h6>
 														&nbsp;at&nbsp; <h6>{value.company}</h6>
@@ -624,12 +665,12 @@ const WorkEducation = ({ getProfile }) => {
 															<li
 																onClick={() => {
 																	setOptionT("");
-																	setSelectOp({ name: "Details", value });
+																	setSelectOp({ name: "Edit", value });
 																	setAddWorkT(false);
 																}}
 															>
-																<i className="fa-solid fa-eye option-icon"></i>{" "}
-																Details
+																<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
+																Edit
 															</li>
 															<li
 																onClick={() => {

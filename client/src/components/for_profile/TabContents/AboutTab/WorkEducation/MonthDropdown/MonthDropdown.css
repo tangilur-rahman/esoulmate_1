@@ -29,10 +29,6 @@
 	transform: rotate(-225deg);
 }
 
-.pick-time .month-container#from-option::before {
-	content: none;
-}
-
 .pick-time .month-container input {
 	cursor: pointer;
 	border: none;
@@ -43,11 +39,6 @@
 	font-weight: 600;
 	font-size: 15px;
 	width: 90px;
-}
-
-.pick-time .month-container input#from-option {
-	padding: 7px;
-	text-align: center;
 }
 
 .pick-time .month-container input::placeholder {

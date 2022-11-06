@@ -29,10 +29,6 @@
 	transform: rotate(-225deg);
 }
 
-.pick-time .day-container#from-option::before {
-	content: none;
-}
-
 .pick-time .day-container input {
 	cursor: pointer;
 	border: none;
@@ -43,11 +39,6 @@
 	font-weight: 600;
 	font-size: 15px;
 	width: 80px;
-}
-
-.pick-time .day-container input#from-option {
-	padding: 7px;
-	text-align: center;
 }
 
 .pick-time .day-container input::placeholder {

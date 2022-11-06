@@ -28,10 +28,6 @@
 	transform: rotate(-225deg);
 }
 
-.pick-time .year-container#from-option::before {
-	content: none;
-}
-
 .pick-time .year-container input {
 	cursor: pointer;
 	border: none;
@@ -42,11 +38,6 @@
 	font-weight: 600;
 	font-size: 15px;
 	width: 80px;
-}
-
-.pick-time .year-container input#from-option {
-	padding: 7px;
-	text-align: center;
 }
 
 .pick-time .year-container input::placeholder {
