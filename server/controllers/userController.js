@@ -688,8 +688,100 @@ const deleteUniversity = async (req, res) => {
 
 		res.status(200).json({ message: "Deleted university successfully." });
 	} catch (error) {
-		console.log(error.message);
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
 
+// for adding college
+const addCollege = async (req, res) => {
+	try {
+		const {
+			college_name,
+			location,
+			description,
+			fromYear,
+			fromMonth,
+			fromDay,
+			toYear,
+			toMonth,
+			toDay
+		} = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$push: {
+					college: {
+						college_name,
+						location,
+						description,
+						fromYear,
+						fromMonth,
+						fromDay,
+						toYear,
+						toMonth,
+						toDay
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add college successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for updating college
+const updateCollege = async (req, res) => {
+	try {
+		const {
+			college_name,
+			location,
+			description,
+			fromYear,
+			fromMonth,
+			fromDay,
+			toYear,
+			toMonth,
+			toDay
+		} = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.currentUser._id, "college._id": req.query.id },
+			{
+				$set: {
+					"college.$.college_name": college_name,
+					"college.$.location": location,
+					"college.$.description": description,
+					"college.$.fromYear": fromYear,
+					"college.$.fromMonth": fromMonth,
+					"college.$.fromDay": fromDay,
+					"college.$.toYear": toYear,
+					"college.$.toMonth": toMonth,
+					"college.$.toDay": toDay
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Update college successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting added college
+const deleteCollege = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.currentUser._id },
+			{
+				$pull: { college: { _id: req.params._id } }
+			}
+		);
+
+		res.status(200).json({ message: "Deleted college successfully." });
+	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
 	}
 };
@@ -713,5 +805,8 @@ module.exports = {
 	deleteWorked,
 	addUniversity,
 	updateUniversity,
-	deleteUniversity
+	deleteUniversity,
+	addCollege,
+	updateCollege,
+	deleteCollege
 };

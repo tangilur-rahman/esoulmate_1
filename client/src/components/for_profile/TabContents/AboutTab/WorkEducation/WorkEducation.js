@@ -41,6 +41,9 @@ const WorkEducation = ({ getProfile }) => {
 	const [getMajor, setMajor] = useState("");
 	const [getLocation, setLocation] = useState("");
 
+	// for getting input-fields value for college
+	const [getCollName, setCollName] = useState("");
+
 	const [getDescription, setDescription] = useState("");
 
 	// for pick period
@@ -118,6 +121,22 @@ const WorkEducation = ({ getProfile }) => {
 		}
 	});
 
+	// for getting college selected option
+	const [selectColl, setSelectColl] = useState({
+		name: "",
+		value: {
+			college_name: "",
+			location: "",
+			description: "",
+			fromYear: "",
+			fromMonth: "",
+			fromDay: "",
+			toYear: "",
+			toMonth: "",
+			toDay: ""
+		}
+	});
+
 	// for assign selected option's values into time-period when work start
 	useEffect(() => {
 		if (selectOp.name === "Edit") {
@@ -154,11 +173,31 @@ const WorkEducation = ({ getProfile }) => {
 			setToYear(selectUni.value.toYear);
 			setToMonth(selectUni.value.toMonth);
 			setToDay(selectUni.value.toDay);
-			setCurrWork(selectUni.value.toYear ? false : true);
+			setCurrWork(selectUni.value.toYear ? true : false);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectUni]);
 	// for assign selected option's values into time-period when university end
+
+	// for assign selected option's values into time-period when college start
+	useEffect(() => {
+		if (selectColl.name === "Edit") {
+			setCollName(selectColl.value.college_name);
+			setLocation(selectColl.value.location);
+			setDescription(selectColl.value.description);
+
+			setFromYear(selectColl.value.fromYear);
+			setFromMonth(selectColl.value.fromMonth);
+			setFromDay(selectColl.value.fromDay);
+
+			setToYear(selectColl.value.toYear);
+			setToMonth(selectColl.value.toMonth);
+			setToDay(selectColl.value.toDay);
+			setCurrWork(selectColl.value.toYear ? true : false);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectColl]);
+	// for assign selected option's values into time-period when college end
 
 	// when want to add new work-place start
 	useEffect(() => {
@@ -198,7 +237,26 @@ const WorkEducation = ({ getProfile }) => {
 			setCurrWork(false);
 		}
 	}, [addUniversityT]);
-	// when want to add new work-place end
+	// when want to add new university end
+
+	// when want to add new university start
+	useEffect(() => {
+		if (addCollegeT) {
+			setCollName("");
+			setLocation("");
+			setDescription("");
+
+			setFromYear("");
+			setFromMonth("");
+			setFromDay("");
+
+			setToYear("");
+			setToMonth("");
+			setToDay("");
+			setCurrWork(false);
+		}
+	}, [addCollegeT]);
+	// when want to add new university end
 
 	// for close option when click outside withing start
 	const workRef = useRef();
@@ -669,6 +727,214 @@ const WorkEducation = ({ getProfile }) => {
 		}
 	};
 	// for deleting university end
+
+	// add college submit on server start
+	const addCollege = async () => {
+		try {
+			setIsLoading(true);
+
+			const CollegeInfo = {
+				college_name: getCollName,
+				location: getLocation,
+				description: getDescription,
+				fromYear,
+				fromMonth,
+				fromDay,
+				toYear,
+				toMonth,
+				toDay
+			};
+
+			const response = await fetch(
+				`/user/about/add-college?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(CollegeInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Added your college info successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setAddCollegeT(false);
+					setCurrWork(false);
+					setCollName("");
+					setLocation("");
+					setDescription("");
+					setFromYear("");
+					setFromMonth("");
+					setFromDay("");
+					setToYear("");
+					setToMonth("");
+					setFromDay("");
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	//add college submit on server end
+
+	// update college submit on server start
+	const updateCollege = async () => {
+		try {
+			setIsLoading(true);
+
+			const collegeInfo = {
+				college_name: getCollName,
+				location: getLocation,
+				description: getDescription,
+				fromYear,
+				fromMonth,
+				fromDay,
+				toYear,
+				toMonth,
+				toDay
+			};
+
+			const response = await fetch(
+				`/user/about/update-college?id=${selectColl.value._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(collegeInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast("Updated your college info successfully.", {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setAddCollegeT(false);
+					setCurrWork(false);
+					setCollName("");
+					setLocation("");
+					setDescription("");
+					setFromYear("");
+					setFromMonth("");
+					setFromDay("");
+					setToYear("");
+					setToMonth("");
+					setFromDay("");
+					setIsLoading(false);
+					setSelectColl({
+						name: "",
+						value: {
+							college_name: "",
+							location: "",
+							description: "",
+							fromYear: "",
+							fromMonth: "",
+							fromDay: "",
+							toYear: "",
+							toMonth: "",
+							toDay: ""
+						}
+					});
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// update college submit on server end
+
+	// for deleting college start
+	const deleteCollege = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/delete-college/${selectColl.value}`
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast("Deleted your college info successfully.", {
+					position: "top-right",
+					theme: "dark",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setSelectColl({
+						name: "",
+						value: {
+							college_name: "",
+							location: "",
+							description: "",
+							fromYear: "",
+							fromMonth: "",
+							fromDay: "",
+							toYear: "",
+							toMonth: "",
+							toDay: ""
+						}
+					});
+
+					setIsLoading(false);
+				}, 2000);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for deleting college end
 
 	return (
 		<div className="row m-0">
@@ -1265,7 +1531,7 @@ const WorkEducation = ({ getProfile }) => {
 									<input
 										className="form-check-input"
 										type="checkbox"
-										id="flexCheckDefault"
+										id="flexCheckDefault1"
 										onClick={() => setCurrWork(!currWork)}
 										checked={currWork ? true : false}
 										readOnly
@@ -1273,7 +1539,7 @@ const WorkEducation = ({ getProfile }) => {
 
 									<label
 										className="form-check-label"
-										htmlFor="flexCheckDefault"
+										htmlFor="flexCheckDefault1"
 										id="checkbox-text"
 									>
 										Graduated
@@ -1678,12 +1944,481 @@ const WorkEducation = ({ getProfile }) => {
 				{/* university end  */}
 
 				{/* college start  */}
-				<div className="college-container">
+				<div className="work-container">
 					<h5 className="work-edu-header">College</h5>
-					<div className="work-edu-add-section">
-						<i className="bi bi-plus-circle-dotted"></i>
-						<p>Add a college</p>
-					</div>
+
+					{!addCollegeT && (
+						<div
+							className="work-edu-add-section"
+							onClick={() => {
+								setAddWorkT(false);
+								setAddUniversityT(false);
+								setAddCollegeT(true);
+								setAddSchoolT(false);
+								setSelectColl({
+									name: "",
+									value: {
+										college_name: "",
+										location: "",
+										description: "",
+										fromYear: "",
+										fromMonth: "",
+										fromDay: "",
+										toYear: "",
+										toMonth: "",
+										toDay: ""
+									}
+								});
+							}}
+						>
+							<i className="bi bi-plus-circle-dotted"></i>
+							<p>Add your college</p>
+						</div>
+					)}
+
+					{/* add new work start  */}
+					{(addCollegeT || selectColl.name === "Edit") && (
+						<div className="add-work-fields" ref={deleteRef}>
+							<div className="form-floating mb-3">
+								<input
+									className="form-control outline-sty"
+									id="College-name"
+									placeholder="College Name"
+									onChange={(e) => setCollName(e.target.value)}
+									value={getCollName}
+								/>
+								<label htmlFor="College-name">College Name *</label>
+							</div>
+
+							<div className="form-floating mb-3">
+								<input
+									className="form-control outline-sty"
+									id="Location"
+									placeholder="Location"
+									onChange={(e) => setLocation(e.target.value)}
+									value={getLocation}
+								/>
+								<label htmlFor="Location">Location *</label>
+							</div>
+
+							<div className="form-floating">
+								<textarea
+									className="form-control outline-sty"
+									placeholder="Description"
+									id="floatingTextarea2"
+									style={{ height: "100px" }}
+									onChange={(e) => setDescription(e.target.value)}
+									value={getDescription}
+								></textarea>
+								<label htmlFor="floatingTextarea2">Description</label>
+							</div>
+
+							<div className="time-period-container">
+								<h6>Time Period</h6>
+
+								<div className="form-check">
+									<input
+										className="form-check-input"
+										type="checkbox"
+										id="flexCheckDefault2"
+										onClick={() => setCurrWork(!currWork)}
+										checked={currWork ? true : false}
+										readOnly
+									/>
+
+									<label
+										className="form-check-label"
+										htmlFor="flexCheckDefault2"
+										id="checkbox-text"
+									>
+										Graduated
+									</label>
+								</div>
+
+								<div className="pick-time">
+									{!currWork ? (
+										<div id="current-work">
+											<span id="from">From</span>
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
+										</div>
+									) : (
+										<div id="previous-work">
+											<YearDropdown getYear={fromYear} setYear={setFromYear} />
+											{fromYear && (
+												<MonthDropdown
+													getMonth={fromMonth}
+													setMonth={setFromMonth}
+												/>
+											)}
+											{fromMonth && (
+												<DayDropdown getDay={fromDay} setDay={setFromDay} />
+											)}
+											<span>to</span>{" "}
+											<YearDropdown getYear={toYear} setYear={setToYear} />
+											{toYear && (
+												<MonthDropdown
+													getMonth={toMonth}
+													setMonth={setToMonth}
+												/>
+											)}
+											{toMonth && (
+												<DayDropdown getDay={toDay} setDay={setToDay} />
+											)}
+										</div>
+									)}
+								</div>
+							</div>
+
+							<div className="work-edu-submit-con">
+								<div id="right">
+									<button
+										type="button"
+										className="btn btn-light"
+										onClick={() => {
+											setAddCollegeT(false);
+											setCurrWork(false);
+											setCollName("");
+											setLocation("");
+											setDescription("");
+											setFromYear("");
+											setFromMonth("");
+											setFromDay("");
+											setToYear("");
+											setToMonth("");
+											setFromDay("");
+											setIsLoading(false);
+											setSelectColl({
+												name: "",
+												value: {
+													college_name: "",
+													location: "",
+													description: "",
+													fromYear: "",
+													fromMonth: "",
+													fromDay: "",
+													toYear: "",
+													toMonth: "",
+													toDay: ""
+												}
+											});
+										}}
+									>
+										Cancel
+									</button>
+
+									{(addCollegeT || selectColl.name === "Edit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={
+												selectColl.name === "Edit" ? updateCollege : addCollege
+											}
+											disabled={
+												getCollName && getLocation && fromYear ? false : true
+											}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : selectColl.name === "Edit" ? (
+												"Update"
+											) : (
+												"Submit"
+											)}
+										</button>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* add new work end  */}
+
+					{/* displaying work start  */}
+					{getProfile?.college?.length > 0 && (
+						<div className="displaying-work">
+							{getProfile.college
+								.map((value, index) => {
+									return (
+										<div className="a-work" key={index}>
+											<div id="left">
+												<i className="fa-solid fa-graduation-cap"></i>
+												<div className="Edit">
+													<p id="up">
+														{value.toYear ? "Studied" : "Studies"}
+														&nbsp;at&nbsp; <h6>{value.college_name}</h6>
+														{value.location && (
+															<>
+																&nbsp;in&nbsp;<h6>{value?.location}</h6>
+															</>
+														)}
+													</p>
+
+													{value.fromYear && (
+														<p id="down">
+															{value.fromMonth && (
+																<>
+																	{fullMonth(value.fromMonth)} {value.fromDay}
+																	,&nbsp;&nbsp;
+																</>
+															)}
+															{value.fromYear} &nbsp;to&nbsp;
+															{value.toYear ? (
+																<>
+																	{value.fromMonth && (
+																		<>
+																			{fullMonth(value.fromMonth)}{" "}
+																			{value.fromDay}
+																			,&nbsp;&nbsp;
+																		</>
+																	)}
+																	{value.toYear}
+																</>
+															) : (
+																"Present"
+															)}
+														</p>
+													)}
+												</div>
+											</div>
+
+											<div id="right">
+												<div className="option">
+													<i
+														className="fa-solid fa-ellipsis"
+														onClick={() => setOptionT(value._id)}
+													></i>
+
+													{optionT === value._id && (
+														<ul ref={workRef}>
+															<li
+																onClick={() => {
+																	setOptionT("");
+																	setSelectColl({ name: "Details", value });
+																	setAddCollegeT(false);
+																}}
+															>
+																<i className="fa-solid fa-eye option-icon"></i>{" "}
+																Details
+															</li>
+
+															<li
+																onClick={() => {
+																	setOptionT("");
+																	setSelectColl({ name: "Edit", value });
+																	setAddCollegeT(false);
+																}}
+															>
+																<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
+																Edit
+															</li>
+
+															<li
+																onClick={() => {
+																	setOptionT("");
+																	setSelectColl({
+																		name: "Delete",
+																		value: value._id
+																	});
+																	setAddCollegeT(false);
+																}}
+															>
+																<i className="fa-solid fa-trash-can option-icon"></i>{" "}
+																Delete
+															</li>
+														</ul>
+													)}
+												</div>
+											</div>
+										</div>
+									);
+								})
+								.reverse()}
+						</div>
+					)}
+					{/* displaying work end */}
+
+					{/* details popup start */}
+					{selectColl.name === "Details" && (
+						<div className="work-del-popup" ref={workRef}>
+							<div
+								className="work-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>College details</h5>
+									<div className="details">
+										<span id="icon">
+											<i className="fa-solid fa-graduation-cap"></i>
+										</span>
+
+										<p id="up">
+											{selectColl.value.toYear ? "Studied" : "Studies"}
+											&nbsp;at&nbsp; <h6>{selectColl.value.college_name}</h6>
+										</p>
+
+										{selectColl.value.fromYear && (
+											<p id="down">
+												{selectColl.value.fromMonth && (
+													<>
+														{fullMonth(selectColl.value.fromMonth)}{" "}
+														{selectColl.value.fromDay}
+														,&nbsp;&nbsp;
+													</>
+												)}
+												{selectColl.value.fromYear} &nbsp;
+												<span id="to">to</span>
+												&nbsp;
+												{selectColl.value.toYear ? (
+													<>
+														{selectColl.value.fromMonth && (
+															<>
+																{fullMonth(selectColl.value.fromMonth)}{" "}
+																{selectColl.value.fromDay}
+																,&nbsp;&nbsp;
+															</>
+														)}
+														{selectColl.value.toYear}
+													</>
+												) : (
+													"Present"
+												)}
+											</p>
+										)}
+
+										{selectColl.value.location && (
+											<div id="city">
+												<h6>{selectColl.value?.location}</h6>
+											</div>
+										)}
+
+										<div id="description">
+											{selectColl.value.description && (
+												<p>{selectColl.value.description}</p>
+											)}
+										</div>
+									</div>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectColl({
+											name: "",
+											value: {
+												college_name: "",
+												location: "",
+												description: "",
+												fromYear: "",
+												fromMonth: "",
+												fromDay: "",
+												toYear: "",
+												toMonth: "",
+												toDay: ""
+											}
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* details popup end */}
+
+					{/* conform popup for delete start  */}
+					{selectColl.name === "Delete" && (
+						<div className="work-del-popup" ref={workRef}>
+							<div
+								className="work-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>Are you sure?</h5>
+									<hr />
+									<p>
+										Are you sure you want to remove this college from your
+										profile?
+									</p>
+
+									<div className="conform-btn">
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={deleteCollege}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Delete"
+											)}
+										</button>
+										<button
+											type="button"
+											className="btn btn-light"
+											onClick={() =>
+												setSelectColl({
+													name: "",
+													value: {
+														college_name: "",
+														location: "",
+														description: "",
+														fromYear: "",
+														fromMonth: "",
+														fromDay: "",
+														toYear: "",
+														toMonth: "",
+														toDay: ""
+													}
+												})
+											}
+										>
+											Cancel
+										</button>
+									</div>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectColl({
+											name: "",
+											value: {
+												college_name: "",
+												location: "",
+												description: "",
+												fromYear: "",
+												fromMonth: "",
+												fromDay: "",
+												toYear: "",
+												toMonth: "",
+												toDay: ""
+											}
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* conform popup for delete end */}
 				</div>
 				{/* college end */}
 

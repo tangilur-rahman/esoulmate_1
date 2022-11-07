@@ -21,7 +21,10 @@ const {
 	deleteWorked,
 	addUniversity,
 	updateUniversity,
-	deleteUniversity
+	deleteUniversity,
+	addCollege,
+	updateCollege,
+	deleteCollege
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -102,5 +105,14 @@ user.post("/about/update-university", authUser, updateUniversity);
 
 // for deleting added university
 user.get("/about/delete-university/:_id", authUser, deleteUniversity);
+
+// for adding college
+user.post("/about/add-college", addCollege);
+
+// for updating college
+user.post("/about/update-college", authUser, updateCollege);
+
+// for deleting added college
+user.get("/about/delete-college/:_id", authUser, deleteCollege);
 
 module.exports = user;
