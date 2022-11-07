@@ -54,7 +54,7 @@ const AboutTab = ({ getProfile }) => {
 					{selectedTab === "Work & Education" && (
 						<WorkEducation getProfile={getProfile} />
 					)}
-					{selectedTab === "Location" && <Location />}
+					{selectedTab === "Location" && <Location getProfile={getProfile} />}
 					{selectedTab === "Contact & Basic info" && <BasicInfo />}
 					{selectedTab === "Details about you" && <AboutYou />}
 				</div>
