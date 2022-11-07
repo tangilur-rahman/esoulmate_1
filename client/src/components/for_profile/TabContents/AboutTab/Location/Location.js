@@ -1,10 +1,15 @@
 // external components
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 // internal components
+import { GetContextApi } from "../../../../../ContextApi";
 import "./Location.css";
 
 const Location = ({ getProfile }) => {
+	// for updating profile-page
+	const { setUpdateProfile } = GetContextApi();
+
 	// for hometown input fields toggle
 	const [homeT, setHomeT] = useState(false);
 
@@ -18,13 +23,70 @@ const Location = ({ getProfile }) => {
 	// for loading until fetching not complete
 	const [isLoading, setIsLoading] = useState("");
 
+	// for add hometown on server start
+	const addHometown = async () => {
+		try {
+			setIsLoading(true);
+
+			const hometownInfo = {
+				city: getCity,
+				country: getCountry
+			};
+
+			const response = await fetch(
+				`/user/about/add-home-location?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(hometownInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Added your hometown successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setCity("");
+					setCountry("");
+					setHomeT("");
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for add hometown on server end
+
+	// for update hometown on server start
+	const updateHometown = () => {};
+	// for update hometown on server end
+
 	return (
 		<div className="row m-0">
 			<div className="col p-0">
 				<div className="location-container">
 					<h5>Location</h5>
 
-					{/* city start  */}
+					{/* home-town start  */}
 					<div
 						className="add-new"
 						onClick={() => {
@@ -34,8 +96,14 @@ const Location = ({ getProfile }) => {
 							setCountry("");
 						}}
 					>
-						<i className="bi bi-plus-circle-dotted"></i>
-						<p>Add hometown</p>
+						{homeT ? (
+							<p style={{ color: "black", margin: "0" }}>Hometown</p>
+						) : (
+							<>
+								<i className="bi bi-plus-circle-dotted"></i>
+								<p>Add hometown</p>
+							</>
+						)}
 					</div>
 
 					{homeT && (
@@ -79,7 +147,7 @@ const Location = ({ getProfile }) => {
 									<button
 										type="button"
 										className="btn btn-primary"
-										onClick={!"Edit" ? "updateUniHandler" : "addUniHandler"}
+										onClick={!"Edit" ? updateHometown : addHometown}
 										disabled={getCity && getCountry ? false : true}
 									>
 										{isLoading ? (
@@ -97,9 +165,9 @@ const Location = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* city end  */}
+					{/* home-town end  */}
 
-					{/* country start  */}
+					{/* current-city start  */}
 					<div
 						className="add-new"
 						onClick={() => {
@@ -109,8 +177,14 @@ const Location = ({ getProfile }) => {
 							setCountry("");
 						}}
 					>
-						<i className="bi bi-plus-circle-dotted"></i>
-						<p>Add Current City</p>
+						{currentT ? (
+							<p style={{ color: "black", margin: "0" }}>Current Town</p>
+						) : (
+							<>
+								<i className="bi bi-plus-circle-dotted"></i>
+								<p>Add Current City</p>
+							</>
+						)}
 					</div>
 
 					{currentT && (
@@ -172,7 +246,7 @@ const Location = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* country end  */}
+					{/* current-city end  */}
 				</div>
 			</div>
 		</div>

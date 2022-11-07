@@ -880,6 +880,29 @@ const deleteSchool = async (req, res) => {
 	}
 };
 
+// for adding home-location
+const addHomeLocation = async (req, res) => {
+	try {
+		const { city, country } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$push: {
+					hometown: {
+						city,
+						country
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add hometown successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -905,5 +928,6 @@ module.exports = {
 	deleteCollege,
 	addSchool,
 	updateSchool,
-	deleteSchool
+	deleteSchool,
+	addHomeLocation
 };

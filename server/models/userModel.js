@@ -119,6 +119,13 @@ const schema = mongoose.Schema(
 				toMonth: String,
 				toDay: Number
 			}
+		],
+
+		hometown: [
+			{
+				city: String,
+				country: String
+			}
 		]
 	},
 	{ timestamps: true }
