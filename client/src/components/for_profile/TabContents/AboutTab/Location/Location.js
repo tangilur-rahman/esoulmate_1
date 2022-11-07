@@ -1,5 +1,5 @@
 // external components
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 // internal components
@@ -14,23 +14,60 @@ const Location = ({ getProfile }) => {
 	const [homeT, setHomeT] = useState(false);
 
 	// for current-city input-fields toggle
-	const [currentT, setCurrentT] = useState(false);
+	const [currentCT, setCurrentCT] = useState(false);
 
-	// for getting input-fields value
-	const [getCity, setCity] = useState("");
-	const [getCountry, setCountry] = useState("");
+	// for getting input-fields value for hometown
+	const [getHCity, setHCity] = useState("");
+	const [getHCountry, setHCountry] = useState("");
+
+	// for getting input-fields value for current-town
+	const [getCCity, setCCity] = useState("");
+	const [getCCountry, setCCountry] = useState("");
 
 	// for loading until fetching not complete
 	const [isLoading, setIsLoading] = useState("");
 
-	// for add hometown on server start
+	// for location option toggle
+	const [optionT, setOptionT] = useState("");
+
+	// for getting selected option
+	const [getSelectOp, setSelectOp] = useState({
+		name: "",
+		value: ""
+	});
+
+	// initialize hometown info for editing start
+	useEffect(() => {
+		if (getSelectOp.name === "HEdit") {
+			setHCity(getSelectOp.value.city);
+			setHCountry(getSelectOp.value.country);
+		}
+	}, [getSelectOp]);
+	// initialize hometown info for editing end
+
+	// for close option when click outside withing start
+	const optionRef = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!optionRef.current?.contains(e.target)) {
+			setOptionT("");
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// for close option when click outside withing start
+
+	// for add & update hometown on server start
 	const addHometown = async () => {
 		try {
 			setIsLoading(true);
 
 			const hometownInfo = {
-				city: getCity,
-				country: getCountry
+				city: getHCity,
+				country: getHCountry
 			};
 
 			const response = await fetch(
@@ -45,17 +82,23 @@ const Location = ({ getProfile }) => {
 			const result = await response.json();
 
 			if (response.status === 200) {
-				toast.success("Added your hometown successfully.", {
-					position: "top-right",
-					theme: "colored",
-					autoClose: 2000
-				});
+				toast.success(
+					getSelectOp.name === "HEdit"
+						? "Updated your hometown successfully."
+						: "Added your hometown successfully.",
+					{
+						position: "top-right",
+						theme: "colored",
+						autoClose: 2000
+					}
+				);
 
 				setTimeout(() => {
 					setUpdateProfile(Date.now());
-					setCity("");
-					setCountry("");
+					setHCity("");
+					setHCountry("");
 					setHomeT("");
+					setSelectOp({ name: "", value: "" });
 					setIsLoading(false);
 				}, [2000]);
 			} else if (result.error) {
@@ -75,11 +118,7 @@ const Location = ({ getProfile }) => {
 			setIsLoading(false);
 		}
 	};
-	// for add hometown on server end
-
-	// for update hometown on server start
-	const updateHometown = () => {};
-	// for update hometown on server end
+	// for add & update hometown on server end
 
 	return (
 		<div className="row m-0">
@@ -93,9 +132,10 @@ const Location = ({ getProfile }) => {
 							className="add-new"
 							onClick={() => {
 								setHomeT(true);
-								setCurrentT(false);
-								setCity("");
-								setCountry("");
+								setCurrentCT(false);
+								setHCity("");
+								setHCountry("");
+								setSelectOp({ name: "", value: "" });
 							}}
 						>
 							{homeT ? (
@@ -109,15 +149,16 @@ const Location = ({ getProfile }) => {
 						</div>
 					)}
 
-					{homeT && (
+					{/* input-fields showing start  */}
+					{(homeT || getSelectOp.name === "HEdit") && (
 						<div className="input-fields">
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
 									id="city"
 									placeholder="city"
-									onChange={(e) => setCity(e.target.value)}
-									value={getCity}
+									onChange={(e) => setHCity(e.target.value)}
+									value={getHCity}
 								/>
 								<label htmlFor="city">City *</label>
 							</div>
@@ -127,8 +168,8 @@ const Location = ({ getProfile }) => {
 									className="form-control outline-sty"
 									id="country"
 									placeholder="country"
-									onChange={(e) => setCountry(e.target.value)}
-									value={getCountry}
+									onChange={(e) => setHCountry(e.target.value)}
+									value={getHCountry}
 								/>
 								<label htmlFor="country">Country *</label>
 							</div>
@@ -139,26 +180,27 @@ const Location = ({ getProfile }) => {
 									className="btn btn-light"
 									onClick={() => {
 										setHomeT(false);
-										setCity("");
-										setCountry("");
+										setHCity("");
+										setHCountry("");
+										setSelectOp({ name: "", value: "" });
 									}}
 								>
 									Cancel
 								</button>
 
-								{(currentT || "Edit") && (
+								{(homeT || getSelectOp.name === "HEdit") && (
 									<button
 										type="button"
 										className="btn btn-primary"
-										onClick={!"Edit" ? updateHometown : addHometown}
-										disabled={getCity && getCountry ? false : true}
+										onClick={addHometown}
+										disabled={getHCity && getHCountry ? false : true}
 									>
 										{isLoading ? (
 											<i
 												className="fa-solid fa-spinner fa-spin"
 												id="loading"
 											></i>
-										) : !"Edit" ? (
+										) : getSelectOp.name === "HEdit" ? (
 											"Update"
 										) : (
 											"Submit"
@@ -168,6 +210,86 @@ const Location = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
+					{/* input-fields showing end  */}
+
+					{/* displaying university start  */}
+					{getProfile.hometown?.city && (
+						<div className="displaying-location">
+							<div id="left">
+								<i className="fa-solid fa-location-dot"></i>
+								<div className="Edit">
+									<p id="up">
+										{getProfile.hometown?.city},&nbsp;
+										{getProfile.hometown?.country}
+									</p>
+
+									<p id="down">Hometown</p>
+								</div>
+							</div>
+
+							<div id="right">
+								<div className="option">
+									<i
+										className="fa-solid fa-ellipsis"
+										onClick={() => setOptionT(true)}
+									></i>
+
+									{optionT && (
+										<ul ref={optionRef}>
+											<li
+												onClick={() => {
+													setOptionT("");
+													setSelectOp({
+														name: "HDetails",
+														value: {
+															city: getProfile.hometown.city,
+															country: getProfile.hometown.country
+														}
+													});
+													setHomeT(false);
+												}}
+											>
+												<i className="fa-solid fa-eye option-icon"></i> Details
+											</li>
+
+											<li
+												onClick={() => {
+													setOptionT("");
+													setSelectOp({
+														name: "HEdit",
+														value: {
+															city: getProfile.hometown.city,
+															country: getProfile.hometown.country
+														}
+													});
+													setHomeT(false);
+													setCurrentCT(false);
+												}}
+											>
+												<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
+												Edit
+											</li>
+
+											<li
+												onClick={() => {
+													setOptionT("");
+													setSelectOp({
+														name: "HDelete",
+														value: ""
+													});
+													setHomeT(false);
+												}}
+											>
+												<i className="fa-solid fa-trash-can option-icon"></i>{" "}
+												Delete
+											</li>
+										</ul>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* displaying university end */}
 					{/* home-town end  */}
 
 					{/* current-city start  */}
@@ -175,12 +297,13 @@ const Location = ({ getProfile }) => {
 						className="add-new"
 						onClick={() => {
 							setHomeT(false);
-							setCurrentT(true);
-							setCity("");
-							setCountry("");
+							setCurrentCT(true);
+							setCCity("");
+							setCCountry("");
+							setSelectOp({ name: "", value: "" });
 						}}
 					>
-						{currentT ? (
+						{currentCT ? (
 							<p style={{ color: "black", margin: "0" }}>Current Town</p>
 						) : (
 							<>
@@ -190,28 +313,28 @@ const Location = ({ getProfile }) => {
 						)}
 					</div>
 
-					{currentT && (
+					{currentCT && (
 						<div className="input-fields">
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
-									id="city"
+									id="city1"
 									placeholder="city"
-									onChange={(e) => setCity(e.target.value)}
-									value={getCity}
+									onChange={(e) => setCCity(e.target.value)}
+									value={getCCity}
 								/>
-								<label htmlFor="city">City *</label>
+								<label htmlFor="city1">City *</label>
 							</div>
 
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
-									id="country"
+									id="country1"
 									placeholder="country"
-									onChange={(e) => setCountry(e.target.value)}
-									value={getCountry}
+									onChange={(e) => setCCountry(e.target.value)}
+									value={getCCountry}
 								/>
-								<label htmlFor="country">Country *</label>
+								<label htmlFor="country1">Country *</label>
 							</div>
 
 							<div className="submit-btn-con">
@@ -219,20 +342,21 @@ const Location = ({ getProfile }) => {
 									type="button"
 									className="btn btn-light"
 									onClick={() => {
-										setCurrentT(false);
-										setCity("");
-										setCountry("");
+										setCurrentCT(false);
+										setCCity("");
+										setCCountry("");
+										setSelectOp({ name: "", value: "" });
 									}}
 								>
 									Cancel
 								</button>
 
-								{(currentT || "Edit") && (
+								{(currentCT || "Edit") && (
 									<button
 										type="button"
 										className="btn btn-primary"
 										onClick={!"Edit" ? "updateUniHandler" : "addUniHandler"}
-										disabled={getCity && getCountry ? false : true}
+										disabled={getCCity && getCCountry ? false : true}
 									>
 										{isLoading ? (
 											<i
