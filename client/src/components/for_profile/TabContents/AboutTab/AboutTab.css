@@ -1,5 +1,4 @@
 .about-tab-container {
-	margin: 0 3%;
 	display: flex;
 	padding-bottom: 15px;
 }
@@ -61,3 +60,15 @@
 	flex-grow: 1;
 }
 /* right-container style end  */
+
+@media screen and (max-width: 1200px) {
+	.about-tab-container .left-about-con {
+		margin-right: 25px;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.about-tab-container .left-about-con {
+		margin: 0 15px;
+	}
+}

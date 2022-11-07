@@ -70,7 +70,7 @@
 	background-color: white;
 	box-shadow: var(--box-shadow);
 	border-radius: var(--card-border-radius);
-	margin: 0 0 10px;
+	margin: 0 0 15px;
 	padding: 15px;
 }
 
@@ -459,32 +459,8 @@
 /* work-delete-popup style end */
 /* work end  */
 
-/* university start  */
-.work-edu-container .university-container {
-	background-color: white;
-	box-shadow: var(--box-shadow);
-	border-radius: var(--card-border-radius);
-	margin: 10px 0;
-	padding: 15px;
+@media screen and (max-width: 991px) {
+	.work-edu-container {
+		margin: 15px;
+	}
 }
-/* university end  */
-
-/* college start  */
-.work-edu-container .college-container {
-	background-color: white;
-	box-shadow: var(--box-shadow);
-	border-radius: var(--card-border-radius);
-	margin: 10px 0;
-	padding: 15px;
-}
-/* college end  */
-
-/* school start  */
-.work-edu-container .school-container {
-	background-color: white;
-	box-shadow: var(--box-shadow);
-	border-radius: var(--card-border-radius);
-	margin: 10px 0 0;
-	padding: 15px;
-}
-/* school end  */
