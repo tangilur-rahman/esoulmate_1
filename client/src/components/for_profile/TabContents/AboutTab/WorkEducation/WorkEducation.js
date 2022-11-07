@@ -1939,6 +1939,7 @@ const WorkEducation = ({ getProfile }) => {
 												<i className="fa-solid fa-graduation-cap"></i>
 												<div className="Edit">
 													<p id="up">
+														{value.toYear ? "Studied" : "Studies"}&nbsp;
 														<h6>{value.major ? value.major : ""}</h6>
 														&nbsp;at&nbsp; <h6>{value.university_name}</h6>
 														{value.location && (
@@ -2048,6 +2049,7 @@ const WorkEducation = ({ getProfile }) => {
 										</span>
 
 										<p id="up">
+											{selectUni.value.toYear ? "Studied" : "Studies"}&nbsp;
 											<h6>
 												{selectUni.value.major ? selectUni.value.major : ""}
 											</h6>
