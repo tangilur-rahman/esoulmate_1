@@ -121,12 +121,16 @@ const schema = mongoose.Schema(
 			}
 		],
 
-		hometown: [
-			{
-				city: String,
-				country: String
+		hometown: {
+			city: {
+				type: String,
+				default: ""
+			},
+			country: {
+				type: String,
+				default: ""
 			}
-		]
+		}
 	},
 	{ timestamps: true }
 );

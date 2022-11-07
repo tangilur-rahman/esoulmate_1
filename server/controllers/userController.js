@@ -888,7 +888,7 @@ const addHomeLocation = async (req, res) => {
 		await userModel.updateOne(
 			{ _id: req.query.id },
 			{
-				$push: {
+				$set: {
 					hometown: {
 						city,
 						country
