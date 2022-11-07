@@ -786,6 +786,100 @@ const deleteCollege = async (req, res) => {
 	}
 };
 
+// for adding school
+const addSchool = async (req, res) => {
+	try {
+		const {
+			school_name,
+			location,
+			description,
+			fromYear,
+			fromMonth,
+			fromDay,
+			toYear,
+			toMonth,
+			toDay
+		} = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$push: {
+					school: {
+						school_name,
+						location,
+						description,
+						fromYear,
+						fromMonth,
+						fromDay,
+						toYear,
+						toMonth,
+						toDay
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add school successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for updating school
+const updateSchool = async (req, res) => {
+	try {
+		const {
+			school_name,
+			location,
+			description,
+			fromYear,
+			fromMonth,
+			fromDay,
+			toYear,
+			toMonth,
+			toDay
+		} = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.currentUser._id, "school._id": req.query.id },
+			{
+				$set: {
+					"school.$.school_name": school_name,
+					"school.$.location": location,
+					"school.$.description": description,
+					"school.$.fromYear": fromYear,
+					"school.$.fromMonth": fromMonth,
+					"school.$.fromDay": fromDay,
+					"school.$.toYear": toYear,
+					"school.$.toMonth": toMonth,
+					"school.$.toDay": toDay
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Update school successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting added school
+const deleteSchool = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.currentUser._id },
+			{
+				$pull: { school: { _id: req.params._id } }
+			}
+		);
+
+		res.status(200).json({ message: "Deleted school successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -808,5 +902,8 @@ module.exports = {
 	deleteUniversity,
 	addCollege,
 	updateCollege,
-	deleteCollege
+	deleteCollege,
+	addSchool,
+	updateSchool,
+	deleteSchool
 };
