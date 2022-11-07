@@ -1529,7 +1529,7 @@ const WorkEducation = ({ getProfile }) => {
 					)}
 					{/* displaying work end */}
 
-					{/* details popup start */}
+					{/* details work popup start */}
 					{selectOp.name === "Details" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -1620,9 +1620,9 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* details popup end */}
+					{/* details work popup end */}
 
-					{/* conform popup for delete start  */}
+					{/* conform popup for delete work start  */}
 					{selectOp.name === "Delete" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -1704,7 +1704,7 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* conform popup for delete end */}
+					{/* conform popup for delete work end */}
 				</div>
 				{/* work-end  */}
 
@@ -1742,7 +1742,7 @@ const WorkEducation = ({ getProfile }) => {
 						</div>
 					)}
 
-					{/* add new work start  */}
+					{/* add new university start  */}
 					{(addUniversityT || selectUni.name === "Edit") && (
 						<div className="add-work-fields" ref={deleteRef}>
 							<div className="form-floating mb-3">
@@ -1926,9 +1926,9 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* add new work end  */}
+					{/* add new university end  */}
 
-					{/* displaying work start  */}
+					{/* displaying university start  */}
 					{getProfile?.university?.length > 0 && (
 						<div className="displaying-work">
 							{getProfile.university
@@ -2030,9 +2030,9 @@ const WorkEducation = ({ getProfile }) => {
 								.reverse()}
 						</div>
 					)}
-					{/* displaying work end */}
+					{/* displaying university end */}
 
-					{/* details popup start */}
+					{/* details university popup start */}
 					{selectUni.name === "Details" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -2121,9 +2121,9 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* details popup end */}
+					{/* details university popup end */}
 
-					{/* conform popup for delete start  */}
+					{/* conform popup for delete university start  */}
 					{selectUni.name === "Delete" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -2205,7 +2205,7 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* conform popup for delete end */}
+					{/* conform popup for delete university end */}
 				</div>
 				{/* university end  */}
 
@@ -2242,7 +2242,7 @@ const WorkEducation = ({ getProfile }) => {
 						</div>
 					)}
 
-					{/* add new work start  */}
+					{/* add new college start  */}
 					{(addCollegeT || selectColl.name === "Edit") && (
 						<div className="add-work-fields" ref={deleteRef}>
 							<div className="form-floating mb-3">
@@ -2409,9 +2409,9 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* add new work end  */}
+					{/* add new college end  */}
 
-					{/* displaying work start  */}
+					{/* displaying college start  */}
 					{getProfile?.college?.length > 0 && (
 						<div className="displaying-work">
 							{getProfile.college
@@ -2513,9 +2513,9 @@ const WorkEducation = ({ getProfile }) => {
 								.reverse()}
 						</div>
 					)}
-					{/* displaying work end */}
+					{/* displaying college end */}
 
-					{/* details popup start */}
+					{/* details college popup start */}
 					{selectColl.name === "Details" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -2602,9 +2602,9 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* details popup end */}
+					{/* details college popup end */}
 
-					{/* conform popup for delete start  */}
+					{/* conform popup for delete college start  */}
 					{selectColl.name === "Delete" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -2684,7 +2684,7 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* conform popup for delete end */}
+					{/* conform popup for delete college end */}
 				</div>
 				{/* college end */}
 
@@ -2994,7 +2994,7 @@ const WorkEducation = ({ getProfile }) => {
 					)}
 					{/* displaying school end */}
 
-					{/* details popup start */}
+					{/* details school popup start */}
 					{selectSch.name === "Details" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -3081,9 +3081,9 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* details popup end */}
+					{/* details school popup end */}
 
-					{/* conform popup for delete start  */}
+					{/* conform popup for delete school start  */}
 					{selectSch.name === "Delete" && (
 						<div className="work-del-popup" ref={workRef}>
 							<div
@@ -3163,7 +3163,7 @@ const WorkEducation = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* conform popup for delete end */}
+					{/* conform popup for delete school end */}
 				</div>
 				{/* school end  */}
 			</div>
