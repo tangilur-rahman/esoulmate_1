@@ -56,6 +56,7 @@ const Location = ({ getProfile }) => {
 					setCity("");
 					setCountry("");
 					setHomeT("");
+					setIsLoading(false);
 				}, [2000]);
 			} else if (result.error) {
 				toast.error(result.error, {
@@ -87,24 +88,26 @@ const Location = ({ getProfile }) => {
 					<h5>Location</h5>
 
 					{/* home-town start  */}
-					<div
-						className="add-new"
-						onClick={() => {
-							setHomeT(true);
-							setCurrentT(false);
-							setCity("");
-							setCountry("");
-						}}
-					>
-						{homeT ? (
-							<p style={{ color: "black", margin: "0" }}>Hometown</p>
-						) : (
-							<>
-								<i className="bi bi-plus-circle-dotted"></i>
-								<p>Add hometown</p>
-							</>
-						)}
-					</div>
+					{!getProfile.hometown.city && (
+						<div
+							className="add-new"
+							onClick={() => {
+								setHomeT(true);
+								setCurrentT(false);
+								setCity("");
+								setCountry("");
+							}}
+						>
+							{homeT ? (
+								<p style={{ color: "black", margin: "0" }}>Hometown</p>
+							) : (
+								<>
+									<i className="bi bi-plus-circle-dotted"></i>
+									<p>Add hometown</p>
+								</>
+							)}
+						</div>
+					)}
 
 					{homeT && (
 						<div className="input-fields">

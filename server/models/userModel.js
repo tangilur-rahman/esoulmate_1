@@ -130,6 +130,17 @@ const schema = mongoose.Schema(
 				type: String,
 				default: ""
 			}
+		},
+
+		current_city: {
+			city: {
+				type: String,
+				default: ""
+			},
+			country: {
+				type: String,
+				default: ""
+			}
 		}
 	},
 	{ timestamps: true }
