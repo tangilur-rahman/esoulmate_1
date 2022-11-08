@@ -45,7 +45,7 @@ const Location = ({ getProfile }) => {
 	}, [getSelectOp]);
 	// initialize hometown info for editing end
 
-	// for close option when click outside withing start
+	// for close option when click outside start
 	const optionRef = useRef();
 
 	const handleClickOutside = (e) => {
@@ -58,7 +58,23 @@ const Location = ({ getProfile }) => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
-	// for close option when click outside withing start
+	// for close option when click outside  start
+
+	// for close delete popup when click outside start
+	const deleteRef = useRef();
+
+	const handleClickOutsideDel = (e) => {
+		if (!deleteRef.current?.contains(e.target)) {
+			setSelectOp({ name: "", value: "" });
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsideDel);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutsideDel);
+	}, []);
+	// for close delete popup when click outside  start
 
 	// for add & update hometown on server start
 	const addHometown = async () => {
@@ -120,6 +136,51 @@ const Location = ({ getProfile }) => {
 	};
 	// for add & update hometown on server end
 
+	// for delete hometown from server start
+	const deleteHometown = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/delete-home-location?id=${getProfile._id}`
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Deleted your hometown successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setHCity("");
+					setHCountry("");
+					setHomeT("");
+					setSelectOp({ name: "", value: "" });
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for delete hometown from server end
+
 	return (
 		<div className="row m-0">
 			<div className="col p-0">
@@ -151,7 +212,7 @@ const Location = ({ getProfile }) => {
 
 					{/* input-fields showing start  */}
 					{(homeT || getSelectOp.name === "HEdit") && (
-						<div className="input-fields">
+						<div className="input-fields" ref={deleteRef}>
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
@@ -212,11 +273,11 @@ const Location = ({ getProfile }) => {
 					)}
 					{/* input-fields showing end  */}
 
-					{/* displaying university start  */}
+					{/* displaying hometown start  */}
 					{getProfile.hometown?.city && (
 						<div className="displaying-location">
 							<div id="left">
-								<i className="fa-solid fa-location-dot"></i>
+								<i className="fa-solid fa-house-chimney-window"></i>
 								<div className="Edit">
 									<p id="up">
 										{getProfile.hometown?.city},&nbsp;
@@ -236,22 +297,6 @@ const Location = ({ getProfile }) => {
 
 									{optionT && (
 										<ul ref={optionRef}>
-											<li
-												onClick={() => {
-													setOptionT("");
-													setSelectOp({
-														name: "HDetails",
-														value: {
-															city: getProfile.hometown.city,
-															country: getProfile.hometown.country
-														}
-													});
-													setHomeT(false);
-												}}
-											>
-												<i className="fa-solid fa-eye option-icon"></i> Details
-											</li>
-
 											<li
 												onClick={() => {
 													setOptionT("");
@@ -289,7 +334,70 @@ const Location = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* displaying university end */}
+					{/* displaying hometown end */}
+
+					{/* conform popup for delete hometown start  */}
+					{getSelectOp.name === "HDelete" && (
+						<div className="home-del-popup">
+							<div
+								className="home-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>Are you sure?</h5>
+									<hr />
+									<p>
+										Are you sure you want to remove this hometown from your
+										profile?
+									</p>
+
+									<div className="conform-btn">
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={deleteHometown}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Delete"
+											)}
+										</button>
+
+										<button
+											type="button"
+											className="btn btn-light"
+											onClick={() =>
+												setSelectOp({
+													name: "",
+													value: ""
+												})
+											}
+										>
+											Cancel
+										</button>
+									</div>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectOp({
+											name: "",
+											value: ""
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* conform popup for delete hometown end */}
 					{/* home-town end  */}
 
 					{/* current-city start  */}

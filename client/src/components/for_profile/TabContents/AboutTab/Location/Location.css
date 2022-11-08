@@ -234,3 +234,157 @@
 	color: black;
 }
 /* for displaying location end */
+
+/* for delete popup start  */
+.location-container .home-del-popup {
+	width: 100%;
+	position: fixed;
+	top: 48%;
+	left: 50%;
+	z-index: 100;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+}
+
+.location-container .home-del-popup .home-del-popup-wrapper {
+	width: 39%;
+	height: fit-content;
+	background-color: white;
+	box-shadow: var(--box-shadow);
+	border-radius: 10px;
+	padding: 20px;
+	position: relative;
+}
+
+.home-del-popup .home-del-popup-wrapper .conformation-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.home-del-popup .home-del-popup-wrapper .conformation-content h5 {
+	margin: 0;
+	text-align: center;
+	font-weight: 600;
+}
+
+.home-del-popup .home-del-popup-wrapper .conformation-content p {
+	font-weight: 500;
+}
+
+.home-del-popup .home-del-popup-wrapper .conformation-content .conform-btn {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.home-del-popup-wrapper .conformation-content .conform-btn button {
+	transition: all 0.3s;
+}
+
+.home-del-popup-wrapper .conformation-content .conform-btn button:hover {
+	transform: scale(0.97);
+}
+
+.home-del-popup-wrapper .conformation-content .conform-btn button:active {
+	transform: scale(1.1);
+}
+
+.home-del-popup-wrapper .conformation-content .conform-btn button:first-child {
+	margin-right: 20px;
+	font-weight: 500;
+}
+
+.home-del-popup-wrapper .conformation-content .conform-btn button:last-child {
+	background-color: #e4e6eb;
+	font-weight: 600;
+}
+
+.home-del-popup-wrapper .conformation-content .conform-btn button #loading {
+	padding: 0px 18px;
+	font-size: 18px;
+}
+/* for delete popup end */
+
+/* close-btn style start  */
+.home-del-popup .home-del-popup-wrapper .close-btn-del-popup {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	display: flex;
+	width: fit-content;
+	background-color: #d7e2ea;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s;
+}
+
+.home-del-popup .home-del-popup-wrapper .close-btn-del-popup:hover {
+	transform: scale(0.9);
+}
+
+.home-del-popup .home-del-popup-wrapper .close-btn-del-popup:active {
+	transform: scale(1.1);
+}
+
+.home-del-popup .home-del-popup-wrapper .close-btn-del-popup i {
+	font-size: 16px;
+	transition: all 0.3s;
+	color: #d90429;
+}
+
+.home-del-popup .home-del-popup-wrapper .close-btn-del-popup i:hover {
+	transform: rotate(180deg);
+}
+/* close-btn style end  */
+
+/* media query start  */
+@media screen and (max-width: 1300px) {
+	.location-container .home-del-popup .home-del-popup-wrapper {
+		width: 45%;
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.location-container .home-del-popup .home-del-popup-wrapper {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.location-container .home-del-popup .home-del-popup-wrapper {
+		width: 60%;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.location-container .home-del-popup .home-del-popup-wrapper {
+		width: 65%;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.location-container .home-del-popup .home-del-popup-wrapper {
+		width: 70%;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.location-container .home-del-popup .home-del-popup-wrapper {
+		width: 75%;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.location-container .home-del-popup .home-del-popup-wrapper {
+		width: 100%;
+		margin: 0 15px;
+	}
+}

@@ -880,7 +880,7 @@ const deleteSchool = async (req, res) => {
 	}
 };
 
-// for adding home-location
+// for adding & updating home-location
 const addHomeLocation = async (req, res) => {
 	try {
 		const { city, country } = req.body;
@@ -898,6 +898,27 @@ const addHomeLocation = async (req, res) => {
 		);
 
 		res.status(200).json({ message: "Add hometown successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting home-location
+const deleteHomeLocation = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					hometown: {
+						city: "",
+						country: ""
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Updating hometown successfully." });
 	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
 	}
@@ -929,5 +950,6 @@ module.exports = {
 	addSchool,
 	updateSchool,
 	deleteSchool,
-	addHomeLocation
+	addHomeLocation,
+	deleteHomeLocation
 };
