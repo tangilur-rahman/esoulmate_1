@@ -325,6 +325,9 @@ const Location = ({ getProfile }) => {
 					{/* input-fields showing start  */}
 					{(homeT || getSelectOp.name === "HEdit") && (
 						<div className="input-fields" ref={deleteRef}>
+							{getSelectOp.name === "HEdit" && (
+								<p className="modify-fields">Edit Hometown</p>
+							)}
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
@@ -538,6 +541,9 @@ const Location = ({ getProfile }) => {
 					{/* input-fields showing start  */}
 					{(currentCT || getSelectOp.name === "CEdit") && (
 						<div className="input-fields" ref={deleteRef}>
+							{getSelectOp.name === "CEdit" && (
+								<p className="modify-fields">Edit Current City</p>
+							)}
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"

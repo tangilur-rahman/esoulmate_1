@@ -41,6 +41,12 @@
 	margin-top: 10px;
 }
 
+.right-about-con .location-container .input-fields .modify-fields {
+	margin: 0 0 4px 0;
+	font-weight: 500;
+	font-size: 15px;
+}
+
 .right-about-con .location-container .input-fields .form-floating label {
 	color: #8c9ea8;
 	font-size: 15.5px;
