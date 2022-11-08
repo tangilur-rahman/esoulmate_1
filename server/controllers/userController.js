@@ -880,7 +880,7 @@ const deleteSchool = async (req, res) => {
 	}
 };
 
-// for adding & updating home-location
+// for adding & updating home location
 const addHomeLocation = async (req, res) => {
 	try {
 		const { city, country } = req.body;
@@ -903,7 +903,7 @@ const addHomeLocation = async (req, res) => {
 	}
 };
 
-// for deleting home-location
+// for deleting home location
 const deleteHomeLocation = async (req, res) => {
 	try {
 		await userModel.updateOne(
@@ -919,6 +919,50 @@ const deleteHomeLocation = async (req, res) => {
 		);
 
 		res.status(200).json({ message: "Updating hometown successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for adding & updating current-city location
+const addCurrentLocation = async (req, res) => {
+	try {
+		const { city, country } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					current_city: {
+						city,
+						country
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add current city successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting current-city location
+const deleteCurrentLocation = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					current_city: {
+						city: "",
+						country: ""
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Updating current-city successfully." });
 	} catch (error) {
 		res.status(500).json({ error: "Maintenance mode, Try again later!" });
 	}
@@ -951,5 +995,7 @@ module.exports = {
 	updateSchool,
 	deleteSchool,
 	addHomeLocation,
-	deleteHomeLocation
+	deleteHomeLocation,
+	addCurrentLocation,
+	deleteCurrentLocation
 };

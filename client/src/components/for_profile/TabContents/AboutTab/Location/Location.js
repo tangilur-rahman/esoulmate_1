@@ -27,8 +27,11 @@ const Location = ({ getProfile }) => {
 	// for loading until fetching not complete
 	const [isLoading, setIsLoading] = useState("");
 
-	// for location option toggle
-	const [optionT, setOptionT] = useState("");
+	// for hometown option toggle
+	const [optionHT, setOptionHT] = useState("");
+
+	// for current-city option toggle
+	const [optionCT, setOptionCT] = useState("");
 
 	// for getting selected option
 	const [getSelectOp, setSelectOp] = useState({
@@ -41,6 +44,9 @@ const Location = ({ getProfile }) => {
 		if (getSelectOp.name === "HEdit") {
 			setHCity(getSelectOp.value.city);
 			setHCountry(getSelectOp.value.country);
+		} else if (getSelectOp.name === "CEdit") {
+			setCCity(getSelectOp.value.city);
+			setCCountry(getSelectOp.value.country);
 		}
 	}, [getSelectOp]);
 	// initialize hometown info for editing end
@@ -50,7 +56,8 @@ const Location = ({ getProfile }) => {
 
 	const handleClickOutside = (e) => {
 		if (!optionRef.current?.contains(e.target)) {
-			setOptionT("");
+			setOptionHT("");
+			setOptionCT("");
 		}
 	};
 
@@ -181,6 +188,111 @@ const Location = ({ getProfile }) => {
 	};
 	// for delete hometown from server end
 
+	// for add & update current-city on server start
+	const addCurrentCity = async () => {
+		try {
+			setIsLoading(true);
+
+			const currentCityInfo = {
+				city: getCCity,
+				country: getCCountry
+			};
+
+			const response = await fetch(
+				`/user/about/add-current-location?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify(currentCityInfo),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success(
+					getSelectOp.name === "CEdit"
+						? "Updated your current city successfully."
+						: "Added your current city successfully.",
+					{
+						position: "top-right",
+						theme: "colored",
+						autoClose: 2000
+					}
+				);
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setCCity("");
+					setCCountry("");
+					setCurrentCT("");
+					setSelectOp({ name: "", value: "" });
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for add & update current-city on server end
+
+	// for delete current-city from server start
+	const deleteCurrentCity = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/delete-current-location?id=${getProfile._id}`
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Deleted your current city successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setCCity("");
+					setCCountry("");
+					setCurrentCT("");
+					setSelectOp({ name: "", value: "" });
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for delete current-city from server end
+
 	return (
 		<div className="row m-0">
 			<div className="col p-0">
@@ -292,14 +404,14 @@ const Location = ({ getProfile }) => {
 								<div className="option">
 									<i
 										className="fa-solid fa-ellipsis"
-										onClick={() => setOptionT(true)}
+										onClick={() => setOptionHT(true)}
 									></i>
 
-									{optionT && (
+									{optionHT && (
 										<ul ref={optionRef}>
 											<li
 												onClick={() => {
-													setOptionT("");
+													setOptionHT("");
 													setSelectOp({
 														name: "HEdit",
 														value: {
@@ -317,7 +429,7 @@ const Location = ({ getProfile }) => {
 
 											<li
 												onClick={() => {
-													setOptionT("");
+													setOptionHT("");
 													setSelectOp({
 														name: "HDelete",
 														value: ""
@@ -401,28 +513,31 @@ const Location = ({ getProfile }) => {
 					{/* home-town end  */}
 
 					{/* current-city start  */}
-					<div
-						className="add-new"
-						onClick={() => {
-							setHomeT(false);
-							setCurrentCT(true);
-							setCCity("");
-							setCCountry("");
-							setSelectOp({ name: "", value: "" });
-						}}
-					>
-						{currentCT ? (
-							<p style={{ color: "black", margin: "0" }}>Current Town</p>
-						) : (
-							<>
-								<i className="bi bi-plus-circle-dotted"></i>
-								<p>Add Current City</p>
-							</>
-						)}
-					</div>
+					{!getProfile.current_city.city && (
+						<div
+							className="add-new"
+							onClick={() => {
+								setHomeT(false);
+								setCurrentCT(true);
+								setCCity("");
+								setCCountry("");
+								setSelectOp({ name: "", value: "" });
+							}}
+						>
+							{currentCT ? (
+								<p style={{ color: "black", margin: "0" }}>Current City</p>
+							) : (
+								<>
+									<i className="bi bi-plus-circle-dotted"></i>
+									<p>Add Current City</p>
+								</>
+							)}
+						</div>
+					)}
 
-					{currentCT && (
-						<div className="input-fields">
+					{/* input-fields showing start  */}
+					{(currentCT || getSelectOp.name === "CEdit") && (
+						<div className="input-fields" ref={deleteRef}>
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
@@ -459,11 +574,11 @@ const Location = ({ getProfile }) => {
 									Cancel
 								</button>
 
-								{(currentCT || "Edit") && (
+								{(currentCT || getSelectOp.name === "CEdit") && (
 									<button
 										type="button"
 										className="btn btn-primary"
-										onClick={!"Edit" ? "updateUniHandler" : "addUniHandler"}
+										onClick={addCurrentCity}
 										disabled={getCCity && getCCountry ? false : true}
 									>
 										{isLoading ? (
@@ -471,7 +586,7 @@ const Location = ({ getProfile }) => {
 												className="fa-solid fa-spinner fa-spin"
 												id="loading"
 											></i>
-										) : !"Edit" ? (
+										) : getSelectOp.name === "CEdit" ? (
 											"Update"
 										) : (
 											"Submit"
@@ -481,6 +596,133 @@ const Location = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
+					{/* input-fields showing end  */}
+
+					{/* displaying current-city start  */}
+					{getProfile.current_city?.city && (
+						<div className="displaying-location" id="c-location">
+							<div id="left">
+								<i className="fa-solid fa-location-dot" id="c-icon"></i>
+								<div className="Edit">
+									<p id="up">
+										{getProfile.current_city?.city},&nbsp;
+										{getProfile.current_city?.country}
+									</p>
+
+									<p id="down">Current City</p>
+								</div>
+							</div>
+
+							<div id="right">
+								<div className="option">
+									<i
+										className="fa-solid fa-ellipsis"
+										onClick={() => setOptionCT(true)}
+									></i>
+
+									{optionCT && (
+										<ul ref={optionRef}>
+											<li
+												onClick={() => {
+													setOptionCT("");
+													setSelectOp({
+														name: "CEdit",
+														value: {
+															city: getProfile.current_city.city,
+															country: getProfile.current_city.country
+														}
+													});
+													setHomeT(false);
+													setCurrentCT(false);
+												}}
+											>
+												<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
+												Edit
+											</li>
+
+											<li
+												onClick={() => {
+													setOptionCT("");
+													setSelectOp({
+														name: "CDelete",
+														value: ""
+													});
+													setCurrentCT(false);
+												}}
+											>
+												<i className="fa-solid fa-trash-can option-icon"></i>{" "}
+												Delete
+											</li>
+										</ul>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* displaying current-city end */}
+
+					{/* conform popup for delete current-city start  */}
+					{getSelectOp.name === "CDelete" && (
+						<div className="home-del-popup">
+							<div
+								className="home-del-popup-wrapper"
+								data-aos="fade-down"
+								ref={deleteRef}
+							>
+								<div className="conformation-content">
+									<h5>Are you sure?</h5>
+									<hr />
+									<p>
+										Are you sure you want to remove this current city from your
+										profile?
+									</p>
+
+									<div className="conform-btn">
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={deleteCurrentCity}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Delete"
+											)}
+										</button>
+
+										<button
+											type="button"
+											className="btn btn-light"
+											onClick={() =>
+												setSelectOp({
+													name: "",
+													value: ""
+												})
+											}
+										>
+											Cancel
+										</button>
+									</div>
+								</div>
+
+								<div
+									className="close-btn-del-popup"
+									onClick={() =>
+										setSelectOp({
+											name: "",
+											value: ""
+										})
+									}
+								>
+									<i className="fa-solid fa-x"></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* conform popup for delete current-city end */}
 					{/* current-city end  */}
 				</div>
 			</div>

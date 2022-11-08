@@ -29,7 +29,9 @@ const {
 	updateSchool,
 	deleteSchool,
 	addHomeLocation,
-	deleteHomeLocation
+	deleteHomeLocation,
+	addCurrentLocation,
+	deleteCurrentLocation
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -129,10 +131,16 @@ user.post("/about/update-school", authUser, updateSchool);
 // for deleting added school
 user.get("/about/delete-school/:_id", authUser, deleteSchool);
 
-// for adding & updating home-location
+// for adding & updating home location
 user.post("/about/add-home-location", addHomeLocation);
 
-// for deleting home-location
+// for deleting home location
 user.get("/about/delete-home-location", deleteHomeLocation);
+
+// for adding & updating current-city location
+user.post("/about/add-current-location", addCurrentLocation);
+
+// for deleting current-city location
+user.get("/about/delete-current-location", deleteCurrentLocation);
 
 module.exports = user;

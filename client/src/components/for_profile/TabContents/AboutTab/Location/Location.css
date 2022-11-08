@@ -100,6 +100,10 @@
 	margin-top: 10px;
 }
 
+.location-container .displaying-location#c-location {
+	margin-top: 16px;
+}
+
 /*  #left start  */
 .location-container .displaying-location #left {
 	display: flex;
@@ -111,6 +115,10 @@
 	font-size: 33px;
 	opacity: 0.8;
 	color: #354f52;
+}
+
+.location-container .displaying-location #left i#c-icon {
+	margin: 0 6px 0 5px;
 }
 
 .location-container .displaying-location .Edit {
@@ -359,6 +367,10 @@
 }
 
 @media screen and (max-width: 991px) {
+	.right-about-con .location-container {
+		margin: 15px;
+	}
+
 	.location-container .home-del-popup .home-del-popup-wrapper {
 		width: 60%;
 	}
