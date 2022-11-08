@@ -4,7 +4,7 @@ import { useState } from "react";
 // internal components
 import "./AboutTab.css";
 import AboutYou from "./AboutYou/AboutYou";
-import BasicInfo from "./BasicInfo/BasicInfo";
+import ContactBasicInfo from "./ContactBasicInfo/ContactBasicInfo";
 import Location from "./Location/Location";
 import WorkEducation from "./WorkEducation/WorkEducation";
 
@@ -54,9 +54,16 @@ const AboutTab = ({ getProfile }) => {
 					{selectedTab === "Work & Education" && (
 						<WorkEducation getProfile={getProfile} />
 					)}
+
 					{selectedTab === "Location" && <Location getProfile={getProfile} />}
-					{selectedTab === "Contact & Basic info" && <BasicInfo />}
-					{selectedTab === "Details about you" && <AboutYou />}
+
+					{selectedTab === "Contact & Basic info" && (
+						<ContactBasicInfo getProfile={getProfile} />
+					)}
+
+					{selectedTab === "Details about you" && (
+						<AboutYou getProfile={getProfile} />
+					)}
 				</div>
 				{/* right-about-container end  */}
 			</div>

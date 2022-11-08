@@ -1,9 +1,8 @@
 // external components
 
 // internal components
-import "./BasicInfo.css";
 
-const BasicInfo = () => {
+const BasicInfo = ({ getProfile }) => {
 	return <div>BasicInfo</div>;
 };
 
