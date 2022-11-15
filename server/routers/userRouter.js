@@ -31,7 +31,11 @@ const {
 	addHomeLocation,
 	deleteHomeLocation,
 	addCurrentLocation,
-	deleteCurrentLocation
+	deleteCurrentLocation,
+	addEmail,
+	deleteEmail,
+	addPhone,
+	deletePhone
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -142,5 +146,17 @@ user.post("/about/add-current-location", addCurrentLocation);
 
 // for deleting current-city location
 user.get("/about/delete-current-location", deleteCurrentLocation);
+
+// for adding & updating email
+user.post("/about/add-email", addEmail);
+
+// for deleting email
+user.get("/about/delete-email", deleteEmail);
+
+// for adding & updating phone
+user.post("/about/add-phone", addPhone);
+
+// for deleting phone
+user.get("/about/delete-phone", deletePhone);
 
 module.exports = user;

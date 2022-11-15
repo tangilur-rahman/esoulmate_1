@@ -968,6 +968,82 @@ const deleteCurrentLocation = async (req, res) => {
 	}
 };
 
+// for adding & updating email
+const addEmail = async (req, res) => {
+	try {
+		const { email } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					email
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add email successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting email
+const deleteEmail = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					email: ""
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Updating email successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for adding & updating phone
+const addPhone = async (req, res) => {
+	try {
+		const { phone } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					phone
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add phone successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting phone
+const deletePhone = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					phone: ""
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Updating phone successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -997,5 +1073,9 @@ module.exports = {
 	addHomeLocation,
 	deleteHomeLocation,
 	addCurrentLocation,
-	deleteCurrentLocation
+	deleteCurrentLocation,
+	addEmail,
+	deleteEmail,
+	addPhone,
+	deletePhone
 };

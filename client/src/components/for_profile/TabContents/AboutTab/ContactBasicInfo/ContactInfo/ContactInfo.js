@@ -10,28 +10,24 @@ const ContactInfo = ({ getProfile }) => {
 	// for updating profile-page
 	const { setUpdateProfile } = GetContextApi();
 
-	// for hometown input fields toggle
-	const [homeT, setHomeT] = useState(false);
+	// for email input field toggle
+	const [emailT, setEmailT] = useState(false);
 
-	// for current-city input-fields toggle
-	const [currentCT, setCurrentCT] = useState(false);
+	// for phone input-field toggle
+	const [phoneT, setPhoneT] = useState(false);
 
-	// for getting input-fields value for hometown
-	const [getHCity, setHCity] = useState("");
-	const [getHCountry, setHCountry] = useState("");
-
-	// for getting input-fields value for current-town
-	const [getCCity, setCCity] = useState("");
-	const [getCCountry, setCCountry] = useState("");
+	// for getting input-fields value
+	const [getEmail, setEmail] = useState("");
+	const [getPhone, setPhone] = useState("");
 
 	// for loading until fetching not complete
 	const [isLoading, setIsLoading] = useState("");
 
-	// for hometown option toggle
-	const [optionHT, setOptionHT] = useState("");
+	// for email option toggle
+	const [optionET, setOptionET] = useState("");
 
-	// for current-city option toggle
-	const [optionCT, setOptionCT] = useState("");
+	// for phone option toggle
+	const [optionPT, setOptionPT] = useState("");
 
 	// for getting selected option
 	const [getSelectOp, setSelectOp] = useState({
@@ -41,12 +37,10 @@ const ContactInfo = ({ getProfile }) => {
 
 	// initialize hometown info for editing start
 	useEffect(() => {
-		if (getSelectOp.name === "HEdit") {
-			setHCity(getSelectOp.value.city);
-			setHCountry(getSelectOp.value.country);
-		} else if (getSelectOp.name === "CEdit") {
-			setCCity(getSelectOp.value.city);
-			setCCountry(getSelectOp.value.country);
+		if (getSelectOp.name === "EEdit") {
+			setEmail(getSelectOp.value.email);
+		} else if (getSelectOp.name === "PEdit") {
+			setPhone(getSelectOp.value.phone);
 		}
 	}, [getSelectOp]);
 	// initialize hometown info for editing end
@@ -56,8 +50,8 @@ const ContactInfo = ({ getProfile }) => {
 
 	const handleClickOutside = (e) => {
 		if (!optionRef.current?.contains(e.target)) {
-			setOptionHT("");
-			setOptionCT("");
+			setOptionET("");
+			setOptionPT("");
 		}
 	};
 
@@ -83,21 +77,16 @@ const ContactInfo = ({ getProfile }) => {
 	}, []);
 	// for close delete popup when click outside  start
 
-	// for add & update hometown on server start
-	const addHometown = async () => {
+	// for add & update email on server start
+	const addEmail = async () => {
 		try {
 			setIsLoading(true);
 
-			const hometownInfo = {
-				city: getHCity,
-				country: getHCountry
-			};
-
 			const response = await fetch(
-				`/user/about/add-home-location?id=${getProfile._id}`,
+				`/user/about/add-email?id=${getProfile._id}`,
 				{
 					method: "POST",
-					body: JSON.stringify(hometownInfo),
+					body: JSON.stringify({ email: getEmail }),
 					headers: { "Content-Type": "application/json" }
 				}
 			);
@@ -106,9 +95,9 @@ const ContactInfo = ({ getProfile }) => {
 
 			if (response.status === 200) {
 				toast.success(
-					getSelectOp.name === "HEdit"
-						? "Updated your hometown successfully."
-						: "Added your hometown successfully.",
+					getSelectOp.name === "EEdit"
+						? "Updated your email address successfully."
+						: "Added your email address successfully.",
 					{
 						position: "top-right",
 						theme: "colored",
@@ -118,9 +107,8 @@ const ContactInfo = ({ getProfile }) => {
 
 				setTimeout(() => {
 					setUpdateProfile(Date.now());
-					setHCity("");
-					setHCountry("");
-					setHomeT("");
+					setEmail("");
+					setEmailT("");
 					setSelectOp({ name: "", value: "" });
 					setIsLoading(false);
 				}, [2000]);
@@ -141,21 +129,21 @@ const ContactInfo = ({ getProfile }) => {
 			setIsLoading(false);
 		}
 	};
-	// for add & update hometown on server end
+	// for add & update email on server end
 
-	// for delete hometown from server start
-	const deleteHometown = async () => {
+	// for delete email from server start
+	const deleteEmail = async () => {
 		try {
 			setIsLoading(true);
 
 			const response = await fetch(
-				`/user/about/delete-home-location?id=${getProfile._id}`
+				`/user/about/delete-email?id=${getProfile._id}`
 			);
 
 			const result = await response.json();
 
 			if (response.status === 200) {
-				toast.success("Deleted your hometown successfully.", {
+				toast.success("Deleted your email address successfully.", {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 2000
@@ -163,9 +151,8 @@ const ContactInfo = ({ getProfile }) => {
 
 				setTimeout(() => {
 					setUpdateProfile(Date.now());
-					setHCity("");
-					setHCountry("");
-					setHomeT("");
+					setEmail("");
+					setEmailT("");
 					setSelectOp({ name: "", value: "" });
 					setIsLoading(false);
 				}, [2000]);
@@ -186,23 +173,18 @@ const ContactInfo = ({ getProfile }) => {
 			setIsLoading(false);
 		}
 	};
-	// for delete hometown from server end
+	// for delete email from server end
 
-	// for add & update current-city on server start
-	const addCurrentCity = async () => {
+	// for add & update phone-number on server start
+	const addPhone = async () => {
 		try {
 			setIsLoading(true);
 
-			const currentCityInfo = {
-				city: getCCity,
-				country: getCCountry
-			};
-
 			const response = await fetch(
-				`/user/about/add-current-location?id=${getProfile._id}`,
+				`/user/about/add-phone?id=${getProfile._id}`,
 				{
 					method: "POST",
-					body: JSON.stringify(currentCityInfo),
+					body: JSON.stringify({ phone: getPhone }),
 					headers: { "Content-Type": "application/json" }
 				}
 			);
@@ -211,9 +193,9 @@ const ContactInfo = ({ getProfile }) => {
 
 			if (response.status === 200) {
 				toast.success(
-					getSelectOp.name === "CEdit"
-						? "Updated your current city successfully."
-						: "Added your current city successfully.",
+					getSelectOp.name === "PEdit"
+						? "Updated your contact number successfully."
+						: "Added your contact number successfully.",
 					{
 						position: "top-right",
 						theme: "colored",
@@ -223,9 +205,8 @@ const ContactInfo = ({ getProfile }) => {
 
 				setTimeout(() => {
 					setUpdateProfile(Date.now());
-					setCCity("");
-					setCCountry("");
-					setCurrentCT("");
+					setPhone("");
+					setPhoneT("");
 					setSelectOp({ name: "", value: "" });
 					setIsLoading(false);
 				}, [2000]);
@@ -246,21 +227,21 @@ const ContactInfo = ({ getProfile }) => {
 			setIsLoading(false);
 		}
 	};
-	// for add & update current-city on server end
+	// for add & update phone-number on server end
 
-	// for delete current-city from server start
-	const deleteCurrentCity = async () => {
+	// for delete phone-number from server start
+	const deletePhone = async () => {
 		try {
 			setIsLoading(true);
 
 			const response = await fetch(
-				`/user/about/delete-current-location?id=${getProfile._id}`
+				`/user/about/delete-phone?id=${getProfile._id}`
 			);
 
 			const result = await response.json();
 
 			if (response.status === 200) {
-				toast.success("Deleted your current city successfully.", {
+				toast.success("Deleted your contact number successfully.", {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 2000
@@ -268,9 +249,8 @@ const ContactInfo = ({ getProfile }) => {
 
 				setTimeout(() => {
 					setUpdateProfile(Date.now());
-					setCCity("");
-					setCCountry("");
-					setCurrentCT("");
+					setPhone("");
+					setPhoneT("");
 					setSelectOp({ name: "", value: "" });
 					setIsLoading(false);
 				}, [2000]);
@@ -291,63 +271,51 @@ const ContactInfo = ({ getProfile }) => {
 			setIsLoading(false);
 		}
 	};
-	// for delete current-city from server end
+	// for delete phone from server end
 
 	return (
 		<div className="row m-0">
 			<div className="col p-0">
-				<div className="location-container">
-					<h5>Location</h5>
+				<div className="contact-container">
+					<h5>Contact Info</h5>
 
 					{/* home-town start  */}
-					{!getProfile.hometown.city && (
+					{!getProfile.email && (
 						<div
 							className="add-new"
 							onClick={() => {
-								setHomeT(true);
-								setCurrentCT(false);
-								setHCity("");
-								setHCountry("");
+								setEmailT(true);
+								setPhoneT(false);
+								setEmail("");
 								setSelectOp({ name: "", value: "" });
 							}}
 						>
-							{homeT ? (
-								<p style={{ color: "black", margin: "0" }}>Hometown</p>
+							{emailT ? (
+								<p style={{ color: "black", margin: "0" }}>Email</p>
 							) : (
 								<>
 									<i className="bi bi-plus-circle-dotted"></i>
-									<p>Add hometown</p>
+									<p>Add Email</p>
 								</>
 							)}
 						</div>
 					)}
 
 					{/* input-fields showing start  */}
-					{(homeT || getSelectOp.name === "HEdit") && (
+					{(emailT || getSelectOp.name === "EEdit") && (
 						<div className="input-fields" ref={deleteRef}>
-							{getSelectOp.name === "HEdit" && (
+							{getSelectOp.name === "EEdit" && (
 								<p className="modify-fields">Edit Hometown</p>
 							)}
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
-									id="city"
-									placeholder="city"
-									onChange={(e) => setHCity(e.target.value)}
-									value={getHCity}
+									id="email"
+									placeholder="Email"
+									onChange={(e) => setEmail(e.target.value)}
+									value={getEmail}
 								/>
-								<label htmlFor="city">City *</label>
-							</div>
-
-							<div className="form-floating mb-3">
-								<input
-									className="form-control outline-sty"
-									id="country"
-									placeholder="country"
-									onChange={(e) => setHCountry(e.target.value)}
-									value={getHCountry}
-								/>
-								<label htmlFor="country">Country *</label>
+								<label htmlFor="email">Email *</label>
 							</div>
 
 							<div className="submit-btn-con">
@@ -355,28 +323,27 @@ const ContactInfo = ({ getProfile }) => {
 									type="button"
 									className="btn btn-light"
 									onClick={() => {
-										setHomeT(false);
-										setHCity("");
-										setHCountry("");
+										setEmailT(false);
+										setEmail("");
 										setSelectOp({ name: "", value: "" });
 									}}
 								>
 									Cancel
 								</button>
 
-								{(homeT || getSelectOp.name === "HEdit") && (
+								{(emailT || getSelectOp.name === "EEdit") && (
 									<button
 										type="button"
 										className="btn btn-primary"
-										onClick={addHometown}
-										disabled={getHCity && getHCountry ? false : true}
+										onClick={addEmail}
+										disabled={getEmail ? false : true}
 									>
 										{isLoading ? (
 											<i
 												className="fa-solid fa-spinner fa-spin"
 												id="loading"
 											></i>
-										) : getSelectOp.name === "HEdit" ? (
+										) : getSelectOp.name === "EEdit" ? (
 											"Update"
 										) : (
 											"Submit"
@@ -388,18 +355,15 @@ const ContactInfo = ({ getProfile }) => {
 					)}
 					{/* input-fields showing end  */}
 
-					{/* displaying hometown start  */}
-					{getProfile.hometown?.city && (
-						<div className="displaying-location">
+					{/* displaying email start  */}
+					{getProfile?.email && (
+						<div className="displaying-contact-info">
 							<div id="left">
-								<i className="fa-solid fa-house-chimney-window"></i>
+								<i className="fa-solid fa-at"></i>
 								<div className="Edit">
-									<p id="up">
-										{getProfile.hometown?.city},&nbsp;
-										{getProfile.hometown?.country}
-									</p>
+									<p id="up">{getProfile.email}</p>
 
-									<p id="down">Hometown</p>
+									<p id="down">Email</p>
 								</div>
 							</div>
 
@@ -407,23 +371,22 @@ const ContactInfo = ({ getProfile }) => {
 								<div className="option">
 									<i
 										className="fa-solid fa-ellipsis"
-										onClick={() => setOptionHT(true)}
+										onClick={() => setOptionET(true)}
 									></i>
 
-									{optionHT && (
+									{optionET && (
 										<ul ref={optionRef}>
 											<li
 												onClick={() => {
-													setOptionHT("");
+													setOptionET("");
 													setSelectOp({
-														name: "HEdit",
+														name: "EEdit",
 														value: {
-															city: getProfile.hometown.city,
-															country: getProfile.hometown.country
+															email: getProfile.email
 														}
 													});
-													setHomeT(false);
-													setCurrentCT(false);
+													setEmailT(false);
+													setPhoneT(false);
 												}}
 											>
 												<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
@@ -432,12 +395,12 @@ const ContactInfo = ({ getProfile }) => {
 
 											<li
 												onClick={() => {
-													setOptionHT("");
+													setOptionET("");
 													setSelectOp({
-														name: "HDelete",
+														name: "EDelete",
 														value: ""
 													});
-													setHomeT(false);
+													setEmailT(false);
 												}}
 											>
 												<i className="fa-solid fa-trash-can option-icon"></i>{" "}
@@ -449,10 +412,10 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* displaying hometown end */}
+					{/* displaying email end */}
 
-					{/* conform popup for delete hometown start  */}
-					{getSelectOp.name === "HDelete" && (
+					{/* conform popup for delete email start  */}
+					{getSelectOp.name === "EDelete" && (
 						<div className="home-del-popup">
 							<div
 								className="home-del-popup-wrapper"
@@ -463,7 +426,7 @@ const ContactInfo = ({ getProfile }) => {
 									<h5>Are you sure?</h5>
 									<hr />
 									<p>
-										Are you sure you want to remove this hometown from your
+										Are you sure you want to remove this email from your
 										profile?
 									</p>
 
@@ -471,7 +434,7 @@ const ContactInfo = ({ getProfile }) => {
 										<button
 											type="button"
 											className="btn btn-danger"
-											onClick={deleteHometown}
+											onClick={deleteEmail}
 										>
 											{isLoading ? (
 												<i
@@ -512,58 +475,46 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* conform popup for delete hometown end */}
-					{/* home-town end  */}
+					{/* conform popup for delete email end */}
+					{/* email end  */}
 
-					{/* current-city start  */}
-					{!getProfile.current_city.city && (
+					{/* phone start  */}
+					{!getProfile.phone && (
 						<div
 							className="add-new"
 							onClick={() => {
-								setHomeT(false);
-								setCurrentCT(true);
-								setCCity("");
-								setCCountry("");
+								setEmailT(false);
+								setPhoneT(true);
+								setPhone("");
 								setSelectOp({ name: "", value: "" });
 							}}
 						>
-							{currentCT ? (
-								<p style={{ color: "black", margin: "0" }}>Current City</p>
+							{phoneT ? (
+								<p style={{ color: "black", margin: "0" }}>Contact Number</p>
 							) : (
 								<>
 									<i className="bi bi-plus-circle-dotted"></i>
-									<p>Add Current City</p>
+									<p>Add Contact Number</p>
 								</>
 							)}
 						</div>
 					)}
 
 					{/* input-fields showing start  */}
-					{(currentCT || getSelectOp.name === "CEdit") && (
+					{(phoneT || getSelectOp.name === "PEdit") && (
 						<div className="input-fields" ref={deleteRef}>
-							{getSelectOp.name === "CEdit" && (
-								<p className="modify-fields">Edit Current City</p>
+							{getSelectOp.name === "PEdit" && (
+								<p className="modify-fields">Edit Contact Number</p>
 							)}
 							<div className="form-floating mb-3">
 								<input
 									className="form-control outline-sty"
-									id="city1"
-									placeholder="city"
-									onChange={(e) => setCCity(e.target.value)}
-									value={getCCity}
+									id="phone"
+									placeholder="Contact Number"
+									onChange={(e) => setPhone(e.target.value)}
+									value={getPhone}
 								/>
-								<label htmlFor="city1">City *</label>
-							</div>
-
-							<div className="form-floating mb-3">
-								<input
-									className="form-control outline-sty"
-									id="country1"
-									placeholder="country"
-									onChange={(e) => setCCountry(e.target.value)}
-									value={getCCountry}
-								/>
-								<label htmlFor="country1">Country *</label>
+								<label htmlFor="phone">Contact Number *</label>
 							</div>
 
 							<div className="submit-btn-con">
@@ -571,28 +522,27 @@ const ContactInfo = ({ getProfile }) => {
 									type="button"
 									className="btn btn-light"
 									onClick={() => {
-										setCurrentCT(false);
-										setCCity("");
-										setCCountry("");
+										setPhoneT(false);
+										setPhone("");
 										setSelectOp({ name: "", value: "" });
 									}}
 								>
 									Cancel
 								</button>
 
-								{(currentCT || getSelectOp.name === "CEdit") && (
+								{(phoneT || getSelectOp.name === "PEdit") && (
 									<button
 										type="button"
 										className="btn btn-primary"
-										onClick={addCurrentCity}
-										disabled={getCCity && getCCountry ? false : true}
+										onClick={addPhone}
+										disabled={getPhone ? false : true}
 									>
 										{isLoading ? (
 											<i
 												className="fa-solid fa-spinner fa-spin"
 												id="loading"
 											></i>
-										) : getSelectOp.name === "CEdit" ? (
+										) : getSelectOp.name === "PEdit" ? (
 											"Update"
 										) : (
 											"Submit"
@@ -604,18 +554,15 @@ const ContactInfo = ({ getProfile }) => {
 					)}
 					{/* input-fields showing end  */}
 
-					{/* displaying current-city start  */}
-					{getProfile.current_city?.city && (
-						<div className="displaying-location" id="c-location">
+					{/* displaying phone start  */}
+					{getProfile.phone && (
+						<div className="displaying-contact-info" id="c-location">
 							<div id="left">
-								<i className="fa-solid fa-location-dot" id="c-icon"></i>
+								<i className="fa-solid fa-phone" id="c-icon"></i>
 								<div className="Edit">
-									<p id="up">
-										{getProfile.current_city?.city},&nbsp;
-										{getProfile.current_city?.country}
-									</p>
+									<p id="up">{getProfile.phone}</p>
 
-									<p id="down">Current City</p>
+									<p id="down">Contact Number</p>
 								</div>
 							</div>
 
@@ -623,23 +570,22 @@ const ContactInfo = ({ getProfile }) => {
 								<div className="option">
 									<i
 										className="fa-solid fa-ellipsis"
-										onClick={() => setOptionCT(true)}
+										onClick={() => setOptionPT(true)}
 									></i>
 
-									{optionCT && (
+									{optionPT && (
 										<ul ref={optionRef}>
 											<li
 												onClick={() => {
-													setOptionCT("");
+													setOptionPT("");
 													setSelectOp({
-														name: "CEdit",
+														name: "PEdit",
 														value: {
-															city: getProfile.current_city.city,
-															country: getProfile.current_city.country
+															phone: getProfile.phone
 														}
 													});
-													setHomeT(false);
-													setCurrentCT(false);
+													setEmailT(false);
+													setPhoneT(false);
 												}}
 											>
 												<i className="fa-solid fa-pen-to-square option-icon"></i>{" "}
@@ -648,12 +594,12 @@ const ContactInfo = ({ getProfile }) => {
 
 											<li
 												onClick={() => {
-													setOptionCT("");
+													setOptionPT("");
 													setSelectOp({
-														name: "CDelete",
+														name: "PDelete",
 														value: ""
 													});
-													setCurrentCT(false);
+													setPhoneT(false);
 												}}
 											>
 												<i className="fa-solid fa-trash-can option-icon"></i>{" "}
@@ -668,7 +614,7 @@ const ContactInfo = ({ getProfile }) => {
 					{/* displaying current-city end */}
 
 					{/* conform popup for delete current-city start  */}
-					{getSelectOp.name === "CDelete" && (
+					{getSelectOp.name === "PDelete" && (
 						<div className="home-del-popup">
 							<div
 								className="home-del-popup-wrapper"
@@ -679,15 +625,15 @@ const ContactInfo = ({ getProfile }) => {
 									<h5>Are you sure?</h5>
 									<hr />
 									<p>
-										Are you sure you want to remove this current city from your
-										profile?
+										Are you sure you want to remove this contact number from
+										your profile?
 									</p>
 
 									<div className="conform-btn">
 										<button
 											type="button"
 											className="btn btn-danger"
-											onClick={deleteCurrentCity}
+											onClick={deletePhone}
 										>
 											{isLoading ? (
 												<i
@@ -728,8 +674,8 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* conform popup for delete current-city end */}
-					{/* current-city end  */}
+					{/* conform popup for delete phone end */}
+					{/* phone end  */}
 				</div>
 			</div>
 		</div>
