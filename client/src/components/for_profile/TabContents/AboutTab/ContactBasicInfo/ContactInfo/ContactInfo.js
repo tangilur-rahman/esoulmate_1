@@ -67,6 +67,8 @@ const ContactInfo = ({ getProfile }) => {
 	const handleClickOutsideDel = (e) => {
 		if (!deleteRef.current?.contains(e.target)) {
 			setSelectOp({ name: "", value: "" });
+			setEmailT(false);
+			setPhoneT(false);
 		}
 	};
 
@@ -508,6 +510,7 @@ const ContactInfo = ({ getProfile }) => {
 							)}
 							<div className="form-floating mb-3">
 								<input
+									type="number"
 									className="form-control outline-sty"
 									id="phone"
 									placeholder="Contact Number"

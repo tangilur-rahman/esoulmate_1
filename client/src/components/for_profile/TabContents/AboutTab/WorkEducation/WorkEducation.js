@@ -350,6 +350,57 @@ const WorkEducation = ({ getProfile }) => {
 					toDay: ""
 				}
 			});
+
+			setSelectUni({
+				name: "",
+				value: {
+					university_name: "",
+					major: "",
+					location: "",
+					description: "",
+					fromYear: "",
+					fromMonth: "",
+					fromDay: "",
+					toYear: "",
+					toMonth: "",
+					toDay: ""
+				}
+			});
+
+			setSelectColl({
+				name: "",
+				value: {
+					college_name: "",
+					location: "",
+					description: "",
+					fromYear: "",
+					fromMonth: "",
+					fromDay: "",
+					toYear: "",
+					toMonth: "",
+					toDay: ""
+				}
+			});
+
+			setSelectSch({
+				name: "",
+				value: {
+					school_name: "",
+					location: "",
+					description: "",
+					fromYear: "",
+					fromMonth: "",
+					fromDay: "",
+					toYear: "",
+					toMonth: "",
+					toDay: ""
+				}
+			});
+
+			setAddWorkT(false);
+			setAddUniversityT(false);
+			setAddCollegeT(false);
+			setAddSchoolT(false);
 		}
 	};
 

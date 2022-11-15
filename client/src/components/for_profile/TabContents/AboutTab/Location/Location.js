@@ -73,6 +73,8 @@ const Location = ({ getProfile }) => {
 	const handleClickOutsideDel = (e) => {
 		if (!deleteRef.current?.contains(e.target)) {
 			setSelectOp({ name: "", value: "" });
+			setHomeT(false);
+			setCurrentCT(false);
 		}
 	};
 
