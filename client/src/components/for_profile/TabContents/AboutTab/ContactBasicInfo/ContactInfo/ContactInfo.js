@@ -307,10 +307,11 @@ const ContactInfo = ({ getProfile }) => {
 					{(emailT || getSelectOp.name === "EEdit") && (
 						<div className="input-fields" ref={deleteRef}>
 							{getSelectOp.name === "EEdit" && (
-								<p className="modify-fields">Edit Hometown</p>
+								<p className="modify-fields">Edit Email</p>
 							)}
 							<div className="form-floating mb-3">
 								<input
+									type="email"
 									className="form-control outline-sty"
 									id="email"
 									placeholder="Email"
@@ -338,7 +339,13 @@ const ContactInfo = ({ getProfile }) => {
 										type="button"
 										className="btn btn-primary"
 										onClick={addEmail}
-										disabled={getEmail ? false : true}
+										disabled={
+											getEmail &&
+											getEmail.includes("@") &&
+											getEmail.includes(".")
+												? false
+												: true
+										}
 									>
 										{isLoading ? (
 											<i
@@ -614,9 +621,9 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 						</div>
 					)}
-					{/* displaying current-city end */}
+					{/* displaying phone end */}
 
-					{/* conform popup for delete current-city start  */}
+					{/* conform popup for delete phone start  */}
 					{getSelectOp.name === "PDelete" && (
 						<div className="home-del-popup">
 							<div
