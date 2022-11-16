@@ -396,6 +396,18 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 
 							<div id="right">
+								<div className="privacy-icon">
+									{(getEPrivacy === "Public" && (
+										<i className="fa-solid fa-earth-americas"></i>
+									)) ||
+										(getEPrivacy === "Friends" && (
+											<i className="fa-solid fa-user-group"></i>
+										)) ||
+										(getEPrivacy === "Only Me" && (
+											<i className="fa-solid fa-lock"></i>
+										))}
+								</div>
+
 								<div className="option">
 									<i
 										className="fa-solid fa-ellipsis"
@@ -607,6 +619,18 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 
 							<div id="right">
+								<div className="privacy-icon">
+									{(getPPrivacy === "Public" && (
+										<i className="fa-solid fa-earth-americas"></i>
+									)) ||
+										(getPPrivacy === "Friends" && (
+											<i className="fa-solid fa-user-group"></i>
+										)) ||
+										(getPPrivacy === "Only Me" && (
+											<i className="fa-solid fa-lock"></i>
+										))}
+								</div>
+
 								<div className="option">
 									<i
 										className="fa-solid fa-ellipsis"
