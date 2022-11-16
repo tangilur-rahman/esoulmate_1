@@ -41,6 +41,12 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
+		gender_privacy: {
+			type: String,
+			trim: true,
+			default: "Public"
+		},
+
 		password: {
 			type: String,
 			required: true,

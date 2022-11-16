@@ -1081,6 +1081,26 @@ const addReligion = async (req, res) => {
 	}
 };
 
+// for updating gender privacy
+const updateGenderPrivacy = async (req, res) => {
+	try {
+		const { gender_privacy } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					gender_privacy
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Update gender privacy successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -1116,5 +1136,6 @@ module.exports = {
 	addPhone,
 	deletePhone,
 	addLanguages,
-	addReligion
+	addReligion,
+	updateGenderPrivacy
 };

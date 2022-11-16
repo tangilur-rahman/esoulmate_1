@@ -17,6 +17,9 @@ const BasicInfo = ({ getProfile }) => {
 	// for religion input field toggle
 	const [religionT, setReligionT] = useState(false);
 
+	// for gender input field toggle
+	const [genderT, setGenderT] = useState(false);
+
 	// for getting languages input-fields value
 	const [getLanguages, setLanguages] = useState(getProfile?.languages || []);
 
@@ -28,6 +31,11 @@ const BasicInfo = ({ getProfile }) => {
 	// for setting religion privacy
 	const [getRPrivacy, setRPrivacy] = useState(
 		getProfile?.religion?.privacy || "Public"
+	);
+
+	// for setting gender privacy
+	const [getGPrivacy, setGPrivacy] = useState(
+		getProfile?.gender_privacy || "Public"
 	);
 
 	// for loading until fetching not complete
@@ -46,6 +54,8 @@ const BasicInfo = ({ getProfile }) => {
 		} else if (getSelectOp.name === "REdit") {
 			setReligion(getSelectOp.value.religion);
 			setRPrivacy(getSelectOp.value.privacy);
+		} else if (getSelectOp.name === "GEdit") {
+			setGPrivacy(getSelectOp.value.privacy);
 		}
 	}, [getSelectOp]);
 	// initialize basic info for editing end
@@ -58,6 +68,7 @@ const BasicInfo = ({ getProfile }) => {
 			setSelectOp({ name: "", value: "" });
 			setLanguageT(false);
 			setReligionT(false);
+			setGenderT(false);
 		}
 	};
 
@@ -185,6 +196,56 @@ const BasicInfo = ({ getProfile }) => {
 		}
 	};
 	// for add & update religion on server end
+
+	// for update gender-privacy on server start
+	const updateGenderPrivacy = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/update-gender-privacy?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify({
+						gender_privacy: getGPrivacy
+					}),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Updated your gender-privacy successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setGenderT("");
+					setSelectOp({ name: "", value: "" });
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for  update gender-privacy on server end
 
 	return (
 		<div className="row m-0">
@@ -444,6 +505,115 @@ const BasicInfo = ({ getProfile }) => {
 					)}
 					{/* displaying religion end */}
 					{/* religion end  */}
+
+					{/* gender start  */}
+					{/* input-fields showing start  */}
+					{(genderT || getSelectOp.name === "GEdit") && (
+						<div className="input-fields" ref={deleteRef}>
+							{getSelectOp.name === "GEdit" && (
+								<p className="modify-fields">Edit Gender</p>
+							)}
+							<div className="form-floating mb-3">
+								<input
+									type="text"
+									className="form-control outline-sty"
+									id="gender"
+									placeholder="Gender"
+									value={getProfile.gender}
+									readOnly
+									style={{ textTransform: "capitalize" }}
+								/>
+								<label htmlFor="gender">Gender *</label>
+							</div>
+
+							<div className="submit-btn-con">
+								<div className="privacy-wrapper">
+									<PrivacyDropdown
+										getPrivacy={getGPrivacy}
+										setPrivacy={setGPrivacy}
+									/>
+								</div>
+
+								<div className="btn-container">
+									<button
+										type="button"
+										className="btn btn-light"
+										onClick={() => {
+											setGenderT(false);
+											setSelectOp({ name: "", value: "" });
+										}}
+									>
+										Cancel
+									</button>
+
+									{(genderT || getSelectOp.name === "GEdit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={updateGenderPrivacy}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Update"
+											)}
+										</button>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* input-fields showing end  */}
+
+					{/* displaying gender start  */}
+					{getProfile?.gender && (
+						<div className="displaying-contact-info">
+							<div id="left">
+								<i className="fa-solid fa-venus-mars"></i>
+								<div className="Edit">
+									<p id="up" style={{ textTransform: "capitalize" }}>
+										{getProfile?.gender}
+									</p>
+
+									<p id="down">Gender</p>
+								</div>
+							</div>
+
+							<div id="right">
+								<div className="privacy-icon">
+									{(getGPrivacy === "Public" && (
+										<i className="fa-solid fa-earth-americas"></i>
+									)) ||
+										(getGPrivacy === "Friends" && (
+											<i className="fa-solid fa-user-group"></i>
+										)) ||
+										(getGPrivacy === "Only Me" && (
+											<i className="fa-solid fa-lock"></i>
+										))}
+								</div>
+
+								<div className="option">
+									<i
+										className="fa-solid fa-pen-to-square option-icon"
+										onClick={() => {
+											setSelectOp({
+												name: "GEdit",
+												value: {
+													privacy: getProfile?.gender_privacy
+												}
+											});
+											genderT(false);
+										}}
+									></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* displaying gender end */}
+					{/* gender end  */}
 				</div>
 			</div>
 		</div>
