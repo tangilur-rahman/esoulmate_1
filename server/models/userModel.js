@@ -155,7 +155,15 @@ const schema = mongoose.Schema(
 			}
 		},
 
-		languages: Array
+		languages: Array,
+
+		religion: {
+			religion_name: String,
+			privacy: {
+				type: String,
+				default: "Public"
+			}
+		}
 	},
 	{ timestamps: true }
 );

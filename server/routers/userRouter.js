@@ -36,7 +36,8 @@ const {
 	deleteEmail,
 	addPhone,
 	deletePhone,
-	addLanguages
+	addLanguages,
+	addReligion
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -162,5 +163,8 @@ user.get("/about/delete-phone", deletePhone);
 
 // for adding & updating languages
 user.post("/about/add-language", authUser, addLanguages);
+
+// for adding & updating religion
+user.post("/about/add-religion", addReligion);
 
 module.exports = user;

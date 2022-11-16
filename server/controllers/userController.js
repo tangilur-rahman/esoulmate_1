@@ -1060,6 +1060,27 @@ const addLanguages = async (req, res) => {
 	}
 };
 
+// for adding & updating religion
+const addReligion = async (req, res) => {
+	try {
+		const { religion_name, privacy } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					"religion.religion_name": religion_name,
+					"religion.privacy": privacy
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add religion successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -1094,5 +1115,6 @@ module.exports = {
 	deleteEmail,
 	addPhone,
 	deletePhone,
-	addLanguages
+	addLanguages,
+	addReligion
 };
