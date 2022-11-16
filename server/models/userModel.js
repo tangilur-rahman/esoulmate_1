@@ -153,7 +153,9 @@ const schema = mongoose.Schema(
 				type: String,
 				default: ""
 			}
-		}
+		},
+
+		languages: Array
 	},
 	{ timestamps: true }
 );

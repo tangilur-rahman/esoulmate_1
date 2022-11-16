@@ -1048,6 +1048,18 @@ const deletePhone = async (req, res) => {
 	}
 };
 
+// for adding & updating languages
+const addLanguages = async (req, res) => {
+	try {
+		req.currentUser.languages = req.body.languages;
+		await req.currentUser.save();
+
+		res.status(200).json({ message: "Added language successfully" });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -1081,5 +1093,6 @@ module.exports = {
 	addEmail,
 	deleteEmail,
 	addPhone,
-	deletePhone
+	deletePhone,
+	addLanguages
 };
