@@ -19,9 +19,21 @@ const schema = mongoose.Schema(
 			trim: true
 		},
 
+		email_privacy: {
+			type: String,
+			trim: true,
+			default: "Public"
+		},
+
 		phone: {
 			type: String,
 			trim: true
+		},
+
+		phone_privacy: {
+			type: String,
+			trim: true,
+			default: "Public"
 		},
 
 		gender: {

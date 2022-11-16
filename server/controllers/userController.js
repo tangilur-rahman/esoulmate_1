@@ -971,13 +971,14 @@ const deleteCurrentLocation = async (req, res) => {
 // for adding & updating email
 const addEmail = async (req, res) => {
 	try {
-		const { email } = req.body;
+		const { email, email_privacy } = req.body;
 
 		await userModel.updateOne(
 			{ _id: req.query.id },
 			{
 				$set: {
-					email
+					email,
+					email_privacy
 				}
 			}
 		);
@@ -995,7 +996,8 @@ const deleteEmail = async (req, res) => {
 			{ _id: req.query.id },
 			{
 				$set: {
-					email: ""
+					email: "",
+					email_privacy: "Public"
 				}
 			}
 		);
@@ -1009,13 +1011,14 @@ const deleteEmail = async (req, res) => {
 // for adding & updating phone
 const addPhone = async (req, res) => {
 	try {
-		const { phone } = req.body;
+		const { phone, phone_privacy } = req.body;
 
 		await userModel.updateOne(
 			{ _id: req.query.id },
 			{
 				$set: {
-					phone
+					phone,
+					phone_privacy
 				}
 			}
 		);
@@ -1033,7 +1036,8 @@ const deletePhone = async (req, res) => {
 			{ _id: req.query.id },
 			{
 				$set: {
-					phone: ""
+					phone: "",
+					phone_privacy: "Public"
 				}
 			}
 		);

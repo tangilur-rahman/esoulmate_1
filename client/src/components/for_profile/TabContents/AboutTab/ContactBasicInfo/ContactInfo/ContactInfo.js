@@ -22,7 +22,12 @@ const ContactInfo = ({ getProfile }) => {
 	const [getPhone, setPhone] = useState("");
 
 	// for getting privacy
-	const [getPrivacy, setPrivacy] = useState("");
+	const [getEPrivacy, setEPrivacy] = useState(
+		getProfile?.email_privacy || "Public"
+	);
+	const [getPPrivacy, setPPrivacy] = useState(
+		getProfile?.phone_privacy || "Public"
+	);
 
 	// for loading until fetching not complete
 	const [isLoading, setIsLoading] = useState("");
@@ -92,7 +97,7 @@ const ContactInfo = ({ getProfile }) => {
 				`/user/about/add-email?id=${getProfile._id}`,
 				{
 					method: "POST",
-					body: JSON.stringify({ email: getEmail }),
+					body: JSON.stringify({ email: getEmail, email_privacy: getEPrivacy }),
 					headers: { "Content-Type": "application/json" }
 				}
 			);
@@ -190,7 +195,7 @@ const ContactInfo = ({ getProfile }) => {
 				`/user/about/add-phone?id=${getProfile._id}`,
 				{
 					method: "POST",
-					body: JSON.stringify({ phone: getPhone }),
+					body: JSON.stringify({ phone: getPhone, phone_privacy: getPPrivacy }),
 					headers: { "Content-Type": "application/json" }
 				}
 			);
@@ -293,6 +298,7 @@ const ContactInfo = ({ getProfile }) => {
 								setEmailT(true);
 								setPhoneT(false);
 								setEmail("");
+								setEPrivacy("Public");
 								setSelectOp({ name: "", value: "" });
 							}}
 						>
@@ -328,8 +334,8 @@ const ContactInfo = ({ getProfile }) => {
 							<div className="submit-btn-con">
 								<div className="privacy-wrapper">
 									<PrivacyDropdown
-										getPrivacy={getPrivacy}
-										setPrivacy={setPrivacy}
+										getPrivacy={getEPrivacy}
+										setPrivacy={setEPrivacy}
 									/>
 								</div>
 								<div className="btn-container">
@@ -340,6 +346,7 @@ const ContactInfo = ({ getProfile }) => {
 											setEmailT(false);
 											setEmail("");
 											setSelectOp({ name: "", value: "" });
+											setEPrivacy(getProfile.email_privacy);
 										}}
 									>
 										Cancel
@@ -507,6 +514,7 @@ const ContactInfo = ({ getProfile }) => {
 								setEmailT(false);
 								setPhoneT(true);
 								setPhone("");
+								setPPrivacy("Public");
 								setSelectOp({ name: "", value: "" });
 							}}
 						>
@@ -542,8 +550,8 @@ const ContactInfo = ({ getProfile }) => {
 							<div className="submit-btn-con">
 								<div className="privacy-wrapper">
 									<PrivacyDropdown
-										getPrivacy={getPrivacy}
-										setPrivacy={setPrivacy}
+										getPrivacy={getPPrivacy}
+										setPrivacy={setPPrivacy}
 									/>
 								</div>
 
@@ -555,6 +563,7 @@ const ContactInfo = ({ getProfile }) => {
 											setPhoneT(false);
 											setPhone("");
 											setSelectOp({ name: "", value: "" });
+											setPPrivacy(getProfile.phone_privacy);
 										}}
 									>
 										Cancel
