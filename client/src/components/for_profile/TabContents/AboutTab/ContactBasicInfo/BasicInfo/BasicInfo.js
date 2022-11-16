@@ -150,7 +150,7 @@ const BasicInfo = ({ getProfile }) => {
 
 			if (response.status === 200) {
 				toast.success(
-					getSelectOp.name === "LEdit"
+					getSelectOp.name === "REdit"
 						? "Updated your religion successfully."
 						: "Added your religion successfully.",
 					{

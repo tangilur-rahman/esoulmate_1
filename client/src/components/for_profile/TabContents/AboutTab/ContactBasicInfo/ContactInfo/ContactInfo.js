@@ -48,8 +48,10 @@ const ContactInfo = ({ getProfile }) => {
 	useEffect(() => {
 		if (getSelectOp.name === "EEdit") {
 			setEmail(getSelectOp.value.email);
+			setEPrivacy(getSelectOp.value.privacy);
 		} else if (getSelectOp.name === "PEdit") {
 			setPhone(getSelectOp.value.phone);
+			setPPrivacy(getSelectOp.value.privacy);
 		}
 	}, [getSelectOp]);
 	// initialize hometown info for editing end
@@ -422,7 +424,8 @@ const ContactInfo = ({ getProfile }) => {
 													setSelectOp({
 														name: "EEdit",
 														value: {
-															email: getProfile.email
+															email: getProfile.email,
+															privacy: getProfile.email_privacy
 														}
 													});
 													setEmailT(false);
@@ -645,7 +648,8 @@ const ContactInfo = ({ getProfile }) => {
 													setSelectOp({
 														name: "PEdit",
 														value: {
-															phone: getProfile.phone
+															phone: getProfile.phone,
+															privacy: getProfile.phone_privacy
 														}
 													});
 													setEmailT(false);
