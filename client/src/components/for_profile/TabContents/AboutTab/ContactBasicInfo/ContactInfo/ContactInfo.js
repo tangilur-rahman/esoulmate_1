@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 // internal components
 import { GetContextApi } from "../../../../../../ContextApi";
 import "./ContactInfo.css";
+import PrivacyDropdown from "./PrivacyDropdown/PrivacyDropdown";
 
 const ContactInfo = ({ getProfile }) => {
 	// for updating profile-page
@@ -19,6 +20,9 @@ const ContactInfo = ({ getProfile }) => {
 	// for getting input-fields value
 	const [getEmail, setEmail] = useState("");
 	const [getPhone, setPhone] = useState("");
+
+	// for getting privacy
+	const [getPrivacy, setPrivacy] = useState("");
 
 	// for loading until fetching not complete
 	const [isLoading, setIsLoading] = useState("");
@@ -322,43 +326,51 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 
 							<div className="submit-btn-con">
-								<button
-									type="button"
-									className="btn btn-light"
-									onClick={() => {
-										setEmailT(false);
-										setEmail("");
-										setSelectOp({ name: "", value: "" });
-									}}
-								>
-									Cancel
-								</button>
-
-								{(emailT || getSelectOp.name === "EEdit") && (
+								<div className="privacy-wrapper">
+									<PrivacyDropdown
+										getPrivacy={getPrivacy}
+										setPrivacy={setPrivacy}
+									/>
+								</div>
+								<div className="btn-container">
 									<button
 										type="button"
-										className="btn btn-primary"
-										onClick={addEmail}
-										disabled={
-											getEmail &&
-											getEmail.includes("@") &&
-											getEmail.includes(".")
-												? false
-												: true
-										}
+										className="btn btn-light"
+										onClick={() => {
+											setEmailT(false);
+											setEmail("");
+											setSelectOp({ name: "", value: "" });
+										}}
 									>
-										{isLoading ? (
-											<i
-												className="fa-solid fa-spinner fa-spin"
-												id="loading"
-											></i>
-										) : getSelectOp.name === "EEdit" ? (
-											"Update"
-										) : (
-											"Submit"
-										)}
+										Cancel
 									</button>
-								)}
+
+									{(emailT || getSelectOp.name === "EEdit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={addEmail}
+											disabled={
+												getEmail &&
+												getEmail.includes("@") &&
+												getEmail.includes(".")
+													? false
+													: true
+											}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : getSelectOp.name === "EEdit" ? (
+												"Update"
+											) : (
+												"Submit"
+											)}
+										</button>
+									)}
+								</div>
 							</div>
 						</div>
 					)}
@@ -528,37 +540,46 @@ const ContactInfo = ({ getProfile }) => {
 							</div>
 
 							<div className="submit-btn-con">
-								<button
-									type="button"
-									className="btn btn-light"
-									onClick={() => {
-										setPhoneT(false);
-										setPhone("");
-										setSelectOp({ name: "", value: "" });
-									}}
-								>
-									Cancel
-								</button>
+								<div className="privacy-wrapper">
+									<PrivacyDropdown
+										getPrivacy={getPrivacy}
+										setPrivacy={setPrivacy}
+									/>
+								</div>
 
-								{(phoneT || getSelectOp.name === "PEdit") && (
+								<div className="btn-container">
 									<button
 										type="button"
-										className="btn btn-primary"
-										onClick={addPhone}
-										disabled={getPhone ? false : true}
+										className="btn btn-light"
+										onClick={() => {
+											setPhoneT(false);
+											setPhone("");
+											setSelectOp({ name: "", value: "" });
+										}}
 									>
-										{isLoading ? (
-											<i
-												className="fa-solid fa-spinner fa-spin"
-												id="loading"
-											></i>
-										) : getSelectOp.name === "PEdit" ? (
-											"Update"
-										) : (
-											"Submit"
-										)}
+										Cancel
 									</button>
-								)}
+
+									{(phoneT || getSelectOp.name === "PEdit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={addPhone}
+											disabled={getPhone ? false : true}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : getSelectOp.name === "PEdit" ? (
+												"Update"
+											) : (
+												"Submit"
+											)}
+										</button>
+									)}
+								</div>
 							</div>
 						</div>
 					)}

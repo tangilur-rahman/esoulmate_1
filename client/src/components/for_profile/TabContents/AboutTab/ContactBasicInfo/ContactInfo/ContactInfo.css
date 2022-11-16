@@ -75,7 +75,7 @@
 /* submit btn style start  */
 .contact-container .input-fields .submit-btn-con {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	padding: 10px 0 0 0;
 	margin-top: 10px;
 }
