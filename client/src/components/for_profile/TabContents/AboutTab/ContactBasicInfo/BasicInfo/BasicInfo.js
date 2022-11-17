@@ -331,7 +331,7 @@ const BasicInfo = ({ getProfile }) => {
 
 					{/* displaying language start  */}
 					{getProfile?.languages?.length > 0 && (
-						<div className="displaying-contact-info">
+						<div className="displaying-contact-info" id="dec-space">
 							<div id="left">
 								<i className="fa-solid fa-language"></i>
 								<div className="Edit">

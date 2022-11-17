@@ -110,11 +110,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 10px;
+	margin-top: 16px;
 }
 
-.basic-container .displaying-contact-info#c-location {
-	margin-top: 16px;
+.basic-container .displaying-contact-info#dec-space {
+	margin-top: 10px;
 }
 
 /*  #left start  */
