@@ -185,6 +185,7 @@
 	align-items: center;
 	cursor: pointer;
 	position: relative;
+	margin-top: -5px;
 }
 
 .contact-container .displaying-contact-info #right .option i {
