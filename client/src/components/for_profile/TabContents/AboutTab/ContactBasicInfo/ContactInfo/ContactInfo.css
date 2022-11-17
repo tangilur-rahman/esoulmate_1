@@ -125,9 +125,8 @@
 }
 
 .contact-container .displaying-contact-info img {
-	width: 31px;
-	height: 31px;
-	opacity: 0.8;
+	width: 35px;
+	height: 35px;
 	object-fit: fill;
 }
 
