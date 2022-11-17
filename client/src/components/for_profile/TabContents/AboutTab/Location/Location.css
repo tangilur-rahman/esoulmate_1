@@ -117,10 +117,10 @@
 	flex-grow: 1;
 }
 
-.location-container .displaying-location #left i {
-	font-size: 33px;
+.location-container .displaying-location #left img {
+	width: 35px;
+	height: 35px;
 	opacity: 0.8;
-	color: #354f52;
 }
 
 .location-container .displaying-location #left i#c-icon {

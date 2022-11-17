@@ -394,7 +394,11 @@ const Location = ({ getProfile }) => {
 					{getProfile.hometown?.city && (
 						<div className="displaying-location">
 							<div id="left">
-								<i className="fa-solid fa-house-chimney-window"></i>
+								<img
+									src="/assets/icon/Hometown.png"
+									alt="Hometown icon"
+									className="img-fluid"
+								/>
 								<div className="Edit">
 									<p id="up">
 										{getProfile.hometown?.city},&nbsp;
@@ -610,7 +614,12 @@ const Location = ({ getProfile }) => {
 					{getProfile.current_city?.city && (
 						<div className="displaying-location" id="c-location">
 							<div id="left">
-								<i className="fa-solid fa-location-dot" id="c-icon"></i>
+								<img
+									src="/assets/icon/Current-city.png"
+									alt="current-city icon"
+									className="img-fluid"
+								/>
+
 								<div className="Edit">
 									<p id="up">
 										{getProfile.current_city?.city},&nbsp;
