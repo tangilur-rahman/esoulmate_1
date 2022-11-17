@@ -566,7 +566,11 @@ const BasicInfo = ({ getProfile }) => {
 					{getProfile?.religion?.religion_name && (
 						<div className="displaying-contact-info">
 							<div id="left">
-								<i className="fa-solid fa-hands-praying"></i>
+								<img
+									src="/assets/icon/Religion.png"
+									alt="religion icon"
+									className="img-fluid"
+								/>
 								<div className="Edit">
 									<p id="up">{getProfile?.religion.religion_name}</p>
 
@@ -672,7 +676,11 @@ const BasicInfo = ({ getProfile }) => {
 					{getProfile?.gender && (
 						<div className="displaying-contact-info">
 							<div id="left">
-								<i className="fa-solid fa-venus-mars"></i>
+								<img
+									src="/assets/icon/Gender.png"
+									alt="gender icon"
+									className="img-fluid"
+								/>
 								<div className="Edit">
 									<p id="up" style={{ textTransform: "capitalize" }}>
 										{getProfile?.gender}
@@ -779,7 +787,11 @@ const BasicInfo = ({ getProfile }) => {
 					{getProfile?.date_of_birth && (
 						<div className="displaying-contact-info">
 							<div id="left">
-								<i className="fa-solid fa-cake-candles" id="birthday-icon"></i>
+								<img
+									src="/assets/icon/Birthday.png"
+									alt="birthday icon"
+									className="img-fluid"
+								/>
 								<div className="Edit" id="birthday-display">
 									<p id="up" style={{ textTransform: "capitalize" }}>
 										{displayingDOB(getProfile?.date_of_birth)}

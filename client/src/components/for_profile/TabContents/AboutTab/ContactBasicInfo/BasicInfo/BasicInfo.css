@@ -128,10 +128,11 @@
 	flex-grow: 1;
 }
 
-.basic-container .displaying-contact-info #left i {
-	font-size: 33px;
+.basic-container .displaying-contact-info #left img {
+	width: 35px;
+	height: 35px;
 	opacity: 0.8;
-	color: #354f52;
+	object-fit: fill;
 }
 
 .basic-container .displaying-contact-info .Edit {
