@@ -528,6 +528,7 @@ const BasicInfo = ({ getProfile }) => {
 											setReligionT(false);
 											setReligion("");
 											setSelectOp({ name: "", value: "" });
+											setRPrivacy(getProfile.religion.privacy);
 										}}
 									>
 										Cancel
@@ -638,6 +639,7 @@ const BasicInfo = ({ getProfile }) => {
 										onClick={() => {
 											setGenderT(false);
 											setSelectOp({ name: "", value: "" });
+											setGPrivacy(getProfile.gender_privacy);
 										}}
 									>
 										Cancel
@@ -747,6 +749,7 @@ const BasicInfo = ({ getProfile }) => {
 										onClick={() => {
 											setBirthT(false);
 											setSelectOp({ name: "", value: "" });
+											setBPrivacy(getProfile.date_of_birth_privacy);
 										}}
 									>
 										Cancel
