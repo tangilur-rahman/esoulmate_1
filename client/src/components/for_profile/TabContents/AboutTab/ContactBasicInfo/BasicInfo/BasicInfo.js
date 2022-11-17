@@ -356,10 +356,10 @@ const BasicInfo = ({ getProfile }) => {
 							className="add-new"
 							onClick={() => {
 								setLanguageT(true);
-								// setPhoneT(false);
 								setLanguages("");
 								setSelectOp({ name: "", value: "" });
 							}}
+							style={{ display: "none" }}
 						>
 							{languageT ? (
 								<p style={{ color: "black", margin: "0" }}>Languages</p>
@@ -428,7 +428,11 @@ const BasicInfo = ({ getProfile }) => {
 
 					{/* displaying language start  */}
 					{getProfile?.languages?.length > 0 && (
-						<div className="displaying-contact-info" id="dec-space">
+						<div
+							className="displaying-contact-info"
+							id="dec-space"
+							style={{ display: "none" }}
+						>
 							<div id="left">
 								<i className="fa-solid fa-language"></i>
 								<div className="Edit">
