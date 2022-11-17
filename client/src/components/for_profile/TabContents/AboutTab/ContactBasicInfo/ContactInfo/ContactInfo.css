@@ -150,6 +150,17 @@
 	font-weight: 500;
 }
 
+.contact-container .displaying-contact-info #up #link-email {
+	color: black;
+	text-decoration: none;
+}
+
+.contact-container .displaying-contact-info #up #link-email:hover {
+	color: #3185f3;
+	text-decoration: underline;
+	transition: all 0.3s;
+}
+
 .contact-container .displaying-contact-info #down {
 	display: flex;
 	align-items: center;

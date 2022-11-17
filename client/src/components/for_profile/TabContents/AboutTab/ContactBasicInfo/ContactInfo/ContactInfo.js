@@ -391,7 +391,11 @@ const ContactInfo = ({ getProfile }) => {
 							<div id="left">
 								<i className="fa-solid fa-at"></i>
 								<div className="Edit">
-									<p id="up">{getProfile.email}</p>
+									<p id="up">
+										<a href={`mailto:${getProfile.email}`} id="link-email">
+											{getProfile.email}
+										</a>
+									</p>
 
 									<p id="down">Email</p>
 								</div>
