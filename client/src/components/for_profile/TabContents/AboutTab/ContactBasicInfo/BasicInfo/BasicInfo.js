@@ -20,6 +20,9 @@ const BasicInfo = ({ getProfile }) => {
 	// for gender input field toggle
 	const [genderT, setGenderT] = useState(false);
 
+	// for DOB input field toggle
+	const [birthT, setBirthT] = useState(false);
+
 	// for getting languages input-fields value
 	const [getLanguages, setLanguages] = useState(getProfile?.languages || []);
 
@@ -36,6 +39,11 @@ const BasicInfo = ({ getProfile }) => {
 	// for setting gender privacy
 	const [getGPrivacy, setGPrivacy] = useState(
 		getProfile?.gender_privacy || "Public"
+	);
+
+	// for setting DOB privacy
+	const [getBPrivacy, setBPrivacy] = useState(
+		getProfile?.date_of_birth_privacy || "Public"
 	);
 
 	// for loading until fetching not complete
@@ -56,6 +64,8 @@ const BasicInfo = ({ getProfile }) => {
 			setRPrivacy(getSelectOp.value.privacy);
 		} else if (getSelectOp.name === "GEdit") {
 			setGPrivacy(getSelectOp.value.privacy);
+		} else if (getSelectOp.name === "BEdit") {
+			setBPrivacy(getSelectOp.value.privacy);
 		}
 	}, [getSelectOp]);
 	// initialize basic info for editing end
@@ -69,6 +79,7 @@ const BasicInfo = ({ getProfile }) => {
 			setLanguageT(false);
 			setReligionT(false);
 			setGenderT(false);
+			setBirthT(false);
 		}
 	};
 
@@ -216,7 +227,7 @@ const BasicInfo = ({ getProfile }) => {
 			const result = await response.json();
 
 			if (response.status === 200) {
-				toast.success("Updated your gender-privacy successfully.", {
+				toast.success("Updated your gender privacy successfully.", {
 					position: "top-right",
 					theme: "colored",
 					autoClose: 2000
@@ -246,6 +257,92 @@ const BasicInfo = ({ getProfile }) => {
 		}
 	};
 	// for  update gender-privacy on server end
+
+	// for update dob-privacy on server start
+	const updateDOBPrivacy = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/update-dob-privacy?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify({
+						date_of_birth_privacy: getBPrivacy
+					}),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success("Updated your DOB privacy successfully.", {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 2000
+				});
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setBirthT("");
+					setSelectOp({ name: "", value: "" });
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for  update dob-privacy on server end
+
+	// for displaying dob start
+	// for displaying full month-name
+	const fullMonth = (value) => {
+		if (value === "Jan") {
+			return "January";
+		} else if (value === "Feb") {
+			return "February";
+		} else if (value === "Mar") {
+			return "March";
+		} else if (value === "Apr") {
+			return "April";
+		} else if (value === "May") {
+			return "May";
+		} else if (value === "June") {
+			return "June";
+		} else if (value === "July") {
+			return "July";
+		} else if (value === "Aug") {
+			return "August";
+		} else if (value === "Sept") {
+			return "September";
+		} else if (value === "Oct") {
+			return "October";
+		} else if (value === "Nov") {
+			return "November";
+		} else if (value === "Dec") {
+			return "December";
+		}
+	};
+
+	const displayingDOB = (date) => {
+		const dobArr = date.split("-");
+		return fullMonth(dobArr[1]) + " " + dobArr[0] + ", " + dobArr[2];
+	};
+	// for displaying dob end
 
 	return (
 		<div className="row m-0">
@@ -496,7 +593,7 @@ const BasicInfo = ({ getProfile }) => {
 													privacy: getProfile?.religion?.privacy
 												}
 											});
-											religionT(false);
+											setReligionT(false);
 										}}
 									></i>
 								</div>
@@ -605,7 +702,7 @@ const BasicInfo = ({ getProfile }) => {
 													privacy: getProfile?.gender_privacy
 												}
 											});
-											genderT(false);
+											setGenderT(false);
 										}}
 									></i>
 								</div>
@@ -614,6 +711,115 @@ const BasicInfo = ({ getProfile }) => {
 					)}
 					{/* displaying gender end */}
 					{/* gender end  */}
+
+					{/* date of birth start  */}
+					{/* input-fields showing start  */}
+					{(birthT || getSelectOp.name === "BEdit") && (
+						<div className="input-fields" ref={deleteRef}>
+							{getSelectOp.name === "BEdit" && (
+								<p className="modify-fields">Edit Date Of Birth</p>
+							)}
+							<div className="form-floating mb-3">
+								<input
+									type="text"
+									className="form-control outline-sty"
+									id="dob"
+									placeholder="Date Of Birth"
+									value={displayingDOB(getProfile.date_of_birth)}
+									readOnly
+									style={{ textTransform: "capitalize" }}
+								/>
+								<label htmlFor="dob">Date Of Birth *</label>
+							</div>
+
+							<div className="submit-btn-con">
+								<div className="privacy-wrapper">
+									<PrivacyDropdown
+										getPrivacy={getBPrivacy}
+										setPrivacy={setBPrivacy}
+									/>
+								</div>
+
+								<div className="btn-container">
+									<button
+										type="button"
+										className="btn btn-light"
+										onClick={() => {
+											setBirthT(false);
+											setSelectOp({ name: "", value: "" });
+										}}
+									>
+										Cancel
+									</button>
+
+									{(birthT || getSelectOp.name === "BEdit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={updateDOBPrivacy}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : (
+												"Update"
+											)}
+										</button>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* input-fields showing end  */}
+
+					{/* displaying date of birth start  */}
+					{getProfile?.date_of_birth && (
+						<div className="displaying-contact-info">
+							<div id="left">
+								<i className="fa-solid fa-cake-candles" id="birthday-icon"></i>
+								<div className="Edit" id="birthday-display">
+									<p id="up" style={{ textTransform: "capitalize" }}>
+										{displayingDOB(getProfile?.date_of_birth)}
+									</p>
+
+									<p id="down">Date of birth</p>
+								</div>
+							</div>
+
+							<div id="right">
+								<div className="privacy-icon">
+									{(getBPrivacy === "Public" && (
+										<i className="fa-solid fa-earth-americas"></i>
+									)) ||
+										(getBPrivacy === "Friends" && (
+											<i className="fa-solid fa-user-group"></i>
+										)) ||
+										(getBPrivacy === "Only Me" && (
+											<i className="fa-solid fa-lock"></i>
+										))}
+								</div>
+
+								<div className="option">
+									<i
+										className="fa-solid fa-pen-to-square option-icon"
+										onClick={() => {
+											setSelectOp({
+												name: "BEdit",
+												value: {
+													privacy: getProfile?.date_of_birth_privacy
+												}
+											});
+											setBirthT(false);
+										}}
+									></i>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* displaying date of birth end */}
+					{/* date of birth end  */}
 				</div>
 			</div>
 		</div>

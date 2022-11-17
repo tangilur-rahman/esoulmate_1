@@ -117,6 +117,10 @@
 	margin-top: 10px;
 }
 
+.basic-container .displaying-contact-info #birthday-icon {
+	margin-left: 5px;
+}
+
 /*  #left start  */
 .basic-container .displaying-contact-info #left {
 	display: flex;
@@ -134,6 +138,10 @@
 	margin-left: 15px;
 	margin-top: -5px;
 	width: 100%;
+}
+
+.basic-container .displaying-contact-info .Edit#birthday-display {
+	margin-left: 21px;
 }
 
 .basic-container .displaying-contact-info #up {
