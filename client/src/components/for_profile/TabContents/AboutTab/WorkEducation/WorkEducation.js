@@ -1484,7 +1484,11 @@ const WorkEducation = ({ getProfile }) => {
 									return (
 										<div className="a-work" key={index}>
 											<div id="left">
-												<i className="fa-solid fa-briefcase"></i>
+												<img
+													src="/assets/icon/Workplace.png"
+													alt="workplace icon"
+													className="img-fluid"
+												/>
 												<div className="Edit">
 													<p id="up">
 														<h6>{value.position ? value.position : "Work"}</h6>
@@ -1987,7 +1991,11 @@ const WorkEducation = ({ getProfile }) => {
 									return (
 										<div className="a-work" key={index}>
 											<div id="left">
-												<i className="fa-solid fa-graduation-cap"></i>
+												<img
+													src="/assets/icon/University.png"
+													alt="university-icon"
+													className="img-fluid"
+												/>
 												<div className="Edit">
 													<p id="up">
 														{value.toYear ? "Studied" : "Studies"}&nbsp;
@@ -2472,7 +2480,11 @@ const WorkEducation = ({ getProfile }) => {
 									return (
 										<div className="a-work" key={index}>
 											<div id="left">
-												<i className="fa-solid fa-graduation-cap"></i>
+												<img
+													src="/assets/icon/College.png"
+													alt="college icon"
+													className="img-fluid"
+												/>
 												<div className="Edit">
 													<p id="up">
 														{value.toYear ? "Studied" : "Studies"}
@@ -2951,7 +2963,11 @@ const WorkEducation = ({ getProfile }) => {
 									return (
 										<div className="a-work" key={index}>
 											<div id="left">
-												<i className="fa-solid fa-graduation-cap"></i>
+												<img
+													src="/assets/icon/School.png"
+													alt="school icon"
+													className="img-fluid"
+												/>
 												<div className="Edit">
 													<p id="up">
 														{value.toYear ? "Studied" : "Studies"}

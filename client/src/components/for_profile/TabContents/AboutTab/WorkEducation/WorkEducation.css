@@ -159,10 +159,10 @@
 	flex-grow: 1;
 }
 
-.work-container .displaying-work .a-work #left i {
-	font-size: 33px;
+.work-container .displaying-work .a-work #left img {
+	width: 35px;
+	height: 35px;
 	opacity: 0.8;
-	color: #354f52;
 }
 
 .work-container .displaying-work .a-work .Edit {
