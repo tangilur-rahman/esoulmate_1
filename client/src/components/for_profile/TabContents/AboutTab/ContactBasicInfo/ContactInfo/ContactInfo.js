@@ -70,7 +70,7 @@ const ContactInfo = ({ getProfile }) => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
-	// for close option when click outside  start
+	// for close option when click outside  end
 
 	// for close delete popup when click outside start
 	const deleteRef = useRef();
