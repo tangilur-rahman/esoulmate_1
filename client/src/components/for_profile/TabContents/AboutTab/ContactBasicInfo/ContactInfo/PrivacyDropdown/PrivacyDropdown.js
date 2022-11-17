@@ -10,10 +10,8 @@ const PrivacyDropdown = ({ getPrivacy, setPrivacy }) => {
 	const displayPrivacy = () => {
 		if (getPrivacy === "Public") {
 			return "🌍 Public";
-		} else if (getPrivacy === "Friends") {
-			return "👨‍👧‍👦 Friends";
-		} else if (getPrivacy === "Only Me") {
-			return "🔒 Only Me";
+		} else if (getPrivacy === "Followers") {
+			return "👨‍👩‍👧‍👦 Followers";
 		} else {
 			return "";
 		}
@@ -55,12 +53,8 @@ const PrivacyDropdown = ({ getPrivacy, setPrivacy }) => {
 					<div onClick={() => setPrivacy("Public")}>
 						<span>🌍 &nbsp;Public</span>
 					</div>
-					<div onClick={() => setPrivacy("Friends")}>
-						<span>👨‍👧‍👦 &nbsp;Friends</span>
-					</div>
-
-					<div onClick={() => setPrivacy("Only Me")}>
-						<span>🔒 &nbsp;Only Me</span>
+					<div onClick={() => setPrivacy("Followers")}>
+						<span>👨‍👩‍👧‍👦 &nbsp;Followers</span>
 					</div>
 				</div>
 			</div>

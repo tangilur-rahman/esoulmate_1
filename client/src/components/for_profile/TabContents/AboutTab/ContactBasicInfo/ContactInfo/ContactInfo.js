@@ -406,11 +406,8 @@ const ContactInfo = ({ getProfile }) => {
 									{(getEPrivacy === "Public" && (
 										<i className="fa-solid fa-earth-americas"></i>
 									)) ||
-										(getEPrivacy === "Friends" && (
+										(getEPrivacy === "Followers" && (
 											<i className="fa-solid fa-user-group"></i>
-										)) ||
-										(getEPrivacy === "Only Me" && (
-											<i className="fa-solid fa-lock"></i>
 										))}
 								</div>
 
@@ -630,11 +627,8 @@ const ContactInfo = ({ getProfile }) => {
 									{(getPPrivacy === "Public" && (
 										<i className="fa-solid fa-earth-americas"></i>
 									)) ||
-										(getPPrivacy === "Friends" && (
+										(getPPrivacy === "Followers" && (
 											<i className="fa-solid fa-user-group"></i>
-										)) ||
-										(getPPrivacy === "Only Me" && (
-											<i className="fa-solid fa-lock"></i>
 										))}
 								</div>
 

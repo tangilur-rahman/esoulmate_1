@@ -575,11 +575,8 @@ const BasicInfo = ({ getProfile }) => {
 									{(getRPrivacy === "Public" && (
 										<i className="fa-solid fa-earth-americas"></i>
 									)) ||
-										(getRPrivacy === "Friends" && (
+										(getRPrivacy === "Followers" && (
 											<i className="fa-solid fa-user-group"></i>
-										)) ||
-										(getRPrivacy === "Only Me" && (
-											<i className="fa-solid fa-lock"></i>
 										))}
 								</div>
 
@@ -686,11 +683,8 @@ const BasicInfo = ({ getProfile }) => {
 									{(getGPrivacy === "Public" && (
 										<i className="fa-solid fa-earth-americas"></i>
 									)) ||
-										(getGPrivacy === "Friends" && (
+										(getGPrivacy === "Followers" && (
 											<i className="fa-solid fa-user-group"></i>
-										)) ||
-										(getGPrivacy === "Only Me" && (
-											<i className="fa-solid fa-lock"></i>
 										))}
 								</div>
 
@@ -796,11 +790,8 @@ const BasicInfo = ({ getProfile }) => {
 									{(getBPrivacy === "Public" && (
 										<i className="fa-solid fa-earth-americas"></i>
 									)) ||
-										(getBPrivacy === "Friends" && (
+										(getBPrivacy === "Followers" && (
 											<i className="fa-solid fa-user-group"></i>
-										)) ||
-										(getBPrivacy === "Only Me" && (
-											<i className="fa-solid fa-lock"></i>
 										))}
 								</div>
 
