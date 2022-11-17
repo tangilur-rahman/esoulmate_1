@@ -163,6 +163,7 @@
 	width: 35px;
 	height: 35px;
 	opacity: 0.8;
+	object-fit: fill;
 }
 
 .work-container .displaying-work .a-work .Edit {

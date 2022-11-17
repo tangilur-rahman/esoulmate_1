@@ -389,7 +389,11 @@ const ContactInfo = ({ getProfile }) => {
 					{getProfile?.email && (
 						<div className="displaying-contact-info">
 							<div id="left">
-								<i className="fa-solid fa-at"></i>
+								<img
+									src="/assets/icon/Email.png"
+									alt="email icon"
+									className="img-fluid"
+								/>
 								<div className="Edit">
 									<p id="up">
 										<a href={`mailto:${getProfile.email}`} id="link-email">
@@ -614,7 +618,12 @@ const ContactInfo = ({ getProfile }) => {
 					{getProfile.phone && (
 						<div className="displaying-contact-info" id="c-location">
 							<div id="left">
-								<i className="fa-solid fa-phone" id="c-icon"></i>
+								<img
+									src="/assets/icon/Contact-number.png"
+									alt="contact-number icon"
+									className="img-fluid"
+								/>
+
 								<div className="Edit">
 									<p id="up">{getProfile.phone}</p>
 
