@@ -63,6 +63,10 @@
 	box-shadow: var(--box-shadow);
 	font-weight: 500;
 }
+
+.right-about-con .about-you-container .input-fields .when-details {
+	resize: vertical;
+}
 /* input fields style end */
 
 /* submit btn style start  */

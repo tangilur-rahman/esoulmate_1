@@ -187,7 +187,12 @@ const schema = mongoose.Schema(
 			{
 				quote: String
 			}
-		]
+		],
+
+		details: {
+			type: String,
+			trim: true
+		}
 	},
 	{ timestamps: true }
 );

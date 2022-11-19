@@ -10,11 +10,17 @@ const AboutYou = ({ getProfile }) => {
 	// for updating profile-page
 	const { setUpdateProfile } = GetContextApi();
 
+	// for description input field toggle
+	const [detailsT, setDetailsT] = useState(false);
+
 	// for nick-name input fields toggle
 	const [nickT, setNickT] = useState(false);
 
 	// for quotation input fields toggle
 	const [quoteT, setQuoteT] = useState(false);
+
+	// for getting description input-fields value
+	const [getDetails, setDetails] = useState(getProfile?.details || "");
 
 	// for getting nick-name's input-field value
 	const [getNick, setNick] = useState("");
@@ -59,6 +65,8 @@ const AboutYou = ({ getProfile }) => {
 			setQuote(getSelectOp.value.quote);
 		} else if (getSelectOp.name === "NEdit") {
 			setNick(getSelectOp.value.nickname);
+		} else if (getSelectOp.name === "DEdit") {
+			setDetails(getSelectOp.value);
 		}
 	}, [getSelectOp]);
 	// initialize hometown info for editing end
@@ -71,6 +79,7 @@ const AboutYou = ({ getProfile }) => {
 			setSelectOp({ name: "", value: "" });
 			setQuoteT(false);
 			setNickT(false);
+			setDetailsT(false);
 		}
 	};
 
@@ -80,6 +89,62 @@ const AboutYou = ({ getProfile }) => {
 			document.removeEventListener("mousedown", handleClickOutsideDel);
 	}, []);
 	// for close delete popup when click outside  start
+
+	// for add & update description on server start
+	const addDetails = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/add-details?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify({
+						details: getDetails
+					}),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success(
+					getSelectOp.name === "DEdit"
+						? "Updated your description successfully."
+						: "Added your description successfully.",
+					{
+						position: "top-right",
+						theme: "colored",
+						autoClose: 2000
+					}
+				);
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setDetails("");
+					setDetailsT("");
+					setSelectOp({ name: "", value: "" });
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for add & update religion on server end
 
 	// for add nickname on server start
 	const addNickname = async () => {
@@ -371,6 +436,117 @@ const AboutYou = ({ getProfile }) => {
 				<div className="about-you-container">
 					<h5>About You</h5>
 
+					{/* details start  */}
+					{!getProfile?.details && (
+						<div
+							className="add-new"
+							onClick={() => {
+								setNickT(false);
+								setQuoteT(false);
+								setDetailsT(true);
+								setDetails("");
+								setSelectOp({ name: "", value: "" });
+							}}
+						>
+							{detailsT ? (
+								<p style={{ color: "black", margin: "0" }}>Details About You</p>
+							) : (
+								<>
+									<i className="bi bi-plus-circle-dotted"></i>
+									<p>Write some details about yourself</p>
+								</>
+							)}
+						</div>
+					)}
+
+					{/* input-fields showing start  */}
+					{(detailsT || getSelectOp.name === "DEdit") && (
+						<div className="input-fields" ref={deleteRef}>
+							{getSelectOp.name === "DEdit" && (
+								<p className="modify-fields">Edit Description</p>
+							)}
+							<div className="form-floating mb-3">
+								<textarea
+									type="text"
+									className="form-control outline-sty when-details"
+									id="description"
+									placeholder="Description"
+									onChange={(e) => setDetails(e.target.value)}
+									value={getDetails}
+								/>
+								<label htmlFor="description">Description *</label>
+							</div>
+
+							<div className="submit-btn-con">
+								<div className="btn-container">
+									<button
+										type="button"
+										className="btn btn-light"
+										onClick={() => {
+											setDetailsT(false);
+											setDetails("");
+											setSelectOp({ name: "", value: "" });
+										}}
+									>
+										Cancel
+									</button>
+
+									{(detailsT || getSelectOp.name === "DEdit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={addDetails}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : getSelectOp.name === "DEdit" ? (
+												"Update"
+											) : (
+												"Submit"
+											)}
+										</button>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* input-fields showing end  */}
+
+					{/* displaying description start  */}
+					{getProfile?.details && (
+						<div className="displaying-quote">
+							<div className="a-work">
+								<div id="left">
+									<div className="Edit">
+										<p id="up">{getProfile?.details}</p>
+
+										<p id="down">Details about yourself</p>
+									</div>
+								</div>
+
+								<div id="right">
+									<div className="option">
+										<i
+											className="fa-solid fa-pen-to-square option-icon"
+											onClick={() => {
+												setSelectOp({
+													name: "DEdit",
+													value: getProfile?.details
+												});
+												setDetailsT(false);
+											}}
+										></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* displaying description end */}
+					{/* details end  */}
+
 					{/* nick-name start  */}
 					<div
 						className="add-new"
@@ -449,7 +625,7 @@ const AboutYou = ({ getProfile }) => {
 					)}
 					{/* input-fields showing end  */}
 
-					{/* displaying quotes start  */}
+					{/* displaying nickname start  */}
 					{getProfile?.nicknames?.length > 0 && (
 						<div className="displaying-quote">
 							{getProfile.nicknames.map((value, index) => {
@@ -519,7 +695,7 @@ const AboutYou = ({ getProfile }) => {
 							})}
 						</div>
 					)}
-					{/* displaying details end */}
+					{/* displaying nickname end */}
 
 					{/* conform popup for delete nick-name start  */}
 					{getSelectOp.name === "NDelete" && (
@@ -725,7 +901,7 @@ const AboutYou = ({ getProfile }) => {
 							})}
 						</div>
 					)}
-					{/* displaying details end */}
+					{/* displaying quotation end */}
 
 					{/* conform popup for delete quote start  */}
 					{getSelectOp.name === "QDelete" && (

@@ -1239,6 +1239,26 @@ const deleteQuotation = async (req, res) => {
 	}
 };
 
+// for adding & updating details
+const addDetails = async (req, res) => {
+	try {
+		const { details } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$set: {
+					details
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add details successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -1282,5 +1302,6 @@ module.exports = {
 	deleteNickname,
 	addQuotation,
 	updateQuotation,
-	deleteQuotation
+	deleteQuotation,
+	addDetails
 };
