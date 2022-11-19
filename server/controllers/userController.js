@@ -1123,6 +1123,64 @@ const updateDOBPrivacy = async (req, res) => {
 	}
 };
 
+// for adding nickname
+const addNickname = async (req, res) => {
+	try {
+		const { nickname } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.query.id },
+			{
+				$push: {
+					nicknames: {
+						nickname
+					}
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Add nickname successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for updating nickname
+const updateNickname = async (req, res) => {
+	try {
+		const { nickname } = req.body;
+
+		await userModel.updateOne(
+			{ _id: req.currentUser._id, "nicknames._id": req.query.id },
+			{
+				$set: {
+					"nicknames.$.nickname": nickname
+				}
+			}
+		);
+
+		res.status(200).json({ message: "Update nickname successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
+// for deleting added nickname
+const deleteNickname = async (req, res) => {
+	try {
+		await userModel.updateOne(
+			{ _id: req.currentUser._id },
+			{
+				$pull: { nicknames: { _id: req.params._id } }
+			}
+		);
+
+		res.status(200).json({ message: "Deleted nickname successfully." });
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 // for adding quotation
 const addQuotation = async (req, res) => {
 	try {
@@ -1219,6 +1277,9 @@ module.exports = {
 	addReligion,
 	updateGenderPrivacy,
 	updateDOBPrivacy,
+	addNickname,
+	updateNickname,
+	deleteNickname,
 	addQuotation,
 	updateQuotation,
 	deleteQuotation

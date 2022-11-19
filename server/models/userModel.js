@@ -177,6 +177,12 @@ const schema = mongoose.Schema(
 			}
 		},
 
+		nicknames: [
+			{
+				nickname: String
+			}
+		],
+
 		quotations: [
 			{
 				quote: String
