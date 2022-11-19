@@ -46,7 +46,8 @@ const {
 	addQuotation,
 	updateQuotation,
 	deleteQuotation,
-	addDetails
+	addDetails,
+	addUsername
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -202,5 +203,8 @@ user.get("/about/delete-quote/:_id", authUser, deleteQuotation);
 
 // for adding & updating description
 user.post("/about/add-details", addDetails);
+
+// for adding & updating username
+user.post("/about/add-username", addUsername);
 
 module.exports = user;

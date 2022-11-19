@@ -192,6 +192,11 @@ const schema = mongoose.Schema(
 		details: {
 			type: String,
 			trim: true
+		},
+
+		username: {
+			type: String,
+			trim: true
 		}
 	},
 	{ timestamps: true }

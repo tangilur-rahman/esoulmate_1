@@ -13,6 +13,9 @@ const AboutYou = ({ getProfile }) => {
 	// for description input field toggle
 	const [detailsT, setDetailsT] = useState(false);
 
+	// for username input field toggle
+	const [userNT, setUserNT] = useState(false);
+
 	// for nick-name input fields toggle
 	const [nickT, setNickT] = useState(false);
 
@@ -21,6 +24,9 @@ const AboutYou = ({ getProfile }) => {
 
 	// for getting description input-fields value
 	const [getDetails, setDetails] = useState(getProfile?.details || "");
+
+	// for getting user-name input-fields value
+	const [getUserN, setUserN] = useState(getProfile?.username || "");
 
 	// for getting nick-name's input-field value
 	const [getNick, setNick] = useState("");
@@ -67,6 +73,8 @@ const AboutYou = ({ getProfile }) => {
 			setNick(getSelectOp.value.nickname);
 		} else if (getSelectOp.name === "DEdit") {
 			setDetails(getSelectOp.value);
+		} else if (getSelectOp.name === "UEdit") {
+			setUserN(getSelectOp.value);
 		}
 	}, [getSelectOp]);
 	// initialize hometown info for editing end
@@ -80,6 +88,7 @@ const AboutYou = ({ getProfile }) => {
 			setQuoteT(false);
 			setNickT(false);
 			setDetailsT(false);
+			setUserNT(false);
 		}
 	};
 
@@ -144,7 +153,63 @@ const AboutYou = ({ getProfile }) => {
 			setIsLoading(false);
 		}
 	};
-	// for add & update religion on server end
+	// for add & update description on server end
+
+	// for add & update username on server start
+	const addUsername = async () => {
+		try {
+			setIsLoading(true);
+
+			const response = await fetch(
+				`/user/about/add-username?id=${getProfile._id}`,
+				{
+					method: "POST",
+					body: JSON.stringify({
+						username: getUserN
+					}),
+					headers: { "Content-Type": "application/json" }
+				}
+			);
+
+			const result = await response.json();
+
+			if (response.status === 200) {
+				toast.success(
+					getSelectOp.name === "UEdit"
+						? "Updated your username successfully."
+						: "Added your username successfully.",
+					{
+						position: "top-right",
+						theme: "colored",
+						autoClose: 2000
+					}
+				);
+
+				setTimeout(() => {
+					setUpdateProfile(Date.now());
+					setUserN("");
+					setUserNT("");
+					setSelectOp({ name: "", value: "" });
+					setIsLoading(false);
+				}, [2000]);
+			} else if (result.error) {
+				toast.error(result.error, {
+					position: "top-right",
+					theme: "colored",
+					autoClose: 3000
+				});
+				setIsLoading(false);
+			}
+		} catch (error) {
+			toast.error(error.message, {
+				position: "top-right",
+				theme: "colored",
+				autoClose: 3000
+			});
+			setIsLoading(false);
+		}
+	};
+	// for add & update username on server end
 
 	// for add nickname on server start
 	const addNickname = async () => {
@@ -546,6 +611,118 @@ const AboutYou = ({ getProfile }) => {
 					)}
 					{/* displaying description end */}
 					{/* details end  */}
+
+					{/* username start  */}
+					{!getProfile?.username && (
+						<div
+							className="add-new"
+							onClick={() => {
+								setNickT(false);
+								setQuoteT(false);
+								setDetailsT(false);
+								setUserNT(true);
+								setDetails("");
+								setSelectOp({ name: "", value: "" });
+							}}
+						>
+							{userNT ? (
+								<p style={{ color: "black", margin: "0" }}>Username</p>
+							) : (
+								<>
+									<i className="bi bi-plus-circle-dotted"></i>
+									<p>Add username</p>
+								</>
+							)}
+						</div>
+					)}
+
+					{/* input-fields showing start  */}
+					{(userNT || getSelectOp.name === "UEdit") && (
+						<div className="input-fields" ref={deleteRef}>
+							{getSelectOp.name === "UEdit" && (
+								<p className="modify-fields">Edit Username</p>
+							)}
+							<div className="form-floating mb-3">
+								<textarea
+									type="text"
+									className="form-control outline-sty when-details"
+									id="username"
+									placeholder="Username"
+									onChange={(e) => setUserN(e.target.value)}
+									value={getUserN}
+								/>
+								<label htmlFor="username">Username *</label>
+							</div>
+
+							<div className="submit-btn-con">
+								<div className="btn-container">
+									<button
+										type="button"
+										className="btn btn-light"
+										onClick={() => {
+											setUserNT(false);
+											setUserN("");
+											setSelectOp({ name: "", value: "" });
+										}}
+									>
+										Cancel
+									</button>
+
+									{(userNT || getSelectOp.name === "UEdit") && (
+										<button
+											type="button"
+											className="btn btn-primary"
+											onClick={addUsername}
+										>
+											{isLoading ? (
+												<i
+													className="fa-solid fa-spinner fa-spin"
+													id="loading"
+												></i>
+											) : getSelectOp.name === "UEdit" ? (
+												"Update"
+											) : (
+												"Submit"
+											)}
+										</button>
+									)}
+								</div>
+							</div>
+						</div>
+					)}
+					{/* input-fields showing end  */}
+
+					{/* displaying username start  */}
+					{getProfile?.username && (
+						<div className="displaying-quote">
+							<div className="a-work">
+								<div id="left">
+									<div className="Edit">
+										<p id="up">{getProfile?.username}</p>
+
+										<p id="down">Username</p>
+									</div>
+								</div>
+
+								<div id="right">
+									<div className="option">
+										<i
+											className="fa-solid fa-pen-to-square option-icon"
+											onClick={() => {
+												setSelectOp({
+													name: "UEdit",
+													value: getProfile?.username
+												});
+												setUserNT(false);
+											}}
+										></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
+					{/* displaying username end */}
+					{/* username end  */}
 
 					{/* nick-name start  */}
 					<div
