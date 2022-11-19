@@ -1279,6 +1279,23 @@ const addUsername = async (req, res) => {
 	}
 };
 
+// for searching username
+const searchingUsername = async (req, res) => {
+	try {
+		const document = await userModel.findOne({
+			username: { $regex: `\\b${req.query.username}\\b`, $options: "i" }
+		});
+
+		if (document) {
+			res.status(200).json(document?.username);
+		} else {
+			res.status(200).json(false);
+		}
+	} catch (error) {
+		res.status(500).json({ error: "Maintenance mode, Try again later!" });
+	}
+};
+
 module.exports = {
 	currentUser,
 	getProfile,
@@ -1324,5 +1341,6 @@ module.exports = {
 	updateQuotation,
 	deleteQuotation,
 	addDetails,
-	addUsername
+	addUsername,
+	searchingUsername
 };

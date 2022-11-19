@@ -47,7 +47,8 @@ const {
 	updateQuotation,
 	deleteQuotation,
 	addDetails,
-	addUsername
+	addUsername,
+	searchingUsername
 } = require("./../controllers/userController");
 const authUser = require("./../middleware/authUser");
 const { multerForImg } = require("./../Config/multerManager");
@@ -206,5 +207,8 @@ user.post("/about/add-details", addDetails);
 
 // for adding & updating username
 user.post("/about/add-username", addUsername);
+
+// for searching username
+user.get("/about/search-username", searchingUsername);
 
 module.exports = user;

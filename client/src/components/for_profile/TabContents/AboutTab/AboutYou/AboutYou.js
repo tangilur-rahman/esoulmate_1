@@ -215,6 +215,34 @@ const AboutYou = ({ getProfile }) => {
 	function hasWhiteSpace(s) {
 		return /\s/.test(s);
 	}
+
+	const [isTaken, setIsTaken] = useState(false);
+
+	useEffect(() => {
+		(async () => {
+			if (getUserN && !hasWhiteSpace(getUserN)) {
+				try {
+					const response = await fetch(
+						`/user/about/search-username?username=${getUserN}`
+					);
+
+					const result = await response.json();
+
+					if (response.status === 200) {
+						console.log(result);
+
+						setIsTaken(result ? result : false);
+					}
+				} catch (error) {
+					toast.error(error.message, {
+						position: "top-right",
+						theme: "colored",
+						autoClose: 3000
+					});
+				}
+			}
+		})();
+	}, [getUserN]);
 	// for validation unique username end
 
 	// for add nickname on server start
@@ -651,13 +679,17 @@ const AboutYou = ({ getProfile }) => {
 									{hasWhiteSpace(getUserN) && (
 										<span id="error">blank space invalid</span>
 									)}
+
+									{!hasWhiteSpace(getUserN) && isTaken !== false && (
+										<span id="error">that username already taken</span>
+									)}
 								</>
 							)}
 							<div className="form-floating mb-3">
 								<input
 									type="text"
 									className={
-										hasWhiteSpace(getUserN)
+										hasWhiteSpace(getUserN) || isTaken !== false
 											? "form-control outline-sty when-error"
 											: "form-control outline-sty"
 									}
@@ -689,7 +721,10 @@ const AboutYou = ({ getProfile }) => {
 											className="btn btn-primary"
 											onClick={addUsername}
 											disabled={
-												getUserN && hasWhiteSpace(getUserN) ? true : false
+												getUserN &&
+												(hasWhiteSpace(getUserN) || isTaken !== false)
+													? true
+													: false
 											}
 										>
 											{isLoading ? (
