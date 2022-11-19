@@ -211,6 +211,12 @@ const AboutYou = ({ getProfile }) => {
 	};
 	// for add & update username on server end
 
+	// for validation unique username start
+	function hasWhiteSpace(s) {
+		return /\s/.test(s);
+	}
+	// for validation unique username end
+
 	// for add nickname on server start
 	const addNickname = async () => {
 		try {
@@ -640,12 +646,21 @@ const AboutYou = ({ getProfile }) => {
 					{(userNT || getSelectOp.name === "UEdit") && (
 						<div className="input-fields" ref={deleteRef}>
 							{getSelectOp.name === "UEdit" && (
-								<p className="modify-fields">Edit Username</p>
+								<>
+									<p className="modify-fields">Edit Username</p>
+									{hasWhiteSpace(getUserN) && (
+										<span id="error">blank space invalid</span>
+									)}
+								</>
 							)}
 							<div className="form-floating mb-3">
-								<textarea
+								<input
 									type="text"
-									className="form-control outline-sty when-details"
+									className={
+										hasWhiteSpace(getUserN)
+											? "form-control outline-sty when-error"
+											: "form-control outline-sty"
+									}
 									id="username"
 									placeholder="Username"
 									onChange={(e) => setUserN(e.target.value)}
@@ -673,6 +688,9 @@ const AboutYou = ({ getProfile }) => {
 											type="button"
 											className="btn btn-primary"
 											onClick={addUsername}
+											disabled={
+												getUserN && hasWhiteSpace(getUserN) ? true : false
+											}
 										>
 											{isLoading ? (
 												<i

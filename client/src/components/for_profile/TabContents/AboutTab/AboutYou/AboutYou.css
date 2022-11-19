@@ -47,6 +47,16 @@
 	font-size: 15px;
 }
 
+.right-about-con .about-you-container .input-fields #error {
+	font-size: 13px;
+	color: #d90429;
+	margin-bottom: -5px;
+}
+
+.right-about-con .about-you-container .input-fields .when-error {
+	border: 3px ridge #d90429;
+}
+
 .right-about-con .about-you-container .input-fields .form-floating label {
 	color: #8c9ea8;
 	font-size: 15.5px;
@@ -62,6 +72,13 @@
 	outline: 2.2px solid #006d77;
 	box-shadow: var(--box-shadow);
 	font-weight: 500;
+}
+
+.right-about-con
+	.about-you-container
+	.input-fields
+	.when-error.outline-sty:focus {
+	outline: none;
 }
 
 .right-about-con .about-you-container .input-fields .when-details {
