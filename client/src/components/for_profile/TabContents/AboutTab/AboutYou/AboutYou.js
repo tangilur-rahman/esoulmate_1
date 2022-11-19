@@ -430,6 +430,7 @@ const AboutYou = ({ getProfile }) => {
 												? updateNickname
 												: addNickname
 										}
+										disabled={getNick ? false : true}
 									>
 										{isLoading ? (
 											<i
@@ -641,6 +642,7 @@ const AboutYou = ({ getProfile }) => {
 										onClick={
 											getSelectOp.name === "QEdit" ? updateQuote : addQuote
 										}
+										disabled={getQuote ? false : true}
 									>
 										{isLoading ? (
 											<i
