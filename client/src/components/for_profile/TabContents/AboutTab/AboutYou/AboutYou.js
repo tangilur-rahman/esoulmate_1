@@ -186,7 +186,6 @@ const AboutYou = ({ getProfile }) => {
 				);
 
 				setTimeout(() => {
-					setUpdateProfile(Date.now());
 					setUserN("");
 					setUserNT("");
 					setSelectOp({ name: "", value: "" });
