@@ -1198,6 +1198,22 @@ const AboutYou = ({ getProfile }) => {
 					)}
 					{/* conform popup for delete quote end */}
 					{/* quote end  */}
+
+					{/* displaying interested in start  */}
+					<div className="interested-in-container">
+						<h5>Interested In</h5>
+						{getProfile.interested.length > 0 && (
+							<div className="interested-items">
+								{getProfile.interested
+									.map((value, index) => {
+										return <span key={index}>{value}</span>;
+									})
+									.reverse()}
+							</div>
+						)}
+					</div>
+
+					{/* displaying interested in end */}
 				</div>
 			</div>
 		</div>
