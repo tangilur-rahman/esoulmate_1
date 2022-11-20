@@ -83,7 +83,11 @@
 
 .right-about-con .about-you-container .input-fields .when-details {
 	resize: vertical !important;
-	border: 1px solid red;
+	min-height: 130px;
+	max-height: fit-content;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 25px;
 }
 /* input fields style end */
 
@@ -176,6 +180,12 @@
 	margin: 0;
 	width: 100%;
 	font-weight: 400;
+	letter-spacing: 0.5px;
+	word-spacing: 2px;
+}
+
+.about-you-container .displaying-quote #up.when-details-display {
+	line-height: 25px;
 }
 
 .about-you-container .displaying-quote #up h6 {

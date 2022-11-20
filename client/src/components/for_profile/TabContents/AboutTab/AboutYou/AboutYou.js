@@ -624,7 +624,9 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 							<div className="a-work">
 								<div id="left">
 									<div className="Edit">
-										<p id="up">{getProfile?.details}</p>
+										<p id="up" className="when-details-display">
+											{getProfile?.details}
+										</p>
 
 										{/* <p id="down">Details about yourself</p> */}
 									</div>
@@ -1082,7 +1084,10 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 									<div className="a-work" key={index}>
 										<div id="left">
 											<div className="Edit">
-												<p id="up">{`❝${value.quote}❞`}</p>
+												<p
+													id="up"
+													className="when-details-display"
+												>{`❝${value.quote}❞`}</p>
 
 												{/* <p id="down">Favorite Quotation</p> */}
 											</div>
