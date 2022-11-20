@@ -36,6 +36,9 @@ const ProfilePage = () => {
 	// for toggle tab
 	const [tabToggle, setTabToggle] = useState(1);
 
+	// for features & interest in popup toggle
+	const [interestPopT, setInterestPopT] = useState("");
+
 	// for loading animation until fetching isn't complete
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -148,9 +151,21 @@ const ProfilePage = () => {
 					</div>
 					<div className="row profile-second-container m-0">
 						<div className="col-lg-11 col-md-12 p-0">
-							{tabToggle === 1 && <PostsTab getProfile={getProfile} />}
+							{tabToggle === 1 && (
+								<PostsTab
+									getProfile={getProfile}
+									interestPopT={interestPopT}
+									setInterestPopT={setInterestPopT}
+								/>
+							)}
 
-							{tabToggle === 2 && <AboutTab getProfile={getProfile} />}
+							{tabToggle === 2 && (
+								<AboutTab
+									getProfile={getProfile}
+									interestPopT={interestPopT}
+									setInterestPopT={setInterestPopT}
+								/>
+							)}
 
 							{tabToggle === 3 && <PhotosTab />}
 

@@ -7,7 +7,12 @@ import { GetContextApi } from "../../../../../ContextApi";
 import "./Interested.css";
 import interestList from "./interestList.json";
 
-const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
+const Interested = ({
+	getProfile,
+	interestPopT,
+	setInterestPopT,
+	fromWhere
+}) => {
 	// for getting currentUser
 	const { currentUser, setUpdateProfile } = GetContextApi();
 
@@ -145,17 +150,26 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 
 	return (
 		<>
-			<div className="interested-container">
-				<h5>Interested In</h5>
+			<div
+				className="interested-container"
+				id={fromWhere === "about" ? "about-container" : ""}
+			>
+				<h5
+					id={fromWhere === "about" ? "about-title" : ""}
+					className={getProfile.interested.length <= 0 ? "have-not-item" : ""}
+				>
+					Interested In
+				</h5>
 
-				<div className="interested-items">
-					{getProfile?.interested?.length > 0 &&
-						getProfile.interested
+				{getProfile?.interested?.length > 0 && (
+					<div className="interested-items">
+						{getProfile.interested
 							.map((value, index) => {
 								return <span key={index}>{value}</span>;
 							})
 							.reverse()}
-				</div>
+					</div>
+				)}
 
 				{interestPopT && (
 					<div className="interested-popup">
@@ -270,13 +284,30 @@ const Interested = ({ getProfile, interestPopT, setInterestPopT }) => {
 				)}
 
 				{currentUser?._id === getProfile?._id ? (
-					<div className="interested-btn">
+					<div
+						className="interested-btn"
+						id={
+							getProfile.interested.length <= 0 && fromWhere === "about"
+								? "when-about"
+								: ""
+						}
+					>
 						<button
 							type="button"
 							onClick={() => setInterestPopT(!interestPopT)}
+							id={
+								getProfile.interested.length <= 0 && fromWhere === "about"
+									? "when-about"
+									: ""
+							}
 						>
-							{newInArr?.length > 0 ? (
+							{getProfile.interested.length > 0 ? (
 								<span className="hover-link">Edit your interest</span>
+							) : fromWhere === "about" ? (
+								<div className="add-new">
+									<i className="bi bi-plus-circle-dotted"></i>
+									<p>Add your interest</p>
+								</div>
 							) : (
 								<span className="hover-link">Add your interest</span>
 							)}

@@ -10,7 +10,7 @@ import Interested from "./Interested/Interested";
 
 import "./PostsTab.css";
 
-const PostsTab = ({ getProfile }) => {
+const PostsTab = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for redirect
 	const Navigate = useNavigate();
 
@@ -59,9 +59,6 @@ const PostsTab = ({ getProfile }) => {
 	// for features popup toggle
 	const [feaPopT, setFeaPopT] = useState("");
 
-	// for features popup toggle
-	const [interestPopT, setInterestPopT] = useState("");
-
 	useEffect(() => {
 		if (feaPopT || interestPopT) {
 			document.body.style.overflow = "hidden";
@@ -83,6 +80,7 @@ const PostsTab = ({ getProfile }) => {
 							getProfile={getProfile}
 							interestPopT={interestPopT}
 							setInterestPopT={setInterestPopT}
+							fromWhere={"post"}
 						/>
 					</div>
 					<div className="col-lg-5 col-12 p-0 post-middle-container">

@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 
 // internal components
 import { GetContextApi } from "../../../../../ContextApi";
+import Interested from "../../PostsTab/Interested/Interested";
 import "./AboutYou.css";
 
-const AboutYou = ({ getProfile }) => {
+const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 	// for updating profile-page
 	const { setUpdateProfile } = GetContextApi();
 
@@ -1201,18 +1202,13 @@ const AboutYou = ({ getProfile }) => {
 
 					{/* displaying interested in start  */}
 					<div className="interested-in-container">
-						<h5>Interested In</h5>
-						{getProfile.interested.length > 0 && (
-							<div className="interested-items">
-								{getProfile.interested
-									.map((value, index) => {
-										return <span key={index}>{value}</span>;
-									})
-									.reverse()}
-							</div>
-						)}
+						<Interested
+							getProfile={getProfile}
+							interestPopT={interestPopT}
+							setInterestPopT={setInterestPopT}
+							fromWhere={"about"}
+						/>
 					</div>
-
 					{/* displaying interested in end */}
 				</div>
 			</div>
