@@ -1,5 +1,6 @@
 // external components
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // internal components
@@ -9,6 +10,9 @@ import "./AboutYou.css";
 const AboutYou = ({ getProfile }) => {
 	// for updating profile-page
 	const { setUpdateProfile } = GetContextApi();
+
+	// for redirect profile with username
+	const Navigate = useNavigate();
 
 	// for description input field toggle
 	const [detailsT, setDetailsT] = useState(false);
@@ -186,10 +190,11 @@ const AboutYou = ({ getProfile }) => {
 				);
 
 				setTimeout(() => {
-					setUserN("");
+					setUserN(getUserN);
 					setUserNT("");
 					setSelectOp({ name: "", value: "" });
 					setIsLoading(false);
+					Navigate(`/profile/${getUserN || getProfile._id}`);
 				}, [2000]);
 			} else if (result.error) {
 				toast.error(result.error, {
