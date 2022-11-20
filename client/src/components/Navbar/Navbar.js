@@ -187,7 +187,13 @@ const Navbar = ({ from_where }) => {
 										>
 											<div
 												className="profile-info"
-												onClick={() => Navigate(`/profile/${currentUser._id}`)}
+												onClick={() =>
+													Navigate(
+														`/profile/${
+															currentUser.username || currentUser._id
+														}`
+													)
+												}
 											>
 												<img
 													src={`/uploads/profile-img/${currentUser.profile_img}`}

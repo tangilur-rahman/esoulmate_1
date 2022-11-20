@@ -10,7 +10,7 @@ import Interested from "./Interested/Interested";
 
 import "./PostsTab.css";
 
-const PostsTab = ({ profile_id, getProfile }) => {
+const PostsTab = ({ getProfile }) => {
 	// for redirect
 	const Navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const PostsTab = ({ profile_id, getProfile }) => {
 	// for fetching specific profile's all posts start
 	const fetchingAllPosts = async () => {
 		try {
-			const response = await fetch(`/post/profile/${profile_id}`);
+			const response = await fetch(`/post/profile/${getProfile._id}`);
 
 			const result = await response.json();
 

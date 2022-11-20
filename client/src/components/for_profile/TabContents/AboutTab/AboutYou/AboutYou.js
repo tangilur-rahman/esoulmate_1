@@ -229,8 +229,6 @@ const AboutYou = ({ getProfile }) => {
 					const result = await response.json();
 
 					if (response.status === 200) {
-						console.log(result);
-
 						setIsTaken(result ? result : false);
 					}
 				} catch (error) {

@@ -148,9 +148,7 @@ const ProfilePage = () => {
 					</div>
 					<div className="row profile-second-container m-0">
 						<div className="col-lg-11 col-md-12 p-0">
-							{tabToggle === 1 && (
-								<PostsTab profile_id={profile_id} getProfile={getProfile} />
-							)}
+							{tabToggle === 1 && <PostsTab getProfile={getProfile} />}
 
 							{tabToggle === 2 && <AboutTab getProfile={getProfile} />}
 

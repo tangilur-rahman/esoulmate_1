@@ -101,10 +101,16 @@ const FeedLeft = () => {
 						src={`/uploads/profile-img/${currentUser.profile_img}`}
 						alt="profile-img"
 						className="img-fluid"
-						onClick={() => Navigate(`/profile/${currentUser._id}`)}
+						onClick={() =>
+							Navigate(`/profile/${currentUser.username || currentUser._id}`)
+						}
 					/>
 
-					<h5 onClick={() => Navigate(`/profile/${currentUser._id}`)}>
+					<h5
+						onClick={() =>
+							Navigate(`/profile/${currentUser.username || currentUser._id}`)
+						}
+					>
 						{currentUser.name}
 					</h5>
 				</div>

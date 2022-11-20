@@ -26,7 +26,17 @@ const currentUser = (req, res) => {
 // for returning selected profile
 const getProfile = async (req, res) => {
 	try {
-		const document = await userModel.findOne({ _id: req.params.profile_id });
+		let document;
+
+		document = await userModel.findOne({
+			username: req.params.profile_id
+		});
+
+		if (!document) {
+			document = await userModel.findOne({
+				_id: req.params.profile_id
+			});
+		}
 
 		if (document) {
 			res.status(200).json(document);
