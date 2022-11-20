@@ -535,7 +535,7 @@ const AboutYou = ({ getProfile }) => {
 		<div className="row m-0">
 			<div className="col p-0">
 				<div className="about-you-container">
-					<h5>About You</h5>
+					<h5>Details About Yourself</h5>
 
 					{/* details start  */}
 					{!getProfile?.details && (
@@ -564,18 +564,18 @@ const AboutYou = ({ getProfile }) => {
 					{(detailsT || getSelectOp.name === "DEdit") && (
 						<div className="input-fields" ref={deleteRef}>
 							{getSelectOp.name === "DEdit" && (
-								<p className="modify-fields">Edit Description</p>
+								<p className="modify-fields">Edit Details</p>
 							)}
 							<div className="form-floating mb-3">
 								<textarea
 									type="text"
 									className="form-control outline-sty when-details"
 									id="description"
-									placeholder="Description"
+									placeholder="Details"
 									onChange={(e) => setDetails(e.target.value)}
 									value={getDetails}
 								/>
-								<label htmlFor="description">Description *</label>
+								<label htmlFor="description">Details *</label>
 							</div>
 
 							<div className="submit-btn-con">
