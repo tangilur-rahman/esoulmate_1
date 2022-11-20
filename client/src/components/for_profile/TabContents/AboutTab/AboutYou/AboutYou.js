@@ -620,12 +620,13 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 					{/* displaying description start  */}
 					{getProfile?.details && (
 						<div className="displaying-quote">
+							<h5 id="sub-title">Details</h5>
 							<div className="a-work">
 								<div id="left">
 									<div className="Edit">
 										<p id="up">{getProfile?.details}</p>
 
-										<p id="down">Details about yourself</p>
+										{/* <p id="down">Details about yourself</p> */}
 									</div>
 								</div>
 
@@ -750,13 +751,14 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 
 					{/* displaying username start  */}
 					{getProfile?.username && (
-						<div className="displaying-quote">
+						<div className="displaying-quote" id="when-username">
+							<h5 id="sub-title">Username</h5>
 							<div className="a-work">
 								<div id="left">
 									<div className="Edit">
 										<p id="up">{getProfile?.username}</p>
 
-										<p id="down">Username</p>
+										{/* <p id="down">Username</p> */}
 									</div>
 								</div>
 
@@ -860,7 +862,8 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 
 					{/* displaying nickname start  */}
 					{getProfile?.nicknames?.length > 0 && (
-						<div className="displaying-quote">
+						<div className="displaying-quote" id="when-nickname">
+							<h5 id="sub-title">Nickname</h5>
 							{getProfile.nicknames.map((value, index) => {
 								return (
 									<>
@@ -871,7 +874,7 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 														<div className="Edit">
 															<p id="up">{value.nickname}</p>
 
-															<p id="down">Your Nickname</p>
+															{/* <p id="down">Your Nickname</p> */}
 														</div>
 													</div>
 
@@ -1072,7 +1075,8 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 
 					{/* displaying quotes start  */}
 					{getProfile?.quotations?.length > 0 && (
-						<div className="displaying-quote">
+						<div className="displaying-quote" id="when-nickname">
+							<h5 id="sub-title">Favorite Quote</h5>
 							{getProfile.quotations.map((value, index) => {
 								return (
 									<div className="a-work" key={index}>
@@ -1080,7 +1084,7 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 											<div className="Edit">
 												<p id="up">{`❝${value.quote}❞`}</p>
 
-												<p id="down">Favorite Quotation</p>
+												{/* <p id="down">Favorite Quotation</p> */}
 											</div>
 										</div>
 

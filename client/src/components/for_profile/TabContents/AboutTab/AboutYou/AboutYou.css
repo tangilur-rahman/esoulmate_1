@@ -82,7 +82,8 @@
 }
 
 .right-about-con .about-you-container .input-fields .when-details {
-	resize: vertical;
+	resize: vertical !important;
+	border: 1px solid red;
 }
 /* input fields style end */
 
@@ -124,11 +125,32 @@
 	margin-top: 10px;
 }
 
+.about-you-container .displaying-quote#when-username {
+	margin-top: 20px;
+}
+
+.about-you-container .displaying-quote #sub-title {
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.about-you-container .displaying-quote#when-username #sub-title {
+	margin: 0;
+}
+
+.about-you-container .displaying-quote#when-nickname #sub-title {
+	margin-top: 5px;
+}
+
 .about-you-container .displaying-quote .a-work {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 17.5px;
+}
+
+.about-you-container .displaying-quote#when-nickname .a-work {
+	margin-bottom: 10px;
 }
 
 .about-you-container .displaying-quote .a-work:last-child {
@@ -153,7 +175,7 @@
 	flex-wrap: wrap;
 	margin: 0;
 	width: 100%;
-	font-weight: 500;
+	font-weight: 400;
 }
 
 .about-you-container .displaying-quote #up h6 {
