@@ -785,25 +785,6 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 					{/* username end  */}
 
 					{/* nick-name start  */}
-					<div
-						className="add-new"
-						onClick={() => {
-							setNickT(true);
-							setQuoteT(false);
-							setNick("");
-							setSelectOp({ name: "", value: "" });
-						}}
-					>
-						{nickT ? (
-							<p style={{ color: "black", margin: "0" }}>Your Nickname</p>
-						) : (
-							<>
-								<i className="bi bi-plus-circle-dotted"></i>
-								<p>Add your a new nickname</p>
-							</>
-						)}
-					</div>
-
 					{/* input-fields showing start  */}
 					{(nickT || getSelectOp.name === "NEdit") && (
 						<div className="input-fields" ref={deleteRef}>
@@ -935,6 +916,28 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 					)}
 					{/* displaying nickname end */}
 
+					{/* add new start  */}
+					<div
+						className="add-new"
+						id="when-down"
+						onClick={() => {
+							setNickT(true);
+							setQuoteT(false);
+							setNick("");
+							setSelectOp({ name: "", value: "" });
+						}}
+					>
+						{nickT ? (
+							<p style={{ color: "black", margin: "0" }}>Your Nickname</p>
+						) : (
+							<>
+								<i className="bi bi-plus-circle-dotted"></i>
+								<p>Add your a new nickname</p>
+							</>
+						)}
+					</div>
+					{/* add new end */}
+
 					{/* conform popup for delete nick-name start  */}
 					{getSelectOp.name === "NDelete" && (
 						<div className="home-del-popup">
@@ -1000,25 +1003,6 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 					{/* nick-name end  */}
 
 					{/* quote start  */}
-					<div
-						className="add-new"
-						onClick={() => {
-							setQuoteT(true);
-							// setCurrentCT(false);
-							setQuote("");
-							setSelectOp({ name: "", value: "" });
-						}}
-					>
-						{quoteT ? (
-							<p style={{ color: "black", margin: "0" }}>Favourite Quotation</p>
-						) : (
-							<>
-								<i className="bi bi-plus-circle-dotted"></i>
-								<p>Add favourite Quotation</p>
-							</>
-						)}
-					</div>
-
 					{/* input-fields showing start  */}
 					{(quoteT || getSelectOp.name === "QEdit") && (
 						<div className="input-fields" ref={deleteRef}>
@@ -1144,6 +1128,28 @@ const AboutYou = ({ getProfile, interestPopT, setInterestPopT }) => {
 						</div>
 					)}
 					{/* displaying quotation end */}
+
+					{/* add new start  */}
+					<div
+						className="add-new"
+						id="when-down"
+						onClick={() => {
+							setQuoteT(true);
+							// setCurrentCT(false);
+							setQuote("");
+							setSelectOp({ name: "", value: "" });
+						}}
+					>
+						{quoteT ? (
+							<p style={{ color: "black", margin: "0" }}>Favourite Quotation</p>
+						) : (
+							<>
+								<i className="bi bi-plus-circle-dotted"></i>
+								<p>Add favourite Quotation</p>
+							</>
+						)}
+					</div>
+					{/* add new end */}
 
 					{/* conform popup for delete quote start  */}
 					{getSelectOp.name === "QDelete" && (

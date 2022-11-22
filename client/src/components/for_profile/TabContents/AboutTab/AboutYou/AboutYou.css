@@ -24,6 +24,10 @@
 	width: fit-content;
 }
 
+.right-about-con .about-you-container .add-new#when-down {
+	margin-top: 0px;
+}
+
 .right-about-con .about-you-container .add-new i {
 	font-size: 20px;
 }
@@ -135,7 +139,7 @@
 
 .about-you-container .displaying-quote #sub-title {
 	font-size: 18px;
-	font-weight: 500;
+	font-weight: 600;
 }
 
 .about-you-container .displaying-quote#when-username #sub-title {
