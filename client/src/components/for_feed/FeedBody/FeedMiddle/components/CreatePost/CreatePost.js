@@ -177,8 +177,8 @@ const CreatePost = () => {
 								<div onClick={() => setPrivacy("Public")}>
 									&nbsp; &nbsp;Public
 								</div>
-								<div onClick={() => setPrivacy("Friends")}>
-									&nbsp; &nbsp;Friends
+								<div onClick={() => setPrivacy("Followers")}>
+									&nbsp; &nbsp;Followers
 								</div>
 								<div onClick={() => setPrivacy("Only Me")}>
 									&nbsp; &nbsp;Only Me
@@ -262,44 +262,39 @@ const CreatePost = () => {
 				)}
 
 				<div className="attachment-container">
-					<label
-						htmlFor="for-image"
-						title="attach image"
-						className="title-tip title-tip-up"
-					>
+					<label htmlFor="for-image">
 						<i className="bi bi-image"></i>
+						<h6 className="title-popup" id="attach-image">
+							attach image
+						</h6>
 					</label>
 
-					<label
-						htmlFor="for-video"
-						title="attach video"
-						className="title-tip title-tip-up"
-					>
-						<i className="bi bi-play-circle"></i>
+					<label htmlFor="for-video">
+						<i className="bi bi-play-circle" id="for-video-icon"></i>
+						<h6 className="title-popup" id="attach-video">
+							attach video
+						</h6>
 					</label>
 
-					<label
-						htmlFor="for-audio"
-						title="attach audio"
-						className="title-tip title-tip-up"
-					>
+					<label htmlFor="for-audio">
 						<i className="bi bi-mic"></i>
+						<h6 className="title-popup" id="attach-audio">
+							attach audio
+						</h6>
 					</label>
 
-					<label
-						htmlFor="for-pdf"
-						title="attach file"
-						className="title-tip title-tip-up"
-					>
-						<i className="bi bi-file-earmark-medical"></i>
+					<label htmlFor="for-pdf">
+						<i className="fa-solid fa-paperclip"></i>
+						<h6 className="title-popup" id="attach-document">
+							attach document
+						</h6>
 					</label>
 
-					<label
-						htmlFor="for-poll"
-						title="create poll"
-						className="title-tip title-tip-up"
-					>
-						<i className="bi bi-plus-slash-minus"></i>
+					<label htmlFor="for-poll">
+						<i className="fa-solid fa-chart-simple"></i>
+						<h6 className="title-popup" id="create-poll">
+							create poll
+						</h6>
 					</label>
 				</div>
 

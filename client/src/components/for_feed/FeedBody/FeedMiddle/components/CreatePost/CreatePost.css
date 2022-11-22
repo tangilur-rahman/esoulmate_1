@@ -176,25 +176,34 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 0px 30px;
-	width: 89%;
+	width: 95%;
 	margin: 0 20px;
 	position: relative;
 }
 
+.create-post-container .attachment-container label {
+	position: relative;
+}
+
 .create-post-container .attachment-container i {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #738290;
+	color: #373a3c;
 	box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.05);
 	border-radius: 50%;
 	position: relative;
 	overflow: hidden;
 	transition: all 0.5s;
-	font-size: 22px;
+	font-size: 21px;
 	cursor: pointer;
+	outline: 2px solid #040026;
+}
+
+.create-post-container .attachment-container i#for-video-icon {
+	font-size: 24px;
 }
 
 .create-post-container .attachment-container i::after {
@@ -204,8 +213,8 @@
 	position: absolute;
 	top: -90px;
 	left: 0;
-	background: linear-gradient(-45deg, #ed1c94, #ffec17);
-	transition: transform 0.4s;
+	background: #040026;
+	transition: transform 0.5s;
 	transition: color 0.5s;
 	z-index: -2;
 }
@@ -215,8 +224,73 @@
 
 .create-post-container .attachment-container i:hover {
 	transform: translateY(5px);
-	color: #faf3dd;
+	color: #fff;
 }
+
+/* for title-popup start  */
+.create-post-container .attachment-container .title-popup {
+	position: absolute;
+	top: -40px;
+	right: -8px;
+	background-color: #040026;
+	color: white;
+	margin: 0;
+	padding: 10px;
+	border-radius: 10px;
+	box-sizing: var(--box-shadow);
+	font-size: 12px;
+	display: none;
+	z-index: 1000;
+}
+
+.create-post-container .attachment-container label:hover .title-popup {
+	animation: title-popup 0.5s ease-in-out 0.5s forwards;
+	display: block;
+	opacity: 0;
+}
+
+@keyframes title-popup {
+	0% {
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+
+	80% {
+		transform: translateY(5px);
+	}
+
+	100% {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+.create-post-container .attachment-container #attach-image {
+	width: 84px;
+	right: -32px;
+}
+
+.create-post-container .attachment-container #attach-video {
+	width: 78px;
+	right: -30px;
+}
+
+.create-post-container .attachment-container #attach-audio {
+	width: 80px;
+	right: -31px;
+}
+
+.create-post-container .attachment-container #attach-document {
+	width: 108px;
+	right: -47px;
+}
+
+.create-post-container .attachment-container #create-poll {
+	width: 66px;
+	right: -25px;
+}
+/* for title-popup start  */
+
 /* attachment-container end  */
 
 /* share-container start  */
