@@ -1,5 +1,5 @@
 // external components
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 
@@ -15,24 +15,27 @@ const CreatePost = () => {
 	const [privacy, setPrivacy] = useState("public");
 	const [priDrop, setPriDrop] = useState("");
 
+	// when click outside privacy dropdown closed start
+	const forPrivacy = useRef();
+
+	const handleClickOutside = (e) => {
+		if (!forPrivacy.current?.contains(e.target)) {
+			setPriDrop(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+	// when click outside privacy dropdown closed end
+
 	// for post category selection
 	const [category, setCategory] = useState("knowledge");
 	const [dropdown, setDropdown] = useState("");
 
 	// for post-text
 	const [postText, setPostText] = useState("");
-
-	// privacy display handler start
-	const displayingPrivacy = () => {
-		if (privacy === "public") {
-			return "🌍  Public";
-		} else if (privacy === "friends") {
-			return "👨‍👧‍👦  Friends";
-		} else if (privacy === "only me") {
-			return "🔒  Only Me";
-		}
-	};
-	// privacy display handler end
 
 	// category display handler start
 	const displayingCategory = () => {
@@ -166,18 +169,19 @@ const CreatePost = () => {
 								priDrop ? "privacy-container active" : "privacy-container"
 							}
 							onClick={() => setPriDrop(!priDrop)}
+							ref={forPrivacy}
 						>
-							<input value={displayingPrivacy()} readOnly />
+							<input value={privacy} readOnly id="display-privacy" />
 
-							<div className="option">
-								<div onClick={() => setPrivacy("public")}>
-									🌍&nbsp; &nbsp;Public
+							<div className="option" ref={forPrivacy}>
+								<div onClick={() => setPrivacy("Public")}>
+									&nbsp; &nbsp;Public
 								</div>
-								<div onClick={() => setPrivacy("friends")}>
-									👨‍👧‍👦&nbsp; &nbsp;Friends
+								<div onClick={() => setPrivacy("Friends")}>
+									&nbsp; &nbsp;Friends
 								</div>
-								<div onClick={() => setPrivacy("only me")}>
-									🔒&nbsp; &nbsp;Only Me
+								<div onClick={() => setPrivacy("Only Me")}>
+									&nbsp; &nbsp;Only Me
 								</div>
 							</div>
 						</div>
