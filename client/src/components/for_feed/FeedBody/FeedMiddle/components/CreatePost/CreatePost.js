@@ -1,5 +1,5 @@
 // external components
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 
@@ -57,12 +57,70 @@ const CreatePost = () => {
 	const [getFile, setFile] = useState("");
 	const [getPreview, setPreview] = useState("");
 
+	// for styling active attachment
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "image":
+				return {
+					image: true,
+					video: false,
+					audio: false,
+					document: false,
+					poll: false
+				};
+			case "video":
+				return {
+					image: false,
+					video: true,
+					audio: false,
+					document: false,
+					poll: false
+				};
+			case "audio":
+				return {
+					image: false,
+					video: false,
+					audio: true,
+					document: false,
+					poll: false
+				};
+			case "document":
+				return {
+					image: false,
+					video: false,
+					audio: false,
+					document: true,
+					poll: false
+				};
+			case "poll":
+				return {
+					image: false,
+					video: false,
+					audio: false,
+					document: false,
+					poll: true
+				};
+			default:
+				return state;
+		}
+	};
+
+	const [stateObj, dispatch] = useReducer(reducer, {
+		image: false,
+		video: false,
+		audio: false,
+		document: false,
+		poll: false
+	});
+
 	useEffect(() => {
 		if (getFile) {
 			// for getting file extension
 			const ext = getFile.name.split(".").pop();
 
 			if (ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "gif") {
+				dispatch({ type: "image" });
+
 				const reader = new FileReader();
 				reader.onload = () => {
 					if (reader.readyState === 2) {
@@ -79,10 +137,16 @@ const CreatePost = () => {
 				ext === "flv" ||
 				ext === "mvk"
 			) {
+				dispatch({ type: "video" });
+
 				setPreview("/assets/extra/mp4.png");
 			} else if (ext === "mp3" || ext === "ogg" || ext === "WAV") {
+				dispatch({ type: "audio" });
+
 				setPreview("/assets/extra/mp3.png");
 			} else if (ext === "pdf") {
+				dispatch("document");
+
 				setPreview("/assets/extra/pdf.png");
 			} else {
 				toast.error("Invalid file-type", {
@@ -267,35 +331,51 @@ const CreatePost = () => {
 
 				<div className="attachment-container">
 					<label htmlFor="for-image">
-						<i className="bi bi-image"></i>
+						<i
+							className="bi bi-image"
+							id={stateObj.image === true ? "active" : ""}
+						></i>
 						<h6 className="title-popup" id="attach-image">
 							attach image
 						</h6>
 					</label>
 
 					<label htmlFor="for-video">
-						<i className="bi bi-play-circle" id="for-video-icon"></i>
+						<i
+							className="bi bi-play-circle for-video-icon"
+							id={stateObj.video === true ? "active" : ""}
+						></i>
 						<h6 className="title-popup" id="attach-video">
 							attach video
 						</h6>
 					</label>
 
 					<label htmlFor="for-audio">
-						<i className="bi bi-mic"></i>
+						<i
+							className="bi bi-mic"
+							id={stateObj.audio === true ? "active" : ""}
+						></i>
 						<h6 className="title-popup" id="attach-audio">
 							attach audio
 						</h6>
 					</label>
 
 					<label htmlFor="for-pdf">
-						<i className="fa-solid fa-paperclip"></i>
+						<i
+							className="fa-solid fa-paperclip"
+							id={stateObj.document === true ? "active" : ""}
+						></i>
 						<h6 className="title-popup" id="attach-document">
 							attach document
 						</h6>
 					</label>
 
 					<label htmlFor="for-poll">
-						<i className="fa-solid fa-chart-simple"></i>
+						<i
+							className="fa-solid fa-chart-simple"
+							id={stateObj.poll === true ? "active" : ""}
+							onClick={() => dispatch({ type: "poll" })}
+						></i>
 						<h6 className="title-popup" id="create-poll">
 							create poll
 						</h6>

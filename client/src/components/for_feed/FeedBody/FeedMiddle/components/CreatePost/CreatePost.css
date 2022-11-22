@@ -204,7 +204,7 @@
 	outline: 1px solid #040026;
 }
 
-.create-post-container .attachment-container i#for-video-icon {
+.create-post-container .attachment-container i.for-video-icon {
 	font-size: 24px;
 }
 
@@ -220,11 +220,21 @@
 	transition: color 0.5s;
 	z-index: -2;
 }
+
 .create-post-container .attachment-container i:hover::after {
 	top: 0;
 }
 
 .create-post-container .attachment-container i:hover {
+	transform: translateY(5px);
+	color: #fff;
+}
+
+.create-post-container .attachment-container i#active::after {
+	top: 0;
+}
+
+.create-post-container .attachment-container i#active {
 	transform: translateY(5px);
 	color: #fff;
 }
@@ -360,7 +370,7 @@
 	display: none;
 	z-index: 1;
 	font-weight: 500;
-	outline: 1px solid #040026;
+	outline: 2px solid #040026;
 }
 
 .selection-container.active .option {
