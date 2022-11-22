@@ -31,23 +31,27 @@ const CreatePost = () => {
 	// when click outside privacy dropdown closed end
 
 	// for post category selection
-	const [category, setCategory] = useState("knowledge");
+	const [category, setCategory] = useState("Knowledge");
 	const [dropdown, setDropdown] = useState("");
+
+	// when click outside category dropdown closed start
+	const forCategory = useRef();
+
+	const handleClickOutsideCat = (e) => {
+		if (!forCategory.current?.contains(e.target)) {
+			setDropdown(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsideCat);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutsideCat);
+	}, []);
+	// when click outside category dropdown closed end
 
 	// for post-text
 	const [postText, setPostText] = useState("");
-
-	// category display handler start
-	const displayingCategory = () => {
-		if (category === "knowledge") {
-			return "🔰   Knowledge";
-		} else if (category === "skill") {
-			return "⛷️   Skill";
-		} else if (category === "q&a") {
-			return "❓   Q & A";
-		}
-	};
-	// category display handler end
 
 	// for getting file start
 	const [getFile, setFile] = useState("");
@@ -141,7 +145,7 @@ const CreatePost = () => {
 				}, 3000);
 			}
 		} else {
-			toast("Nothing have to changed!", {
+			toast("Nothing have to share!", {
 				position: "top-right",
 				theme: "dark",
 				autoClose: 3000
@@ -304,16 +308,16 @@ const CreatePost = () => {
 							dropdown ? "selection-container active" : "selection-container"
 						}
 						onClick={() => setDropdown(!dropdown)}
+						ref={forCategory}
 					>
-						<input value={displayingCategory()} readOnly />
-						<div className="option">
-							<div onClick={() => setCategory("knowledge")}>
-								🔰&nbsp;&nbsp;Knowledge
+						<input value={category} readOnly />
+
+						<div className="option" ref={forCategory}>
+							<div onClick={() => setCategory("Knowledge")}>
+								&nbsp;Knowledge
 							</div>
-							<div onClick={() => setCategory("skill")}>
-								⛷️&nbsp;&nbsp;Skill
-							</div>
-							<div onClick={() => setCategory("q&a")}>❓&nbsp;&nbsp;Q & A</div>
+							<div onClick={() => setCategory("Skill")}>&nbsp;Skill</div>
+							<div onClick={() => setCategory("QnA")}>&nbsp;QnA</div>
 						</div>
 					</div>
 					<div

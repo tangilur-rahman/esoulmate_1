@@ -307,14 +307,16 @@
 .share-container .selection-container {
 	position: relative;
 	width: 250px;
-	height: 50px;
+	height: 40px;
+	border: 1px solid #040026;
+	border-radius: 48px;
 }
 
 .selection-container::before {
 	content: "";
 	position: absolute;
 	right: 20px;
-	top: 20px;
+	top: 14px;
 	z-index: 1;
 	width: 8px;
 	height: 8px;
@@ -327,9 +329,10 @@
 }
 
 .selection-container.active::before {
-	top: 22px;
+	top: 18px;
 	transform: rotate(-225deg);
 }
+
 .selection-container input {
 	position: absolute;
 	top: 0;
@@ -342,13 +345,13 @@
 	outline: none;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 	padding: 12px 20px;
-	border-radius: 10px;
+	border-radius: 48px;
 	font-weight: 500;
 }
 
 .selection-container .option {
 	position: absolute;
-	top: 70px;
+	top: 55px;
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 0 30px 30px rgba(0, 0, 0, 0.5);
@@ -357,6 +360,7 @@
 	display: none;
 	z-index: 1;
 	font-weight: 500;
+	outline: 1px solid #040026;
 }
 
 .selection-container.active .option {
@@ -366,25 +370,19 @@
 .selection-container .option div {
 	padding: 12px 20px;
 	cursor: pointer;
+	transition: all 1s;
 }
 
 .selection-container .option div:hover {
-	background-color: #62baea;
+	background-color: #040026;
 	color: #fff;
-}
-
-.selection-container .option div i {
-	position: relative;
-	top: 4px;
-	font-size: 1.2em;
-
-	margin: 0 10px 0 0;
+	font-weight: 600;
 }
 
 .share-container .share-btn {
-	width: 200px;
-	height: 50px;
-	background-color: #1a479e;
+	width: 250px;
+	height: 40px;
+	background: #19469e;
 	color: #eeeeee;
 	display: flex;
 	align-items: center;
@@ -403,7 +401,7 @@
 
 .share-container .share-btn.active:hover {
 	transform: scale(0.98);
-	border: 3.2px solid rgb(12, 214, 79);
+	border: 3px solid rgb(12, 214, 79);
 }
 
 .share-container .share-btn.active:active {
@@ -412,7 +410,7 @@
 
 .share-container .share-btn h4 {
 	margin: 0;
-	font-size: 1.4rem;
+	font-size: 19px;
 }
 /* share-container end  */
 /* create post end  */
