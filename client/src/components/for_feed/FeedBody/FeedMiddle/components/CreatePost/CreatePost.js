@@ -12,7 +12,7 @@ const CreatePost = () => {
 	const { currentUser } = GetContextApi();
 
 	// for privacy selection
-	const [privacy, setPrivacy] = useState("public");
+	const [privacy, setPrivacy] = useState("Public");
 	const [priDrop, setPriDrop] = useState("");
 
 	// when click outside privacy dropdown closed start
@@ -196,7 +196,7 @@ const CreatePost = () => {
 						<TextareaAutosize
 							name="for-text"
 							id="create-post"
-							placeholder="Write something about that..."
+							placeholder="Share your Knowledge, QnA, Skill . . ."
 							onChange={(e) => setPostText(e.target.value)}
 							value={postText}
 						/>
