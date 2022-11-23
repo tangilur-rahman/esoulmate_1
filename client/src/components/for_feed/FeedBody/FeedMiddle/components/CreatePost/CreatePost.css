@@ -149,6 +149,13 @@
 	margin-bottom: 10px;
 }
 
+.create-post-container .preview-container #when-audio {
+	width: 200px;
+	height: 90px;
+	object-fit: fill;
+	object-position: center;
+}
+
 .create-post-container .preview-container #when-other {
 	border-radius: 10px;
 	width: 90px;

@@ -150,10 +150,10 @@ const CreatePost = () => {
 						{ img: "/assets/icon/video-icon.png", name: getFile[i].name }
 					]);
 				}
-			} else if (ext === "mp3" || ext === "ogg" || ext === "WAV") {
+			} else if (ext === "mp3" || ext === "ogg" || ext === "wav") {
 				dispatch({ type: "audio" });
 
-				setPreview("/assets/extra/mp3.png");
+				setPreview("/assets/icon/audio-wave.gif");
 			} else if (ext === "pdf") {
 				dispatch({ type: "document" });
 
@@ -358,7 +358,13 @@ const CreatePost = () => {
 									src={getPreview}
 									alt="preview"
 									className="img-fluid"
-									id="when-other"
+									id={
+										getFile.name.split(".").pop() === "mp3" ||
+										getFile.name.split(".").pop() === "ogg" ||
+										getFile.name.split(".").pop() === "wav"
+											? "when-audio"
+											: "when-other"
+									}
 								/>
 
 								<p>{getFile.name}</p>
