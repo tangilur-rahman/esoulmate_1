@@ -175,7 +175,14 @@ const CreatePost = () => {
 		e.preventDefault();
 		if (postText || getFile) {
 			const formData = new FormData();
-			formData.append("file", getFile);
+
+			if (Array.isArray(getPreview)) {
+				for (let i = 0; i < getFile.length; i++) {
+					formData.append("file", getFile[i]);
+				}
+			} else {
+				formData.append("file", getFile);
+			}
 
 			formData.append("text", postText);
 			formData.append("privacy", privacy);
@@ -197,8 +204,9 @@ const CreatePost = () => {
 					});
 
 					setPostText("");
-					setPreview("public");
-					setCategory("knowledge");
+					setPrivacy("Public");
+					setCategory("Knowledge");
+					setPreview([]);
 					setFile("");
 				} else if (result.error) {
 					toast(result.error, {
@@ -477,7 +485,7 @@ const CreatePost = () => {
 						</div>
 					</div>
 					<div
-						className={postText ? "share-btn active" : "share-btn"}
+						className={postText || getFile ? "share-btn active" : "share-btn"}
 						onClick={submitHandler}
 					>
 						<h4 className={postText ? "hover-link" : ""}>Share</h4>
