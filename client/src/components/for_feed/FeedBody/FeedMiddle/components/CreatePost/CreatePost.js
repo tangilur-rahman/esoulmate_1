@@ -157,7 +157,7 @@ const CreatePost = () => {
 			} else if (ext === "pdf") {
 				dispatch({ type: "document" });
 
-				setPreview("/assets/extra/pdf.png");
+				setPreview("/assets/icon/attachment.gif");
 			} else {
 				toast.error("Invalid file-type", {
 					position: "top-right",
