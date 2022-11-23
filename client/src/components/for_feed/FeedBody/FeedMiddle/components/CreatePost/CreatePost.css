@@ -166,8 +166,8 @@
 	border-radius: 10px;
 	min-width: 90px;
 	min-height: 90px;
-	max-width: 100px;
-	max-height: 100px;
+	max-width: 95px;
+	max-height: 95px;
 	object-fit: fill;
 	object-position: center;
 	margin: 5px;
@@ -180,8 +180,10 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	width: 90px;
-	height: 90px;
+	min-width: 90px;
+	min-height: 90px;
+	max-width: 95px;
+	max-height: 95px;
 	outline: 2px solid #040026;
 	border-radius: 10px;
 	cursor: pointer;

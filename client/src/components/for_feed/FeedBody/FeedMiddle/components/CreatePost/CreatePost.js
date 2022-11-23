@@ -419,7 +419,11 @@ const CreatePost = () => {
 						<i
 							className="fa-solid fa-chart-simple"
 							id={stateObj.poll === true ? "active" : ""}
-							onClick={() => dispatch({ type: "poll" })}
+							onClick={() => {
+								dispatch({ type: "poll" });
+								setFile("");
+								setPreview([]);
+							}}
 						></i>
 						<h6 className="title-popup" id="create-poll">
 							create poll
