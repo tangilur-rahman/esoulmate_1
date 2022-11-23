@@ -144,7 +144,12 @@ const CreatePost = () => {
 			) {
 				dispatch({ type: "video" });
 
-				setPreview("/assets/extra/mp4.png");
+				for (let i = 0; i < getFile.length; i++) {
+					setPreview((priV) => [
+						...priV,
+						{ img: "/assets/icon/video-icon.png", name: getFile[i].name }
+					]);
+				}
 			} else if (ext === "mp3" || ext === "ogg" || ext === "WAV") {
 				dispatch({ type: "audio" });
 
@@ -280,19 +285,6 @@ const CreatePost = () => {
 							id="for-image"
 							style={{ display: "none" }}
 							onChange={(file) => {
-								setFile("");
-								setPreview([]);
-								setFile(file.target.files);
-							}}
-							multiple
-						/>
-
-						<input
-							type="file"
-							accept="image/*"
-							id="for-addMore"
-							style={{ display: "none" }}
-							onChange={(file) => {
 								setFile(file.target.files);
 							}}
 							multiple
@@ -304,8 +296,6 @@ const CreatePost = () => {
 							id="for-video"
 							style={{ display: "none" }}
 							onChange={(file) => {
-								setFile("");
-								setPreview([]);
 								setFile(file.target.files);
 							}}
 							multiple
@@ -317,8 +307,6 @@ const CreatePost = () => {
 							id="for-audio"
 							style={{ display: "none" }}
 							onChange={(file) => {
-								setFile("");
-								setPreview([]);
 								setFile(file.target.files[0]);
 							}}
 						/>
@@ -329,8 +317,6 @@ const CreatePost = () => {
 							accept="application/pdf"
 							style={{ display: "none" }}
 							onChange={(file) => {
-								setFile("");
-								setPreview([]);
 								setFile(file.target.files[0]);
 							}}
 						/>
@@ -343,17 +329,22 @@ const CreatePost = () => {
 								<div className="img-container">
 									{getPreview.map((value, index) => {
 										return (
-											<img
-												src={value}
-												key={index}
-												alt="preview"
-												className="img-fluid"
-												id="when-multiple-img"
-											/>
+											<div id="when-video-container">
+												<img
+													src={value?.img || value}
+													key={index}
+													alt="preview"
+													className="img-fluid"
+													id={value?.img ? "when-video" : "when-multiple-img"}
+												/>
+												{value?.name && <p>{value.name}</p>}
+											</div>
 										);
 									})}
 
-									<label htmlFor="for-addMore">
+									<label
+										htmlFor={getPreview[0]?.img ? "for-video" : "for-image"}
+									>
 										<i className="fa-solid fa-circle-plus"></i>
 										<p>Add more</p>
 									</label>
@@ -375,7 +366,13 @@ const CreatePost = () => {
 					  )}
 
 				<div className="attachment-container">
-					<label htmlFor="for-image">
+					<label
+						htmlFor="for-image"
+						onClick={() => {
+							setFile("");
+							setPreview([]);
+						}}
+					>
 						<i
 							className="bi bi-image"
 							id={stateObj.image === true ? "active" : ""}
@@ -385,7 +382,13 @@ const CreatePost = () => {
 						</h6>
 					</label>
 
-					<label htmlFor="for-video">
+					<label
+						htmlFor="for-video"
+						onClick={() => {
+							setFile("");
+							setPreview([]);
+						}}
+					>
 						<i
 							className="bi bi-play-circle for-video-icon"
 							id={stateObj.video === true ? "active" : ""}
@@ -395,7 +398,13 @@ const CreatePost = () => {
 						</h6>
 					</label>
 
-					<label htmlFor="for-audio">
+					<label
+						htmlFor="for-audio"
+						onClick={() => {
+							setFile("");
+							setPreview([]);
+						}}
+					>
 						<i
 							className="bi bi-mic"
 							id={stateObj.audio === true ? "active" : ""}
@@ -405,7 +414,13 @@ const CreatePost = () => {
 						</h6>
 					</label>
 
-					<label htmlFor="for-pdf">
+					<label
+						htmlFor="for-pdf"
+						onClick={() => {
+							setFile("");
+							setPreview([]);
+						}}
+					>
 						<i
 							className="fa-solid fa-paperclip"
 							id={stateObj.document === true ? "active" : ""}
@@ -415,7 +430,13 @@ const CreatePost = () => {
 						</h6>
 					</label>
 
-					<label htmlFor="for-poll">
+					<label
+						htmlFor="for-poll"
+						onClick={() => {
+							setFile("");
+							setPreview([]);
+						}}
+					>
 						<i
 							className="fa-solid fa-chart-simple"
 							id={stateObj.poll === true ? "active" : ""}
