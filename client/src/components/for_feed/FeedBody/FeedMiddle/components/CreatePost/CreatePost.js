@@ -55,7 +55,7 @@ const CreatePost = () => {
 
 	// for getting file start
 	const [getFile, setFile] = useState("");
-	const [getPreview, setPreview] = useState("");
+	const [getPreview, setPreview] = useState([]);
 
 	// for styling active attachment
 	const reducer = (state, action) => {
@@ -116,18 +116,23 @@ const CreatePost = () => {
 	useEffect(() => {
 		if (getFile) {
 			// for getting file extension
-			const ext = getFile.name.split(".").pop();
+			const ext = getFile[0]
+				? getFile[0].name.split(".").pop()
+				: getFile.name.split(".").pop();
 
 			if (ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "gif") {
 				dispatch({ type: "image" });
 
-				const reader = new FileReader();
-				reader.onload = () => {
-					if (reader.readyState === 2) {
-						setPreview(reader.result);
-					}
-				};
-				reader.readAsDataURL(getFile);
+				for (let i = 0; i < getFile.length; i++) {
+					const reader = new FileReader();
+					reader.onload = () => {
+						if (reader.readyState === 2) {
+							setPreview((preV) => [...preV, reader.result]);
+						}
+					};
+
+					reader.readAsDataURL(getFile[i]);
+				}
 			} else if (
 				ext === "mp4" ||
 				ext === "mov" ||
@@ -145,7 +150,7 @@ const CreatePost = () => {
 
 				setPreview("/assets/extra/mp3.png");
 			} else if (ext === "pdf") {
-				dispatch("document");
+				dispatch({ type: "document" });
 
 				setPreview("/assets/extra/pdf.png");
 			} else {
@@ -271,63 +276,103 @@ const CreatePost = () => {
 
 						<input
 							type="file"
-							name="for-image"
 							accept="image/*"
 							id="for-image"
 							style={{ display: "none" }}
-							onChange={(file) => setFile(file.target.files[0])}
+							onChange={(file) => {
+								setFile("");
+								setPreview([]);
+								setFile(file.target.files);
+							}}
+							multiple
 						/>
+
 						<input
 							type="file"
-							name="for-video"
+							accept="image/*"
+							id="for-addMore"
+							style={{ display: "none" }}
+							onChange={(file) => {
+								setFile(file.target.files);
+							}}
+							multiple
+						/>
+
+						<input
+							type="file"
 							accept="video/mp4,video/x-m4v,video/*"
 							id="for-video"
 							style={{ display: "none" }}
-							onChange={(file) => setFile(file.target.files[0])}
+							onChange={(file) => {
+								setFile("");
+								setPreview([]);
+								setFile(file.target.files);
+							}}
+							multiple
 						/>
 
 						<input
 							type="file"
 							accept="audio/mp3,audio/*;capture=microphone"
-							name="for-audio"
 							id="for-audio"
 							style={{ display: "none" }}
-							onChange={(file) => setFile(file.target.files[0])}
+							onChange={(file) => {
+								setFile("");
+								setPreview([]);
+								setFile(file.target.files[0]);
+							}}
 						/>
 
 						<input
 							type="file"
-							name="for-pdf"
 							id="for-pdf"
 							accept="application/pdf"
 							style={{ display: "none" }}
-							onChange={(file) => setFile(file.target.files[0])}
+							onChange={(file) => {
+								setFile("");
+								setPreview([]);
+								setFile(file.target.files[0]);
+							}}
 						/>
 					</form>
 				</div>
 
-				{getFile && getPreview && (
-					<div className="preview-container">
-						<img
-							src={getPreview}
-							alt="preview"
-							className="img-fluid"
-							id={
-								getFile.name.split(".").slice(-1)[0] === "png" ||
-								getFile.name.split(".").slice(-1)[0] === "jpg" ||
-								getFile.name.split(".").slice(-1)[0] === "jpeg"
-									? "when-img"
-									: "when-other"
-							}
-						/>
+				{getFile && Array.isArray(getPreview)
+					? getPreview?.length > 0 && (
+							<div className="preview-container">
+								<div className="img-container">
+									{getPreview.map((value, index) => {
+										return (
+											<img
+												src={value}
+												key={index}
+												alt="preview"
+												className="img-fluid"
+												id="when-multiple-img"
+											/>
+										);
+									})}
 
-						{!(
-							getFile.name.split(".").slice(-1)[0] === "png" ||
-							getFile.name.split(".").slice(-1)[0] === "jpg" ||
-							getFile.name.split(".").slice(-1)[0] === "jpeg"
-						) && <p>{getFile.name}</p>}
-					</div>
-				)}
+									<label htmlFor="for-addMore">
+										<i className="fa-solid fa-circle-plus"></i>
+										<p>Add more</p>
+									</label>
+								</div>
+							</div>
+					  )
+					: !Array.isArray(getPreview) &&
+					  getPreview && (
+							<div className="preview-container">
+								<img
+									src={getPreview}
+									alt="preview"
+									className="img-fluid"
+									id="when-other"
+								/>
+
+								<p>{getFile.name}</p>
+							</div>
+					  )}
 
 				<div className="attachment-container">
 					<label htmlFor="for-image">
