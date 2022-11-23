@@ -168,7 +168,7 @@
 	min-height: 90px;
 	max-width: 95px;
 	max-height: 95px;
-	object-fit: fill;
+	object-fit: cover;
 	object-position: center;
 	margin: 5px;
 	outline: 2px solid #040026;
