@@ -1,13 +1,127 @@
 .post-container .img-container {
 	width: 100%;
-	background-color: #333;
-	overflow: hidden;
+	height: 373px;
 	border-radius: 10px;
-	margin-top: 2px;
+	overflow: hidden;
+	display: flex;
 }
 
-.post-container .for-image {
-	object-fit: fill;
-	width: 100%;
-	height: 373px;
+.post-container .img-container img {
+	cursor: pointer;
 }
+
+.post-container .img-container #single-image {
+	object-fit: contain;
+	width: 100%;
+	height: 100%;
+	background-color: #333;
+}
+
+.post-container .img-container #double-images {
+	object-fit: cover;
+	object-position: top center;
+	width: 50%;
+	height: 100%;
+	flex-grow: 1;
+	padding-left: 2px;
+}
+
+/* when third images start  */
+.post-container .img-container .when-third-images {
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.post-container .img-container .when-third-images #first-image {
+	width: 60%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top center;
+}
+
+.post-container .img-container .when-third-images #second-image {
+	width: 40%;
+	height: 50%;
+	object-fit: fill;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+.post-container .img-container .when-third-images #third-image {
+	width: 40%;
+	height: 50%;
+	object-fit: fill;
+	float: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding-left: 2px;
+}
+/* when third images end  */
+
+/* when forth images start  */
+.post-container .img-container .when-forth-images {
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.post-container .img-container .when-forth-images #first-image {
+	width: 60%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top center;
+}
+
+.post-container .img-container .when-forth-images #second-image {
+	width: 40%;
+	height: 33.33%;
+	object-fit: fill;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-left: 2px;
+	padding-bottom: 2.5px;
+}
+
+.post-container .img-container .when-forth-images #third-image {
+	width: 40%;
+	height: 33.33%;
+	object-fit: fill;
+	float: right;
+	position: absolute;
+	top: 33.33%;
+	right: 0;
+	padding-left: 2px;
+	padding-bottom: 2.5px;
+}
+
+.post-container .img-container .when-forth-images #forth-image {
+	width: 40%;
+	height: 33.33%;
+	object-fit: fill;
+	float: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding-left: 2px;
+}
+
+.post-container .img-container .when-forth-images .when-counter {
+	filter: brightness(50%);
+}
+
+.post-container .img-container .when-forth-images #counter {
+	position: absolute;
+	bottom: 10%;
+	right: 15%;
+	font-size: 27px;
+	color: white;
+}
+/* when forth images end  */
