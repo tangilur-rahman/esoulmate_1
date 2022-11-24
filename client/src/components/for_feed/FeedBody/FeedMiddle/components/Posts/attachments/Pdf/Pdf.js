@@ -52,7 +52,7 @@ const Pdf = ({ pdf }) => {
 			<div className="pdf-container">
 				<Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
 					<Viewer
-						fileUrl={`/uploads/attachments/${pdf}`}
+						fileUrl={`/uploads/attachments/${pdf[0]}`}
 						plugins={[defaultLayoutPluginInstance]}
 						renderPage={renderPage}
 					/>

@@ -25,11 +25,11 @@ const Header = ({ profile, name, category, time, privacy }) => {
 							</span>
 							<span>.</span>
 							<span id="privacy">
-								{(privacy === "public" && <i className="bi bi-globe"></i>) ||
-									(privacy === "friends" && (
+								{(privacy === "Public" && <i className="bi bi-globe"></i>) ||
+									(privacy === "Followers" && (
 										<i className="bi bi-people-fill"></i>
 									)) ||
-									(privacy === "only me" && (
+									(privacy === "Only Me" && (
 										<i className="bi bi-lock-fill"></i>
 									))}
 							</span>

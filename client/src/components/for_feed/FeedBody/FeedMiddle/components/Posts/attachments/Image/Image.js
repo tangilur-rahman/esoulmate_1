@@ -7,11 +7,16 @@ const Image = ({ image }) => {
 	return (
 		<>
 			<div className="img-container">
-				<img
-					src={`/uploads/attachments/${image}`}
-					alt="post-img"
-					className="img-fluid for-image"
-				/>
+				{image.map((value, index) => {
+					return (
+						<img
+							src={`/uploads/attachments/${value}`}
+							alt="post-img"
+							className="img-fluid for-image"
+							key={index}
+						/>
+					);
+				})}
 			</div>
 		</>
 	);

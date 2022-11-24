@@ -87,7 +87,7 @@ const Audio = ({ audio }) => {
 						{/* audio tag  */}
 						<audio
 							ref={audioPlayer}
-							src={`/uploads/attachments/${audio}`}
+							src={`/uploads/attachments/${audio[0]}`}
 							preload="metadata"
 							onLoadedMetadata={onLoadedMetadata}
 						></audio>
