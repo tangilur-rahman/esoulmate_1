@@ -19,3 +19,103 @@
 	flex-grow: 1;
 	padding-left: 2px;
 }
+
+/* when third videos start  */
+.post-container .video-container .when-third-videos {
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.post-container .video-container .when-third-videos #first-video {
+	width: 60%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top center;
+}
+
+.post-container .video-container .when-third-videos #second-video {
+	width: 40%;
+	height: 50%;
+	object-fit: fill;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+.post-container .video-container .when-third-videos #third-video {
+	width: 40%;
+	height: 50%;
+	object-fit: fill;
+	float: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding-left: 2px;
+}
+/* when third videos end  */
+
+/* when forth videos start  */
+.post-container .video-container .when-forth-videos {
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.post-container .video-container .when-forth-videos #first-video {
+	width: 60%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top center;
+}
+
+.post-container .video-container .when-forth-videos #second-video {
+	width: 40%;
+	height: 33.33%;
+	object-fit: fill;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-left: 2px;
+	padding-bottom: 2.5px;
+}
+
+.post-container .video-container .when-forth-videos #third-video {
+	width: 40%;
+	height: 33.33%;
+	object-fit: fill;
+	float: right;
+	position: absolute;
+	top: 33.33%;
+	right: 0;
+	padding-left: 2px;
+	padding-bottom: 2.5px;
+}
+
+.post-container .video-container .when-forth-videos #forth-video {
+	width: 40%;
+	height: 33.33%;
+	object-fit: fill;
+	float: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding-left: 2px;
+}
+
+.post-container .video-container .when-forth-videos .when-counter {
+	filter: brightness(50%);
+}
+
+.post-container .video-container .when-forth-videos #counter {
+	position: absolute;
+	bottom: 10%;
+	right: 15%;
+	font-size: 27px;
+	color: white;
+}
+/* when forth videos end  */

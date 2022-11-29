@@ -181,6 +181,7 @@
 	outline: 2px solid #040026;
 	border-radius: 10px;
 	overflow-y: hidden;
+	word-break: break-all;
 }
 
 .create-post-container .preview-container .img-container #when-multiple-img {
