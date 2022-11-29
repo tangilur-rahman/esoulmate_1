@@ -488,7 +488,12 @@ const CreatePost = () => {
 						className={postText || getFile ? "share-btn active" : "share-btn"}
 						onClick={submitHandler}
 					>
-						<h4 className={postText ? "hover-link" : ""}>Share</h4>
+						<button
+							disabled={postText || getFile ? false : true}
+							className={postText ? "hover-link" : ""}
+						>
+							Share
+						</button>
 					</div>
 				</div>
 			</div>

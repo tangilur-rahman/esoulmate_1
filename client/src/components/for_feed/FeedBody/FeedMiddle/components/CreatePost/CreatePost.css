@@ -484,9 +484,13 @@
 	transform: scale(0.93);
 }
 
-.share-container .share-btn h4 {
+.share-container .share-btn button {
 	margin: 0;
 	font-size: 19px;
+	background-color: #19469e;
+	color: white;
+	outline: none;
+	border: none;
 }
 /* share-container end  */
 /* create post end  */
